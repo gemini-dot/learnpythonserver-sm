@@ -1,0 +1,147 @@
+CHÍNH SÁCH BẢO MẬT
+
+Cập nhật lần cuối: 19 tháng 1, 2026
+
+Chúng tôi cam kết bảo vệ quyền riêng tư và thông tin cá nhân của bạn. Chính sách bảo mật này giải thích cách chúng tôi thu thập, sử dụng, lưu trữ và bảo vệ thông tin của bạn.
+
+1. THÔNG TIN CHÚNG TÔI THU THẬP
+
+Thông tin bạn cung cấp trực tiếp:
+- Thông tin tài khoản: tên, địa chỉ email, số điện thoại, mật khẩu
+- Thông tin hồ sơ: ảnh đại diện, tiểu sử, sở thích
+- Thông tin thanh toán: thông tin thẻ tín dụng, địa chỉ thanh toán
+- Nội dung người dùng: bài viết, bình luận, tin nhắn, tệp tải lên
+
+Thông tin tự động thu thập:
+- Thông tin thiết bị: loại thiết bị, hệ điều hành, trình duyệt
+- Thông tin nhật ký: địa chỉ IP, thời gian truy cập, trang đã xem
+- Cookie và công nghệ theo dõi: để cải thiện trải nghiệm người dùng
+- Dữ liệu vị trí: nếu bạn cho phép truy cập vị trí
+
+2. CÁCH CHÚNG TÔI SỬ DỤNG THÔNG TIN
+
+Chúng tôi sử dụng thông tin của bạn để:
+- Cung cấp, vận hành và bảo trì dịch vụ
+- Cải thiện, cá nhân hóa và mở rộng dịch vụ
+- Hiểu và phân tích cách bạn sử dụng dịch vụ
+- Phát triển sản phẩm, dịch vụ và tính năng mới
+- Giao tiếp với bạn về cập nhật, hỗ trợ kỹ thuật và tin tức
+- Gửi thông tin marketing và quảng cáo (với sự đồng ý của bạn)
+- Phát hiện, ngăn chặn và giải quyết các vấn đề kỹ thuật
+- Tuân thủ các nghĩa vụ pháp lý
+
+3. CHIA SẺ THÔNG TIN
+
+Chúng tôi có thể chia sẻ thông tin của bạn với:
+
+Nhà cung cấp dịch vụ:
+- Các đối tác xử lý thanh toán
+- Dịch vụ lưu trữ đám mây
+- Công cụ phân tích và marketing
+- Nhà cung cấp dịch vụ email
+
+Yêu cầu pháp lý:
+- Khi được yêu cầu bởi pháp luật hoặc quy trình pháp lý
+- Để bảo vệ quyền lợi và tài sản của chúng tôi
+- Trong trường hợp khẩn cấp liên quan đến an toàn công cộng
+
+Chuyển nhượng kinh doanh:
+- Trong trường hợp sáp nhập, mua lại hoặc bán tài sản
+
+Chúng tôi KHÔNG bán thông tin cá nhân của bạn cho bên thứ ba.
+
+4. BẢO MẬT THÔNG TIN
+
+Chúng tôi thực hiện các biện pháp bảo mật hợp lý để bảo vệ thông tin của bạn:
+- Mã hóa dữ liệu trong quá trình truyền tải (SSL/TLS)
+- Mã hóa dữ liệu khi lưu trữ
+- Kiểm soát truy cập nghiêm ngặt
+- Giám sát và kiểm tra bảo mật định kỳ
+- Đào tạo nhân viên về bảo mật thông tin
+- Xác thực đa yếu tố cho tài khoản quan trọng
+
+Tuy nhiên, không có phương thức truyền tải hoặc lưu trữ nào là an toàn 100%. Chúng tôi không thể đảm bảo tính bảo mật tuyệt đối.
+
+5. LƯU TRỮ THÔNG TIN
+
+Chúng tôi lưu trữ thông tin của bạn:
+- Trong suốt thời gian tài khoản của bạn còn hoạt động
+- Cho đến khi bạn yêu cầu xóa thông tin
+- Theo yêu cầu của pháp luật
+- Để bảo vệ quyền lợi hợp pháp của chúng tôi
+
+Dữ liệu sao lưu có thể được lưu trữ trong thời gian dài hơn nhưng sẽ được mã hóa và bảo vệ.
+
+6. QUYỀN CỦA BẠN
+
+Bạn có các quyền sau đối với thông tin cá nhân của mình:
+
+Quyền truy cập:
+- Yêu cầu bản sao thông tin cá nhân chúng tôi lưu trữ
+
+Quyền chỉnh sửa:
+- Cập nhật hoặc sửa đổi thông tin không chính xác
+
+Quyền xóa:
+- Yêu cầu xóa thông tin cá nhân của bạn
+
+Quyền hạn chế:
+- Hạn chế xử lý thông tin trong một số trường hợp
+
+Quyền di chuyển:
+- Nhận thông tin ở định dạng có thể đọc được bằng máy
+
+Quyền phản đối:
+- Phản đối việc xử lý thông tin cho mục đích marketing
+
+Để thực hiện các quyền này, vui lòng liên hệ với chúng tôi qua email: privacy@example.com
+
+7. COOKIE VÀ CÔNG NGHỆ THEO DÕI
+
+Chúng tôi sử dụng cookie và công nghệ tương tự để:
+- Duy trì phiên đăng nhập của bạn
+- Ghi nhớ tùy chọn và cài đặt
+- Phân tích lưu lượng truy cập website
+- Cung cấp nội dung được cá nhân hóa
+- Hiển thị quảng cáo có liên quan
+
+Bạn có thể kiểm soát cookie thông qua cài đặt trình duyệt. Lưu ý rằng việc vô hiệu hóa cookie có thể ảnh hưởng đến chức năng của dịch vụ.
+
+8. QUYỀN RIÊNG TƯ CỦA TRẺ EM
+
+Dịch vụ của chúng tôi không dành cho trẻ em dưới 13 tuổi. Chúng tôi không cố ý thu thập thông tin cá nhân từ trẻ em. Nếu bạn là cha mẹ hoặc người giám hộ và biết rằng con bạn đã cung cấp thông tin cho chúng tôi, vui lòng liên hệ để chúng tôi có thể xóa thông tin đó.
+
+9. CHUYỂN GIAO DỮ LIỆU QUỐC TẾ
+
+Thông tin của bạn có thể được chuyển giao và lưu trữ trên các máy chủ đặt tại các quốc gia khác nhau. Chúng tôi đảm bảo rằng các biện pháp bảo vệ phù hợp được áp dụng cho các chuyển giao này.
+
+10. LIÊN KẾT BÊN THỨ BA
+
+Dịch vụ của chúng tôi có thể chứa liên kết đến các website hoặc dịch vụ của bên thứ ba. Chúng tôi không chịu trách nhiệm về chính sách bảo mật hoặc thực tiễn của các bên này. Chúng tôi khuyến khích bạn đọc chính sách bảo mật của mỗi website bạn truy cập.
+
+11. THAY ĐỔI CHÍNH SÁCH
+
+Chúng tôi có thể cập nhật Chính sách bảo mật này theo thời gian. Chúng tôi sẽ thông báo cho bạn về bất kỳ thay đổi quan trọng nào bằng cách:
+- Đăng chính sách mới trên trang này
+- Gửi email thông báo
+- Hiển thị thông báo trên dịch vụ
+
+Ngày "Cập nhật lần cuối" ở đầu chính sách này cho biết lần sửa đổi gần nhất.
+
+12. TUÂN THỦ GDPR (Cho người dùng EU)
+
+Nếu bạn ở Liên minh Châu Âu, bạn có các quyền bổ sung theo GDPR:
+- Quyền rút lại sự đồng ý bất cứ lúc nào
+- Quyền khiếu nại với cơ quan giám sát
+- Quyền không bị áp dụng các quyết định tự động
+
+13. LIÊN HỆ VỀ BẢO MẬT
+
+Nếu bạn có bất kỳ câu hỏi hoặc thắc mắc nào về Chính sách bảo mật này, vui lòng liên hệ:
+
+Email: samvasang1192011@gmail.com
+Điện thoại: +84 0976948589
+Địa chỉ:Việt Nam
+
+Người phụ trách bảo vệ dữ liệu: .
+Email DPO: thamnguyen24091984@gmail.com
