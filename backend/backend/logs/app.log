@@ -1,0 +1,10 @@
+2026-01-20 21:36:45,119 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-01-20 21:36:45,119 - INFO - [33mPress CTRL+C to quit[0m
+2026-01-20 21:36:45,132 - INFO -  * Restarting with stat
+2026-01-20 21:36:46,246 - WARNING -  * Debugger is active!
+2026-01-20 21:36:46,253 - INFO -  * Debugger PIN: 792-240-953
+2026-01-20 21:38:59,879 - INFO -  * Detected change in 'D:\\Project_All\\Code_project\\learn_web_pythn\\backend\\server.py', reloading
+2026-01-20 21:39:00,381 - INFO -  * Restarting with stat
+2026-01-20 21:39:01,536 - WARNING -  * Debugger is active!
+2026-01-20 21:39:01,542 - INFO -  * Debugger PIN: 792-240-953
