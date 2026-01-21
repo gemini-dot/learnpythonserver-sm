@@ -14,3 +14,39 @@
 2026-01-20 21:39:23,667 - INFO - System: Server đang khởi động...
 2026-01-20 21:39:23,681 - WARNING -  * Debugger is active!
 2026-01-20 21:39:23,684 - INFO -  * Debugger PIN: 792-240-953
+2026-01-21 00:24:43,216 - INFO - System: Server đang khởi động...
+2026-01-21 00:24:43,502 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-01-21 00:24:43,503 - INFO - [33mPress CTRL+C to quit[0m
+2026-01-21 00:24:43,550 - INFO -  * Restarting with stat
+2026-01-21 00:24:44,577 - INFO - System: Server đang khởi động...
+2026-01-21 00:24:44,651 - WARNING -  * Debugger is active!
+2026-01-21 00:24:44,659 - INFO -  * Debugger PIN: 261-087-158
+2026-01-21 17:08:00,009 - INFO - System: Server đang khởi động...
+2026-01-21 17:08:00,078 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-01-21 17:08:00,078 - INFO - [33mPress CTRL+C to quit[0m
+2026-01-21 17:08:00,079 - INFO -  * Restarting with stat
+2026-01-21 17:08:01,170 - INFO - System: Server đang khởi động...
+2026-01-21 17:08:01,196 - WARNING -  * Debugger is active!
+2026-01-21 17:08:01,204 - INFO -  * Debugger PIN: 792-240-953
+2026-01-21 17:08:16,488 - INFO - 127.0.0.1 - - [21/Jan/2026 17:08:16] "OPTIONS /auth/input-pass HTTP/1.1" 200 -
+2026-01-21 17:19:15,792 - INFO - System: Server đang khởi động...
+2026-01-21 17:19:15,938 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-01-21 17:19:15,939 - INFO - [33mPress CTRL+C to quit[0m
+2026-01-21 17:19:15,960 - INFO -  * Restarting with stat
+2026-01-21 17:19:16,984 - INFO - System: Server đang khởi động...
+2026-01-21 17:19:16,995 - WARNING -  * Debugger is active!
+2026-01-21 17:19:16,999 - INFO -  * Debugger PIN: 878-108-040
+2026-01-21 17:19:32,799 - INFO - 127.0.0.1 - - [21/Jan/2026 17:19:32] "OPTIONS /auth/input-pass HTTP/1.1" 200 -
+2026-01-21 17:19:33,352 - INFO - system: find to connect mongodb 
+2026-01-21 17:19:33,645 - INFO - 127.0.0.1 - - [21/Jan/2026 17:19:33] "[31m[1mPOST /auth/input-pass HTTP/1.1[0m" 401 -
+2026-01-21 17:23:14,287 - INFO -  * Detected change in 'D:\\Project_All\\Code_project\\learn_web_pythn\\backend\\services\\group_mk\\login.py', reloading
+2026-01-21 17:23:14,890 - INFO -  * Restarting with stat
+2026-01-21 17:23:16,963 - INFO - System: Server đang khởi động...
+2026-01-21 17:23:17,005 - WARNING -  * Debugger is active!
+2026-01-21 17:23:17,013 - INFO -  * Debugger PIN: 878-108-040
+2026-01-21 17:23:38,123 - INFO - 127.0.0.1 - - [21/Jan/2026 17:23:38] "OPTIONS /auth/input-pass HTTP/1.1" 200 -
+2026-01-21 17:23:38,469 - INFO - system: find to connect mongodb 
+2026-01-21 17:23:38,527 - INFO - 127.0.0.1 - - [21/Jan/2026 17:23:38] "[31m[1mPOST /auth/input-pass HTTP/1.1[0m" 401 -

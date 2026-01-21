@@ -7,10 +7,10 @@ app_route = Blueprint('main',__name__)
 
 @limit_requests(max_requests=5, period=60)
 
-def kiem_tra():
+def kiem_tra1():
     du_lieu = request.get_json()
-    nguoi_dung = du_lieu.get('email')
-    mat_khau = du_lieu.get('password')
+    nguoi_dung = du_lieu.get('email','')
+    mat_khau = du_lieu.get('password','')
     ket_qua = kiem_tra(nguoi_dung, mat_khau)
     if ket_qua['success']:
         return jsonify(ket_qua), 200

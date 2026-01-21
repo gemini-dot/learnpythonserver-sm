@@ -10,7 +10,7 @@ def kiem_tra(email_gui_len, pass_gui_len):
         logger.info("system: find to connect mongodb ")
     except Exception as e:
         logger.error(f"system: error connect {e}")
-    kiem_tra_1 = noi_tim_kiem.find_one({"username":email_gui_len})
+    kiem_tra_1 = noi_tim_kiem.find_one({"email":email_gui_len})
     
     if kiem_tra_1 is None:
         return {"success": False, "message": "Người dùng không tồn tại!"}

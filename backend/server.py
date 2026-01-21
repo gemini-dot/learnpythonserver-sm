@@ -1,4 +1,5 @@
 from flask import Flask
+from flask_cors import CORS
 from configs.db import db
 from routes.group_password.input_pass import app_route
 from logs.logger import logger
@@ -7,7 +8,7 @@ import io
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 
 app = Flask(__name__)
-
+CORS(app)
 
 app.register_blueprint(app_route, url_prefix='/auth')
 
