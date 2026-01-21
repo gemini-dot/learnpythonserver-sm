@@ -50,3 +50,13 @@
 2026-01-21 17:23:38,123 - INFO - 127.0.0.1 - - [21/Jan/2026 17:23:38] "OPTIONS /auth/input-pass HTTP/1.1" 200 -
 2026-01-21 17:23:38,469 - INFO - system: find to connect mongodb 
 2026-01-21 17:23:38,527 - INFO - 127.0.0.1 - - [21/Jan/2026 17:23:38] "[31m[1mPOST /auth/input-pass HTTP/1.1[0m" 401 -
+2026-01-21 22:28:28,067 - INFO - Database: Kết nối thành công! ✅
+2026-01-21 22:28:28,069 - INFO - System: Server khởi động tại http://127.0.0.1:5000
+2026-01-21 22:28:28,212 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-01-21 22:28:28,212 - INFO - [33mPress CTRL+C to quit[0m
+2026-01-21 22:28:28,231 - INFO -  * Restarting with stat
+2026-01-21 22:28:29,407 - INFO - Database: Kết nối thành công! ✅
+2026-01-21 22:28:29,407 - INFO - System: Server khởi động tại http://127.0.0.1:5000
+2026-01-21 22:28:29,423 - WARNING -  * Debugger is active!
+2026-01-21 22:28:29,427 - INFO -  * Debugger PIN: 261-087-158

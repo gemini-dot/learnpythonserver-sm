@@ -2,7 +2,7 @@ from flask import Blueprint, request, jsonify
 from middleware.rate_limiting import limit_requests
 from services.group_mk.login import kiem_tra
 
-app_route = Blueprint('main',__name__)
+app_route = Blueprint('auth_input',__name__)
 @app_route.route("/input-pass", methods=["POST"])
 
 @limit_requests(max_requests=5, period=60)
