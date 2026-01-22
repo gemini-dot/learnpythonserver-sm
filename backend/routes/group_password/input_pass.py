@@ -9,7 +9,7 @@ app_route = Blueprint('auth_input',__name__)
 
 def kiem_tra1():
     du_lieu = request.get_json()
-    nguoi_dung = du_lieu.get('email','')
+    nguoi_dung = du_lieu.get('gmail','')
     mat_khau = du_lieu.get('password','')
     ket_qua = kiem_tra(nguoi_dung, mat_khau)
     if ket_qua['success']:

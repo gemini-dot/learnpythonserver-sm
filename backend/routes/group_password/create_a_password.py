@@ -13,7 +13,7 @@ def kiem_tra2():
     mat_khau = dulieu.get("password", '')
     nguoi_dung = dulieu.get("username",'')
 
-    ket_qua = kiem_tra_mat_khau(nguoi_dung ,gmail , mat_khau)
+    ket_qua = kiem_tra_mat_khau(nguoi_dung,gmail,mat_khau)
 
     code = 201 
 

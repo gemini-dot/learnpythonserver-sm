@@ -3,14 +3,13 @@ from validators.kiem_tra_do_bao_mat_pass import check_password_strength
 from configs.db import db
 from logs.logger import logger
 from utils.hash_password import hash_password,make_salt
-from utils.create_number import goi_y_username
 import sys
 from flask import jsonify
 
 def kiem_tra_mat_khau(user_name_input ,gmail_input, password_input):
     
     luu_tru = db['users']
-    
+
     try:
         db.command('ping')
         logger.info("system: find to connect mongodb ")
@@ -19,12 +18,10 @@ def kiem_tra_mat_khau(user_name_input ,gmail_input, password_input):
     # 1. Kiểm tra email tồn tại
     if luu_tru.find_one({"gmail": gmail_input}):
         logger.warning(f"Email {gmail_input} đã tồn tại.")
-        goi_y = goi_y_username(gmail_input.split('@')[0])
         return {
             "status": "error", 
             "error_type": "loi_trung_email", 
             "message": "Email này đã được sử dụng rồi!",
-            "suggestion": goi_y
         }
 
     # 2. Kiểm tra định dạng Gmail trước

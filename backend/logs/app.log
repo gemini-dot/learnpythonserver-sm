@@ -376,3 +376,55 @@
 2026-01-22 19:24:41,665 - INFO - 127.0.0.1 - - [22/Jan/2026 19:24:41] "OPTIONS /auth/input-pass HTTP/1.1" 200 -
 2026-01-22 19:24:42,078 - INFO - system: find to connect mongodb 
 2026-01-22 19:24:42,180 - INFO - 127.0.0.1 - - [22/Jan/2026 19:24:42] "POST /auth/input-pass HTTP/1.1" 200 -
+2026-01-22 19:32:03,308 - [server.py:25] - INFO - Database: Kết nối thành công! ✅
+2026-01-22 19:32:03,310 - [server.py:26] - INFO - System: Server khởi động tại http://127.0.0.1:5000
+2026-01-22 19:32:04,514 - [server.py:25] - INFO - Database: Kết nối thành công! ✅
+2026-01-22 19:32:04,514 - [server.py:26] - INFO - System: Server khởi động tại http://127.0.0.1:5000
+2026-01-22 19:41:26,700 - [server.py:25] - INFO - Database: Kết nối thành công! ✅
+2026-01-22 19:41:26,702 - [server.py:26] - INFO - System: Server khởi động tại http://127.0.0.1:5000
+2026-01-22 19:41:28,645 - [server.py:25] - INFO - Database: Kết nối thành công! ✅
+2026-01-22 19:41:28,645 - [server.py:26] - INFO - System: Server khởi động tại http://127.0.0.1:5000
+2026-01-22 19:42:16,875 - [login.py:10] - INFO - system: find to connect mongodb 
+2026-01-22 19:42:30,801 - [login.py:10] - INFO - system: find to connect mongodb 
+2026-01-22 19:44:22,621 - [login.py:10] - INFO - system: find to connect mongodb 
+2026-01-22 19:44:50,983 - [login.py:10] - INFO - system: find to connect mongodb 
+2026-01-22 19:44:55,284 - [login.py:10] - INFO - system: find to connect mongodb 
+2026-01-22 19:45:08,493 - [login.py:10] - INFO - system: find to connect mongodb 
+2026-01-22 19:45:28,768 - [login.py:10] - INFO - system: find to connect mongodb 
+2026-01-22 19:46:52,222 - [login.py:10] - INFO - system: find to connect mongodb 
+2026-01-22 19:47:03,383 - [login.py:10] - INFO - system: find to connect mongodb 
+2026-01-22 19:47:09,630 - [login.py:10] - INFO - system: find to connect mongodb 
+2026-01-22 19:49:24,384 - [login.py:10] - INFO - system: find to connect mongodb 
+2026-01-22 19:50:03,193 - [server.py:25] - INFO - Database: Kết nối thành công! ✅
+2026-01-22 19:50:03,194 - [server.py:26] - INFO - System: Server khởi động tại http://127.0.0.1:5000
+2026-01-22 19:50:20,294 - [login.py:10] - INFO - system: find to connect mongodb 
+2026-01-22 19:50:29,921 - [login.py:10] - INFO - system: find to connect mongodb 
+2026-01-22 19:50:39,751 - [login.py:10] - INFO - system: find to connect mongodb 
+2026-01-22 19:53:37,000 - [login.py:10] - INFO - system: find to connect mongodb 
+2026-01-22 19:53:47,855 - [login.py:10] - INFO - system: find to connect mongodb 
+2026-01-22 19:55:08,672 - [login.py:10] - INFO - system: find to connect mongodb 
+2026-01-22 19:56:44,489 - [login.py:10] - INFO - system: find to connect mongodb 
+2026-01-22 19:59:05,491 - [create_a_password.py:15] - INFO - system: find to connect mongodb 
+2026-01-22 20:10:53,870 - [server.py:25] - INFO - Database: Kết nối thành công! ✅
+2026-01-22 20:10:53,871 - [server.py:26] - INFO - System: Server khởi động tại http://127.0.0.1:5000
+2026-01-22 20:10:55,220 - [server.py:25] - INFO - Database: Kết nối thành công! ✅
+2026-01-22 20:10:55,221 - [server.py:26] - INFO - System: Server khởi động tại http://127.0.0.1:5000
+2026-01-22 20:14:13,451 - [login.py:10] - INFO - system: find to connect mongodb 
+2026-01-22 20:14:15,805 - [login.py:10] - INFO - system: find to connect mongodb 
+2026-01-22 20:14:18,058 - [login.py:10] - INFO - system: find to connect mongodb 
+2026-01-22 20:15:24,310 - [login.py:10] - INFO - system: find to connect mongodb 
+2026-01-22 20:17:04,319 - [server.py:25] - INFO - Database: Kết nối thành công! ✅
+2026-01-22 20:17:04,319 - [server.py:26] - INFO - System: Server khởi động tại http://127.0.0.1:5000
+2026-01-22 20:17:06,913 - [login.py:10] - INFO - system: find to connect mongodb 
+2026-01-22 20:17:09,231 - [login.py:10] - INFO - system: find to connect mongodb 
+2026-01-22 20:17:11,520 - [login.py:10] - INFO - system: find to connect mongodb 
+2026-01-22 20:18:25,292 - [server.py:25] - INFO - Database: Kết nối thành công! ✅
+2026-01-22 20:18:25,293 - [server.py:26] - INFO - System: Server khởi động tại http://127.0.0.1:5000
+2026-01-22 20:18:28,011 - [login.py:10] - INFO - system: find to connect mongodb 
+2026-01-22 20:18:30,264 - [login.py:10] - INFO - system: find to connect mongodb 
+2026-01-22 20:18:32,517 - [login.py:10] - INFO - system: find to connect mongodb 
+2026-01-22 20:23:08,068 - [server.py:25] - INFO - Database: Kết nối thành công! ✅
+2026-01-22 20:23:08,073 - [server.py:26] - INFO - System: Server khởi động tại http://127.0.0.1:5000
+2026-01-22 20:35:46,408 - [server.py:25] - INFO - Database: Kết nối thành công! ✅
+2026-01-22 20:35:46,409 - [server.py:26] - INFO - System: Server khởi động tại http://127.0.0.1:5000
+2026-01-22 20:35:55,313 - [create_a_password.py:15] - INFO - system: find to connect mongodb 
