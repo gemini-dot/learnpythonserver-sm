@@ -1,8 +1,22 @@
+import { showToast } from './../../popup/popup.js';
+
+document.addEventListener('DOMContentLoaded', function() {
+    const signupForm = document.getElementById('main-signup-form');
+
+    if (signupForm) {
+        signupForm.addEventListener('submit', function(event) {
+            // CHẶN reset trang ngay lập tức
+            event.preventDefault(); 
+            handleSignup(event);
+        });
+    }
+});
+
 userpass = document.getElementById("password")
 useremail = document.getElementById("email")
 buttonpass = document.getElementById("dang-nhap")
 
-buttonpass.addEventListener('submit', function(event) { // Nếu là nút bấm thì nên dùng 'click'
+buttonpass.addEventListener('submit', function(event) {
     event.preventDefault();
 
     const lay_gia_tri_pass = userpass.value;
@@ -21,23 +35,24 @@ buttonpass.addEventListener('submit', function(event) { // Nếu là nút bấm 
     .then(response => {
         if (response.status === 200) {
             return response.json().then(data => {
-                alert("Đăng nhập thành công! Chào mừng bạn quay trở lại.");
+                showToast('success','Đăng nhập thành công! Chào mừng bạn quay trở lại.')
                 window.location.href = "../../../view/upload/index.html"
             });
         } 
         else if (response.status === 401) {
             // Nếu là 401, Flask đang báo sai mật khẩu
             return response.json().then(data => {
-                alert("Thất bại: " + (data.message || "Sai tài khoản hoặc mật khẩu!"));
+                showToast('error',"Thất bại: " + (data.message || "Sai tài khoản hoặc mật khẩu!"))
             });
         } 
         else {
             // Các mã lỗi khác như 500, 404...
-            alert("Lỗi hệ thống: Mã lỗi " + response.status);
+            showToast('error',`Lỗi hệ thống: Mã lỗi ${response.status}`)
         }
     })
     .catch(error => {
         console.error("Lỗi kết nối mạng rồi bạn ơi:", error);
+        showToast('error',`Lỗi kết nối mạng rồi bạn ơi:${error}`)
     });
 });
 

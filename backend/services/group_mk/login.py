@@ -4,7 +4,9 @@ from logs.logger import logger
 from utils.hash_password import hash_password, make_salt
 
 def kiem_tra(email_gui_len, pass_gui_len):
-    noi_tim_kiem = db['users'] #truy cập vào kho của tôi
+
+    noi_tim_kiem = db['users'] #truy cập vào kho của tôi:))
+    
     try:
         db.command('ping')
         logger.info("system: find to connect mongodb ")

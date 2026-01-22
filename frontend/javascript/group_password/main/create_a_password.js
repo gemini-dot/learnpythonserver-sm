@@ -1,4 +1,5 @@
-// Đợi HTML load xong rồi mới chạy
+import { showToast } from './../../popup/popup.js';
+
 document.addEventListener('DOMContentLoaded', function() {
     const signupForm = document.getElementById('main-signup-form');
 
@@ -20,17 +21,17 @@ function handleSignup(event) {
     const terms = document.getElementById('terms').checked;
 
     if (!firstname || !lastname || !email || !password || !confirmPassword) {
-        alert('Vui lòng điền đầy đủ thông tin');
+        showToast('error','Vui lòng điền đầy đủ thông tin');
         return;
     }
             
     if (password !== confirmPassword) {
-        alert('Mật khẩu xác nhận không khớp');
+        showToast('error','Mật khẩu xác nhận không khớp')
         return;
     }
             
     if (!terms) {
-        alert('Vui lòng đồng ý với điều khoản dịch vụ');
+        showToast('error','Vui lòng đồng ý với điều khoản dịch vụ')
         return;
     }
 
@@ -53,13 +54,14 @@ function handleSignup(event) {
     .then(response => {
         return response.json().then(data => {
             if (response.ok) {
-                alert(`Đăng ký thành công! Chào mừng ${fullname}`);
+                showToast('success',`Đăng ký thành công! Chào mừng ${fullname}`)
             } else {
-                alert('Lỗi: ' + (data.message || 'Có lỗi xảy ra'));
+                showToast('error','Lỗi: ' + (data.message || 'Có lỗi xảy ra'))
             }
         });
     })
     .catch(error => {
         console.log("Lỗi kết nối", error);
+        showToast('error',`Lỗi kết nối ${error}`)
     });
 }
