@@ -1,20 +1,8 @@
 import { showToast } from './../../popup/popup.js';
 
-document.addEventListener('DOMContentLoaded', function() {
-    const signupForm = document.getElementById('main-signup-form');
-
-    if (signupForm) {
-        signupForm.addEventListener('submit', function(event) {
-            // CHẶN reset trang ngay lập tức
-            event.preventDefault(); 
-            handleSignup(event);
-        });
-    }
-});
-
-userpass = document.getElementById("password")
-useremail = document.getElementById("email")
-buttonpass = document.getElementById("dang-nhap")
+userpass = document.getElementById("password");
+useremail = document.getElementById("email");
+buttonpass = document.getElementById("dang-nhap");
 
 buttonpass.addEventListener('submit', function(event) {
     event.preventDefault();
