@@ -27,7 +27,7 @@ buttonpass.addEventListener('submit', function(event) {
         "password": lay_gia_tri_pass    
     };
 
-    fetch("http://localhost:5000/auth/input-pass", {
+    fetch("https://learnpythonsever-sm.onrender.com/auth/input-pass", {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(goi_du_lieu)

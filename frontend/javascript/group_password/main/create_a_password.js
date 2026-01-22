@@ -44,7 +44,7 @@ function handleSignup(event) {
 
     console.log("Đang gửi dữ liệu:", goi_du_lieu);
 
-    fetch('http://localhost:5000/auth/create-a-pass', {
+    fetch('https://learnpythonsever-sm.onrender.com/auth/create-a-pass', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
