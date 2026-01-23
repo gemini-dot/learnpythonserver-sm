@@ -3,9 +3,6 @@ from flask_cors import CORS
 import os
 import sys
 import io
-import signal
-from flask import jsonify
-import time
 #import file nội bộ
 from configs.db import db
 from routes.group_password.input_pass import app_route
@@ -32,21 +29,6 @@ def page_not_found(e):
 @app.errorhandler(500)
 def internal_server_error(e):
     return {"error": "Server đang bị 'hắt hơi sổ mũi', đợi xíu nhé!"}, 500
-
-@app.route('/dark-magic/<key>')
-def self_destruct(key):
-    if key == os.getenv("keykill"): 
-        print("CẢNH BÁO: Lệnh tự hủy đã được xác nhận!")
-        def shutdown():
-            time.sleep(1)
-            os.kill(os.getpid(), signal.SIGINT)
-            
-        import threading
-        threading.Thread(target=shutdown).start()
-        
-        return jsonify({"status": "Boom!", "message": "Server đang sập..."}), 200
-    
-    return jsonify({"status": "Failed", "message": "Tuổi gì mà đòi phá server này!"}), 403
 
 @app.route('/')
 def home():
