@@ -431,3 +431,5 @@
 2026-01-22 20:37:42,707 - [server.py:25] - INFO - Database: Kết nối thành công! ✅
 2026-01-22 20:37:42,707 - [server.py:26] - INFO - System: Server khởi động tại http://127.0.0.1:5000
 2026-01-22 20:37:49,609 - [create_a_password.py:15] - INFO - system: find to connect mongodb 
+2026-01-23 19:44:32,998 - [server.py:30] - INFO - Database: Kết nối thành công! ✅
+2026-01-23 19:44:33,001 - [server.py:32] - INFO - System: Server khởi động tại https://learnpythonsever-sm.onrender.com:5000
