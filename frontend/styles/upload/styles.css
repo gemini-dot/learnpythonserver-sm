@@ -469,3 +469,42 @@ h1 {
         padding: 30px 24px;
     }
 }
+body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+                background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+                min-height: 100vh; /* Quan trọng: Luôn cao bằng màn hình */
+                display: flex;
+                flex-direction: column; /* Xếp theo cột để đẩy footer xuống */
+                margin: 0;
+                overflow-x: hidden;
+}
+
+.container {
+
+    flex: 1;
+}
+
+            /* --- Thêm CSS cho Footer cho đồng bộ với trang trước --- */
+.footer {
+                width: 100%;
+                text-align: center;
+                padding: 20px 0;
+                font-size: 12px;
+                color: #666;
+                font-family: Arial, sans-serif;
+                z-index: 10;
+}
+
+.footer strong {
+                color: #888;
+}
+
+.footer a {
+                color: #aaa;
+                text-decoration: none;
+                transition: color 0.3s;
+}
+
+.footer a:hover {
+                color: #ffffff;
+}
