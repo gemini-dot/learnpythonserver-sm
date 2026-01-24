@@ -20,7 +20,7 @@ def gui_mail_reset(email_nguoi_nhan, token):
             'user_id': public_key,
             'accessToken': pivate_key,
             'template_params': {
-                'user_email': email_nguoi_nhan,
+                'email': email_nguoi_nhan,
                 'LINK_RESET': link_reset
             }
         }
