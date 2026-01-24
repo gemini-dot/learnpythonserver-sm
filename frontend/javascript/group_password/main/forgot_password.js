@@ -19,7 +19,7 @@ form.addEventListener('submit', async function(event) {
     submitBtn.disabled = true;
 
     try {
-        const response = await fetch('http://192.168.1.110:5000/auth/tim-mat-khau1', {
+        const response = await fetch('https://learnpythonsever-sm.onrender.com/auth/tim-mat-khau1', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -30,6 +30,7 @@ form.addEventListener('submit', async function(event) {
         const data = await response.json();
 
         if (response.ok) {
+            console.log("Status code nè bạn:", response.status);
             console.log("Server bảo: " + data.message);
             document.getElementById('successModal').style.display = 'flex';
         } else {
