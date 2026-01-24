@@ -1,7 +1,7 @@
 import os
 import requests
 from pathlib import Path
-from tinh_thoi_gian import thoi_gian_tuong_doi
+from utils.tinh_thoi_gian import thoi_gian_tuong_doi
 
 def gui_mail_reset(email_nguoi_nhan, token, thoi_gian, dia_chi_ip, thiet_bi):
 
