@@ -26,8 +26,7 @@ def gui_mail_reset(email_nguoi_nhan, token):
     message.attach(MIMEText(final_html, "html"))
 
     try:
-        with smtplib.SMTP_SSL("smtp.gmail.com", 587) as server:
-            server.starttls()
+        with smtplib.SMTP_SSL("smtp.gmail.com", 465) as server:
             server.login(sender_email, password)
             server.sendmail(sender_email, email_nguoi_nhan, message.as_string())
         print("Đã gửi mail thành công cho bạn rồi nhé!")
