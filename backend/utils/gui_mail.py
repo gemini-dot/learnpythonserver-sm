@@ -3,30 +3,23 @@ import requests
 from pathlib import Path
 
 def gui_mail_reset(email_nguoi_nhan, token):
-    # 1. Lấy cấu hình từ biến môi trường (Environment trên Render)
-    # Với EmailJS, og cần các ID này thay vì email/pass thông thường
+
     service_id = "service_xszjius"
     template_id = "template_h6t8562"
     public_key = "Z2nHUm0dY8tFSWlaB"
 
-    # 2. Tạo link reset
     link_reset = f"https://gemini-dot.github.io/learnpythonsever-sm/frontend/view/group_password/forgot_password.html?gmail={email_nguoi_nhan}&token={token}"
 
-    # 3. Xử lý đường dẫn file HTML (File đang ở utils, nên phải lùi 2 cấp để vào frontend)
-    # Dùng Pathlib cho an toàn và dễ hiểu
-    BASE_DIR = Path(__file__).resolve().parent.parent
-    file_path = BASE_DIR / "frontend" / "view" / "giao_dien_email" / "index.html"
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    base_dir = os.path.dirname(current_dir) 
+    file_path = os.path.join(base_dir, "frontend", "view", "giao_dien_email", "index.html")
 
     try:
-        # Đọc nội dung HTML
         with open(file_path, "r", encoding="utf-8") as f:
             html_template = f.read()
         
-        # Thay thế link vào template (nếu og dùng EmailJS để gửi HTML trực tiếp)
-        # Nhưng thường EmailJS dùng template có sẵn trên web của nó
         final_html = html_template.replace("{{LINK_RESET}}", link_reset)
 
-        # 4. Gửi mail qua API EmailJS
         url = "https://api.emailjs.com/api/v1.0/email/send"
         
         data = {
