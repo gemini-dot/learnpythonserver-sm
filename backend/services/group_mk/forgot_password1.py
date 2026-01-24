@@ -43,7 +43,7 @@ def kiem_tra_dat_lai_mat_khau(gmail):
 
         ket_qua = gui_mail_reset(gmail, tao_token, thoi_gian_tao, ip_nguoi_dung, user_agent)
 
-        if ket_qua['success']:
+        if isinstance(ket_qua, dict) and ket_qua.get('success'):
             return {"success": True, "message": "Đã gửi email thành công! Vui lòng kiểm tra hộp thư."}
         else:
             logger.error(f"Lỗi gửi email: {ket_qua.get('error', 'Không rõ lỗi')}")

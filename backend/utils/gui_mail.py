@@ -44,4 +44,4 @@ def gui_mail_reset(email_nguoi_nhan, token, thoi_gian, dia_chi_ip, thiet_bi):
             return {"success": False, "error": response.text}   
     except Exception as e:
         print(f"Có lỗi bất ngờ rồi og ơi: {e}")
-        return False
+        return {"success": False, "error": str(e)}
