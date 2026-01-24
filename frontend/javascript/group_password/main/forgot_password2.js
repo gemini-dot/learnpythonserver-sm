@@ -29,7 +29,7 @@ async function verifyToken() {
 
         if (response.ok && data.success) {
             console.log("Xác thực token thành công! Giờ cho phép đổi pass.");
-            document.getElementById('reset-form-container').style.display = 'block';
+            window.location.href = '../../../view/group_password/create_new_pass.html'
         } else {
             showToast('error', "Lỗi rồi: " + (data.message || "Token hết hạn hoặc không đúng!"));
         }
