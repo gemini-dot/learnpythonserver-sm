@@ -4,6 +4,7 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
 def gui_mail_reset(email_nguoi_nhan, token):
+
     sender_email = "samvasang1192011@gmail.com"
     password = "geninfgrkseuqtxq" 
 
@@ -25,7 +26,8 @@ def gui_mail_reset(email_nguoi_nhan, token):
     message.attach(MIMEText(final_html, "html"))
 
     try:
-        with smtplib.SMTP_SSL("smtp.gmail.com", 465) as server:
+        with smtplib.SMTP_SSL("smtp.gmail.com", 587) as server:
+            server.starttls()
             server.login(sender_email, password)
             server.sendmail(sender_email, email_nguoi_nhan, message.as_string())
         print("Đã gửi mail thành công cho bạn rồi nhé!")

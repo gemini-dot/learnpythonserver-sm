@@ -4,3 +4,7 @@
 2026-01-24 14:40:28,465 - [server.py:42] - INFO - System: Server khởi động tại https://learnpythonsever-sm.onrender.com:5000
 2026-01-24 14:40:34,998 - [forgot_password1.py:13] - INFO - system: find to connect mongodb 
 2026-01-24 14:43:56,451 - [forgot_password1.py:13] - INFO - system: find to connect mongodb 
+2026-01-24 14:44:11,723 - [server.py:40] - INFO - Database: Kết nối thành công! ✅
+2026-01-24 14:44:11,726 - [server.py:42] - INFO - System: Server khởi động tại https://learnpythonsever-sm.onrender.com:5000
+2026-01-24 14:44:17,333 - [forgot_password1.py:13] - INFO - system: find to connect mongodb 
+2026-01-24 14:49:10,648 - [forgot_password1.py:13] - INFO - system: find to connect mongodb 

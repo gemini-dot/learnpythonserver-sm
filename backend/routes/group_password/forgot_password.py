@@ -12,6 +12,7 @@ app_route4 = Blueprint("auth_tim_mk", __name__)
 def gui_yeu_cau():
     data = request.get_json()
     du_lieu = data.get("gmail")
+    
     if not du_lieu:
         return jsonify({
             "success": False,

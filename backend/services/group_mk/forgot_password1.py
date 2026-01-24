@@ -15,6 +15,7 @@ def kiem_tra_dat_lai_mat_khau(gmail):
         logger.error(f"system: error connect {e}")
 
     kiem_tra_ton_tai = user.find_one({"gmail":gmail})
+    
     if kiem_tra_ton_tai is None:
         return "người dùng không tồn tại"
     
