@@ -13,7 +13,7 @@ def kiem_tra_mat_khau(user_name_input ,gmail_input, password_input):
         logger.info("system: find to connect mongodb ")
     except Exception as e:
         logger.error(f"system: error connect {e}")
-    # 1. Kiểm tra email tồn tại
+
     if luu_tru.find_one({"gmail": gmail_input}):
         logger.warning(f"Email {gmail_input} đã tồn tại.")
         return {
@@ -22,7 +22,6 @@ def kiem_tra_mat_khau(user_name_input ,gmail_input, password_input):
             "message": "Email này đã được sử dụng rồi!",
         }
 
-    # 2. Kiểm tra định dạng Gmail trước
     if not kiem_tra_dinh_dang_gmail(gmail_input):
         return {
             "status": "error", 
@@ -30,7 +29,6 @@ def kiem_tra_mat_khau(user_name_input ,gmail_input, password_input):
             "message": "Định dạng Gmail không hợp lệ!"
         }
 
-    # 3. Kiểm tra độ mạnh mật khẩu
     is_valid, message = check_password_strength(password_input)
 
     if not is_valid:

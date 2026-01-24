@@ -1,3 +1,5 @@
+import { showToast } from '../../popup/popup.js';
+
 const form = document.getElementById('forgotPasswordForm');
 const emailInput = document.getElementById('email');
 
@@ -7,7 +9,7 @@ form.addEventListener('submit', async function(event) {
     const emailValue = emailInput.value.trim();
 
     if (!emailValue) {
-        alert('Vui lòng nhập địa chỉ email, og ơi!');
+        showToast('error','Vui lòng nhập địa chỉ email của bạn!')
         return;
     }
 
@@ -17,7 +19,7 @@ form.addEventListener('submit', async function(event) {
     submitBtn.disabled = true;
 
     try {
-        const response = await fetch('https://learnpythonsever-sm.onrender.com/auth/tim-mat-khau1', {
+        const response = await fetch('http://192.168.1.110:5000/auth/tim-mat-khau1', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -31,12 +33,12 @@ form.addEventListener('submit', async function(event) {
             console.log("Server bảo: " + data.message);
             document.getElementById('successModal').style.display = 'flex';
         } else {
-            alert("Lỗi: " + (data.message || "Có gì đó sai sai rồi og ơi!"));
+            showToast('error', "Lỗi: " + (data.message || "Có gì đó sai sai rồi og ơi!"));
         }
 
     } catch (error) {
         console.error("Lỗi kết nối:", error);
-        alert("Không kết nối được với server rồi!");
+        showToast('error', "Không kết nối được với server rồi!");
     } finally {
         submitBtn.innerHTML = originalBtnText;
         submitBtn.disabled = false;

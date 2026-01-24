@@ -1,3 +1,5 @@
+import { showToast } from '../../popup/popup.js';
+
 function getQueryParams() {
     const params = new URLSearchParams(window.location.search);
     return {
@@ -9,8 +11,12 @@ function getQueryParams() {
 async function verifyToken() {
     const { gmail, token } = getQueryParams();
 
+    if (!gmail && !token) {
+        return; 
+    }
+
     if (!gmail || !token) {
-        alert("Link này thiếu thông tin rồi bạn ơi, kiểm tra lại mail nhé!");
+        showToast('error', 'Liên kết không hợp lệ.');
         return;
     }
 
@@ -18,18 +24,18 @@ async function verifyToken() {
         const response = await fetch(`https://learnpythonsever-sm.onrender.com/auth/tim-mat-khau2?gmail=${gmail}&token=${token}`, {
             method: 'GET' 
         });
-        //
+        
         const data = await response.json();
 
         if (response.ok && data.success) {
             console.log("Xác thực token thành công! Giờ cho phép đổi pass.");
             document.getElementById('reset-form-container').style.display = 'block';
         } else {
-            alert("Lỗi rồi: " + (data.message || "Token hết hạn hoặc không đúng!"));
+            showToast('error', "Lỗi rồi: " + (data.message || "Token hết hạn hoặc không đúng!"));
         }
     } catch (error) {
         console.error("Lỗi:", error);
-        alert("Không kết nối được server!");
+        showToast('error', "Không kết nối được server!");
     }
 }
 window.onload = verifyToken;
