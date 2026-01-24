@@ -27,10 +27,10 @@ def gui_mail_reset(email_nguoi_nhan, token):
         
         if response.status_code == 200:
             print(f"Gửi mail cho {email_nguoi_nhan} thành công rồi og ơi! 🎉")
-            return True
+            return {"success": True}
         else:
             print(f"EmailJS báo lỗi: {response.text}")
-            return False
+            return {"success": False, "error": response.text}   
     except Exception as e:
         print(f"Có lỗi bất ngờ rồi og ơi: {e}")
         return False

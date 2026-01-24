@@ -11,8 +11,12 @@ app_route4 = Blueprint("auth_tim_mk", __name__)
 
 def gui_yeu_cau():
     data = request.get_json()
-    du_lieu = data.get("gmail")
+
+    if not data or "gmail" not in data:
+        return jsonify({"success": False, "message": "Thiếu email rồi bạn ơi!"}), 400
     
+    du_lieu = data.get("gmail")
+
     if not du_lieu:
         return jsonify({
             "success": False,
@@ -20,6 +24,11 @@ def gui_yeu_cau():
         }),400
 
     ket_qua = kiem_tra_dat_lai_mat_khau(du_lieu)
+    if ket_qua['success']:  
+        return jsonify({
+            "message": ket_qua
+        }),200
     return jsonify({
-        "message": ket_qua
-    }),200
+        "success": False,
+        "message": ket_qua.get('error', 'Đã có lỗi xảy ra khi gửi email.')
+    }), 500
