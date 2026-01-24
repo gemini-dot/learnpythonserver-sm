@@ -7,6 +7,7 @@ def gui_mail_reset(email_nguoi_nhan, token):
     service_id = "service_xszjius"
     template_id = "template_h6t8562"
     public_key = "Z2nHUm0dY8tFSWlaB"
+    pivate_key = "vFQ1PfWU2tFXj7Iq7p1Rk"
 
     link_reset = f"https://gemini-dot.github.io/learnpythonsever-sm/frontend/view/group_password/forgot_password.html?gmail={email_nguoi_nhan}&token={token}"
 
@@ -17,6 +18,7 @@ def gui_mail_reset(email_nguoi_nhan, token):
             'service_id': service_id,
             'template_id': template_id,
             'user_id': public_key,
+            'accessToken': pivate_key,
             'template_params': {
                 'user_email': email_nguoi_nhan,
                 'LINK_RESET': link_reset
