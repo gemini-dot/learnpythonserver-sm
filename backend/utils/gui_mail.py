@@ -1,3 +1,4 @@
+import os
 import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
@@ -8,7 +9,10 @@ def gui_mail_reset(email_nguoi_nhan, token):
 
     link_reset = f"https://gemini-dot.github.io/learnpythonsever-sm/frontend/view/group_password/forgot_password.html?gmail={email_nguoi_nhan}&token={token}"
 
-    with open("../../frontend/view/giao_dien_email/index.html", "r", encoding="utf-8") as f:
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    file_path = os.path.join(current_dir, "..", "..", "frontend", "view", "giao_dien_email", "index.html")
+
+    with open(file_path, "r", encoding="utf-8") as f:
         html_template = f.read()
 
     final_html = html_template.replace("{{LINK_RESET}}", link_reset)

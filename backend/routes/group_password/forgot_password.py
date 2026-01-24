@@ -10,8 +10,8 @@ app_route4 = Blueprint("auth_tim_mk", __name__)
 @limit_requests(max_requests=5, period=60)
 
 def gui_yeu_cau():
-    du_lieu = request.get("gmail")
-
+    data = request.get_json()
+    du_lieu = data.get("gmail")
     if not du_lieu:
         return jsonify({
             "success": False,
