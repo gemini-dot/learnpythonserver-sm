@@ -2,6 +2,7 @@ from utils.gui_mail import gui_mail_reset
 from configs.db import db
 from utils.make_token import tao_token_10_so
 from logs.logger import logger
+from time import time
 
 def kiem_tra_dat_lai_mat_khau(gmail):
 
@@ -20,11 +21,21 @@ def kiem_tra_dat_lai_mat_khau(gmail):
         return {"success": False, "error": "Người dùng không tồn tại.","type":"not_exist"}
     else:
         tao_token = tao_token_10_so()
+        thoi_gian_tao = int(time())
 
         dieu_kien = {"gmail": gmail} 
-        noi_dung_thay_doi = {"$set": {"token_nguoi_dung": tao_token}}
 
-        cho_luu_token.update_one(dieu_kien, noi_dung_thay_doi, upsert=True)
+        noi_dung_thay_doi = {
+            "$set": {
+                "token_nguoi_dung": tao_token,
+                "thoi_gian_tao": thoi_gian_tao,
+                "thoi_gian_het_han": thoi_gian_tao + 15 * 60,  # Token hết hạn sau 15 phút
+                "trang_thai1": "chua_su_dung",
+                "trang_thai2": "chua_het_han"
+            }
+        }
+        
+        cho_luu_token.update_one(dieu_kien, noi_dung_thay_doi,upsert=True)
 
         ket_qua = gui_mail_reset(gmail, tao_token)
         
