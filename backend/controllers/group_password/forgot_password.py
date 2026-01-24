@@ -16,10 +16,16 @@ def gui_yeu_cau():
         }),400
 
     ket_qua = kiem_tra_dat_lai_mat_khau(du_lieu)
+
     if ket_qua['success']:  
         return jsonify({
             "message": ket_qua
         }),200
+    if ket_qua.get('type') == 'not_exist':
+        return jsonify({
+            "success": False,
+            "message": "Người dùng không tồn tại."
+        }), 404
     return jsonify({
         "success": False,
         "message": ket_qua.get('error', 'Đã có lỗi xảy ra khi gửi email.')
