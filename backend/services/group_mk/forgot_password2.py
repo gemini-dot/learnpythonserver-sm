@@ -30,10 +30,12 @@ def kiem_tra_xac_nhan(gmail, token_nguoi_dung_gui_len):
 
         if not kiem_tra_token_het_han['success']:
             return {"success": False, "message": "Token đã hết hạn sử dụng"}
+        
         thu_muc_can_kiem_tra.update_one(
             {"gmail": gmail},
-            {"$set": {"trang_thai1": "da_su_dung"}}
+            {"$set": {"trang_thai1": "sap_su_dung"}}
         )
+        
         return {"success": True, "message": "Xác thực thành công!"}
 
     except Exception as e:

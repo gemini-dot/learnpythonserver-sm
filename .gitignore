@@ -1,4 +1,6 @@
 venv/
 .env
-.log
+app.log
 kill_server.py
+viec_phai_lam.txt
+__pycache__/
