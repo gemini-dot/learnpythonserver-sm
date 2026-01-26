@@ -12,7 +12,7 @@ def kiem_tra_de_doi_mat_khau(token, gmail, new_password):
         token_trong_db = ket_qua.get('token_nguoi_dung')
         trang_thai_token = ket_qua.get('trang_thai1')
 
-        if token != token_trong_db:
+        if str(token) != str(token_trong_db):
             return {'success': False, 'message': 'Token không hợp lệ!'}
         if trang_thai_token != 'sap_su_dung':
             return {'success': False, 'message': 'Token không hợp lệ để đổi mật khẩu!'}
