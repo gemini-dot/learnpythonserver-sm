@@ -15,8 +15,6 @@ def doi_mat_khau_moi():
     if not all([token, gmail, new_password]):
         return jsonify({'success': False, 'message': 'Thiếu thông tin cần thiết!'}), 400
 
-    kiem_tra = kiem_tra_de_doi_mat_khau(token, gmail, new_password)
-    
     print("đến đoạn này rồi bạn ơi, forgot_password3.py - controller")
 
     try:
