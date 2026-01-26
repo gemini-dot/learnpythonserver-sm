@@ -49,7 +49,7 @@ nut_bam_reset.addEventListener("submit", async function(event) {
             }, 3000);
         } else {
             const data = await response.json();
-            showToast('error', "Lỗi rồi: " + (data.message || "Không thể đổi mật khẩu!"));
+            showToast('error', "Lỗi rồi: " + (data.message || data.error ||"Không thể đổi mật khẩu!"));
         }
     } catch (error) {
         console.error("Lỗi:", error);
