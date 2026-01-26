@@ -45,3 +45,5 @@
 2026-01-26 12:19:51,240 - [server.py:43] - INFO - System: Server khởi động tại https://learnpythonsever-sm.onrender.com:5000
 2026-01-26 12:36:20,887 - [server.py:41] - INFO - Database: Kết nối thành công! ✅
 2026-01-26 12:36:20,888 - [server.py:43] - INFO - System: Server khởi động tại https://learnpythonsever-sm.onrender.com:5000
+2026-01-26 17:56:00,781 - [server.py:41] - INFO - Database: Kết nối thành công! ✅
+2026-01-26 17:56:00,782 - [server.py:43] - INFO - System: Server khởi động tại https://learnpythonsever-sm.onrender.com:5000

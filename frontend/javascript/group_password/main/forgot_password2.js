@@ -23,7 +23,7 @@ async function verifyToken() {
 
     const API_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
         ? 'http://localhost:5000'//server test ở nhà:)
-        : 'https://learnpythonsever-sm.onrender.com';
+        : 'https://learnpythonserver-sm.onrender.com';
 
     try {
         const response = await fetch(`${API_URL}/auth/tim-mat-khau2?gmail=${gmail}&token=${token}`, {
