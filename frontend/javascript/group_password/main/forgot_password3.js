@@ -13,13 +13,13 @@ function getQueryParams() {
 nut_bam_reset.addEventListener("submit", async function(event) {
     event.preventDefault();
 
-    nut_bam_reset.disabled = true;
-    nut_bam_reset.innerText = "Đang xử lý...";
-
     const { gmail, token } = getQueryParams();
 
     const mat_khau_moi = document.getElementById("mat-khau-moi").value;
     const mat_khau_xac_nhan = document.getElementById("mat-khau-xac-nhan").value;
+
+    nut_bam_reset.disabled = true;
+    nut_bam_reset.innerText = "Đang xử lý...";
 
     if(mat_khau_moi !== mat_khau_xac_nhan) {
         showToast('error', 'Mật khẩu xác nhận không khớp!');
