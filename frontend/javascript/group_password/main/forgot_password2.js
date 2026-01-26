@@ -20,8 +20,13 @@ async function verifyToken() {
         return;
     }
     showToast('info', 'Đang xác thực liên kết...');
+
+    const API_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+        ? 'http://localhost:5000'//server test ở nhà:)
+        : 'https://learnpythonsever-sm.onrender.com';
+
     try {
-        const response = await fetch(`https://learnpythonsever-sm.onrender.com/auth/tim-mat-khau2?gmail=${gmail}&token=${token}`, {
+        const response = await fetch(`${API_URL}/auth/tim-mat-khau2?gmail=${gmail}&token=${token}`, {
             method: 'GET' 
         });
         

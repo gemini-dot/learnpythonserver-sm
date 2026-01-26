@@ -22,8 +22,12 @@ form.addEventListener('submit', async function(event) {
     submitBtn.disabled = true;
     showToast('info','Đang gửi yêu cầu...');
 
+    const API_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+        ? 'http://localhost:5000' //server test ở nhà:)
+        : 'https://learnpythonsever-sm.onrender.com';
+
     try {
-        const response = await fetch('https://learnpythonsever-sm.onrender.com/auth/tim-mat-khau1', {
+        const response = await fetch(`${API_URL}/auth/tim-mat-khau1`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

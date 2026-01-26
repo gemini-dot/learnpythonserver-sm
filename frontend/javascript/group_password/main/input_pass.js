@@ -22,7 +22,11 @@ if (formDangNhap) {
         
         console.log("Đang gửi dữ liệu:", goi_du_lieu);
         
-        fetch("https://learnpythonsever-sm.onrender.com/auth/input-pass", {
+        const API_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+            ? 'http://localhost:5000'//server test ở nhà:)
+            : 'https://learnpythonsever-sm.onrender.com';
+
+        fetch(`${API_URL}/auth/input-pass`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(goi_du_lieu)

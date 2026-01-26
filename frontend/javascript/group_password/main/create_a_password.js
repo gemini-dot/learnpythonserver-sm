@@ -45,7 +45,11 @@ function handleSignup(event) {
     showToast('info', 'Đang gửi yêu cầu...');
     console.log("Đang gửi dữ liệu:", goi_du_lieu);
 
-    fetch('https://learnpythonsever-sm.onrender.com/auth/create-a-pass', {
+    const API_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+        ? 'http://localhost:5000'//server test ở nhà:)
+        : 'https://learnpythonsever-sm.onrender.com';
+
+    fetch(`${API_URL}/auth/create-a-pass`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

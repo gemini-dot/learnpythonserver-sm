@@ -25,8 +25,12 @@ nut_bam_reset.addEventListener("submit", async function(event) {
 
     console.log("đến đoạn gửi rồi nè");
 
+    const API_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+        ? 'http://localhost:5000' //server test ở nhà:)
+        : 'https://learnpythonsever-sm.onrender.com';
+
     try {
-        const response = await fetch(`https://learnpythonsever-sm.onrender.com/auth/tim-mat-khau3`, {
+        const response = await fetch(`${API_URL}/auth/tim-mat-khau3`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
