@@ -14,7 +14,7 @@ def kiem_tra_de_doi_mat_khau(token, gmail, new_password):
 
         if str(token) != str(token_trong_db):
             return {'success': False, 'message': 'Token không hợp lệ!'}
-        if trang_thai_token != 'sap_su_dung':
+        if trang_thai_token != 'chua_su_dung' and trang_thai_token != 'da_su_dung':
             return {'success': False, 'message': 'Token không hợp lệ để đổi mật khẩu!'}
         
         salt = make_salt()
