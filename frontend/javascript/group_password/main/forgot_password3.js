@@ -13,6 +13,9 @@ function getQueryParams() {
 nut_bam_reset.addEventListener("submit", async function(event) {
     event.preventDefault();
 
+    nut_bam_reset.disabled = true;
+    nut_bam_reset.innerText = "Đang xử lý...";
+
     const { gmail, token } = getQueryParams();
 
     const mat_khau_moi = document.getElementById("mat-khau-moi").value;
