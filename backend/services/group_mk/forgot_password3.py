@@ -22,7 +22,7 @@ def kiem_tra_de_doi_mat_khau(token, gmail, new_password):
 
         print("đến đoạn này rồi bạn ơi, forgot_password3.py")
         
-        thu_muc_nguoi_dung.update_one(
+        ket_qua_up_date = thu_muc_nguoi_dung.update_one(
             {"gmail": gmail},
             {"$set": 
                 {
@@ -31,7 +31,7 @@ def kiem_tra_de_doi_mat_khau(token, gmail, new_password):
                 }
             }
         )
-        if thu_muc_nguoi_dung.modified_count > 0:
+        if ket_qua_up_date.modified_count > 0:
             thu_muc_can_kiem_tra.update_one(
                 {"gmail": gmail},
                 {"$set": {"trang_thai1": "da_su_dung"}}
