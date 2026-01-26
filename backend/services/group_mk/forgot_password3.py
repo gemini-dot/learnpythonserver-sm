@@ -1,6 +1,6 @@
 from configs.db import db
 from logs.logger import logger
-
+from utils.hash_password import hash_password,make_salt
 def kiem_tra_de_doi_mat_khau(token, gmail, new_password):
     thu_muc_can_kiem_tra = db['token']
     thu_muc_nguoi_dung = db["users"]
@@ -17,18 +17,28 @@ def kiem_tra_de_doi_mat_khau(token, gmail, new_password):
         if trang_thai_token != 'sap_su_dung':
             return {'success': False, 'message': 'Token không hợp lệ để đổi mật khẩu!'}
         
+        salt = make_salt()
+        new_hash_pass = hash_password(new_password, salt)
+
         print("đến đoạn này rồi bạn ơi, forgot_password3.py")
         
-        thu_muc_can_kiem_tra.update_one(
-            {"gmail": gmail},
-            {"$set": {"trang_thai1": "da_su_dung"}}
-        )
         thu_muc_nguoi_dung.update_one(
             {"gmail": gmail},
-            {"$set": {"password": new_password}}
+            {"$set": 
+                {
+                    "password": new_hash_pass,
+                    "salt": salt
+                }
+            }
         )
-
-        return {'success': True, 'message': 'Đổi mật khẩu thành công!'}
+        if thu_muc_nguoi_dung.modified_count > 0:
+            thu_muc_can_kiem_tra.update_one(
+                {"gmail": gmail},
+                {"$set": {"trang_thai1": "da_su_dung"}}
+            )
+            return {'success': True, 'message': 'Đổi mật khẩu thành công!'}
+        else:
+            return {'success': False, 'message': 'Mật khẩu mới không được giống mật khẩu cũ!'}
     except Exception as e:
         logger.error(f"Lỗi khi kiểm tra để đổi mật khẩu: {e}")
-        return {'success': False, 'message': e}
+        return {'success': False, 'message': str(e)}
