@@ -1,0 +1,12 @@
+# Cho phép tất cả các loại bot
+User-agent: *
+
+# Cấm tụi nó vào thư mục admin
+Disallow: /group_admin/
+Disallow: /private/
+
+# Chỉ cho phép vào xem ảnh
+Allow: /assets/images/
+
+# Chỉ đường cho bot biết bản đồ trang web ở đâu
+Sitemap: https://tenmien.com/sitemap.xml
