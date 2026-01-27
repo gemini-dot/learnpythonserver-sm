@@ -35,7 +35,7 @@ if (formDangNhap) {
             if (response.status === 200) {
                 return response.json().then(data => {
                     showToast('success','Đăng nhập thành công! Chào mừng bạn quay trở lại.')
-                    window.location.href = "/upload/index.html"
+                    window.location.href = "../upload/index.html"
                 });
             } 
             else if (response.status === 401) {
