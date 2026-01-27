@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang không tìm thấy - Lỗi 404</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Roboto:wght@400&display=swap');
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f7f7f7; /* Nền trắng tinh khôi */
+            color: #333; /* Chữ màu xám đậm chuyên nghiệp */
+            text-align: center;
+            overflow: hidden; /* Tránh thanh cuộn nếu có hiệu ứng */
+        }
+
+        .container {
+            max-width: 800px;
+            padding: 40px;
+            background: #ffffff; /* Nền trắng cho phần nội dung chính */
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05); /* Bóng nhẹ tạo chiều sâu */
+            animation: fadeIn 1s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .error-code {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 10em; /* Số 404 lớn và nổi bật */
+            font-weight: 700;
+            color: #e0e0e0; /* Màu xám nhạt tinh tế */
+            position: relative;
+            display: inline-block;
+            margin-bottom: 20px;
+            letter-spacing: 5px; /* Giãn chữ ra cho ngầu */
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.05);
+            transition: color 0.3s ease;
+        }
+        
+        /* Hiệu ứng di chuột vào số 404 */
+        .error-code:hover {
+            color: #d0d0d0; /* Hơi đậm hơn một chút khi hover */
+        }
+
+        h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            color: #222; /* Tiêu đề màu đen sắc nét */
+        }
+
+        p {
+            font-size: 1.1em;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            color: #555; /* Đoạn văn màu xám */
+        }
+
+        .home-button {
+            display: inline-block;
+            padding: 15px 30px;
+            background-color: #007bff; /* Nút màu xanh dương mặc định */
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 50px; /* Bo tròn nút bấm */
+            font-weight: bold;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 4px 10px rgba(0, 123, 255, 0.2);
+        }
+
+        .home-button:hover {
+            background-color: #0056b3; /* Đậm hơn khi hover */
+            transform: translateY(-3px); /* Nhấc nhẹ lên một chút */
+        }
+
+        /* Một chút hiệu ứng chấm tròn ngẫu nhiên */
+        .dot {
+            position: absolute;
+            background-color: rgba(0, 0, 0, 0.05);
+            border-radius: 50%;
+            animation: float 10s infinite ease-in-out;
+            opacity: 0;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0); opacity: 0; }
+            50% { opacity: 0.5; }
+            100% { transform: translateY(-200px); opacity: 0; }
+        }
+
+        .dot:nth-child(1) { width: 10px; height: 10px; top: 10%; left: 20%; animation-delay: 0s; }
+        .dot:nth-child(2) { width: 15px; height: 15px; top: 30%; left: 70%; animation-delay: 2s; }
+        .dot:nth-child(3) { width: 8px; height: 8px; top: 60%; left: 40%; animation-delay: 4s; }
+        .dot:nth-child(4) { width: 12px; height: 12px; top: 80%; left: 10%; animation-delay: 6s; }
+        .dot:nth-child(5) { width: 18px; height: 18px; top: 20%; left: 90%; animation-delay: 8s; }
+
+    </style>
+</head>
+<body>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+
+    <div class="container">
+        <div class="error-code">404</div>
+        <h1>Trang này lạc mất rồi!</h1>
+        <p>Chúng tôi rất tiếc, trang bạn tìm kiếm không còn tồn tại hoặc đã được di chuyển đến một địa chỉ khác.</p>
+        <a href="/" class="home-button">Quay lại trang chủ</a>
+    </div>
+</body>
+</html>
