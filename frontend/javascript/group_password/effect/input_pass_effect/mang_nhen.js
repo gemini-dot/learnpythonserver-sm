@@ -3,7 +3,7 @@ particlesJS("particles-js", {
         "number": { "value": 100 },
         "color": { "value": "#ffffff" },
         "shape": { "type": "circle" },
-        "opacity": { "value": 0.5 },
+        "opacity": { "value": 0.2 },
         "size": { "value": 2 }, // Cho hạt nhỏ lại xíu nhìn cho sang
         "line_linked": {
             "enable": true,
