@@ -7,16 +7,21 @@ def kiem_tra_de_doi_mat_khau(token, gmail, new_password):
     try:
         ket_qua = thu_muc_can_kiem_tra.find_one({'gmail': gmail})
         if not ket_qua:
-            return {'success': False, 'message': 'Yêu cầu không tồn tại hoặc đã hết hạn!'}
+            return {'success': False, 'message': 'Yêu cầu không tồn tại!'}
         
         token_trong_db = ket_qua.get('token_nguoi_dung')
         trang_thai_token = ket_qua.get('trang_thai1')
+        trang_thai_thoi_gian = ket_qua.get('trang_thai2')
+
+        if trang_thai_thoi_gian == 'da_het_han':
+            return {'success': False, 'message': 'Token đã hết hạn!'}
 
         if str(token) != str(token_trong_db):
             return {'success': False, 'message': 'Token không hợp lệ!'}
+        
         if trang_thai_token != 'sap_su_dung':
             return {'success': False, 'message': 'Token không hợp lệ để đổi mật khẩu!'}
-        
+
         salt = make_salt()
         new_hash_pass = hash_password(new_password, salt)
 
