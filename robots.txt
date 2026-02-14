@@ -1,12 +1,12 @@
-# Cho phép tất cả các loại bot
 User-agent: *
+Disallow: /.git/
+Disallow: /backend/
+Disallow: /backend/controllers/group_admin/
+Disallow: /backend/routes/group_admin/
+Disallow: /frontend/javascript/group_admin/
+Disallow: /frontend/styles/group_admin/
+Disallow: /frontend/view/group_admin/
+Disallow: /node_modules/
+Disallow: /venv/
 
-# Cấm tụi nó vào thư mục admin
-Disallow: /group_admin/
-Disallow: /private/
-
-# Chỉ cho phép vào xem ảnh
-Allow: /assets/images/
-
-# Chỉ đường cho bot biết bản đồ trang web ở đâu
-Sitemap: https://tenmien.com/sitemap.xml
+Sitemap: https://gemini-dot.github.io/learnpythonserver-sm/sitemap.xml
