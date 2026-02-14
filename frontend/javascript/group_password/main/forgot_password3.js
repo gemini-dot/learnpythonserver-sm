@@ -54,7 +54,7 @@ nut_bam_reset.addEventListener("submit", async function(event) {
             const data = await response.json();
             showToast('error', "Lỗi rồi: " + (data.message || data.error ||"Không thể đổi mật khẩu!"));
             window.location.href = '../error/404.html';
-        }
+        }//
     } catch (error) {
         console.error("Lỗi:", error);
         showToast('error', "Không kết nối được server!");

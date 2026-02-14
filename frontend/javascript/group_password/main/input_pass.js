@@ -24,7 +24,7 @@ if (formDangNhap) {
         
         const API_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
             ? 'http://localhost:5000'//server test ở nhà:)
-            : 'https://learnpythonserver-sm.onrender.com';
+            : 'https://learnpythonserver-sm.onrender.com'; //
 
         fetch(`${API_URL}/auth/input-pass`, {
             method: 'POST',

@@ -42,5 +42,5 @@ async function verifyToken() {
         console.error("Lỗi:", error);
         showToast('error', "Không kết nối được server!");
     }
-}
+}//
 window.onload = verifyToken;

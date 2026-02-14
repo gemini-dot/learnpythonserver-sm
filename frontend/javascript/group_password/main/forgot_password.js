@@ -75,4 +75,4 @@ form.addEventListener('submit', async function(event) {
 
 function closeModal() {
     document.getElementById('successModal').style.display = 'none';
-}
+}//
