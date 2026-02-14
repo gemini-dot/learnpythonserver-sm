@@ -53,3 +53,13 @@
 2026-01-27 21:24:24,259 - [server.py:43] - INFO - System: Server khởi động tại https://learnpythonsever-sm.onrender.com:5000
 2026-01-28 00:00:01,891 - [server.py:43] - INFO - Database: Kết nối thành công! ✅
 2026-01-28 00:00:01,893 - [server.py:45] - INFO - System: Server khởi động tại https://learnpythonsever-sm.onrender.com:5000
+2026-02-07 17:53:51,794 - [db.py:14] - ERROR - system: not found file .env
+2026-02-07 17:56:15,830 - [db.py:14] - ERROR - system: not found file .env
+2026-02-07 18:02:35,369 - [db.py:14] - ERROR - system: not found file .env
+2026-02-14 14:15:04,199 - [server.py:43] - INFO - Database: Kết nối thành công! ✅
+2026-02-14 14:15:04,201 - [server.py:45] - INFO - System: Server khởi động tại https://learnpythonsever-sm.onrender.com:5000
+2026-02-14 14:15:55,107 - [login.py:12] - INFO - system: find to connect mongodb 
+2026-02-14 14:16:03,343 - [login.py:12] - INFO - system: find to connect mongodb 
+2026-02-14 14:16:20,392 - [login.py:12] - INFO - system: find to connect mongodb 
+2026-02-14 14:17:10,901 - [login.py:12] - INFO - system: find to connect mongodb 
+2026-02-14 14:17:21,624 - [login.py:12] - INFO - system: find to connect mongodb 
