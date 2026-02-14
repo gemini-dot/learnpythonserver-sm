@@ -1,0 +1,15 @@
+{
+  "name": "learnpythonserver-sm",
+  "version": "1.0.0",
+  "description": "[![Flask](https://img.shields.io/badge/Flask-v3.0+-000000?style=for-the-badge&logo=flask)](https://flask.palletsprojects.com/)\r [![Python](https://img.shields.io/badge/Python-3.10+-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "prettier": "3.8.1"
+  }
+}

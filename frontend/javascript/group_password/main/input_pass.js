@@ -1,57 +1,69 @@
 import { showToast } from '../../popup/popup.js';
 
 // Thêm const vào trước các biến để khai báo nè og
-const userpass = document.getElementById("password");
-const useremail = document.getElementById("email");
-const formDangNhap = document.getElementById("dang-nhap"); // Đổi tên cho đỡ nhầm với nút bấm
+const userpass = document.getElementById('password');
+const useremail = document.getElementById('email');
+const formDangNhap = document.getElementById('dang-nhap'); // Đổi tên cho đỡ nhầm với nút bấm
 
 if (formDangNhap) {
-    formDangNhap.addEventListener('submit', function(event) {
-        // Chặn hành động reload mặc định của form
-        event.preventDefault();
+  formDangNhap.addEventListener('submit', function (event) {
+    // Chặn hành động reload mặc định của form
+    event.preventDefault();
 
-        showToast('info', 'Đang gửi xác thực...');
+    showToast('info', 'Đang gửi xác thực...');
 
-        const lay_gia_tri_pass = userpass.value;
-        const lay_gia_tri_user = useremail.value;
+    const lay_gia_tri_pass = userpass.value;
+    const lay_gia_tri_user = useremail.value;
 
-        const goi_du_lieu = {
-            "gmail": lay_gia_tri_user,
-            "password": lay_gia_tri_pass    
-        };
-        
-        console.log("Đang gửi dữ liệu:", goi_du_lieu);
-        
-        const API_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
-            ? 'http://localhost:5000'//server test ở nhà:)
-            : 'https://learnpythonserver-sm.onrender.com'; //
+    const goi_du_lieu = {
+      gmail: lay_gia_tri_user,
+      password: lay_gia_tri_pass,
+    };
 
-        fetch(`${API_URL}/auth/input-pass`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(goi_du_lieu)
-        })
-        .then(response => {
-            if (response.status === 200) {
-                return response.json().then(data => {
-                    showToast('success','Đăng nhập thành công! Chào mừng bạn quay trở lại.')
-                    const token = data.token;
-                    const role = data.role;
-                    window.location.href = "https://gemini-dot.github.io/learnpythonserver-sm/frontend/view/upload/index.html?gmail=" + encodeURIComponent(lay_gia_tri_user) + "&token=" + encodeURIComponent(token) + "&role=" + encodeURIComponent(role)
-                });
-            } 
-            else if (response.status === 401) {
-                return response.json().then(data => {
-                    showToast('error',"Thất bại: " + (data.message || "Sai tài khoản hoặc mật khẩu!"))
-                });
-            } 
-            else {
-                showToast('error',`Lỗi hệ thống: Mã lỗi ${response.status}`)
-            }
-        })
-        .catch(error => {
-            console.error("Lỗi kết nối mạng rồi bạn ơi:", error);
-            showToast('error',`Lỗi kết nối mạng rồi bạn ơi: ${error}`)
-        });
-    });
+    console.log('Đang gửi dữ liệu:', goi_du_lieu);
+
+    const API_URL =
+      window.location.hostname === 'localhost' ||
+      window.location.hostname === '127.0.0.1'
+        ? 'http://localhost:5000' //server test ở nhà:)
+        : 'https://learnpythonserver-sm.onrender.com'; //
+
+    fetch(`${API_URL}/auth/input-pass`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(goi_du_lieu),
+    })
+      .then((response) => {
+        if (response.status === 200) {
+          return response.json().then((data) => {
+            showToast(
+              'success',
+              'Đăng nhập thành công! Chào mừng bạn quay trở lại.'
+            );
+            const token = data.token;
+            const role = data.role;
+            window.location.href =
+              'https://gemini-dot.github.io/learnpythonserver-sm/frontend/view/upload/index.html?gmail=' +
+              encodeURIComponent(lay_gia_tri_user) +
+              '&token=' +
+              encodeURIComponent(token) +
+              '&role=' +
+              encodeURIComponent(role);
+          });
+        } else if (response.status === 401) {
+          return response.json().then((data) => {
+            showToast(
+              'error',
+              'Thất bại: ' + (data.message || 'Sai tài khoản hoặc mật khẩu!')
+            );
+          });
+        } else {
+          showToast('error', `Lỗi hệ thống: Mã lỗi ${response.status}`);
+        }
+      })
+      .catch((error) => {
+        console.error('Lỗi kết nối mạng rồi bạn ơi:', error);
+        showToast('error', `Lỗi kết nối mạng rồi bạn ơi: ${error}`);
+      });
+  });
 }
