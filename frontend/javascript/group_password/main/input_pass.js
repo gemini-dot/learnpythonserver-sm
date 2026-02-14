@@ -35,7 +35,8 @@ if (formDangNhap) {
             if (response.status === 200) {
                 return response.json().then(data => {
                     showToast('success','Đăng nhập thành công! Chào mừng bạn quay trở lại.')
-                    window.location.href = "../upload/index.html"
+                    const token = data.token;
+                    window.location.href = "https://gemini-dot.github.io/learnpythonserver-sm/frontend/view/upload/index.html?gmail=" + encodeURIComponent(lay_gia_tri_user) + "&token=" + encodeURIComponent(token)
                 });
             } 
             else if (response.status === 401) {
