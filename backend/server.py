@@ -8,9 +8,9 @@ from configs.db import db
 from routes.group_password.input_pass import app_route
 from routes.group_password.create_a_password import app_route2
 from logs.logger import logger
-from routes.group_password.forgot_password import app_route4
-from routes.group_password.forgot_pass2 import app_route3
-from routes.group_password.forgot_password3 import app_route5
+from routes.group_password.forgot_password.forgot_password import app_route4
+from routes.group_password.forgot_password.forgot_pass2 import app_route3
+from routes.group_password.forgot_password.forgot_password3 import app_route5
 from routes.ping.ping import khoi_dong
 
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')

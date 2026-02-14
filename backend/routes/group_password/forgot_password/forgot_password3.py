@@ -1,7 +1,7 @@
 from flask import Blueprint
 #import nội bộ
 from middleware.rate_limiting import limit_requests
-from controllers.group_password.forgot_password3 import doi_mat_khau_moi
+from controllers.group_password.forgot_password.forgot_password3 import doi_mat_khau_moi
 
 app_route5 = Blueprint("auth_xac_nhan_token", __name__)
 @app_route5.route("/tim-mat-khau3", methods=["POST"])

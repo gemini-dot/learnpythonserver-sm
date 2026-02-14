@@ -1,5 +1,5 @@
 from flask import request, jsonify
-from services.group_mk.forgot_password2 import kiem_tra_xac_nhan
+from services.group_mk.forgot_password.forgot_password2 import kiem_tra_xac_nhan
 
 def xac_thuc():
     gmail = request.args.get('gmail')

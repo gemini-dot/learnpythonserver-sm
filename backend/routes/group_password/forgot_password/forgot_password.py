@@ -1,7 +1,7 @@
 from flask import Blueprint
 #import nội bộ
 from middleware.rate_limiting import limit_requests
-from controllers.group_password.forgot_password import gui_yeu_cau
+from controllers.group_password.forgot_password.forgot_password import gui_yeu_cau
 
 app_route4 = Blueprint("auth_tim_mk", __name__)
 

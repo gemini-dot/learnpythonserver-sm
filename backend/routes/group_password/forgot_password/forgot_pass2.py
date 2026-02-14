@@ -1,7 +1,7 @@
 from flask import Blueprint
 from flask_cors import CORS, cross_origin
 #import nội bộ
-from controllers.group_password.forget_password2 import xac_thuc
+from controllers.group_password.forgot_password.forget_password2 import xac_thuc
 from middleware.rate_limiting import limit_requests
 
 

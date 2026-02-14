@@ -1,6 +1,6 @@
 import token
 from flask import request, jsonify
-from services.group_mk.forgot_password3 import kiem_tra_de_doi_mat_khau
+from services.group_mk.forgot_password.forgot_password3 import kiem_tra_de_doi_mat_khau
 from logs.logger import logger
 
 def doi_mat_khau_moi():
