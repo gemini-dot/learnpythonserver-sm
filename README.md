@@ -48,4 +48,17 @@ python3 backend/app.py
 └── requirements.txt    # Danh sách các thư viện cần cài đặt
 ```
 
+---
 
+## 👨‍💻 About Me
+
+> "Cố gắng chinh phụ python"
+
+Tôi là một lập trình viên 15 tuổi đến từ Việt Nam với niềm đam mê mãnh liệt dành cho máy tính và hệ điều hành **Ubuntu**.
+
+- 🎯 **Mục tiêu hiện tại:** làm chủ hệ sinh thái Python/Flask.
+- 💻 **Hệ điều hành:** Chăm chỉ "vọc" Terminal trên Ubuntu mỗi ngày.
+- 🛠️ **Sở thích:** Coding, tìm hiểu về bảo mật server và tối ưu hóa UI/UX (như cái Toast mượt mà bạn thấy ở dự án này đấy!).
+- 📧 **Kết nối:** https://www.facebook.com/cu.sam.801505
+
+*“Không chỉ là code, đó là hành trình chinh phục những giới hạn của bản thân.”*
