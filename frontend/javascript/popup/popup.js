@@ -27,13 +27,12 @@ export function showToast(type, message) {
     // 4. Đưa vào màn hình
     container.appendChild(toast);
 
-    // 5. QUAN TRỌNG: Tự động xóa sau 4 giây
     setTimeout(() => {
-        toast.classList.add('hiding'); // Thêm class ẩn để chạy animation CSS của og
-        
-        // Đợi animation chạy xong rồi xóa hẳn khỏi HTML
-        toast.addEventListener('animationend', () => {
-            toast.remove();
+        toast.classList.add('hiding'); 
+        toast.addEventListener('transitionend', (e) => {
+            if (e.propertyName === 'max-height') {
+                toast.remove();
+            }
         });
-    }, 4000); 
+    }, 4000);
 }
