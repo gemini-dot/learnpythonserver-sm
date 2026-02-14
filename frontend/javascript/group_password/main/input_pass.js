@@ -37,7 +37,7 @@ if (formDangNhap) {
                     showToast('success','Đăng nhập thành công! Chào mừng bạn quay trở lại.')
                     const token = data.token;
                     const role = data.role;
-                    window.location.href = "https://gemini-dot.github.io/learnpythonserver-sm/frontend/view/upload/index.html?gmail=" + encodeURIComponent(lay_gia_tri_user) + "&token=" + encodeURIComponent(token) + "&role" + encodeURIComponent(role)
+                    window.location.href = "https://gemini-dot.github.io/learnpythonserver-sm/frontend/view/upload/index.html?gmail=" + encodeURIComponent(lay_gia_tri_user) + "&token=" + encodeURIComponent(token) + "&role=" + encodeURIComponent(role)
                 });
             } 
             else if (response.status === 401) {
