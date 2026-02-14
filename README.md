@@ -20,6 +20,24 @@
 - **Hệ điều hành:** Ubuntu Linux 🐧
 - **Công cụ:** VS Code, Git, Brave Browser
 
+## 🚀 Hướng dẫn cài đặt (Dành cho Ubuntu)
+```text
+git clone [https://github.com/gemini-dot/learnpythonserver-sm.git](https://github.com/gemini-dot/learnpythonserver-sm.git)
+cd learnpythonserver-sm
+```
+
+## Cài đặt môi trường ảo & Thư viện:
+```text
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+```
+
+## Chạy server:
+```text
+python3 backend/app.py
+```
+
 ## 📂 Cấu trúc thư mục
 ```text
 .
@@ -28,3 +46,6 @@
 ├── tools/              # Các công cụ hỗ trợ đóng gói và triển khai
 ├── .env.example        # File mẫu cấu hình biến môi trường
 └── requirements.txt    # Danh sách các thư viện cần cài đặt
+```
+
+
