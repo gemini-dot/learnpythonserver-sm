@@ -1,7 +1,5 @@
 # 🚀 LearnPythonServer-SM
 
-# 🚀 LearnPythonServer-SM
-
 [![Flask](https://img.shields.io/badge/Flask-v3.0+-000000?style=for-the-badge&logo=flask)](https://flask.palletsprojects.com/)
 [![Python](https://img.shields.io/badge/Python-3.10+-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
 
