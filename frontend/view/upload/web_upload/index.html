@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Upload File</title>
+    <link
+      rel="stylesheet"
+      href="../../../styles/upload/web_upload/styles.css"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <div class="upload-box">
+        <div class="logo">
+          <div class="logo-circle">
+            <svg
+              width="30"
+              height="30"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#ffffff"
+              stroke-width="2"
+            >
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="17 8 12 3 7 8"></polyline>
+              <line x1="12" y1="3" x2="12" y2="15"></line>
+            </svg>
+          </div>
+        </div>
+
+        <h1>Tải lên file của bạn</h1>
+        <p class="subtitle">Kéo thả file hoặc nhấp để chọn file</p>
+
+        <div class="upload-area" id="uploadArea">
+          <div class="upload-content">
+            <svg
+              class="upload-icon"
+              width="64"
+              height="64"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+            >
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="17 8 12 3 7 8"></polyline>
+              <line x1="12" y1="3" x2="12" y2="15"></line>
+            </svg>
+            <h3>Kéo thả file vào đây</h3>
+            <p>hoặc</p>
+            <button
+              class="browse-btn"
+              onclick="document.getElementById('fileInput').click()"
+            >
+              Chọn file
+            </button>
+            <input type="file" id="fileInput" multiple hidden />
+            <p class="file-info">
+              Hỗ trợ: PDF, DOC, DOCX, XLS, XLSX, JPG, PNG, ZIP (Tối đa 10MB)
+            </p>
+          </div>
+        </div>
+
+        <div class="files-list" id="filesList"></div>
+
+        <div class="upload-actions" id="uploadActions" style="display: none">
+          <button class="clear-btn" onclick="clearFiles()">
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <polyline points="3 6 5 6 21 6"></polyline>
+              <path
+                d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+              ></path>
+            </svg>
+            <span>Xóa tất cả</span>
+          </button>
+          <button class="submit-btn" onclick="uploadFiles()">
+            <span>Tải lên</span>
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="7 10 12 15 17 10"></polyline>
+              <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+          </button>
+        </div>
+
+        <div class="back-link">
+          <a href="#" onclick="goBack()">
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <line x1="19" y1="12" x2="5" y2="12"></line>
+              <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+            <span>Quay lại trang chủ</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="decorative-bg">
+        <div class="circle circle-1"></div>
+        <div class="circle circle-2"></div>
+        <div class="circle circle-3"></div>
+      </div>
+    </div>
+
+    <div id="successModal" class="modal">
+      <div class="modal-content">
+        <div class="success-icon">
+          <svg
+            width="60"
+            height="60"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="#000000"
+            stroke-width="2"
+          >
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+            <polyline points="22 4 12 14.01 9 11.01"></polyline>
+          </svg>
+        </div>
+        <h2>Tải lên thành công!</h2>
+        <p id="modalMessage">
+          Đã tải lên <strong id="fileCount"></strong> file thành công.
+        </p>
+        <button class="modal-btn" onclick="closeModal()">Hoàn tất</button>
+      </div>
+    </div>
+
+    <div class="footer">
+      <p>
+        © <span id="year"></span> <strong>learnpythonserver-sm</strong>. All
+        rights reserved.
+      </p>
+      <p>
+        Designed by
+        <a href="https://www.facebook.com/cu.sam.801505">Lại Văn Sâm</a>
+      </p>
+    </div>
+
+    <script>
+      document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+    <script src="../../../javascript/group_password/effect/input_pass_effect/canh_bao_dep.js"></script>
+    <script src="../../../javascript/upload/web_upload/main.js"></script>
+  </body>
+</html>

@@ -61,7 +61,7 @@ if (formDangNhap) {
             const role = data.role;
             setTimeout(() => {
               window.location.href =
-                'https://gemini-dot.github.io/learnpythonserver-sm/frontend/view/upload/index.html?gmail=' +
+                'https://gemini-dot.github.io/learnpythonserver-sm/frontend/view/upload/web_upload/index.html?gmail=' +
                 encodeURIComponent(lay_gia_tri_user) +
                 '&token=' +
                 encodeURIComponent(token) +

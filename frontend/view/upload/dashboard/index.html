@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>File Manager</title>
+    <link rel="stylesheet" href="../../../styles/upload/dashboard/style.css" />
+  </head>
+  <body>
+    <!-- Background particles -->
+    <div class="bg-particles" id="particles"></div>
+
+    <div class="container">
+      <!-- Header -->
+      <div class="header">
+        <div class="logo">
+          <div class="logo-icon">📁</div>
+          <div class="logo-text">File Manager</div>
+        </div>
+        <div class="header-actions">
+          <button class="btn" onclick="toggleView()">
+            <svg
+              id="viewIcon"
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+              <circle cx="12" cy="12" r="3"></circle>
+            </svg>
+            Chế độ xem
+          </button>
+          <button
+            class="btn btn-primary"
+            onclick="
+              window.location.href =
+                'https://gemini-dot.github.io/learnpythonserver-sm/frontend/view/upload/web_upload/index.html'
+            "
+          >
+            <span style="font-size: 18px; font-weight: bold">+</span> Tải lên
+          </button>
+        </div>
+      </div>
+
+      <!-- Stats -->
+      <div class="stats-bar">
+        <div class="stat-card">
+          <div class="stat-label">Tổng dung lượng</div>
+          <div class="stat-value">250 GB</div>
+          <div class="stat-progress">
+            <div class="stat-progress-bar" style="width: 65%"></div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Đã sử dụng</div>
+          <div class="stat-value">162.5 GB</div>
+          <div class="stat-progress">
+            <div class="stat-progress-bar" style="width: 65%"></div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Số file</div>
+          <div class="stat-value">1,247</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Thư mục</div>
+          <div class="stat-value">89</div>
+        </div>
+      </div>
+
+      <!-- Controls -->
+      <div class="controls">
+        <div class="search-box">
+          <input
+            type="text"
+            class="search-input"
+            placeholder="Tìm kiếm file..."
+            id="searchInput"
+          />
+          <span class="search-icon">🔍</span>
+        </div>
+        <div class="filter-group">
+          <button class="filter-btn active" onclick="filterFiles('all')">
+            Tất cả
+          </button>
+          <button class="filter-btn" onclick="filterFiles('documents')">
+            Tài liệu
+          </button>
+          <button class="filter-btn" onclick="filterFiles('images')">
+            Hình ảnh
+          </button>
+          <button class="filter-btn" onclick="filterFiles('videos')">
+            Video
+          </button>
+          <button class="filter-btn" onclick="filterFiles('others')">
+            Khác
+          </button>
+        </div>
+      </div>
+
+      <!-- Recent Files -->
+      <div class="files-section">
+        <div class="section-header">
+          <h2 class="section-title">Gần đây</h2>
+          <div class="view-toggle">
+            <button class="view-btn active" onclick="setGridView()">
+              Grid
+            </button>
+            <button class="view-btn" onclick="setListView()">List</button>
+          </div>
+        </div>
+
+        <!-- Grid View -->
+        <div class="files-grid active" id="filesGrid">
+          <div class="file-card" data-type="documents">
+            <div class="file-checkbox" onclick="toggleSelect(this)"></div>
+            <div class="file-icon">📄</div>
+            <div class="file-name">Báo cáo Q4 2024.pdf</div>
+            <div class="file-info">
+              <span>2.4 MB</span>
+              <span>Hôm qua</span>
+            </div>
+          </div>
+
+          <div class="file-card" data-type="images">
+            <div class="file-checkbox" onclick="toggleSelect(this)"></div>
+            <div class="file-icon">🖼️</div>
+            <div class="file-name">Design_mockup.png</div>
+            <div class="file-info">
+              <span>8.7 MB</span>
+              <span>2 ngày trước</span>
+            </div>
+          </div>
+
+          <div class="file-card" data-type="videos">
+            <div class="file-checkbox" onclick="toggleSelect(this)"></div>
+            <div class="file-icon">🎬</div>
+            <div class="file-name">Presentation_video.mp4</div>
+            <div class="file-info">
+              <span>145 MB</span>
+              <span>3 ngày trước</span>
+            </div>
+          </div>
+
+          <div class="file-card" data-type="documents">
+            <div class="file-checkbox" onclick="toggleSelect(this)"></div>
+            <div class="file-icon">📊</div>
+            <div class="file-name">Data_analysis.xlsx</div>
+            <div class="file-info">
+              <span>1.2 MB</span>
+              <span>5 ngày trước</span>
+            </div>
+          </div>
+
+          <div class="file-card" data-type="others">
+            <div class="file-checkbox" onclick="toggleSelect(this)"></div>
+            <div class="file-icon">📦</div>
+            <div class="file-name">Project_backup.zip</div>
+            <div class="file-info">
+              <span>256 MB</span>
+              <span>1 tuần trước</span>
+            </div>
+          </div>
+
+          <div class="file-card" data-type="documents">
+            <div class="file-checkbox" onclick="toggleSelect(this)"></div>
+            <div class="file-icon">📝</div>
+            <div class="file-name">Meeting_notes.docx</div>
+            <div class="file-info">
+              <span>456 KB</span>
+              <span>1 tuần trước</span>
+            </div>
+          </div>
+
+          <div class="file-card" data-type="images">
+            <div class="file-checkbox" onclick="toggleSelect(this)"></div>
+            <div class="file-icon">📷</div>
+            <div class="file-name">Team_photo.jpg</div>
+            <div class="file-info">
+              <span>4.3 MB</span>
+              <span>2 tuần trước</span>
+            </div>
+          </div>
+
+          <div class="file-card" data-type="documents">
+            <div class="file-checkbox" onclick="toggleSelect(this)"></div>
+            <div class="file-icon">📑</div>
+            <div class="file-name">Contract_draft.pdf</div>
+            <div class="file-info">
+              <span>3.1 MB</span>
+              <span>2 tuần trước</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- List View -->
+        <div class="files-list" id="filesList">
+          <div class="file-row" data-type="documents">
+            <div class="file-row-icon">📄</div>
+            <div class="file-row-details">
+              <div class="file-row-name">Báo cáo Q4 2024.pdf</div>
+              <div class="file-row-meta">2.4 MB • Hôm qua • Tài liệu</div>
+            </div>
+            <div class="file-row-actions">
+              <button class="action-btn">Tải xuống</button>
+              <button class="action-btn">Chia sẻ</button>
+              <button class="action-btn">Xóa</button>
+            </div>
+          </div>
+
+          <div class="file-row" data-type="images">
+            <div class="file-row-icon">🖼️</div>
+            <div class="file-row-details">
+              <div class="file-row-name">Design_mockup.png</div>
+              <div class="file-row-meta">8.7 MB • 2 ngày trước • Hình ảnh</div>
+            </div>
+            <div class="file-row-actions">
+              <button class="action-btn">Tải xuống</button>
+              <button class="action-btn">Chia sẻ</button>
+              <button class="action-btn">Xóa</button>
+            </div>
+          </div>
+
+          <div class="file-row" data-type="videos">
+            <div class="file-row-icon">🎬</div>
+            <div class="file-row-details">
+              <div class="file-row-name">Presentation_video.mp4</div>
+              <div class="file-row-meta">145 MB • 3 ngày trước • Video</div>
+            </div>
+            <div class="file-row-actions">
+              <button class="action-btn">Tải xuống</button>
+              <button class="action-btn">Chia sẻ</button>
+              <button class="action-btn">Xóa</button>
+            </div>
+          </div>
+
+          <div class="file-row" data-type="documents">
+            <div class="file-row-icon">📊</div>
+            <div class="file-row-details">
+              <div class="file-row-name">Data_analysis.xlsx</div>
+              <div class="file-row-meta">1.2 MB • 5 ngày trước • Tài liệu</div>
+            </div>
+            <div class="file-row-actions">
+              <button class="action-btn">Tải xuống</button>
+              <button class="action-btn">Chia sẻ</button>
+              <button class="action-btn">Xóa</button>
+            </div>
+          </div>
+
+          <div class="file-row" data-type="others">
+            <div class="file-row-icon">📦</div>
+            <div class="file-row-details">
+              <div class="file-row-name">Project_backup.zip</div>
+              <div class="file-row-meta">256 MB • 1 tuần trước • Khác</div>
+            </div>
+            <div class="file-row-actions">
+              <button class="action-btn">Tải xuống</button>
+              <button class="action-btn">Chia sẻ</button>
+              <button class="action-btn">Xóa</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="../../../javascript/upload/dashboard/main.js"></script>
+  </body>
+</html>
