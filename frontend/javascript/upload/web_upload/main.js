@@ -6,8 +6,9 @@ async function secretMaintenanceCheck() {
       'https://learnpythonserver-sm.onrender.com/ping/khoi-dong'
     );
     if (response.status === 503) {
-      window.location.href =
-        'https://gemini-dot.github.io/learnpythonserver-sm/frontend/view/error/503.html'; // Chuyển hướng sang trang bảo trì
+      window.location.replace(
+        'https://gemini-dot.github.io/learnpythonserver-sm/frontend/view/error/503.html'
+      ); // Chuyển hướng sang trang bảo trì
     }
   } catch (error) {
     console.log('Server đang khởi động hoặc gặp sự cố kết nối.');
@@ -56,13 +57,15 @@ async function checkAccess() {
     if (response.status === 200) {
       showToast('success', 'thành công! Chào mừng bạn quay trở lại.');
     } else {
-      window.location.href =
-        'https://gemini-dot.github.io/learnpythonserver-sm/frontend/view/error/401.html';
+      window.location.replace(
+        'https://gemini-dot.github.io/learnpythonserver-sm/frontend/view/error/401.html'
+      );
     }
   } catch (error) {
     console.error('Lỗi kết nối server:', error);
-    window.location.href =
-      'https://gemini-dot.github.io/learnpythonserver-sm/frontend/view/error/500.html';
+    window.location.replace(
+      'https://gemini-dot.github.io/learnpythonserver-sm/frontend/view/error/500.html'
+    );
   }
 }
 
