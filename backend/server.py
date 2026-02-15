@@ -1,4 +1,4 @@
-from flask import Flask, send_from_directory, render_template
+from flask import Flask, send_from_directory, render_template, abort, request
 from flask_cors import CORS
 import os
 import sys
@@ -42,6 +42,31 @@ def unauthorized_error(e):
 @app.errorhandler(503)
 def service_unavailable_error(e):
     return render_template("503.html"), 503
+
+IS_MAINTENANCE = "0"
+
+@app.before_request
+def check_for_maintenance():
+    if IS_MAINTENANCE == "1" and request.path != '/unlock-server':
+        abort(503)
+
+@app.route('/lock-server')
+def lock():
+    global IS_MAINTENANCE
+    pw = request.args.get('key')
+    if pw == "on-adminislaivansam1192011":
+        IS_MAINTENANCE = "1"
+        return "Đã bật chế độ bảo trì!", 200
+    return "Sai mật khẩu!", 403
+
+@app.route('/unlock-server')
+def unlock():
+    global IS_MAINTENANCE
+    pw = request.args.get('key')
+    if pw == "off-adminislaivansam1192011":
+        IS_MAINTENANCE = "0"
+        return "Đã mở cửa server!", 200
+    return "Sai mật khẩu!", 403
 
 @app.route('/')
 def home():
