@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>404 - Không Tìm Thấy Trang</title>
+    <style>
+      /* Reset cơ bản */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        background-color: #ffffff; /* Nền trắng */
+        color: #000000; /* Chữ đen */
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        text-align: center;
+      }
+
+      .error-container {
+        padding: 40px;
+        max-width: 600px;
+        width: 90%;
+      }
+
+      .error-code {
+        font-size: 120px;
+        font-weight: bold;
+        margin-bottom: 20px;
+        letter-spacing: -5px;
+        line-height: 1; /* Đảm bảo số không bị giãn */
+      }
+
+      .error-message {
+        font-size: 24px;
+        margin-bottom: 15px;
+        font-weight: 600;
+      }
+
+      .error-description {
+        font-size: 15px;
+        line-height: 1.6;
+        color: #555; /* Xám nhẹ cho mô tả */
+        margin-bottom: 30px;
+      }
+
+      .action-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 20px; /* Khoảng cách giữa các nút */
+        flex-wrap: wrap; /* Cho phép xuống dòng trên màn hình nhỏ */
+      }
+
+      .btn {
+        display: inline-block;
+        padding: 12px 25px;
+        border: 1px solid #000;
+        text-decoration: none;
+        font-weight: bold;
+        transition: all 0.3s ease;
+        border-radius: 5px; /* Bo tròn nhẹ */
+      }
+
+      .primary-btn {
+        background-color: #000;
+        color: #fff;
+      }
+
+      .primary-btn:hover {
+        background-color: #333;
+        border-color: #333;
+      }
+
+      .secondary-btn {
+        background-color: transparent;
+        color: #000;
+      }
+
+      .secondary-btn:hover {
+        background-color: #eee;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="error-container">
+      <h1 class="error-code">404</h1>
+      <p class="error-message">Rất tiếc, chúng tôi không tìm thấy trang này.</p>
+      <p class="error-description">
+        Có vẻ như đường dẫn đã bị thay đổi hoặc không còn tồn tại. <br />Hãy thử
+        quay lại trang chủ hoặc liên hệ với chúng tôi nếu bạn cần hỗ trợ.
+      </p>
+      <div class="action-buttons">
+        <a href="/" class="btn primary-btn">Quay về Trang Chủ</a>
+        <a href="/auth/contact" class="btn secondary-btn">Liên hệ Hỗ trợ</a>
+      </div>
+    </div>
+  </body>
+</html>

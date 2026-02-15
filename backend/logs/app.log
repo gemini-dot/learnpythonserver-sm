@@ -85,3 +85,7 @@
 2026-02-15 10:52:13,992 - [login.py:14] - INFO - system: find to connect mongodb 
 2026-02-15 11:45:18,051 - [server.py:55] - INFO - Database: Kết nối thành công! ✅
 2026-02-15 11:45:18,052 - [server.py:57] - INFO - System: Server khởi động tại https://learnpythonsever-sm.onrender.com:5000
+2026-02-15 11:56:44,571 - [server.py:53] - INFO - Database: Kết nối thành công! ✅
+2026-02-15 11:56:44,574 - [server.py:55] - INFO - System: Server khởi động tại https://learnpythonsever-sm.onrender.com:5000
+2026-02-15 11:57:23,790 - [server.py:53] - INFO - Database: Kết nối thành công! ✅
+2026-02-15 11:57:23,793 - [server.py:55] - INFO - System: Server khởi động tại https://learnpythonsever-sm.onrender.com:5000

@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>500 - Lỗi Máy Chủ Nội Bộ</title>
+    <style>
+      /* CSS cho trang 500 - nhúng trực tiếp */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        background-color: #ffffff; /* Nền trắng */
+        color: #000000; /* Chữ đen */
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        text-align: center;
+      }
+
+      .error-container {
+        padding: 40px;
+        max-width: 600px;
+        width: 90%;
+      }
+
+      .error-code {
+        font-size: 100px; /* Nhỏ hơn 404 một chút để phân biệt */
+        font-weight: bold;
+        margin-bottom: 10px;
+        letter-spacing: -3px;
+        line-height: 1;
+        color: #cc0000; /* Màu đỏ báo hiệu lỗi nghiêm trọng */
+      }
+
+      .error-message {
+        font-size: 24px;
+        margin-bottom: 15px;
+        font-weight: 600;
+      }
+
+      .error-description {
+        font-size: 15px;
+        line-height: 1.6;
+        color: #555; /* Xám nhẹ cho mô tả */
+        margin-bottom: 30px;
+      }
+
+      .action-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        flex-wrap: wrap;
+      }
+
+      .btn {
+        display: inline-block;
+        padding: 12px 25px;
+        border: 1px solid #000;
+        text-decoration: none;
+        font-weight: bold;
+        transition: all 0.3s ease;
+        border-radius: 5px;
+      }
+
+      .primary-btn {
+        background-color: #000;
+        color: #fff;
+      }
+
+      .primary-btn:hover {
+        background-color: #333;
+        border-color: #333;
+      }
+
+      .secondary-btn {
+        background-color: transparent;
+        color: #000;
+      }
+
+      .secondary-btn:hover {
+        background-color: #eee;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="error-container">
+      <h1 class="error-code">500</h1>
+      <p class="error-message">Server đang bị "hắt hơi sổ mũi" rồi bạn ơi!</p>
+      <p class="error-description">
+        Có vẻ như chúng tôi đang gặp một vấn đề kỹ thuật.
+        <br />Đội ngũ của chúng tôi đã nhận được thông báo và đang cố gắng khắc
+        phục. <br />Vui lòng thử lại sau vài phút hoặc quay về trang chủ.
+      </p>
+      <div class="action-buttons">
+        <a href="/" class="btn primary-btn">Quay về Trang Chủ</a>
+        <a href="javascript:location.reload()" class="btn secondary-btn"
+          >Thử lại Trang này</a
+        >
+      </div>
+    </div>
+  </body>
+</html>

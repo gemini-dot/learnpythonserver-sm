@@ -1,4 +1,4 @@
-from flask import Flask, send_from_directory
+from flask import Flask, send_from_directory, render_template
 from flask_cors import CORS
 import os
 import sys
@@ -14,7 +14,6 @@ from routes.group_password.forgot_password.forgot_password3 import app_route5
 from routes.check_test.cookie import app_route6
 from routes.ping.ping import khoi_dong
 
-FRONTEND_DIR = os.path.join(os.getcwd(), "..", "frontend", "view", "error")
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 
 app = Flask(__name__)
@@ -30,20 +29,19 @@ app.register_blueprint(khoi_dong, url_prefix='/ping')
 
 @app.errorhandler(404)
 def page_not_found(e):
-    return send_from_directory(FRONTEND_DIR, '404.html'), 404
+    return render_template("404.html"), 404
 
 @app.errorhandler(500)
 def internal_server_error(e):
-    print(f"DEBUG: Internal Server Error detected. Serving 500.html from: {FRONTEND_DIR}")
-    return send_from_directory(FRONTEND_DIR, '500.html'), 500
+    return render_template("500.html"), 500
 
 @app.errorhandler(401)
 def unauthorized_error(e):
-    return send_from_directory(FRONTEND_DIR, '401.html'), 401
+    return render_template("401.html"), 401
 
 @app.errorhandler(503)
 def service_unavailable_error(e):
-    return send_from_directory(FRONTEND_DIR, '503.html'), 503
+    return render_template("503.html"), 503
 
 @app.route('/')
 def home():
