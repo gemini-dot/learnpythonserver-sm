@@ -6,7 +6,8 @@ async function secretMaintenanceCheck() {
       'https://learnpythonserver-sm.onrender.com/ping/khoi-dong'
     );
     if (response.status === 503) {
-      window.location.href = '../../../view/error/503.html';
+      window.location.href =
+        'https://gemini-dot.github.io/learnpythonserver-sm/frontend/view/error/503.html';
     }
   } catch (error) {
     console.log('Server đang khởi động hoặc gặp sự cố kết nối.');

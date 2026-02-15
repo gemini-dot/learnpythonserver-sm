@@ -2,17 +2,14 @@ import { showToast } from '../../popup/popup.js';
 
 async function secretMaintenanceCheck() {
   try {
-    // Gửi lệnh lên backend Render của og
     const response = await fetch(
       'https://learnpythonserver-sm.onrender.com/ping/khoi-dong'
     );
-
-    // Nếu backend đang ở chế độ IS_MAINTENANCE = "1", nó sẽ trả về 503
     if (response.status === 503) {
-      window.location.href = '503.html'; // Chuyển hướng sang trang bảo trì
+      window.location.href =
+        'https://gemini-dot.github.io/learnpythonserver-sm/frontend/view/error/503.html'; // Chuyển hướng sang trang bảo trì
     }
   } catch (error) {
-    // Nếu server sập hoàn toàn (Render đang ngủ hoặc lỗi kết nối)
     console.log('Server đang khởi động hoặc gặp sự cố kết nối.');
   }
 }
