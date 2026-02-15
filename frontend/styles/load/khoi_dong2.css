@@ -57,3 +57,12 @@ body {
   opacity: 0;
   transition: opacity 0.8s ease;
 }
+
+.sub-status {
+  margin-top: 10px;
+  font-size: 9px; /* Nhỏ hơn status chính */
+  color: #888; /* Màu xám mờ */
+  letter-spacing: 0.5px;
+  font-style: italic;
+  opacity: 0.8;
+}

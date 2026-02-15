@@ -1,33 +1,52 @@
 async function startGateway() {
   const progressBar = document.getElementById('progress');
   const statusText = document.getElementById('status');
+  const SERVER_ENDPOINT =
+    'https://learnpythonserver-sm.onrender.com/ping/khoi-dong';
 
-  // 1. Giả lập quá trình khởi tạo (Tăng thanh load lên 30%)
-  progressBar.style.width = '30%';
+  let currentWidth = 0;
+  let isConnected = false;
 
-  // 2. Kiểm tra kết nối Server thực tế
-  // Thay 'https://google.com' bằng server của ông
-  const targetUrl = 'https://google.com';
+  // 1. Bộ đếm thời gian cho thanh load chạy đến 99%
+  const loadingInterval = setInterval(() => {
+    if (!isConnected) {
+      if (currentWidth < 80) {
+        currentWidth += Math.random() * 2; // Chạy nhanh lúc đầu
+      } else if (currentWidth < 99) {
+        currentWidth += (99 - currentWidth) * 0.1; // Càng gần 99 càng chậm
+      }
+      progressBar.style.width = currentWidth + '%';
+      statusText.innerText = `CONNECTING... ${Math.floor(currentWidth)}%`;
+    }
+  }, 200);
 
-  try {
-    const response = await fetch(targetUrl, { mode: 'no-cors' });
+  // 2. Vòng lặp kiểm tra Server (Ping)
+  while (!isConnected) {
+    try {
+      const response = await fetch(SERVER_ENDPOINT);
+      if (response.ok) {
+        const data = await response.text();
+        if (data === 'Pong!') {
+          isConnected = true;
+          clearInterval(loadingInterval); // Dừng bộ đếm 99%
 
-    // Nếu kết nối OK, chạy nốt thanh load
-    progressBar.style.width = '100%';
-    statusText.innerText = 'CONNECTION ESTABLISHED. REDIRECTING...';
+          // 3. Vọt lên 100% khi có tín hiệu
+          progressBar.style.width = '100%';
+          statusText.innerText = 'SUCCESS! REDIRECTING...';
+          statusText.style.color = '#000';
 
-    // Đợi 1 giây để người dùng thấy thanh load 100% rồi chuyển trang
-    setTimeout(() => {
-      document.body.classList.add('fade-exit');
-      window.location.href = targetUrl; // CHUYỂN ĐẾN WEB KHÁC
-    }, 1500);
-  } catch (error) {
-    // Nếu không kết nối được
-    progressBar.style.backgroundColor = 'red';
-    statusText.innerText = 'SERVER UNREACHABLE. ACCESS DENIED.';
-    statusText.style.color = 'red';
+          setTimeout(() => {
+            document.body.classList.add('fade-exit');
+            window.location.href =
+              'https://gemini-dot.github.io/learnpythonserver-sm/frontend/view/group_password/input_pass.html'; // Hoặc trang og muốn
+          }, 1000);
+        }
+      }
+    } catch (error) {
+      console.log('Server vẫn đang ngủ, đợi xíu...');
+      await new Promise((res) => setTimeout(res, 2000)); // Thử lại sau 2s
+    }
   }
 }
 
-// Chạy ngay khi mở trang
 window.addEventListener('load', startGateway);
