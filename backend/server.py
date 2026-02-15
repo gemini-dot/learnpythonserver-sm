@@ -1,4 +1,4 @@
-from flask import Flask, send_from_directory, render_template, abort, request
+from flask import Flask, abort, request
 from flask_cors import CORS
 import os
 import sys
