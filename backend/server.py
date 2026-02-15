@@ -27,39 +27,40 @@ app.register_blueprint(app_route5,url_prefix='/auth')
 app.register_blueprint(app_route6, url_prefix='/auth')
 app.register_blueprint(khoi_dong, url_prefix='/ping')
 
-@app.errorhandler(404)
-def page_not_found(e):
-    return "error", 404
 @app.errorhandler(500)
 def internal_server_error(e):
-    return "error", 500
+    return "error_server", 500
+
 @app.errorhandler(401)
 def unauthorized_error(e):
-    return "error", 401
+    return "error_sai_mk", 401
+
 @app.errorhandler(503)
 def service_unavailable_error(e):
-    return "error", 503
+    return "error_bao_tri", 503
 
-IS_MAINTENANCE = "0"
+IS_MAINTENANCE = "website_on"
 
 @app.before_request
 def check_for_maintenance():
-    if IS_MAINTENANCE == "1" and request.path != '/unlock-server':
+    if IS_MAINTENANCE == "website_off" and request.path != '/unlock-server':
         abort(503)
+
 @app.route('/lock-server')
 def lock():
     global IS_MAINTENANCE
     pw = request.args.get('key')
     if pw == "on-adminislaivansam1192011":
-        IS_MAINTENANCE = "1"
+        IS_MAINTENANCE = "website_off"
         return "Đã bật chế độ bảo trì!", 200
     return "Sai mật khẩu!", 403
+
 @app.route('/unlock-server')
 def unlock():
     global IS_MAINTENANCE
     pw = request.args.get('key')
     if pw == "off-adminislaivansam1192011":
-        IS_MAINTENANCE = "0"
+        IS_MAINTENANCE = "website_on"
         return "Đã mở cửa server!", 200
     return "Sai mật khẩu!", 403
 
