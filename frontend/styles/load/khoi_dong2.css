@@ -1,0 +1,59 @@
+/* Reset cơ bản */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #ffffff;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Courier New', Courier, monospace; /* Font kiểu máy tính */
+  color: #000;
+}
+
+.gateway-container {
+  text-align: center;
+  width: 300px;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+  letter-spacing: 5px;
+  margin-bottom: 30px;
+}
+
+/* Thanh load chạy ngang */
+.line-loader {
+  width: 100%;
+  height: 2px;
+  background-color: #eee;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 15px;
+}
+
+#progress {
+  position: absolute;
+  width: 0%;
+  height: 100%;
+  background-color: #000;
+  transition: width 0.3s ease;
+}
+
+#status {
+  font-size: 10px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  opacity: 0.6;
+}
+
+/* Hiệu ứng biến mất trang khi xong */
+.fade-exit {
+  opacity: 0;
+  transition: opacity 0.8s ease;
+}
