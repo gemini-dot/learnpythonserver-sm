@@ -1,3 +1,70 @@
+import { showToast } from '../../../javascript/popup/popup.js';
+
+async function secretMaintenanceCheck() {
+  try {
+    const response = await fetch(
+      'https://learnpythonserver-sm.onrender.com/ping/khoi-dong'
+    );
+    if (response.status === 503) {
+      window.location.href =
+        'https://gemini-dot.github.io/learnpythonserver-sm/frontend/view/error/503.html'; // Chuyển hướng sang trang bảo trì
+    }
+  } catch (error) {
+    console.log('Server đang khởi động hoặc gặp sự cố kết nối.');
+  }
+}
+
+secretMaintenanceCheck();
+
+// 1. Khai báo thông số toàn cục
+const urlParams = new URLSearchParams(window.location.search);
+const userEmail = urlParams.get('gmail');
+const userRole = urlParams.get('role');
+const userToken = urlParams.get('token');
+
+function checkGate() {
+  console.log('Dữ liệu nhận được:', { email: userEmail, token: userToken });
+
+  if (userEmail === null || userToken === null) {
+    console.log('Phát hiện null! Đang chuyển hướng...');
+    window.location.replace(
+      'https://gemini-dot.github.io/learnpythonserver-sm/frontend/view/error/401.html'
+    );
+    return;
+  }
+  checkAccess();
+}
+
+checkGate();
+
+async function checkAccess() {
+  try {
+    const response = await fetch('http://127.0.0.1:5000/security/upload', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        gmail: userEmail,
+        token: userToken,
+      }),
+    });
+
+    const data = await response.json();
+
+    if (response.status === 200) {
+      showToast('success', 'Đăng nhập thành công! Chào mừng bạn quay trở lại.');
+    } else {
+      window.location.href =
+        'https://gemini-dot.github.io/learnpythonserver-sm/frontend/view/error/401.html';
+    }
+  } catch (error) {
+    console.error('Lỗi kết nối server:', error);
+    window.location.href =
+      'https://gemini-dot.github.io/learnpythonserver-sm/frontend/view/error/500.html';
+  }
+}
+
+checkAccess();
+
 let selectedFiles = [];
 const maxFileSize = 10 * 1024 * 1024; // 10MB
 const allowedTypes = [
@@ -70,13 +137,13 @@ function handleFiles(files) {
 function validateFile(file) {
   // Kiểm tra kích thước
   if (file.size > maxFileSize) {
-    alert(`File "${file.name}" vượt quá giới hạn 10MB`);
+    showToast('error', `File "${file.name}" vượt quá giới hạn 10MB`);
     return false;
   }
 
   // Kiểm tra định dạng
   if (!allowedTypes.includes(file.type)) {
-    alert(`File "${file.name}" không đúng định dạng cho phép`);
+    showToast('error', `File "${file.name}" không đúng định dạng cho phép`);
     return false;
   }
 
@@ -151,20 +218,41 @@ function clearFiles() {
 
 function uploadFiles() {
   if (selectedFiles.length === 0) {
-    alert('Vui lòng chọn file để tải lên');
+    showToast('info', 'Vui lòng chọn file để tải lên');
     return;
   }
+  const formData = new FormData();
 
-  // Giả lập quá trình upload
-  document.getElementById('fileCount').textContent = selectedFiles.length;
-  document.getElementById('successModal').style.display = 'flex';
+  selectedFiles.forEach((file) => {
+    formData.append('files[]', file);
+  });
 
-  // Reset sau khi upload
-  setTimeout(() => {
-    clearFiles();
-  }, 500);
+  if (userEmail) formData.append('gmail', userEmail);
+  if (userRole) formData.append('role', userRole);
+
+  fetch('/upload', {
+    method: 'POST',
+    body: formData,
+  })
+    .then((response) => {
+      if (response.ok) {
+        return response.json();
+      }
+      throw new Error('Có lỗi xảy ra khi upload!');
+    })
+    .then((data) => {
+      console.log('Server response:', data);
+      document.getElementById('fileCount').textContent = selectedFiles.length;
+      document.getElementById('successModal').style.display = 'flex';
+      setTimeout(() => {
+        clearFiles();
+      }, 500);
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+      showToast('error', 'Không thể kết nối đến server!');
+    });
 }
-
 function closeModal() {
   document.getElementById('successModal').style.display = 'none';
 }
