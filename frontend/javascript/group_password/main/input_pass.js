@@ -43,13 +43,15 @@ if (formDangNhap) {
             );
             const token = data.token;
             const role = data.role;
-            window.location.href =
-              'https://gemini-dot.github.io/learnpythonserver-sm/frontend/view/upload/index.html?gmail=' +
-              encodeURIComponent(lay_gia_tri_user) +
-              '&token=' +
-              encodeURIComponent(token) +
-              '&role=' +
-              encodeURIComponent(role);
+            setTimeout(() => {
+              window.location.href =
+                'https://gemini-dot.github.io/learnpythonserver-sm/frontend/view/upload/index.html?gmail=' +
+                encodeURIComponent(lay_gia_tri_user) +
+                '&token=' +
+                encodeURIComponent(token) +
+                '&role=' +
+                encodeURIComponent(role);
+            }, 2000);
           });
         } else if (response.status === 401) {
           return response.json().then((data) => {
