@@ -46,11 +46,12 @@ tim_kiem = db["trang_thai_web"]
 
 IS_MAINTENANCE = get_maintenance_status()
 WHITELIST_IPS = ['127.0.0.1', '192.168.1.121']
-
+admin_pass_on, admin_pass_off = os.getenv("BAOTRI_KEY_ON"), os.getenv("BAOTRI_KEY_OFF")
 @app.before_request
 def check_for_maintenance():
     client_ip = request.remote_addr
-    if IS_MAINTENANCE == "website_off" and request.path != '/unlock-server':
+    allowed_routes = ['/unlock-server', '/check-status', '/lock-server']
+    if IS_MAINTENANCE == "website_off" and request.path not in allowed_routes:
         if client_ip in WHITELIST_IPS:
             return None
         else:
@@ -60,7 +61,7 @@ def check_for_maintenance():
 def lock():
     global IS_MAINTENANCE
     pw = request.args.get('key')
-    if pw == "on-adminislaivansam1192011":
+    if admin_pass_on and pw == admin_pass_on:
         tim_kiem.update_one({"id": "config"}, {"$set": {"status": "website_off"}})
         IS_MAINTENANCE = "website_off"
         return "Đã bật chế độ bảo trì!", 200
@@ -70,7 +71,7 @@ def lock():
 def unlock():
     global IS_MAINTENANCE
     pw = request.args.get('key')
-    if pw == "off-adminislaivansam1192011":
+    if admin_pass_off and pw == admin_pass_off:
         tim_kiem.update_one({"id": "config"}, {"$set": {"status": "website_on"}})
         IS_MAINTENANCE = "website_on"
         return "Đã mở cửa server!", 200
