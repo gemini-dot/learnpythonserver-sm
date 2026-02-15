@@ -13,6 +13,7 @@ from routes.group_password.forgot_password.forgot_pass2 import app_route3
 from routes.group_password.forgot_password.forgot_password3 import app_route5
 from routes.check_test.cookie import app_route6
 from routes.ping.ping import khoi_dong
+from utils.trang_thai_db_503 import get_maintenance_status
 
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 
@@ -39,7 +40,9 @@ def unauthorized_error(e):
 def service_unavailable_error(e):
     return "error_bao_tri", 503
 
-IS_MAINTENANCE = "website_on"
+tim_kiem = db["trang_thai_web"]
+
+IS_MAINTENANCE = get_maintenance_status()
 
 @app.before_request
 def check_for_maintenance():
@@ -51,6 +54,7 @@ def lock():
     global IS_MAINTENANCE
     pw = request.args.get('key')
     if pw == "on-adminislaivansam1192011":
+        tim_kiem.update_one({"id": "config"}, {"$set": {"status": "website_off"}})
         IS_MAINTENANCE = "website_off"
         return "Đã bật chế độ bảo trì!", 200
     return "Sai mật khẩu!", 403
@@ -60,6 +64,7 @@ def unlock():
     global IS_MAINTENANCE
     pw = request.args.get('key')
     if pw == "off-adminislaivansam1192011":
+        tim_kiem.update_one({"id": "config"}, {"$set": {"status": "website_on"}})
         IS_MAINTENANCE = "website_on"
         return "Đã mở cửa server!", 200
     return "Sai mật khẩu!", 403
