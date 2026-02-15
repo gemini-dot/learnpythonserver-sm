@@ -1,0 +1,159 @@
+/* Reset cơ bản */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  background-color: #ffffff;
+  color: #000000;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  overflow: hidden;
+}
+
+.container {
+  max-width: 600px;
+  padding: 20px;
+}
+
+/* Hiệu ứng Icon bảo trì */
+.icon-wrapper {
+  margin-bottom: 30px;
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+svg {
+  width: 80px;
+  height: 80px;
+  fill: #000000;
+}
+
+/* Chữ và nội dung */
+h1 {
+  font-size: 2.5rem;
+  text-transform: uppercase;
+  letter-spacing: 5px;
+  margin-bottom: 15px;
+  font-weight: 900;
+}
+
+p {
+  font-size: 1.1rem;
+  color: #555;
+  margin-bottom: 30px;
+  line-height: 1.6;
+}
+
+/* Đường kẻ trang trí */
+.divider {
+  width: 50px;
+  height: 4px;
+  background-color: #000;
+  margin: 0 auto 30px;
+}
+
+/* Nút quay lại hoặc liên hệ */
+.btn {
+  display: inline-block;
+  padding: 12px 30px;
+  border: 2px solid #000;
+  color: #000;
+  text-decoration: none;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+}
+
+.btn:hover {
+  background-color: #000;
+  color: #fff;
+}
+
+/* Hiệu ứng mờ ảo phía sau */
+.bg-text {
+  position: absolute;
+  font-size: 15vw;
+  font-weight: 900;
+  color: #f4f4f4;
+  z-index: -1;
+  white-space: nowrap;
+  user-select: none;
+}
+.countdown {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 40px;
+}
+
+.time-box {
+  background: #000;
+  color: #fff;
+  padding: 15px;
+  min-width: 80px;
+  border-radius: 4px;
+}
+
+.time-box span {
+  display: block;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.time-box p {
+  color: #ccc;
+  font-size: 0.7rem;
+  margin: 0;
+  text-transform: uppercase;
+}
+/* Ẩn form lúc đầu */
+#contact-form {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: all 0.5s ease-in-out;
+  margin-top: 20px;
+}
+
+/* Khi có class 'active' thì hiện ra */
+#contact-form.active {
+  max-height: 300px;
+  opacity: 1;
+}
+
+textarea {
+  width: 100%;
+  height: 100px;
+  padding: 10px;
+  border: 2px solid #000;
+  margin-bottom: 15px;
+  outline: none;
+  resize: none; /* Không cho người dùng kéo dãn lung tung */
+}
+
+.btn-send {
+  background: #000;
+  color: #fff;
+  cursor: pointer;
+}
+
+.btn-send:hover {
+  background: #444;
+}
