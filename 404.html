@@ -5,6 +5,102 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>404 - Không tìm thấy trang</title>
     <link rel="stylesheet" href="frontend/styles/error_site/404.css" />
+    <style>
+      /* Reset cơ bản */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      body {
+        background-color: #ffffff;
+        color: #000000;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        overflow: hidden; /* Tránh scrollbar khi có hiệu ứng nền */
+      }
+
+      .container {
+        max-width: 700px;
+        padding: 20px;
+        position: relative;
+        z-index: 1; /* Đảm bảo nội dung nằm trên nền */
+      }
+
+      /* Số 404 lớn */
+      .error-code {
+        font-size: 10rem; /* Số lớn nổi bật */
+        font-weight: 900;
+        margin-bottom: 20px;
+        line-height: 1;
+        animation: float 4s ease-in-out infinite; /* Hiệu ứng "nhấp nhô" */
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-15px);
+        }
+      }
+
+      /* Tiêu đề */
+      h1 {
+        font-size: 2.5rem;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+        margin-bottom: 15px;
+        font-weight: 700;
+      }
+
+      /* Mô tả lỗi */
+      p {
+        font-size: 1.1rem;
+        color: #555;
+        margin-bottom: 30px;
+        line-height: 1.6;
+      }
+
+      /* Nút quay về */
+      .btn {
+        display: inline-block;
+        padding: 12px 30px;
+        border: 2px solid #000;
+        color: #000;
+        text-decoration: none;
+        font-weight: bold;
+        transition: all 0.3s ease;
+        text-transform: uppercase;
+        font-size: 0.9rem;
+        margin-top: 20px;
+      }
+
+      .btn:hover {
+        background-color: #000;
+        color: #fff;
+      }
+
+      /* Hiệu ứng mờ ảo phía sau */
+      .bg-text {
+        position: absolute;
+        font-size: 18vw; /* To hơn để phủ nền */
+        font-weight: 900;
+        color: #f4f4f4;
+        z-index: -1;
+        white-space: nowrap;
+        user-select: none;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%); /* Căn giữa hoàn hảo */
+      }
+    </style>
   </head>
   <body>
     <div class="bg-text">ERROR</div>
