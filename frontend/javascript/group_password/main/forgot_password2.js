@@ -1,5 +1,20 @@
 import { showToast } from '../../popup/popup.js';
 
+async function secretMaintenanceCheck() {
+  try {
+    const response = await fetch(
+      'https://learnpythonserver-sm.onrender.com/ping/khoi-dong'
+    );
+    if (response.status === 503) {
+      window.location.href = '../../../view/error/503.html';
+    }
+  } catch (error) {
+    console.log('Server đang khởi động hoặc gặp sự cố kết nối.');
+  }
+}
+
+secretMaintenanceCheck();
+
 function getQueryParams() {
   const params = new URLSearchParams(window.location.search);
   return {

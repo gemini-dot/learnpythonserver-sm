@@ -29,19 +29,16 @@ app.register_blueprint(khoi_dong, url_prefix='/ping')
 
 @app.errorhandler(404)
 def page_not_found(e):
-    return render_template("404.html"), 404
-
+    return "error", 404
 @app.errorhandler(500)
 def internal_server_error(e):
-    return render_template("500.html"), 500
-
+    return "error", 500
 @app.errorhandler(401)
 def unauthorized_error(e):
-    return render_template("401.html"), 401
-
+    return "error", 401
 @app.errorhandler(503)
 def service_unavailable_error(e):
-    return render_template("503.html"), 503
+    return "error", 503
 
 IS_MAINTENANCE = "0"
 
@@ -49,7 +46,6 @@ IS_MAINTENANCE = "0"
 def check_for_maintenance():
     if IS_MAINTENANCE == "1" and request.path != '/unlock-server':
         abort(503)
-
 @app.route('/lock-server')
 def lock():
     global IS_MAINTENANCE
@@ -58,7 +54,6 @@ def lock():
         IS_MAINTENANCE = "1"
         return "Đã bật chế độ bảo trì!", 200
     return "Sai mật khẩu!", 403
-
 @app.route('/unlock-server')
 def unlock():
     global IS_MAINTENANCE
