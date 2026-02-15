@@ -51,7 +51,7 @@ if (formDangNhap) {
                 encodeURIComponent(token) +
                 '&role=' +
                 encodeURIComponent(role);
-            }, 2000);
+            }, 2000); //
           });
         } else if (response.status === 401) {
           return response.json().then((data) => {
