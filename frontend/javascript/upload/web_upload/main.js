@@ -54,7 +54,7 @@ async function checkAccess() {
     const data = await response.json();
 
     if (response.status === 200) {
-      showToast('success', 'Đăng nhập thành công! Chào mừng bạn quay trở lại.');
+      showToast('success', 'thành công! Chào mừng bạn quay trở lại.');
     } else {
       window.location.href =
         'https://gemini-dot.github.io/learnpythonserver-sm/frontend/view/error/401.html';
