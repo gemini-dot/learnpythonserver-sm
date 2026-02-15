@@ -43,11 +43,16 @@ def service_unavailable_error(e):
 tim_kiem = db["trang_thai_web"]
 
 IS_MAINTENANCE = get_maintenance_status()
+WHITELIST_IPS = ['127.0.0.1', '192.168.1.121']
 
 @app.before_request
 def check_for_maintenance():
+    client_ip = request.remote_addr
     if IS_MAINTENANCE == "website_off" and request.path != '/unlock-server':
-        abort(503)
+        if client_ip in WHITELIST_IPS:
+            return None
+        else:
+            abort(503)
 
 @app.route('/lock-server')
 def lock():
