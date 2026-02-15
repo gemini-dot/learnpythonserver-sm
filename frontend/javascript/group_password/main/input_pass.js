@@ -31,6 +31,7 @@ if (formDangNhap) {
     fetch(`${API_URL}/auth/input-pass`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
       body: JSON.stringify(goi_du_lieu),
     })
       .then((response) => {

@@ -3,9 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>404 - Không Tìm Thấy Trang</title>
+    <title>500 - Lỗi Máy Chủ Nội Bộ</title>
     <style>
-      /* Reset cơ bản */
+      /* CSS cho trang 500 - nhúng trực tiếp */
       * {
         margin: 0;
         padding: 0;
@@ -30,11 +30,12 @@
       }
 
       .error-code {
-        font-size: 120px;
+        font-size: 100px; /* Nhỏ hơn 404 một chút để phân biệt */
         font-weight: bold;
-        margin-bottom: 20px;
-        letter-spacing: -5px;
-        line-height: 1; /* Đảm bảo số không bị giãn */
+        margin-bottom: 10px;
+        letter-spacing: -3px;
+        line-height: 1;
+        color: #cc0000; /* Màu đỏ báo hiệu lỗi nghiêm trọng */
       }
 
       .error-message {
@@ -53,8 +54,8 @@
       .action-buttons {
         display: flex;
         justify-content: center;
-        gap: 20px; /* Khoảng cách giữa các nút */
-        flex-wrap: wrap; /* Cho phép xuống dòng trên màn hình nhỏ */
+        gap: 20px;
+        flex-wrap: wrap;
       }
 
       .btn {
@@ -64,7 +65,7 @@
         text-decoration: none;
         font-weight: bold;
         transition: all 0.3s ease;
-        border-radius: 5px; /* Bo tròn nhẹ */
+        border-radius: 5px;
       }
 
       .primary-btn {
@@ -89,15 +90,18 @@
   </head>
   <body>
     <div class="error-container">
-      <h1 class="error-code">404</h1>
-      <p class="error-message">Rất tiếc, chúng tôi không tìm thấy trang này.</p>
+      <h1 class="error-code">500</h1>
+      <p class="error-message">Server đang bị "hắt hơi sổ mũi" rồi bạn ơi!</p>
       <p class="error-description">
-        Có vẻ như đường dẫn đã bị thay đổi hoặc không còn tồn tại. <br />Hãy thử
-        quay lại trang chủ hoặc liên hệ với chúng tôi nếu bạn cần hỗ trợ.
+        Có vẻ như chúng tôi đang gặp một vấn đề kỹ thuật.
+        <br />Đội ngũ của chúng tôi đã nhận được thông báo và đang cố gắng khắc
+        phục. <br />Vui lòng thử lại sau vài phút hoặc quay về trang chủ.
       </p>
       <div class="action-buttons">
         <a href="/" class="btn primary-btn">Quay về Trang Chủ</a>
-        <a href="/auth/contact" class="btn secondary-btn">Liên hệ Hỗ trợ</a>
+        <a href="javascript:location.reload()" class="btn secondary-btn"
+          >Thử lại Trang này</a
+        >
       </div>
     </div>
   </body>
