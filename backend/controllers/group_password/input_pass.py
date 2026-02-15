@@ -11,7 +11,7 @@ def kiem_tra1():
 
     if ket_qua['success']:
         res = make_response(jsonify(ket_qua))
-        res.set_cookie("user_token", nguoi_dung, max_age=3600, httponly=True, samesite='None',secure=True)
+        res.set_cookie("user_token", nguoi_dung, max_age=3600, httponly=True, samesite='None',secure=True,path='/')
         return res, 200
     else:
         return jsonify(ket_qua), 401
