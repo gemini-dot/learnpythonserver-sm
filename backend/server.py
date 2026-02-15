@@ -12,6 +12,7 @@ from routes.group_password.forgot_password.forgot_password import app_route4
 from routes.group_password.forgot_password.forgot_pass2 import app_route3
 from routes.group_password.forgot_password.forgot_password3 import app_route5
 from routes.check_test.cookie import app_route6
+from routes.group_chuc_nang.kiem_tra_dang_nhap.upload_fist_login import app_route7
 from routes.ping.ping import khoi_dong
 from utils.trang_thai_db_503 import get_maintenance_status
 
@@ -26,6 +27,7 @@ app.register_blueprint(app_route3,url_prefix='/auth')
 app.register_blueprint(app_route4,url_prefix='/auth')
 app.register_blueprint(app_route5,url_prefix='/auth')
 app.register_blueprint(app_route6, url_prefix='/auth')
+app.register_blueprint(app_route7,url_prefix='/security')
 app.register_blueprint(khoi_dong, url_prefix='/ping')
 
 @app.errorhandler(500)
