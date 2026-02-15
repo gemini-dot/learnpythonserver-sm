@@ -1,0 +1,90 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  background-color: #ffffff;
+  color: #000000;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  overflow: hidden;
+}
+
+.container {
+  max-width: 650px;
+  padding: 20px;
+  z-index: 1;
+}
+
+/* Hiệu ứng lỗi 500 */
+.error-num {
+  font-size: 8rem;
+  font-weight: 900;
+  letter-spacing: -5px;
+  margin-bottom: 10px;
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0.3;
+  }
+}
+
+.icon-box {
+  margin-bottom: 20px;
+}
+
+.icon-box svg {
+  width: 60px;
+  height: 60px;
+  fill: #000;
+}
+
+h1 {
+  font-size: 2rem;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  border-bottom: 4px solid #000;
+  display: inline-block;
+  padding-bottom: 5px;
+}
+
+p {
+  font-size: 1.1rem;
+  color: #444;
+  margin-bottom: 35px;
+}
+
+.btn {
+  display: inline-block;
+  padding: 12px 35px;
+  border: 2px solid #000;
+  background: #000;
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+  transition: 0.3s;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background: #fff;
+  color: #000;
+}
+
+.bg-text {
+  position: absolute;
+  font-size: 20vw;
+  font-weight: 900;
+  color: #f0f0f0;
+  z-index: -1;
+  user-select: none;
+}

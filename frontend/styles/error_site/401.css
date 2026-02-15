@@ -1,0 +1,105 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  background-color: #ffffff;
+  color: #000000;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  overflow: hidden;
+}
+
+.container {
+  max-width: 600px;
+  padding: 20px;
+  z-index: 1;
+}
+
+/* Hiệu ứng Icon Ổ khóa */
+.lock-icon {
+  margin-bottom: 20px;
+  cursor: pointer;
+}
+
+.lock-icon svg {
+  width: 100px;
+  height: 100px;
+  fill: #000;
+}
+
+.lock-icon:active {
+  animation: shake 0.2s ease-in-out;
+}
+
+@keyframes shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-10px);
+  }
+  75% {
+    transform: translateX(10px);
+  }
+}
+
+h1 {
+  font-size: 2.5rem;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  margin-bottom: 15px;
+}
+
+p {
+  font-size: 1.1rem;
+  color: #666;
+  margin-bottom: 30px;
+}
+
+.btn-group {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+}
+
+.btn {
+  padding: 12px 25px;
+  border: 2px solid #000;
+  color: #000;
+  text-decoration: none;
+  font-weight: bold;
+  transition: 0.3s;
+  text-transform: uppercase;
+}
+
+.btn-black {
+  background: #000;
+  color: #fff;
+}
+
+.btn:hover {
+  background: #f4f4f4;
+  color: #000;
+}
+
+.btn-black:hover {
+  background: #333;
+  color: #fff;
+}
+
+.bg-text {
+  position: absolute;
+  font-size: 15vw;
+  font-weight: 900;
+  color: #f8f8f8;
+  z-index: -1;
+  user-select: none;
+}

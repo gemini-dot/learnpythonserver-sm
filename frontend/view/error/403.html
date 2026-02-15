@@ -3,64 +3,29 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>403 - Truy Cập Bị Cấm</title>
-    <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-      body {
-        background-color: #000; /* Nền đen cho nó nghiêm trọng */
-        color: #fff;
-        font-family:
-          'Courier New', Courier, monospace; /* Font kiểu hacker/hệ thống */
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        min-height: 100vh;
-        text-align: center;
-      }
-      .container {
-        padding: 20px;
-        border: 1px solid #333;
-      }
-      .code {
-        font-size: 80px;
-        color: #ff0000;
-        text-shadow: 0 0 10px #ff0000;
-      }
-      .msg {
-        font-size: 20px;
-        margin: 20px 0;
-        letter-spacing: 2px;
-      }
-      .desc {
-        color: #888;
-        font-size: 14px;
-        margin-bottom: 30px;
-      }
-      .btn {
-        padding: 10px 20px;
-        border: 1px solid #fff;
-        color: #fff;
-        text-decoration: none;
-        transition: 0.3s;
-      }
-      .btn:hover {
-        background: #fff;
-        color: #000;
-      }
-    </style>
+    <title>403 - Truy cập bị cấm</title>
+    <link rel="stylesheet" href="../../styles/error_site/403.css" />
   </head>
   <body>
+    <div class="bg-text">FORBIDDEN</div>
+
     <div class="container">
-      <h1 class="code">403</h1>
-      <p class="msg">ACCESS DENIED - TRUY CẬP BỊ CẤM</p>
-      <p class="desc">
-        Tài khoản của bạn không có đủ thẩm quyền để vào khu vực này.
+      <div class="forbidden-icon">
+        <svg viewBox="0 0 24 24">
+          <path
+            d="M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12C4,14.07 4.79,15.96 6.09,17.39L17.39,6.09C15.96,4.79 14.07,4 12,4M12,20A8,8 0 0,0 20,12C20,9.93 19.21,8.04 17.91,6.61L6.61,17.91C8.04,19.21 9.93,20 12,20Z"
+          />
+        </svg>
+      </div>
+
+      <h1>403 - Forbidden</h1>
+      <div class="divider"></div>
+      <p>
+        Lối này bị cấm rồi og ơi! <br />
+        Og không có quyền hạn để truy cập vào tài nguyên này.
       </p>
-      <a href="/" class="btn">QUAY LẠI TRANG CHỦ</a>
+
+      <a href="/" class="btn">Về trang chủ</a>
     </div>
   </body>
 </html>

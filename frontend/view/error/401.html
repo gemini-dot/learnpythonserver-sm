@@ -2,52 +2,36 @@
 <html lang="vi">
   <head>
     <meta charset="UTF-8" />
-    <title>401 - Yêu Cầu Đăng Nhập</title>
-    <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-      body {
-        background: #f4f4f4;
-        color: #333;
-        font-family: sans-serif;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        min-height: 100vh;
-        text-align: center;
-      }
-      .box {
-        padding: 40px;
-        background: #fff;
-        border-radius: 8px;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-      }
-      h1 {
-        font-size: 60px;
-        color: #f39c12;
-      }
-      p {
-        margin: 20px 0;
-        font-size: 18px;
-      }
-      .btn {
-        display: inline-block;
-        padding: 10px 25px;
-        background: #3498db;
-        color: #fff;
-        text-decoration: none;
-        border-radius: 5px;
-      }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>401 - Truy cập bị từ chối</title>
+    <link rel="stylesheet" href="../../styles/error_site/401.css" />
   </head>
   <body>
-    <div class="box">
-      <h1>401</h1>
-      <p>Dừng lại bạn ơi! Phải đăng nhập mới được vào đây.</p>
-      <a href="/auth/login" class="btn">Đến trang Đăng nhập</a>
+    <div class="bg-text">LOCKED</div>
+
+    <div class="container">
+      <div class="lock-icon">
+        <svg viewBox="0 0 24 24">
+          <path
+            d="M12,1A5,5 0 0,1 17,6V9H18A2,2 0 0,1 20,11V21A2,2 0 0,1 18,23H6A2,2 0 0,1 4,21V11A2,2 0 0,1 6,9H7V6A5,5 0 0,1 12,1M12,3A3,3 0 0,0 9,6V9H15V6A3,3 0 0,0 12,3M12,14A1.5,1.5 0 1,0 13.5,15.5A1.5,1.5 0 0,0 12,14Z"
+          />
+        </svg>
+      </div>
+
+      <h1>401 - Unauthorized</h1>
+      <p>
+        Dừng lại chút og ơi! Khu vực này yêu cầu quyền đăng nhập. <br />
+        Có vẻ og chưa được cấp phép để xem nội dung này rồi.
+      </p>
+
+      <div class="btn-group">
+        <a
+          href="https://gemini-dot.github.io/learnpythonserver-sm/frontend/view/group_password/input_pass.html"
+          class="btn btn-black"
+          >Đăng nhập</a
+        >
+        <a href="/" class="btn">Quay lại</a>
+      </div>
     </div>
   </body>
 </html>
