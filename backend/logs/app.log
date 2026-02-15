@@ -71,3 +71,9 @@
 2026-02-14 18:42:28,678 - [server.py:45] - INFO - System: Server khởi động tại https://learnpythonsever-sm.onrender.com:5000
 2026-02-14 20:45:45,341 - [server.py:43] - INFO - Database: Kết nối thành công! ✅
 2026-02-14 20:45:45,343 - [server.py:45] - INFO - System: Server khởi động tại https://learnpythonsever-sm.onrender.com:5000
+2026-02-15 10:06:50,095 - [server.py:44] - INFO - Database: Kết nối thành công! ✅
+2026-02-15 10:06:50,098 - [server.py:46] - INFO - System: Server khởi động tại https://learnpythonsever-sm.onrender.com:5000
+2026-02-15 10:10:32,886 - [server.py:44] - INFO - Database: Kết nối thành công! ✅
+2026-02-15 10:10:32,887 - [server.py:46] - INFO - System: Server khởi động tại https://learnpythonsever-sm.onrender.com:5000
+2026-02-15 10:14:40,973 - [server.py:45] - INFO - Database: Kết nối thành công! ✅
+2026-02-15 10:14:40,974 - [server.py:47] - INFO - System: Server khởi động tại https://learnpythonsever-sm.onrender.com:5000

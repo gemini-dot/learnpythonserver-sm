@@ -1,4 +1,4 @@
-from flask import request, jsonify
+from flask import request, jsonify, make_response
 from services.group_mk.login import kiem_tra
 
 def kiem_tra1():
@@ -10,6 +10,8 @@ def kiem_tra1():
     ket_qua = kiem_tra(nguoi_dung, mat_khau)
 
     if ket_qua['success']:
-        return jsonify(ket_qua), 200
+        res = make_response(jsonify(ket_qua))
+        res.set_cookie("user_token", nguoi_dung, max_age=3600, httponly=True, samesite='None',secure=True)
+        return res, 200
     else:
         return jsonify(ket_qua), 401
