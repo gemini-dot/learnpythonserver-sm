@@ -11,6 +11,7 @@ from logs.logger import logger
 from routes.group_password.forgot_password.forgot_password import app_route4
 from routes.group_password.forgot_password.forgot_pass2 import app_route3
 from routes.group_password.forgot_password.forgot_password3 import app_route5
+from routes.check_test.cookie import app_route6
 from routes.ping.ping import khoi_dong
 
 FRONTEND_DIR = os.path.join(os.getcwd(), "..", "frontend", "view", "error")
@@ -24,6 +25,7 @@ app.register_blueprint(app_route2, url_prefix='/auth')
 app.register_blueprint(app_route3,url_prefix='/auth')
 app.register_blueprint(app_route4,url_prefix='/auth')
 app.register_blueprint(app_route5,url_prefix='/auth')
+app.register_blueprint(app_route6, url_prefix='/auth')
 app.register_blueprint(khoi_dong, url_prefix='/ping')
 
 @app.errorhandler(404)
