@@ -80,12 +80,12 @@ def unlock():
 def home():
     return "Server đang chạy cực mượt rồi bạn ơi!"
 
+port = int(os.environ.get('PORT', 5000))
+
 if __name__ == '__main__':
     try:
         db.command('ping')
-        logger.info("Database: Kết nối thành công! ✅")
-        port = int(os.environ.get('PORT', 5000))
-        logger.info(f"System: Server khởi động tại https://learnpythonsever-sm.onrender.com:{port}")
+        logger.info("Database: Kết nối thành công!")
         app.run(host='0.0.0.0', port=port)
     except Exception as e:
         logger.error(f"System: Lỗi khởi động: {e}")
