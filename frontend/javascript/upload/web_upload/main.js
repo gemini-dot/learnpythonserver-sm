@@ -39,14 +39,17 @@ checkGate();
 
 async function checkAccess() {
   try {
-    const response = await fetch('http://127.0.0.1:5000/security/upload', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        gmail: userEmail,
-        token: userToken,
-      }),
-    });
+    const response = await fetch(
+      'https://learnpythonserver-sm.onrender.com/security/upload',
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          gmail: userEmail,
+          token: userToken,
+        }),
+      }
+    );
 
     const data = await response.json();
 
