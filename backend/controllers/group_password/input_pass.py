@@ -14,4 +14,6 @@ def kiem_tra1():
         res.set_cookie("user_token", nguoi_dung, max_age=3600, httponly=True, samesite='None',secure=True,path='/')
         return res, 200
     else:
-        return jsonify(ket_qua), 401
+        res_res = make_response(jsonify(ket_qua))
+        res_res.set_cookie("user_token", "", max_age=0, httponly=True, samesite='None', secure=True, path='/')
+        return res_res, 401
