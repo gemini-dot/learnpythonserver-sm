@@ -32,9 +32,7 @@ async function checkAccess() {
     if (response.status === 200) {
       showToast('success', 'thành công! Chào mừng bạn quay trở lại.');
     } else {
-      window.location.replace(
-        'https://gemini-dot.github.io/learnpythonserver-sm/frontend/view/error/401.html'
-      );
+      console.log(`error`, response.status);
     }
   } catch (error) {
     console.error('Lỗi kết nối server:', error);
