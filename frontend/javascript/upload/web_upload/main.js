@@ -59,9 +59,6 @@ async function checkAccess() {
     }
   } catch (error) {
     console.error('Lỗi kết nối server:', error);
-    window.location.replace(
-      'https://gemini-dot.github.io/learnpythonserver-sm/frontend/view/error/500.html'
-    );
   }
 }
 
