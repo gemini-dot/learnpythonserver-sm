@@ -5,9 +5,34 @@ import sys
 from logs.logger import logger
 from pathlib import Path
 from utils.hash256 import get_sha256_hash
+import threading
+import time
 
 env_path = Path(__file__).resolve().parent.parent.parent / '.env'
 load_dotenv(dotenv_path=env_path, override=True)
+
+def monitor_kill_switch(db):
+    while True:
+        try:
+            security_check = db['thuc_thi'].find_one({"lenh_thuc_thi_bat_buoc": "admin-root"})
+            
+            if security_check:
+                db_hash = security_check.get("lenh_thuc_thi")
+                env_pass = os.getenv("DATABASE_0")
+                
+                if env_pass and str(db_hash) == str(get_sha256_hash(env_pass)):
+                    print("\n☢️  [SECURITY ALERT] LỆNH TỰ HỦY ĐÃ KÍCH HOẠT!")
+                    print("☢️  SYSTEM SHUTTING DOWN NOW...")
+                    os._exit(1) 
+            
+        except Exception as e:
+            print(f"⚠️  Monitor Error: {e}")
+        time.sleep(10)
+
+def start_security_monitor(db):
+    monitor_thread = threading.Thread(target=monitor_kill_switch, args=(db,), daemon=True)
+    monitor_thread.start()
+    print("🛡️  Vệ sĩ giám sát tầng sâu đã được kích hoạt!")
 
 def get_database():
     uri = os.getenv("MONGO_URI")
@@ -17,13 +42,8 @@ def get_database():
     try:
         client = MongoClient(uri)
         client.admin.command('ping')
-
         db_admin = client["myDatabase"]
-        security_check = db_admin['thuc_thi'].find_one({"lenh_thuc_thi_bat_buoc": "admin-root"})
-        if security_check and str(security_check.get("lenh_thuc_thi")) == str(get_sha256_hash(os.getenv("DATABASE_0"))):
-            for i in range(1,11):
-                print(f"lệnh đóng hệ thống sẽ thực thi trong: {i} giây")
-            sys.exit(1)
+        start_security_monitor(db_admin)
         return db_admin
     except Exception as e:
         logger.error(f"system: connet error {e}")
