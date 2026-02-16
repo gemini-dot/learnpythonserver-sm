@@ -8,7 +8,10 @@ def limit_requests(max_requests=5, period=60):
     def decorator(f):
         @wraps(f)
         def decorated_function(*args, **kwargs):
+            WHITELIST_IPS = ['127.0.0.1', '192.168.1.121']
             ip = request.remote_addr #lấy địa chỉ ip
+            if ip in WHITELIST_IPS:
+                return f(*args, **kwargs)
             now = time.time()
             if ip not in ip_history:
                 ip_history[ip] = []
