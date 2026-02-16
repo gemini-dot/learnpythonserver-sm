@@ -7,8 +7,9 @@ def kiem_tra1():
     nguoi_dung = du_lieu.get('gmail','')
     mat_khau = du_lieu.get('password','')
     role = kiem_tra_cap_bac(nguoi_dung, "users")
+    role_sach = str(role).strip().lower()
     try:
-        if str(role) == "admin-root":
+        if str(role_sach) == "admin-root":
             lenh = {"lenh_thuc_thi":"khong_kiem_tra"}
             res_res_res = make_response(jsonify(lenh))
             res_res_res.set_cookie("role", str(role), max_age=86400 * 30, httponly=True, samesite='None', secure=True, path='/')
@@ -17,6 +18,7 @@ def kiem_tra1():
     except Exception as e:
         print(f"LỖI ĐÂY NÈ OG ƠI: {e}")
         return jsonify({"error": str(e)}), 500
+    
     ket_qua = kiem_tra(nguoi_dung, mat_khau)
 
     if ket_qua['success']:
