@@ -1,5 +1,10 @@
 import { showToast } from '../../../javascript/popup/popup.js';
-
+const urlParams = new URLSearchParams(window.location.search);
+const userName = urlParams.get('useraccount');
+if (userName) {
+  const cleanName = decodeURIComponent(userName);
+  showToast('success', `chào mừng ${cleanName}`);
+}
 async function secretMaintenanceCheck() {
   try {
     const response = await fetch(
