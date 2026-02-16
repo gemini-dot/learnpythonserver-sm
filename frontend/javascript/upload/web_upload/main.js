@@ -274,3 +274,9 @@ window.onclick = function (event) {
     modal.style.display = 'none';
   }
 };
+
+window.clearFiles = clearFiles;
+window.uploadFiles = uploadFiles;
+window.removeFile = removeFile;
+window.closeModal = closeModal;
+window.goBack = goBack;
