@@ -3,8 +3,8 @@ from services.group_chuc_nang.kiem_tra_dang_nhap.up_load_fist_login import kiem_
 
 def kiem_tra_token():
     try:
-        nguoi_dung = request.cookies.get('gmail','')
-        token_nguoi_dung = request.cookies.get("token","")
+        nguoi_dung = request.cookies.get('user_gmail','')
+        token_nguoi_dung = request.cookies.get("user_token","")
 
         ket_qua = kiem_tra_token_link(nguoi_dung, token_nguoi_dung, "users", "token_nguoi_dung_upload")
 

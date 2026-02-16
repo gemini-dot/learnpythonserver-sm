@@ -26,7 +26,7 @@ def kiem_tra(email_gui_len, pass_gui_len):
     pass_hash = hash_password(pass_gui_len, salt)
 
     token_new = tao_token_10_so()
-    token_new_hash = hash(token_new)
+    token_new_hash = hash(str(token_new))
 
     if kiem_tra_1['password'] == pass_hash:
         noi_tim_kiem.update_one(
