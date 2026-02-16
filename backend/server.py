@@ -46,7 +46,9 @@ tim_kiem = db["trang_thai_web"]
 
 IS_MAINTENANCE = get_maintenance_status()
 WHITELIST_IPS = ['127.0.0.1', '192.168.1.121']
+
 admin_pass_on, admin_pass_off = str(os.getenv("BAOTRI_KEY_ON")), str(os.getenv("BAOTRI_KEY_OFF"))
+
 @app.before_request
 def check_for_maintenance():
     client_ip = request.remote_addr
