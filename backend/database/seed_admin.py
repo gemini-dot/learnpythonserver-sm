@@ -1,8 +1,8 @@
 import sys
 import os
-from backend.configs.db import db
-from backend.utils.hash_password import make_salt, hash_password
-from backend.logs.logger import logger
+from configs.db import db
+from utils.hash_password import make_salt, hash_password
+from logs.logger import logger
 from dotenv import load_dotenv
 from pathlib import Path
 
