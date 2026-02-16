@@ -129,6 +129,7 @@ function handleDrop(e) {
 // Xử lý khi chọn file qua input
 fileInput.addEventListener('change', function () {
   handleFiles(this.files);
+  this.value = '';
 });
 
 function handleFiles(files) {
