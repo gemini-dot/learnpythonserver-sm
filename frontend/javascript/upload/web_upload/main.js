@@ -214,6 +214,12 @@ function uploadFiles() {
     credentials: 'include',
   })
     .then((response) => {
+      if (response.status === 401) {
+        window.location.replace(
+          'https://gemini-dot.github.io/learnpythonserver-sm/frontend/view/error/401.html'
+        );
+        return;
+      }
       if (response.ok) {
         return response.json();
       }
