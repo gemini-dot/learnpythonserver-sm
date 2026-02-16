@@ -37,6 +37,8 @@ def create_initial_admin():
         "password": hashed,
         "salt": salt,
         "role": "admin-root",
+        "god_mode_dev":"on",
+        "thoi_gian_het_han":"",
         "full_name": "Hệ Thống Admin"
     }
 

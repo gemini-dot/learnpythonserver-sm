@@ -208,12 +208,10 @@ function uploadFiles() {
     formData.append('files[]', file);
   });
 
-  if (userEmail) formData.append('gmail', userEmail);
-  if (userRole) formData.append('role', userRole);
-
-  fetch('/upload', {
+  fetch('https://learnpythonserver-sm.onrender.com/upload_sv/upload', {
     method: 'POST',
     body: formData,
+    credentials: 'include',
   })
     .then((response) => {
       if (response.ok) {

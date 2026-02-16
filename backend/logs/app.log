@@ -114,3 +114,10 @@
 2026-02-16 12:20:58,589 - [seed_admin.py:45] - INFO - Thanh cong: Đa khoi tao quyen Admin-Root cho samisadmin1192011@gmail.admin
 2026-02-16 13:34:41,383 - [server.py:91] - INFO - Database: Kết nối thành công!
 2026-02-16 13:35:01,553 - [login.py:14] - INFO - system: find to connect mongodb 
+2026-02-16 14:07:54,008 - [seed_admin.py:18] - INFO - system: find to connect mongodb 
+2026-02-16 14:07:54,213 - [seed_admin.py:25] - WARNING - Canh bao: Tai khoan Admin-Root đa ton tai trong he thong!
+2026-02-16 14:08:16,227 - [seed_admin.py:18] - INFO - system: find to connect mongodb 
+2026-02-16 14:08:16,428 - [seed_admin.py:46] - INFO - Thanh cong: Đa khoi tao quyen Admin-Root cho samisadmin1192011@gmail.admin
+2026-02-16 17:48:51,403 - [server.py:93] - INFO - Database: Kết nối thành công!
+2026-02-16 18:19:34,602 - [server.py:93] - INFO - Database: Kết nối thành công!
+2026-02-16 18:21:09,559 - [server.py:93] - INFO - Database: Kết nối thành công!
