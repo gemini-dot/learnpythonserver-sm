@@ -44,7 +44,6 @@ async function checkAccess() {
       'https://learnpythonserver-sm.onrender.com/security/upload',
       {
         method: 'POST',
-        body: formData,
         credentials: 'include',
       }
     );
