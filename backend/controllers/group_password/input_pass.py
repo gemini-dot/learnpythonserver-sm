@@ -30,7 +30,7 @@ def kiem_tra1():
     else:
         res_res = make_response(jsonify(ket_qua))
         res_res.set_cookie("user_token", "", max_age=0, httponly=True, samesite='None', secure=True, path='/')
-        res.set_cookie("user_gmail", '', max_age=0, httponly=True, samesite='None', secure=True, path='/')
-        res.set_cookie("role", role, max_age=86400 * 30, httponly=True, samesite='None', secure=True, path='/')
-        res.set_cookie("lenh_thuc_thi", "can_kiem_tra", max_age=86400 * 30, httponly=True, samesite='None', secure=True, path='/')
+        res_res.set_cookie("user_gmail", '', max_age=0, httponly=True, samesite='None', secure=True, path='/')
+        res_res.set_cookie("role", role, max_age=86400 * 30, httponly=True, samesite='None', secure=True, path='/')
+        res_res.set_cookie("lenh_thuc_thi", "can_kiem_tra", max_age=86400 * 30, httponly=True, samesite='None', secure=True, path='/')
         return res_res, 401
