@@ -13,6 +13,11 @@ cloudinary.config(
 def upload_to_cloud():
     print(request.cookies)
     user_email = request.cookies.get('user_gmail','')
+    trang_thai = request.cookies.get('trang_thai','')
+
+    if trang_thai != "da_dang_nhap":
+        return jsonify({"loi":"nguoi_dung_chua_dang_nhap"}),401
+    
     if not user_email:
         return jsonify({"loi":"nguoi_dung"}),401
     
