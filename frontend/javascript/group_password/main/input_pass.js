@@ -57,16 +57,9 @@ if (formDangNhap) {
               'success',
               'Đăng nhập thành công! Chào mừng bạn quay trở lại.'
             );
-            const token = data.token;
-            const role = data.role;
             setTimeout(() => {
               window.location.href =
-                'https://gemini-dot.github.io/learnpythonserver-sm/frontend/view/upload/web_upload/index.html?gmail=' +
-                encodeURIComponent(lay_gia_tri_user) +
-                '&token=' +
-                encodeURIComponent(token) +
-                '&role=' +
-                encodeURIComponent(role);
+                'https://gemini-dot.github.io/learnpythonserver-sm/frontend/view/upload/web_upload/index.html';
             }, 2000); //
           });
         } else if (response.status === 401) {

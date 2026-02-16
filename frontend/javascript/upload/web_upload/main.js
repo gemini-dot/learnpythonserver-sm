@@ -17,27 +17,6 @@ async function secretMaintenanceCheck() {
 
 secretMaintenanceCheck();
 
-// 1. Khai báo thông số toàn cục
-const urlParams = new URLSearchParams(window.location.search);
-const userEmail = urlParams.get('gmail');
-const userRole = urlParams.get('role');
-const userToken = urlParams.get('token');
-
-function checkGate() {
-  console.log('Dữ liệu nhận được:', { email: userEmail, token: userToken });
-
-  if (userEmail === null || userToken === null) {
-    console.log('Phát hiện null! Đang chuyển hướng...');
-    window.location.replace(
-      'https://gemini-dot.github.io/learnpythonserver-sm/frontend/view/error/401.html'
-    );
-    return;
-  }
-  checkAccess();
-}
-
-checkGate();
-
 async function checkAccess() {
   try {
     const response = await fetch(
