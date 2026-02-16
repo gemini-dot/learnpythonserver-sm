@@ -2,16 +2,17 @@ from flask import request, jsonify
 from functools import wraps
 import time
 from configs.db import db
+from configs.settings import ip_allow,MAX_REQUESTS, PERIOD
 from utils.tim_kiem_db import tim_kiem
 from utils.kiem_tra_het_han_toan_cuc import kiem_tra_het_han
 
 ip_history = {}
 
-def limit_requests(max_requests=5, period=60):
+def limit_requests(max_requests=MAX_REQUESTS, period=PERIOD):
     def decorator(f):
         @wraps(f)
         def decorated_function(*args, **kwargs):
-            WHITELIST_IPS = ['127.0.0.1', '192.168.1.121']
+            WHITELIST_IPS = ip_allow
             ket_qua = tim_kiem("godmode_admin","trang_thai")
             now_n = time.time()
             ket_qua_thoi_gian = kiem_tra_het_han(now_n,"godmode_admin","godmode","private","thoi_gian_het_han","trang_thai_thoi_gian","da_het_han")

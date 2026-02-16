@@ -1,11 +1,12 @@
 from flask import Blueprint
 from middleware.rate_limiting import limit_requests
 from controllers.group_password.create_a_password import kiem_tra2
+from configs.settings import MAX_REQUESTS, PERIOD
 
 app_route2 = Blueprint('auth_create', __name__)
 
 @app_route2.route('/create-a-pass', methods=["POST"])
-@limit_requests(max_requests=5, period=60)
+@limit_requests(max_requests=MAX_REQUESTS, period=PERIOD)
 
 def create_a_pass():
     return kiem_tra2()
