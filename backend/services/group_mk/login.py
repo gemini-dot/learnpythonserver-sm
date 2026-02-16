@@ -37,7 +37,7 @@ def kiem_tra(email_gui_len, pass_gui_len):
                 }
             }
         )
-        return {"success": True, "message": "Đăng nhập thành công! Chào bạn nhé!","token":token_new_hash,"role":role}
+        return {"success": True, "message": "Đăng nhập thành công! Chào bạn nhé!","token":token_new,"role":role}
     else:
         return {"success": False, "message": "Sai mật khẩu rồi kìa!"}
 

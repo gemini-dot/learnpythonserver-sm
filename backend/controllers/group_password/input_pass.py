@@ -10,8 +10,9 @@ def kiem_tra1():
     ket_qua = kiem_tra(nguoi_dung, mat_khau)
 
     if ket_qua['success']:
+        token = ket_qua["token"]
         res = make_response(jsonify(ket_qua))
-        res.set_cookie("user_token", nguoi_dung, max_age=3600, httponly=True, samesite='None',secure=True,path='/')
+        res.set_cookie("user_token", token, max_age=3600, httponly=True, samesite='None',secure=True,path='/')
         return res, 200
     else:
         res_res = make_response(jsonify(ket_qua))

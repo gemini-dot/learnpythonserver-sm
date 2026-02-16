@@ -44,11 +44,8 @@ async function checkAccess() {
       'https://learnpythonserver-sm.onrender.com/security/upload',
       {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          gmail: userEmail,
-          token: userToken,
-        }),
+        body: formData,
+        credentials: 'include',
       }
     );
 
