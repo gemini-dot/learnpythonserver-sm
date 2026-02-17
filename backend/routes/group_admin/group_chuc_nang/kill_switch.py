@@ -1,4 +1,5 @@
-from flask import Blueprint, abort, request
+from flask import Blueprint, request
+import requests
 from configs.db import db
 import os
 from utils.hash256 import get_sha256_hash
@@ -7,6 +8,9 @@ import signal
 import threading
 
 lenh_tu_huy = Blueprint("lenh_tu_huy",__name__)
+
+RENDER_API_KEY = os.getenv("RENDER_API_KEY") 
+SERVICE_ID = os.getenv("SERVICE_ID1")
 
 @lenh_tu_huy.route('/nuclear-shutdown/<passphrase>', methods=['GET'])
 def kill_switch(passphrase):
@@ -17,8 +21,16 @@ def kill_switch(passphrase):
         db_hash = security_check.get("lenh_thuc_thi")
         if passphrase == env_pass and str(db_hash) == str(get_sha256_hash(env_pass)):
             print("\n☢️[SECURITY ALERT] LỆNH TỰ HỦY ĐÃ KÍCH HOẠT QUA HTTP!")
-            def suicide():
-                os.kill(os.getpid(), signal.SIGKILL)
-            threading.Timer(1.0, suicide).start()
-            return "System shutting down...", 200
+            url = f"https://api.render.com/v1/services/{SERVICE_ID}/suspend"
+            headers = {
+                "Authorization": f"Bearer {RENDER_API_KEY}",
+                "Accept": "application/json"
+            }
+            
+            response = requests.post(url, headers=headers)
+            
+            if response.status_code == 204:
+                return "☢️ [CRITICAL] Render Service Suspended. Server is DEAD.", 200
+            else:
+                return f"Failed to kill: {response.text}", 500
     return "Access Denied", 403
