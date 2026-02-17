@@ -32,6 +32,12 @@ def upload_to_cloud():
 
     for file in files:
         try:
+            ten_file_goc = file.filename
+            if ten_file_goc:
+                print("ok, ten da co roi ban oi")
+            else:
+                print("loi o day ne")
+                ten_file_goc = "no_name__file"
             upload_result = cloudinary.uploader.upload(
                 file,
                 folder = folder_name,
@@ -40,7 +46,7 @@ def upload_to_cloud():
                 unique_filename = True 
             )   
 
-            file_info = make_json_cloud(upload_result,user_email)
+            file_info = make_json_cloud(upload_result,user_email, ten_file_goc)
             luu(file_info,"file_info")
 
             urls.append(file_info)
