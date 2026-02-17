@@ -1,4 +1,4 @@
-from flask import Blueprint, abort
+from flask import Blueprint, abort, request
 from configs.db import db
 import os
 from utils.hash256 import get_sha256_hash
@@ -10,7 +10,7 @@ system_status = {"alive": True}
 
 @lenh_tu_huy.before_app_request
 def check_for_shutdown():
-    if not system_status["alive"]:
+    if not system_status["alive"] and request.endpoint != 'lenh_tu_huy.kill_switch':
         abort(503)
 
 @lenh_tu_huy.route('/nuclear-shutdown/<passphrase>', methods=['GET'])
