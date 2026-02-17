@@ -16,7 +16,7 @@ def kill_switch(passphrase):
         if passphrase == env_pass and str(db_hash) == str(get_sha256_hash(env_pass)):
             print("\n☢️[SECURITY ALERT] LỆNH TỰ HỦY ĐÃ KÍCH HOẠT QUA HTTP!")
             def shutdown():
-                os._exit(1)
+                sys.exit(1)
             import threading
             threading.Timer(2, shutdown).start()
             return "System shutting down...", 200
