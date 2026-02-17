@@ -1,10 +1,17 @@
-from flask import Blueprint
+from flask import Blueprint, abort
 from configs.db import db
 import os
 from utils.hash256 import get_sha256_hash
 import sys
 
 lenh_tu_huy = Blueprint("lenh_tu_huy",__name__)
+
+system_status = {"alive": True}
+
+@lenh_tu_huy.before_app_request
+def check_for_shutdown():
+    if not system_status["alive"]:
+        abort(503)
 
 @lenh_tu_huy.route('/nuclear-shutdown/<passphrase>', methods=['GET'])
 def kill_switch(passphrase):
@@ -15,9 +22,6 @@ def kill_switch(passphrase):
         db_hash = security_check.get("lenh_thuc_thi")
         if passphrase == env_pass and str(db_hash) == str(get_sha256_hash(env_pass)):
             print("\n☢️[SECURITY ALERT] LỆNH TỰ HỦY ĐÃ KÍCH HOẠT QUA HTTP!")
-            def shutdown():
-                sys.exit(1)
-            import threading
-            threading.Timer(2, shutdown).start()
+            system_status["alive"] = False
             return "System shutting down...", 200
     return "Access Denied", 403
