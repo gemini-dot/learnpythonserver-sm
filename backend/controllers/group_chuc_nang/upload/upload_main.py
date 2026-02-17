@@ -2,7 +2,8 @@ import cloudinary
 import cloudinary.uploader
 from cloudinary.utils import cloudinary_url
 from flask import request,jsonify
-
+from utils.cloudidary_json_get import make_json_cloud
+from utils.luu_du_lieu_vao_db import luu
 cloudinary.config( 
   cloud_name = "dshgtuy8f", 
   api_key = "181457765166456", 
@@ -35,9 +36,15 @@ def upload_to_cloud():
                 file,
                 folder = folder_name,
                 use_filename = True, 
+                resource_type = "auto",
                 unique_filename = True 
-            )
-            urls.append(upload_result.get('secure_url'))
+            )   
+
+            file_info = make_json_cloud(upload_result)
+            file_info['user_gmail'] = user_email
+            luu(file_info,"file_info",user_email)
+
+            urls.append(file_info)
         except Exception as e:
             print(f"Lỗi: {e}")
             
