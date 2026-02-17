@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Upload Pricing</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link href="../../styles/buy_package/styles.css" rel="stylesheet" />
+  </head>
+  <body>
+    <header>
+      <h1 class="wave" id="waveText">Nền tảng Upload Chuyên Nghiệp</h1>
+      <p>Tối giản. Bảo mật. Hiệu suất cao.</p>
+    </header>
+
+    <section class="pricing">
+      <div class="card">
+        <h3>Cơ Bản</h3>
+        <div class="price">0đ</div>
+        <ul>
+          <li>
+            <svg class="icon" fill="none" viewBox="0 0 24 24" stroke-width="2">
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M5 13l4 4L19 7"
+              /></svg
+            >100MB / file
+          </li>
+          <li>
+            <svg class="icon" fill="none" viewBox="0 0 24 24" stroke-width="2">
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M5 13l4 4L19 7"
+              /></svg
+            >Lưu trữ 7 ngày
+          </li>
+          <li>
+            <svg class="icon" fill="none" viewBox="0 0 24 24" stroke-width="2">
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M5 13l4 4L19 7"
+              /></svg
+            >Tốc độ tiêu chuẩn
+          </li>
+        </ul>
+        <button>Chọn gói</button>
+      </div>
+
+      <div class="card popular">
+        <div class="badge">Phổ biến</div>
+        <h3>Nâng Cao</h3>
+        <div class="price">99.000đ/tháng</div>
+        <ul>
+          <li>
+            <svg class="icon" fill="none" viewBox="0 0 24 24" stroke-width="2">
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M5 13l4 4L19 7"
+              /></svg
+            >2GB / file
+          </li>
+          <li>
+            <svg class="icon" fill="none" viewBox="0 0 24 24" stroke-width="2">
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M5 13l4 4L19 7"
+              /></svg
+            >Lưu trữ không giới hạn
+          </li>
+          <li>
+            <svg class="icon" fill="none" viewBox="0 0 24 24" stroke-width="2">
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M5 13l4 4L19 7"
+              /></svg
+            >Tốc độ cao
+          </li>
+          <li>
+            <svg class="icon" fill="none" viewBox="0 0 24 24" stroke-width="2">
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M5 13l4 4L19 7"
+              /></svg
+            >Bảo mật nâng cao
+          </li>
+        </ul>
+        <button>Chọn gói</button>
+      </div>
+
+      <div class="card">
+        <h3>Siêu Cấp</h3>
+        <div class="price">299.000đ/tháng</div>
+        <ul>
+          <li>
+            <svg class="icon" fill="none" viewBox="0 0 24 24" stroke-width="2">
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M5 13l4 4L19 7"
+              /></svg
+            >Không giới hạn
+          </li>
+          <li>
+            <svg class="icon" fill="none" viewBox="0 0 24 24" stroke-width="2">
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M5 13l4 4L19 7"
+              /></svg
+            >CDN toàn cầu
+          </li>
+          <li>
+            <svg class="icon" fill="none" viewBox="0 0 24 24" stroke-width="2">
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M5 13l4 4L19 7"
+              /></svg
+            >Mã hóa end‑to‑end
+          </li>
+          <li>
+            <svg class="icon" fill="none" viewBox="0 0 24 24" stroke-width="2">
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M5 13l4 4L19 7"
+              /></svg
+            >Hỗ trợ 24/7
+          </li>
+        </ul>
+        <button>Chọn gói</button>
+      </div>
+    </section>
+
+    <footer>© 2026 Upload Platform. All rights reserved.</footer>
+
+    <script>
+      const text = document.getElementById('waveText');
+      const letters = text.innerText.split('');
+      text.innerHTML = letters
+        .map((letter, index) =>
+          letter === ' '
+            ? ' '
+            : `<span style="animation-delay:${index * 0.08}s">${letter}</span>`
+        )
+        .join('');
+    </script>
+  </body>
+</html>

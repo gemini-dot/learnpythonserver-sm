@@ -1,0 +1,127 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: #ffffff;
+  color: #111;
+}
+
+/* ===== HEADER ===== */
+header {
+  text-align: center;
+  padding: 120px 20px 60px;
+}
+
+header h1 {
+  font-size: 54px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  letter-spacing: 1px;
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  line-height: 1.2;
+}
+
+header p {
+  color: #555;
+  font-size: 18px;
+}
+
+/* ===== PRICING ===== */
+.pricing {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+  max-width: 1100px;
+  margin: 60px auto;
+  padding: 0 20px;
+}
+
+.card {
+  border: 1px solid #e5e5e5;
+  border-radius: 20px;
+  padding: 40px 30px;
+  transition: 0.4s ease;
+  position: relative;
+  background: #fff;
+}
+
+.card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+}
+
+.card.popular {
+  border: 2px solid #000;
+}
+
+.badge {
+  position: absolute;
+  top: -12px;
+  right: 20px;
+  background: #000;
+  color: #fff;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 12px;
+}
+
+.card h3 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.price {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+ul {
+  list-style: none;
+  margin-bottom: 30px;
+}
+
+ul li {
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #444;
+}
+
+.icon {
+  width: 18px;
+  height: 18px;
+  stroke: black;
+}
+
+button {
+  width: 100%;
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px solid #000;
+  background: #000;
+  color: #fff;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+button:hover {
+  background: #fff;
+  color: #000;
+}
+
+footer {
+  text-align: center;
+  padding: 40px;
+  font-size: 14px;
+  color: #777;
+  border-top: 1px solid #eee;
+  margin-top: 60px;
+}

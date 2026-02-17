@@ -3,26 +3,312 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>File Manager</title>
-    <link rel="stylesheet" href="../../../styles/upload/dashboard/style.css" />
+    <title>VAULT — Upload Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Instrument+Serif:ital@0;1&family=Manrope:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link href="../../../styles/upload/dashboard/style.css" rel="stylesheet" />
   </head>
   <body>
-    <!-- Background particles -->
-    <div class="bg-particles" id="particles"></div>
-
-    <div class="container">
-      <!-- Header -->
-      <div class="header">
-        <div class="logo">
-          <div class="logo-icon">📁</div>
-          <div class="logo-text">File Manager</div>
+    <div class="app" id="app">
+      <!-- HEADER -->
+      <header>
+        <div class="logo">VAULT <span>files</span></div>
+        <div class="header-center">
+          <svg
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <circle cx="11" cy="11" r="8" />
+            <line x1="21" y1="21" x2="16.65" y2="16.65" />
+          </svg>
+          Tìm kiếm file...
         </div>
         <div class="header-actions">
-          <button class="btn" onclick="toggleView()">
+          <button class="btn btn-ghost" onclick="openModal()">
             <svg
-              id="viewIcon"
-              width="18"
-              height="18"
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <line x1="12" y1="5" x2="12" y2="19" />
+              <line x1="5" y1="12" x2="19" y2="12" />
+            </svg>
+            Upload
+          </button>
+          <div class="avatar-wrap">
+            <div class="avatar" id="avatarBtn" onclick="toggleAvatarMenu()">
+              T
+            </div>
+            <div class="avatar-menu" id="avatarMenu">
+              <!-- Profile -->
+              <div class="am-profile">
+                <div class="am-avatar-big">T</div>
+                <div>
+                  <div class="am-name">Lai Van Sam</div>
+                  <div class="am-email">
+                    <a
+                      href="/cdn-cgi/l/email-protection"
+                      class="__cf_email__"
+                      data-cfemail="80f4f5e1eec0f6e1f5ecf4aee9ef"
+                      >[email&#160;protected]</a
+                    >
+                  </div>
+                  <div class="am-badge-pro">
+                    <svg
+                      width="9"
+                      height="9"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                    >
+                      <path
+                        d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+                      />
+                    </svg>
+                    ADMIN-ROOT
+                  </div>
+                </div>
+              </div>
+
+              <!-- Section 1: Account -->
+              <div class="am-section">
+                <div class="am-item" onclick="menuAction('profile')">
+                  <div class="am-icon">
+                    <svg
+                      width="14"
+                      height="14"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                      <circle cx="12" cy="7" r="4" />
+                    </svg>
+                  </div>
+                  <div class="am-item-text">
+                    <div class="am-item-label">Hồ sơ cá nhân</div>
+                    <div class="am-item-sub">Chỉnh sửa thông tin tài khoản</div>
+                  </div>
+                </div>
+                <div class="am-item" onclick="menuAction('storage-plan')">
+                  <div class="am-icon">
+                    <svg
+                      width="14"
+                      height="14"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <ellipse cx="12" cy="5" rx="9" ry="3" />
+                      <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3" />
+                      <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5" />
+                    </svg>
+                  </div>
+                  <div class="am-item-text">
+                    <div class="am-item-label">Gói lưu trữ</div>
+                    <div class="am-item-sub">50 GB — Pro plan</div>
+                  </div>
+                  <div class="am-item-right">Nâng cấp</div>
+                </div>
+                <div class="am-item" onclick="menuAction('billing')">
+                  <div class="am-icon">
+                    <svg
+                      width="14"
+                      height="14"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <rect x="1" y="4" width="22" height="16" rx="2" ry="2" />
+                      <line x1="1" y1="10" x2="23" y2="10" />
+                    </svg>
+                  </div>
+                  <div class="am-item-text">
+                    <div class="am-item-label">Thanh toán</div>
+                    <div class="am-item-sub">Quản lý hóa đơn & thẻ</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="am-divider"></div>
+
+              <!-- Section 2: Settings & Prefs -->
+              <div class="am-section">
+                <div class="am-item" onclick="menuAction('settings')">
+                  <div class="am-icon">
+                    <svg
+                      width="14"
+                      height="14"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <circle cx="12" cy="12" r="3" />
+                      <path
+                        d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"
+                      />
+                    </svg>
+                  </div>
+                  <div class="am-item-text">
+                    <div class="am-item-label">Cài đặt</div>
+                    <div class="am-item-sub">Bảo mật, thông báo...</div>
+                  </div>
+                </div>
+                <div class="am-item" onclick="toggleNotif(this)">
+                  <div class="am-icon">
+                    <svg
+                      width="14"
+                      height="14"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
+                      <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+                    </svg>
+                  </div>
+                  <div class="am-item-text">
+                    <div class="am-item-label">Thông báo</div>
+                  </div>
+                  <div class="am-toggle on" id="notifToggle"></div>
+                </div>
+                <div class="am-item" onclick="toggleDark(this)">
+                  <div class="am-icon">
+                    <svg
+                      width="14"
+                      height="14"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path
+                        d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"
+                      />
+                    </svg>
+                  </div>
+                  <div class="am-item-text">
+                    <div class="am-item-label">Giao diện tối</div>
+                  </div>
+                  <div class="am-toggle" id="darkToggle"></div>
+                </div>
+              </div>
+
+              <div class="am-divider"></div>
+
+              <!-- Section 3: Help + Logout -->
+              <div class="am-section">
+                <div class="am-item" onclick="menuAction('help')">
+                  <div class="am-icon">
+                    <svg
+                      width="14"
+                      height="14"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <circle cx="12" cy="12" r="10" />
+                      <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
+                      <line x1="12" y1="17" x2="12.01" y2="17" />
+                    </svg>
+                  </div>
+                  <div class="am-item-text">
+                    <div class="am-item-label">Trợ giúp & Hỗ trợ</div>
+                  </div>
+                </div>
+                <div class="am-item" onclick="menuAction('shortcut')">
+                  <div class="am-icon">
+                    <svg
+                      width="14"
+                      height="14"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <rect x="2" y="7" width="20" height="14" rx="2" />
+                      <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+                    </svg>
+                  </div>
+                  <div class="am-item-text">
+                    <div class="am-item-label">Phím tắt</div>
+                  </div>
+                  <div class="am-item-right">⌘K</div>
+                </div>
+                <div class="am-item danger" onclick="menuAction('logout')">
+                  <div class="am-icon">
+                    <svg
+                      width="14"
+                      height="14"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                      <polyline points="16 17 21 12 16 7" />
+                      <line x1="21" y1="12" x2="9" y2="12" />
+                    </svg>
+                  </div>
+                  <div class="am-item-text">
+                    <div class="am-item-label">Đăng xuất</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- LEFT SIDEBAR -->
+      <aside class="sidebar" id="sidebar">
+        <div class="sidebar-section">
+          <div class="sidebar-label">Thư mục</div>
+          <div
+            class="nav-item active"
+            data-tip="Tất cả file"
+            onclick="setNav(this)"
+          >
+            <svg
+              width="16"
+              height="16"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
@@ -30,243 +316,677 @@
               stroke-linecap="round"
               stroke-linejoin="round"
             >
-              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-              <circle cx="12" cy="12" r="3"></circle>
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+              <polyline points="9 22 9 12 15 12 15 22" />
             </svg>
-            Chế độ xem
+            <span class="nav-item-text">Tất cả file</span>
+            <span class="badge">47</span>
+          </div>
+          <div class="nav-item" data-tip="Hình ảnh" onclick="setNav(this)">
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <rect x="3" y="3" width="18" height="18" rx="2" />
+              <circle cx="8.5" cy="8.5" r="1.5" />
+              <polyline points="21 15 16 10 5 21" />
+            </svg>
+            <span class="nav-item-text">Hình ảnh</span>
+            <span class="badge">12</span>
+          </div>
+          <div class="nav-item" data-tip="Tài liệu" onclick="setNav(this)">
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path
+                d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
+              />
+              <polyline points="14 2 14 8 20 8" />
+              <line x1="16" y1="13" x2="8" y2="13" />
+              <line x1="16" y1="17" x2="8" y2="17" />
+            </svg>
+            <span class="nav-item-text">Tài liệu</span>
+            <span class="badge">21</span>
+          </div>
+          <div class="nav-item" data-tip="Video" onclick="setNav(this)">
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <polygon points="23 7 16 12 23 17 23 7" />
+              <rect x="1" y="5" width="15" height="14" rx="2" ry="2" />
+            </svg>
+            <span class="nav-item-text">Video</span>
+            <span class="badge">8</span>
+          </div>
+          <div class="nav-item" data-tip="Chia sẻ" onclick="setNav(this)">
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <circle cx="18" cy="5" r="3" />
+              <circle cx="6" cy="12" r="3" />
+              <circle cx="18" cy="19" r="3" />
+              <line x1="8.59" y1="13.51" x2="15.42" y2="17.49" />
+              <line x1="15.41" y1="6.51" x2="8.59" y2="10.49" />
+            </svg>
+            <span class="nav-item-text">Chia sẻ</span>
+            <span class="badge">6</span>
+          </div>
+        </div>
+
+        <div class="sidebar-divider"></div>
+
+        <div class="sidebar-section">
+          <div class="sidebar-label">Gần đây</div>
+          <div class="nav-item" data-tip="Hôm nay" onclick="setNav(this)">
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <circle cx="12" cy="12" r="10" />
+              <polyline points="12 6 12 12 16 14" />
+            </svg>
+            <span class="nav-item-text">Hôm nay</span>
+          </div>
+          <div class="nav-item" data-tip="Đã tải lên" onclick="setNav(this)">
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+              <polyline points="7 10 12 15 17 10" />
+              <line x1="12" y1="15" x2="12" y2="3" />
+            </svg>
+            <span class="nav-item-text">Đã tải lên</span>
+          </div>
+          <div class="nav-item" data-tip="Yêu thích" onclick="setNav(this)">
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path
+                d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"
+              />
+            </svg>
+            <span class="nav-item-text">Yêu thích</span>
+          </div>
+          <div class="nav-item" data-tip="Thùng rác" onclick="setNav(this)">
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <polyline points="3 6 5 6 21 6" />
+              <path
+                d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"
+              />
+            </svg>
+            <span class="nav-item-text">Thùng rác</span>
+          </div>
+        </div>
+
+        <!-- Storage -->
+        <div class="storage-widget">
+          <div class="storage-header">
+            <span class="storage-label">Dung lượng</span>
+            <span class="storage-pct">68%</span>
+          </div>
+          <div class="storage-bar">
+            <div class="storage-fill" id="storFill"></div>
+          </div>
+          <div class="storage-info">
+            Đã dùng <strong>34.2 GB</strong> / 50 GB
+          </div>
+        </div>
+
+        <!-- Storage icon mini (hiện khi thu gọn) -->
+        <div
+          style="
+            padding: 10px 8px;
+            border-top: 1px solid var(--border);
+            flex-shrink: 0;
+            display: flex;
+            justify-content: center;
+          "
+        >
+          <div
+            style="
+              width: 36px;
+              height: 36px;
+              border-radius: 10px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              color: var(--ink-4);
+            "
+            title="Dung lượng: 68%"
+          >
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <ellipse cx="12" cy="5" rx="9" ry="3" />
+              <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3" />
+              <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5" />
+            </svg>
+          </div>
+        </div>
+      </aside>
+
+      <!-- MAIN -->
+      <main class="main" id="main">
+        <!-- Toolbar -->
+        <div class="main-toolbar">
+          <div class="view-toggle">
+            <button
+              class="view-btn active"
+              id="gridBtn"
+              onclick="setView('grid')"
+              title="Lưới"
+            >
+              <svg
+                width="15"
+                height="15"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <rect x="3" y="3" width="7" height="7" />
+                <rect x="14" y="3" width="7" height="7" />
+                <rect x="14" y="14" width="7" height="7" />
+                <rect x="3" y="14" width="7" height="7" />
+              </svg>
+            </button>
+            <button
+              class="view-btn"
+              id="listBtn"
+              onclick="setView('list')"
+              title="Danh sách"
+            >
+              <svg
+                width="15"
+                height="15"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <line x1="8" y1="6" x2="21" y2="6" />
+                <line x1="8" y1="12" x2="21" y2="12" />
+                <line x1="8" y1="18" x2="21" y2="18" />
+                <line x1="3" y1="6" x2="3.01" y2="6" />
+                <line x1="3" y1="12" x2="3.01" y2="12" />
+                <line x1="3" y1="18" x2="3.01" y2="18" />
+              </svg>
+            </button>
+          </div>
+          <select class="sort-select">
+            <option>Sắp xếp: Mới nhất</option>
+            <option>Sắp xếp: Tên A-Z</option>
+            <option>Sắp xếp: Kích thước</option>
+            <option>Sắp xếp: Loại file</option>
+          </select>
+          <div class="tool-sep"></div>
+          <span
+            style="
+              font-size: 12px;
+              color: var(--ink-4);
+              font-family: 'DM Mono', monospace;
+            "
+            id="selCount"
+          ></span>
+          <button
+            class="btn btn-ghost"
+            id="deleteSelBtn"
+            style="
+              display: none;
+              font-size: 12px;
+              padding: 5px 10px;
+              color: #c03030;
+              border-color: #e04040;
+            "
+            onclick="deleteSelected()"
+          >
+            <svg
+              width="13"
+              height="13"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.2"
+              stroke-linecap="round"
+            >
+              <polyline points="3 6 5 6 21 6" />
+              <path
+                d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"
+              />
+            </svg>
+            Xóa
+          </button>
+        </div>
+
+        <!-- Drop zone -->
+        <div class="dropzone" id="dropzone" onclick="openModal()">
+          <div class="dropzone-icon">
+            <svg
+              width="36"
+              height="36"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+              <polyline points="17 8 12 3 7 8" />
+              <line x1="12" y1="3" x2="12" y2="15" />
+            </svg>
+          </div>
+          <div class="dropzone-title">Kéo thả file vào đây</div>
+          <div class="dropzone-sub">Hoặc nhấn để chọn file từ máy tính</div>
+        </div>
+
+        <!-- Files -->
+        <div class="files-area" id="filesArea">
+          <div class="section-title">Gần đây</div>
+          <div class="file-grid" id="fileContainer"></div>
+        </div>
+      </main>
+
+      <!-- RIGHT PANEL -->
+      <aside class="panel" id="panel">
+        <!-- Icon rail (visible when collapsed) -->
+        <div class="panel-rail-icons">
+          <button
+            class="rail-icon-btn"
+            data-tip="Chi tiết"
+            onclick="toggleRight()"
+          >
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <circle cx="12" cy="12" r="10" />
+              <line x1="12" y1="8" x2="12" y2="12" />
+              <line x1="12" y1="16" x2="12.01" y2="16" />
+            </svg>
           </button>
           <button
-            class="btn btn-primary"
-            onclick="
-              window.location.href =
-                'https://gemini-dot.github.io/learnpythonserver-sm/frontend/view/upload/web_upload/index.html'
-            "
+            class="rail-icon-btn"
+            data-tip="Tải xuống"
+            onclick="toast('Chọn file trước')"
           >
-            <span style="font-size: 18px; font-weight: bold">+</span> Tải lên
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+              <polyline points="7 10 12 15 17 10" />
+              <line x1="12" y1="15" x2="12" y2="3" />
+            </svg>
+          </button>
+          <button
+            class="rail-icon-btn"
+            data-tip="Chia sẻ"
+            onclick="toast('Chọn file trước')"
+          >
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <circle cx="18" cy="5" r="3" />
+              <circle cx="6" cy="12" r="3" />
+              <circle cx="18" cy="19" r="3" />
+              <line x1="8.59" y1="13.51" x2="15.42" y2="17.49" />
+              <line x1="15.41" y1="6.51" x2="8.59" y2="10.49" />
+            </svg>
+          </button>
+          <button
+            class="rail-icon-btn"
+            data-tip="Xóa"
+            onclick="deleteSelected()"
+            style="color: #c03030"
+          >
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <polyline points="3 6 5 6 21 6" />
+              <path
+                d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"
+              />
+            </svg>
           </button>
         </div>
-      </div>
 
-      <!-- Stats -->
-      <div class="stats-bar">
-        <div class="stat-card">
-          <div class="stat-label">Tổng dung lượng</div>
-          <div class="stat-value">250 GB</div>
-          <div class="stat-progress">
-            <div class="stat-progress-bar" style="width: 65%"></div>
+        <!-- Full panel content (visible when open) -->
+        <div class="panel-full">
+          <div class="panel-header">
+            <div
+              style="
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+              "
+            >
+              <div>
+                <div class="panel-title" id="panelTitle">Chi tiết file</div>
+                <div class="panel-sub" id="panelSub">Chọn một file để xem</div>
+              </div>
+              <!-- Close button -->
+              <button
+                onclick="toggleRight()"
+                style="
+                  background: none;
+                  border: none;
+                  cursor: pointer;
+                  padding: 6px;
+                  border-radius: 8px;
+                  color: var(--ink-4);
+                  display: flex;
+                  align-items: center;
+                  transition: all 0.15s;
+                "
+                onmouseover="
+                  this.style.background = 'var(--bg)';
+                  this.style.color = 'var(--ink)';
+                "
+                onmouseout="
+                  this.style.background = 'none';
+                  this.style.color = 'var(--ink-4)';
+                "
+              >
+                <svg
+                  width="15"
+                  height="15"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                >
+                  <line x1="18" y1="6" x2="6" y2="18" />
+                  <line x1="6" y1="6" x2="18" y2="18" />
+                </svg>
+              </button>
+            </div>
           </div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-label">Đã sử dụng</div>
-          <div class="stat-value">162.5 GB</div>
-          <div class="stat-progress">
-            <div class="stat-progress-bar" style="width: 65%"></div>
+          <div class="panel-empty" id="panelEmpty">
+            <div class="panel-empty-icon">
+              <svg
+                width="52"
+                height="52"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path
+                  d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
+                />
+                <polyline points="14 2 14 8 20 8" />
+              </svg>
+            </div>
+            <div class="panel-empty-title">Chưa chọn file</div>
+            <div class="panel-empty-sub">
+              Nhấn vào một file bất kỳ để xem thông tin chi tiết
+            </div>
           </div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-label">Số file</div>
-          <div class="stat-value">1,247</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-label">Thư mục</div>
-          <div class="stat-value">89</div>
-        </div>
-      </div>
-
-      <!-- Controls -->
-      <div class="controls">
-        <div class="search-box">
-          <input
-            type="text"
-            class="search-input"
-            placeholder="Tìm kiếm file..."
-            id="searchInput"
-          />
-          <span class="search-icon">🔍</span>
-        </div>
-        <div class="filter-group">
-          <button class="filter-btn active" onclick="filterFiles('all')">
-            Tất cả
-          </button>
-          <button class="filter-btn" onclick="filterFiles('documents')">
-            Tài liệu
-          </button>
-          <button class="filter-btn" onclick="filterFiles('images')">
-            Hình ảnh
-          </button>
-          <button class="filter-btn" onclick="filterFiles('videos')">
-            Video
-          </button>
-          <button class="filter-btn" onclick="filterFiles('others')">
-            Khác
-          </button>
-        </div>
-      </div>
-
-      <!-- Recent Files -->
-      <div class="files-section">
-        <div class="section-header">
-          <h2 class="section-title">Gần đây</h2>
-          <div class="view-toggle">
-            <button class="view-btn active" onclick="setGridView()">
-              Grid
+          <div class="preview-area" id="panelContent" style="display: none">
+            <div class="preview-thumb" id="previewThumb"></div>
+            <div class="detail-group">
+              <div class="detail-label">Thông tin</div>
+              <div class="detail-row">
+                <span class="detail-key">Tên</span
+                ><span class="detail-val" id="detName">—</span>
+              </div>
+              <div class="detail-row">
+                <span class="detail-key">Loại</span
+                ><span class="detail-val" id="detType">—</span>
+              </div>
+              <div class="detail-row">
+                <span class="detail-key">Kích thước</span
+                ><span class="detail-val" id="detSize">—</span>
+              </div>
+              <div class="detail-row">
+                <span class="detail-key">Ngày tải</span
+                ><span class="detail-val" id="detDate">—</span>
+              </div>
+              <div class="detail-row">
+                <span class="detail-key">Độ phân giải</span
+                ><span class="detail-val" id="detRes">—</span>
+              </div>
+            </div>
+            <div class="detail-group">
+              <div class="detail-label">Đường dẫn</div>
+              <div class="detail-row">
+                <span
+                  class="detail-val"
+                  id="detPath"
+                  style="font-size: 11px; word-break: break-all"
+                  >—</span
+                >
+              </div>
+            </div>
+          </div>
+          <div class="panel-actions" id="panelActions" style="display: none">
+            <button class="panel-btn" onclick="toast('Đang tải xuống...')">
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                <polyline points="7 10 12 15 17 10" />
+                <line x1="12" y1="15" x2="12" y2="3" />
+              </svg>
+              Tải xuống
             </button>
-            <button class="view-btn" onclick="setListView()">List</button>
+            <button
+              class="panel-btn"
+              onclick="toast('Đã sao chép link chia sẻ!')"
+            >
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <circle cx="18" cy="5" r="3" />
+                <circle cx="6" cy="12" r="3" />
+                <circle cx="18" cy="19" r="3" />
+                <line x1="8.59" y1="13.51" x2="15.42" y2="17.49" />
+                <line x1="15.41" y1="6.51" x2="8.59" y2="10.49" />
+              </svg>
+              Chia sẻ
+            </button>
+            <button class="panel-btn danger" onclick="deleteSelected()">
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <polyline points="3 6 5 6 21 6" />
+                <path
+                  d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"
+                />
+              </svg>
+              Xóa file
+            </button>
           </div>
         </div>
+      </aside>
+    </div>
 
-        <!-- Grid View -->
-        <div class="files-grid active" id="filesGrid">
-          <div class="file-card" data-type="documents">
-            <div class="file-checkbox" onclick="toggleSelect(this)"></div>
-            <div class="file-icon">📄</div>
-            <div class="file-name">Báo cáo Q4 2024.pdf</div>
-            <div class="file-info">
-              <span>2.4 MB</span>
-              <span>Hôm qua</span>
-            </div>
-          </div>
+    <!-- (triggers removed — sidebar now uses icon-rail) -->
 
-          <div class="file-card" data-type="images">
-            <div class="file-checkbox" onclick="toggleSelect(this)"></div>
-            <div class="file-icon">🖼️</div>
-            <div class="file-name">Design_mockup.png</div>
-            <div class="file-info">
-              <span>8.7 MB</span>
-              <span>2 ngày trước</span>
-            </div>
-          </div>
-
-          <div class="file-card" data-type="videos">
-            <div class="file-checkbox" onclick="toggleSelect(this)"></div>
-            <div class="file-icon">🎬</div>
-            <div class="file-name">Presentation_video.mp4</div>
-            <div class="file-info">
-              <span>145 MB</span>
-              <span>3 ngày trước</span>
-            </div>
-          </div>
-
-          <div class="file-card" data-type="documents">
-            <div class="file-checkbox" onclick="toggleSelect(this)"></div>
-            <div class="file-icon">📊</div>
-            <div class="file-name">Data_analysis.xlsx</div>
-            <div class="file-info">
-              <span>1.2 MB</span>
-              <span>5 ngày trước</span>
-            </div>
-          </div>
-
-          <div class="file-card" data-type="others">
-            <div class="file-checkbox" onclick="toggleSelect(this)"></div>
-            <div class="file-icon">📦</div>
-            <div class="file-name">Project_backup.zip</div>
-            <div class="file-info">
-              <span>256 MB</span>
-              <span>1 tuần trước</span>
-            </div>
-          </div>
-
-          <div class="file-card" data-type="documents">
-            <div class="file-checkbox" onclick="toggleSelect(this)"></div>
-            <div class="file-icon">📝</div>
-            <div class="file-name">Meeting_notes.docx</div>
-            <div class="file-info">
-              <span>456 KB</span>
-              <span>1 tuần trước</span>
-            </div>
-          </div>
-
-          <div class="file-card" data-type="images">
-            <div class="file-checkbox" onclick="toggleSelect(this)"></div>
-            <div class="file-icon">📷</div>
-            <div class="file-name">Team_photo.jpg</div>
-            <div class="file-info">
-              <span>4.3 MB</span>
-              <span>2 tuần trước</span>
-            </div>
-          </div>
-
-          <div class="file-card" data-type="documents">
-            <div class="file-checkbox" onclick="toggleSelect(this)"></div>
-            <div class="file-icon">📑</div>
-            <div class="file-name">Contract_draft.pdf</div>
-            <div class="file-info">
-              <span>3.1 MB</span>
-              <span>2 tuần trước</span>
-            </div>
-          </div>
+    <!-- UPLOAD MODAL -->
+    <div class="upload-modal" id="uploadModal">
+      <div class="upload-modal-box">
+        <div class="modal-title">Tải file lên</div>
+        <div class="modal-sub">
+          Hỗ trợ JPG, PNG, PDF, MP4, ZIP và nhiều định dạng khác
         </div>
-
-        <!-- List View -->
-        <div class="files-list" id="filesList">
-          <div class="file-row" data-type="documents">
-            <div class="file-row-icon">📄</div>
-            <div class="file-row-details">
-              <div class="file-row-name">Báo cáo Q4 2024.pdf</div>
-              <div class="file-row-meta">2.4 MB • Hôm qua • Tài liệu</div>
-            </div>
-            <div class="file-row-actions">
-              <button class="action-btn">Tải xuống</button>
-              <button class="action-btn">Chia sẻ</button>
-              <button class="action-btn">Xóa</button>
-            </div>
-          </div>
-
-          <div class="file-row" data-type="images">
-            <div class="file-row-icon">🖼️</div>
-            <div class="file-row-details">
-              <div class="file-row-name">Design_mockup.png</div>
-              <div class="file-row-meta">8.7 MB • 2 ngày trước • Hình ảnh</div>
-            </div>
-            <div class="file-row-actions">
-              <button class="action-btn">Tải xuống</button>
-              <button class="action-btn">Chia sẻ</button>
-              <button class="action-btn">Xóa</button>
-            </div>
-          </div>
-
-          <div class="file-row" data-type="videos">
-            <div class="file-row-icon">🎬</div>
-            <div class="file-row-details">
-              <div class="file-row-name">Presentation_video.mp4</div>
-              <div class="file-row-meta">145 MB • 3 ngày trước • Video</div>
-            </div>
-            <div class="file-row-actions">
-              <button class="action-btn">Tải xuống</button>
-              <button class="action-btn">Chia sẻ</button>
-              <button class="action-btn">Xóa</button>
-            </div>
-          </div>
-
-          <div class="file-row" data-type="documents">
-            <div class="file-row-icon">📊</div>
-            <div class="file-row-details">
-              <div class="file-row-name">Data_analysis.xlsx</div>
-              <div class="file-row-meta">1.2 MB • 5 ngày trước • Tài liệu</div>
-            </div>
-            <div class="file-row-actions">
-              <button class="action-btn">Tải xuống</button>
-              <button class="action-btn">Chia sẻ</button>
-              <button class="action-btn">Xóa</button>
-            </div>
-          </div>
-
-          <div class="file-row" data-type="others">
-            <div class="file-row-icon">📦</div>
-            <div class="file-row-details">
-              <div class="file-row-name">Project_backup.zip</div>
-              <div class="file-row-meta">256 MB • 1 tuần trước • Khác</div>
-            </div>
-            <div class="file-row-actions">
-              <button class="action-btn">Tải xuống</button>
-              <button class="action-btn">Chia sẻ</button>
-              <button class="action-btn">Xóa</button>
-            </div>
-          </div>
+        <div
+          class="modal-dropzone"
+          onclick="document.getElementById('fileInput').click()"
+        >
+          <svg
+            width="38"
+            height="38"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+            <polyline points="17 8 12 3 7 8" />
+            <line x1="12" y1="3" x2="12" y2="15" />
+          </svg>
+          <div class="modal-dropzone-title">Kéo & thả hoặc nhấn để chọn</div>
+          <div class="modal-dropzone-sub">Tối đa 2GB mỗi file</div>
+        </div>
+        <input
+          type="file"
+          id="fileInput"
+          class="modal-file-input"
+          multiple
+          onchange="handleFiles(this.files)"
+        />
+        <div class="upload-queue" id="uploadQueue"></div>
+        <div class="modal-actions">
+          <button class="btn btn-ghost" onclick="closeModal()">Hủy</button>
+          <button class="btn btn-primary" onclick="startUpload()">
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+              <polyline points="17 8 12 3 7 8" />
+              <line x1="12" y1="3" x2="12" y2="15" />
+            </svg>
+            Upload ngay
+          </button>
         </div>
       </div>
     </div>
-    <script src="../../../javascript/upload/dashboard/main.js"></script>
+
+    <!-- TOAST -->
+    <div class="toast-stack" id="toasts"></div>
+
+    <script
+      data-cfasync="false"
+      src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"
+    ></script>
+    <script src="../../../javascript/upload/dashboard/main_dboard.js"></script>
   </body>
 </html>
