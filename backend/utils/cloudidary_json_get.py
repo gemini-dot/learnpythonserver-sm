@@ -1,7 +1,12 @@
-def make_json_cloud(upload_result, user_email):
+def make_json_cloud(upload_result, user_email, ten_goc):
     ext = upload_result.get('format', '')
     original_name = upload_result.get('original_filename', upload_result.get('public_id', 'unnamed_file'))
-    full_name = f"{original_name}.{ext}" if ext else original_name
+    
+    if ten_goc and ten_goc != "":
+        full_name = ten_goc
+    else:
+        original_name = upload_result.get('original_filename', upload_result.get('public_id', 'unnamed_file'))
+        full_name = f"{original_name}.{ext.lower()}" if ext else original_name
 
     file_info = {
         "public_id": upload_result.get('public_id'),
