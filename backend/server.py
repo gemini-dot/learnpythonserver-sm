@@ -15,6 +15,7 @@ from routes.check_test.cookie import app_route6
 from routes.group_chuc_nang.kiem_tra_dang_nhap.upload_fist_login import app_route7
 from routes.group_chuc_nang.upload.upload_main import app_route8
 from routes.ping.ping import khoi_dong
+from routes.group_admin.group_chuc_nang.kill_switch import lenh_tu_huy
 from utils.trang_thai_db_503 import get_maintenance_status
 
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
@@ -31,6 +32,7 @@ app.register_blueprint(app_route6, url_prefix='/auth')
 app.register_blueprint(app_route7,url_prefix='/security')
 app.register_blueprint(app_route8,url_prefix='/upload_sv')
 app.register_blueprint(khoi_dong, url_prefix='/ping')
+app.register_blueprint(lenh_tu_huy, url_prefix='/admin')
 
 @app.errorhandler(500)
 def internal_server_error(e):
