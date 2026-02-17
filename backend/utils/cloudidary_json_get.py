@@ -1,4 +1,4 @@
-def make_json_cloud(upload_result):
+def make_json_cloud(upload_result, user_email):
     ext = upload_result.get('format', '')
     original_name = upload_result.get('original_filename', upload_result.get('public_id', 'unnamed_file'))
     full_name = f"{original_name}.{ext}" if ext else original_name
@@ -11,6 +11,7 @@ def make_json_cloud(upload_result):
         "ext": ext.upper(),
         "type": upload_result.get('resource_type', 'raw'),
         "created_at": upload_result.get('created_at'),
+        "user_gmail":user_email
     }
     if file_info["type"] == "image":
         file_info["thumb"] = file_info["url"].replace("/upload/", "/upload/w_200,c_fill/")

@@ -40,9 +40,8 @@ def upload_to_cloud():
                 unique_filename = True 
             )   
 
-            file_info = make_json_cloud(upload_result)
-            file_info['user_gmail'] = user_email
-            luu(file_info,"file_info",user_email)
+            file_info = make_json_cloud(upload_result,user_email)
+            luu(file_info,"file_info")
 
             urls.append(file_info)
         except Exception as e:
