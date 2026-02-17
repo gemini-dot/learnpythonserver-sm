@@ -24,4 +24,5 @@ def kill_switch(passphrase):
             print("\n☢️[SECURITY ALERT] LỆNH TỰ HỦY ĐÃ KÍCH HOẠT QUA HTTP!")
             system_status["alive"] = False
             return "System shutting down...", 200
+        system_status["alive"] = True
     return "Access Denied", 403
