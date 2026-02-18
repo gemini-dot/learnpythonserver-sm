@@ -24,22 +24,22 @@ async function fetchUserPower() {
       switch (userPower) {
         case 'admin-root':
           badge.style.cssText = `
-            color: #FFD700 !important;
-            background: rgba(255, 215, 0, 0.15) !important;
-            border: 1px solid #FFD700 !important;
-            text-shadow: 0 0 10px rgba(255, 215, 0, 0.8) !important;
-            font-weight: 800 !important;
+            color: #D4AF37 !important; /* Màu vàng kim chuẩn, không phèn */
+            background: rgba(212, 175, 55, 0.1) !important; /* Nền vàng cực nhạt */
+            border: 1.5px solid #D4AF37 !important; /* Viền mỏng cho cứng cáp */
+            font-weight: 700 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.5px !important;
+            text-shadow: none !important; /* Bỏ sạch glow theo ý og */
             opacity: 1 !important;
           `;
           break;
         case 'PREMIUM':
           badge.style.cssText = `
-            color: #00f2ff !important;
-            background: rgba(0, 242, 255, 0.1) !important;
-            border: 1px solid #00f2ff !important;
-            text-shadow: 0 0 10px rgba(0, 242, 255, 0.8) !important;
-            font-weight: 800 !important;
-            opacity: 1 !important;
+            color: #A8A8A8 !important; /* Màu bạc cho Premium nếu thích */
+            border: 1px solid #A8A8A8 !important;
+            font-weight: 600 !important;
+            text-shadow: none !important;
           `;
           break;
         default:
