@@ -968,7 +968,7 @@ async function downloadCurrentFile() {
       openRight();
     } catch (error) {
       console.error(error);
-      toast('Lỗi khi tải file, thử lại sau nhé og!');
+      toast('Lỗi khi tải file, thử lại sau nhé og!'); //
     }
   } else {
     toast('Lỗi: Link file không tồn tại!');
