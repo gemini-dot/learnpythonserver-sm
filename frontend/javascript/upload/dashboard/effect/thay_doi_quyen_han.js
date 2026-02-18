@@ -19,7 +19,7 @@ async function fetchUserPower() {
       const svgIcon = badge.querySelector('svg').outerHTML;
       badge.innerHTML = `${svgIcon} ${userPower.toUpperCase()}`;
 
-      switch (power) {
+      switch (userPower) {
         case 'ADMIN':
           badge.style.setProperty('color', '#FFD700', 'important');
           badge.style.setProperty('border', '1px solid #FFD700', 'important');
