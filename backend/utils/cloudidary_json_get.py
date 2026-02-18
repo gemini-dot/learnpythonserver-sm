@@ -1,30 +1,41 @@
-def make_json_cloud(upload_result, user_email, ten_goc):
-    ext = upload_result.get('format', '')
-    original_name = upload_result.get('original_filename', upload_result.get('public_id', 'unnamed_file'))
-    
-    ext_raw = upload_result.get('format') or '' 
-    ext = ext_raw.upper()
+from datetime import datetime
 
-    if ten_goc and ten_goc.strip() != "":
-            full_name = ten_goc
+def make_json_cloud(upload_result, user_email, ten_goc):
+    ext_raw = upload_result.get('format', '').lower()
+    ext_display = ext_raw.upper() if ext_raw else "FILE"
+
+    full_name = ten_goc if ten_goc and ten_goc.strip() else f"{upload_result.get('public_id')}.{ext_raw}"
+
+    res_type = upload_result.get('resource_type', 'raw')
+    fe_type = 'doc'
+    if res_type == 'image': fe_type = 'img'
+    elif res_type == 'video': fe_type = 'vid'
+    elif ext_raw == 'pdf': fe_type = 'pdf'
+    elif ext_raw in ['zip', 'rar', '7z']: fe_type = 'zip'
+
+    bytes_size = upload_result.get('bytes', 0)
+    if bytes_size > 1024 * 1024:
+        size_str = f"{round(bytes_size / (1024 * 1024), 1)} MB"
     else:
-            original_name = upload_result.get('original_filename', 'unnamed_file')
-            # Chỉ thêm đuôi nếu có ext
-            full_name = f"{original_name}.{ext_raw.lower()}" if ext_raw else original_name
+        size_str = f"{round(bytes_size / 1024, 1)} KB"
+
+    raw_date = upload_result.get('created_at', '')
+    try:
+        date_obj = datetime.strptime(raw_date, '%Y-%m-%dT%H:%M:%SZ')
+        formatted_date = date_obj.strftime('%d/%m/%Y')
+    except:
+        formatted_date = datetime.now().strftime('%d/%m/%Y')
 
     file_info = {
-        "public_id": upload_result.get('public_id'),
+        "id": upload_result.get('public_id'),
         "name": full_name,
         "url": upload_result.get('secure_url'),
-        "size": upload_result.get('bytes', 0), 
-        "ext": ext,
-        "type": upload_result.get('resource_type', 'raw'),
-        "created_at": upload_result.get('created_at'),
-        "user_gmail":user_email
+        "size": size_str, 
+        "ext": ext_display,
+        "type": fe_type,
+        "date": formatted_date,
+        "user_gmail": user_email,
+        "thumb": file_info["url"].replace("/upload/", "/upload/w_200,c_fill/") if res_type == "image" else None
     }
-    if file_info["type"] == "image":
-        file_info["thumb"] = file_info["url"].replace("/upload/", "/upload/w_200,c_fill/")
-    else:
-        file_info["thumb"] = None
         
     return file_info
