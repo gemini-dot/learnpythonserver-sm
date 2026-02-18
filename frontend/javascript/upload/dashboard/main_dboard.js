@@ -669,73 +669,64 @@ async function loadFilesFromServer() {
     }
 
     // 4. Parse JSON
+    // 4. Parse JSON
     const data = await response.json();
-    console.log('[Load] Received data:', data);
+    console.log('[Load] Dữ liệu thô từ server:', data);
 
-    // 5. Validate response structure
-    if (!data.files || !Array.isArray(data.files)) {
-      throw new Error('Response không đúng format: thiếu field "files"');
+    // 5. Xóa hết dữ liệu cũ trên RAM để nạp mới
+    sampleFiles.length = 0;
+    trashFiles.length = 0;
+
+    // 6. Nạp dữ liệu vào các mảng tương ứng (Dùng tên biến trùng với Backend)
+    // Xử lý File hoạt động (Active)
+    if (data.danh_sach_file && Array.isArray(data.danh_sach_file)) {
+      sampleFiles.push(
+        ...data.danh_sach_file.map((f, i) => ({
+          id: f.id || f._id || `f_a_${i}`,
+          name: f.name || 'Unnamed',
+          type: mapFileType(f.type, f.ext),
+          ext: (f.ext || '').toUpperCase(),
+          size: f.size || '—',
+          date: f.date || new Date().toLocaleDateString('vi-VN'),
+          url: f.url || '',
+          emoji: getEmojiForType(mapFileType(f.type, f.ext)),
+          thumb: getThumbColor(mapFileType(f.type, f.ext)),
+          path: f.path || '',
+        }))
+      );
     }
 
-    // 6. XÓA HẾT DATA CŨ (nếu có)
-    sampleFiles.length = 0;
-    console.log('[Load] Cleared old data');
+    // Xử lý File rác (Trash)
+    if (
+      data.danh_sach_file_da_xoa &&
+      Array.isArray(data.danh_sach_file_da_xoa)
+    ) {
+      trashFiles.push(
+        ...data.danh_sach_file_da_xoa.map((f, i) => ({
+          id: f.id || f._id || `f_t_${i}`,
+          name: f.name || 'Unnamed',
+          type: mapFileType(f.type, f.ext),
+          ext: (f.ext || '').toUpperCase(),
+          size: f.size || '—',
+          date: f.date || new Date().toLocaleDateString('vi-VN'),
+          url: f.url || '',
+          emoji: getEmojiForType(mapFileType(f.type, f.ext)),
+          thumb: getThumbColor(mapFileType(f.type, f.ext)),
+          path: f.path || '',
+        }))
+      );
+    }
 
-    // 7. PUSH TẤT CẢ FILES VÀO sampleFiles[]
-    // Đây là bước QUAN TRỌNG nhất
-    data.files.forEach((serverFile, index) => {
-      // Map từ format server sang format dashboard
-      const mappedFile = {
-        // ID: Dùng ID từ server (MongoDB ObjectId hoặc UUID)
-        id: serverFile.id || serverFile._id || `file_${Date.now()}_${index}`,
-
-        // Tên file (bắt buộc)
-        name: serverFile.name || 'Unnamed file',
-
-        // Loại file (BẮT BUỘC: 'img', 'doc', 'vid', 'pdf', 'zip')
-        type: mapFileType(serverFile.type, serverFile.ext),
-
-        // Extension viết hoa (PNG, PDF, MP4, ...)
-        ext: (serverFile.ext || extractExt(serverFile.name)).toUpperCase(),
-
-        // Kích thước (đã format: "3.2 MB")
-        size: serverFile.size || formatBytes(serverFile.size_bytes) || '—',
-
-        // Ngày upload (format: DD/MM/YYYY)
-        date:
-          serverFile.date ||
-          formatDate(serverFile.upload_timestamp) ||
-          new Date().toLocaleDateString('vi-VN'),
-
-        // URL download
-        url: serverFile.url || serverFile.download_url || '',
-
-        // Emoji icon (tự động sinh theo type)
-        emoji:
-          serverFile.emoji || getEmojiForType(serverFile.type, serverFile.ext),
-
-        // Màu thumbnail
-        thumb: serverFile.thumb || getThumbColor(serverFile.type),
-
-        // Độ phân giải (optional)
-        res: serverFile.metadata?.resolution || serverFile.resolution || '—',
-
-        // Path trên server
-        path:
-          serverFile.path ||
-          serverFile.metadata?.path ||
-          `/uploads/${serverFile.name}`,
-      };
-
-      sampleFiles.push(mappedFile);
-    });
-
-    console.log(`[Load] Loaded ${sampleFiles.length} files into RAM`);
-    console.log('[Load] First 3 files:', sampleFiles.slice(0, 3));
-
-    // 8. RENDER UI
+    // 7. Cập nhật giao diện
     renderFiles();
-    toast(`Đã tải ${sampleFiles.length} file`);
+    updateStats(); // Nếu og có hàm đếm số lượng file thì gọi ở đây
+
+    console.log(
+      `[Load] Đã nạp: ${sampleFiles.length} file active, ${trashFiles.length} file trash`
+    );
+    toast(
+      `Tải xong: ${sampleFiles.length} file hoạt động, ${trashFiles.length} file rác`
+    );
   } catch (error) {
     console.error('[Load] Error:', error);
 
