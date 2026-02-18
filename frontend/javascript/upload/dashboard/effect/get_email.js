@@ -1,18 +1,24 @@
-function getCookie(name) {
-  const value = `; ${document.cookie}`;
-  const parts = value.split(`; ${name}=`);
-  if (parts.length === 2) return parts.pop().split(';').shift();
-  return null;
-}
+window.addEventListener('DOMContentLoaded', () => {
+  const urlParams = new URLSearchParams(window.location.search);
+  const userAccount = urlParams.get('useraccount');
 
-// Giả sử cookie của og tên là 'user_email'
-const userEmail = getCookie('user_gmail');
+  if (userAccount) {
+    const emailContainer = document.querySelector('.am-email');
+    if (emailContainer) {
+      const cleanEmail = decodeURIComponent(userAccount);
 
-if (userEmail) {
-  // Tìm đến thẻ div có class am-email
-  const emailContainer = document.querySelector('.am-email');
-  if (emailContainer) {
-    // Giải mã email nếu cần, hoặc đơn giản là ghi đè nội dung mới
-    emailContainer.innerHTML = `<span style="color: var(--ink-4)">${decodeURIComponent(userEmail)}</span>`;
+      // Thay thế toàn bộ nội dung bên trong div am-email
+      // Cách này sẽ xóa sạch thẻ <a> cũ của Cloudflare
+      emailContainer.innerHTML = `
+                <a href="mailto:${cleanEmail}" style="color: var(--ink-4); text-decoration: none;">
+                    ${cleanEmail}
+                </a>`;
+
+      console.log('✅ Đã thay thẻ a cũ bằng email: ' + cleanEmail);
+    }
+  } else {
+    console.warn(
+      '⚠️ URL thiếu ?useraccount=... nên không thay email được ông ơi!'
+    );
   }
-}
+});
