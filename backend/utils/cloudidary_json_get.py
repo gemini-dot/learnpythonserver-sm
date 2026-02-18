@@ -25,17 +25,21 @@ def make_json_cloud(upload_result, user_email, ten_goc):
         formatted_date = date_obj.strftime('%d/%m/%Y')
     except:
         formatted_date = datetime.now().strftime('%d/%m/%Y')
+    secure_url = upload_result.get('secure_url', '')
+
+    thumb_url = None
+    if res_type == "image" and secure_url:
+        thumb_url = secure_url.replace("/upload/", "/upload/w_200,c_fill/")
 
     file_info = {
         "id": upload_result.get('public_id'),
         "name": full_name,
-        "url": upload_result.get('secure_url'),
+        "url": secure_url,
         "size": size_str, 
         "ext": ext_display,
         "type": fe_type,
         "date": formatted_date,
         "user_gmail": user_email,
-        "thumb": file_info["url"].replace("/upload/", "/upload/w_200,c_fill/") if res_type == "image" else None
-    }
-        
+        "thumb": thumb_url
+    }        
     return file_info
