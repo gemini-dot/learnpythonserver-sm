@@ -676,12 +676,14 @@ async function loadFilesFromServer() {
     // 5. Xóa hết dữ liệu cũ trên RAM để nạp mới
     sampleFiles.length = 0;
     trashFiles.length = 0;
-
-    // 6. Nạp dữ liệu vào các mảng tương ứng (Dùng tên biến trùng với Backend)
-    // Xử lý File hoạt động (Active)
-    if (data.danh_sach_file && Array.isArray(data.danh_sach_file)) {
+    const actualData = data.files;
+    if (
+      actualData &&
+      actualData.danh_sach_file &&
+      Array.isArray(actualData.danh_sach_file)
+    ) {
       sampleFiles.push(
-        ...data.danh_sach_file.map((f, i) => ({
+        ...actualData.danh_sach_file.map((f, i) => ({
           id: f.id || f._id || `f_a_${i}`,
           name: f.name || 'Unnamed',
           type: mapFileType(f.type, f.ext),
@@ -698,11 +700,12 @@ async function loadFilesFromServer() {
 
     // Xử lý File rác (Trash)
     if (
-      data.danh_sach_file_da_xoa &&
-      Array.isArray(data.danh_sach_file_da_xoa)
+      actualData &&
+      actualData.danh_sach_file_da_xoa &&
+      Array.isArray(actualData.danh_sach_file_da_xoa)
     ) {
       trashFiles.push(
-        ...data.danh_sach_file_da_xoa.map((f, i) => ({
+        ...actualData.danh_sach_file_da_xoa.map((f, i) => ({
           id: f.id || f._id || `f_t_${i}`,
           name: f.name || 'Unnamed',
           type: mapFileType(f.type, f.ext),
