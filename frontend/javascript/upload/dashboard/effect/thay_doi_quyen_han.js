@@ -21,7 +21,7 @@ async function fetchUserPower() {
 
       console.log('Đang bắt đầu lên màu cho:', power); // Kiểm tra log này
 
-      switch (power) {
+      switch (userPower) {
         case 'ADMIN':
           badge.style.cssText = `
             color: #FFD700 !important;
