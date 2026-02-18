@@ -556,11 +556,13 @@ function simulateUpload(items) {
 
 // ─── STATS UPDATE ─────────────────────────────────────────────────
 function updateStats() {
-  const total = sampleFiles.length;
-  const imgs = sampleFiles.filter((f) => f.type === 'img').length;
-  const docs = sampleFiles.filter((f) => f.type === 'doc').length;
-  const vids = sampleFiles.filter((f) => f.type === 'vid').length;
-  const other = sampleFiles.filter(
+  const source = activeFilter === 'trash' ? trashFiles : sampleFiles;
+
+  const total = source.length;
+  const imgs = source.filter((f) => f.type === 'img').length;
+  const docs = source.filter((f) => f.type === 'doc').length;
+  const vids = source.filter((f) => f.type === 'vid').length;
+  const other = source.filter(
     (f) => !['img', 'doc', 'vid'].includes(f.type)
   ).length;
 
