@@ -326,7 +326,8 @@ function selectFile(id) {
   selectedId = selectedId === id ? null : id;
   renderFiles();
 
-  const f = sampleFiles.find((x) => x.id === id);
+  const f =
+    sampleFiles.find((x) => x.id === id) || trashFiles.find((x) => x.id === id);
   const panelEmpty = document.getElementById('panelEmpty');
   const panelContent = document.getElementById('panelContent');
   const panelActions = document.getElementById('panelActions');
