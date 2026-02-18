@@ -58,7 +58,7 @@ if (formDangNhap) {
               'Đăng nhập thành công! Chào mừng bạn quay trở lại.'
             );
             setTimeout(() => {
-              window.location.href = `https://gemini-dot.github.io/learnpythonserver-sm/frontend/view/upload/web_upload/index.html?useraccount=${lay_gia_tri_user}`;
+              window.location.href = `https://gemini-dot.github.io/learnpythonserver-sm/frontend/view/upload/dashboard/index.html?useraccount=${lay_gia_tri_user}`;
             }, 2000); //
           });
         } else if (response.status === 401) {

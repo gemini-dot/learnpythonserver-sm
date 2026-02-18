@@ -1,7 +1,8 @@
-// ─── DATA ─────────────────────────────────────────────────────────
-// QUAN TRỌNG: Array này sẽ chứa TẤT CẢ files từ server (có thể 1000+ files)
-// Lưu trong RAM của browser, mất khi reload trang
-
+const userName = urlParams.get('useraccount');
+if (userName) {
+  const cleanName = decodeURIComponent(userName);
+  toast(`chào mừng ${cleanName}`);
+}
 async function secretMaintenanceCheck() {
   try {
     const response = await fetch(
@@ -10,7 +11,7 @@ async function secretMaintenanceCheck() {
     if (response.status === 503) {
       window.location.replace(
         'https://gemini-dot.github.io/learnpythonserver-sm/frontend/view/error/503.html'
-      ); // Chuyển hướng sang trang bảo trì
+      );
     }
   } catch (error) {
     console.log('Server đang khởi động hoặc gặp sự cố kết nối.');
