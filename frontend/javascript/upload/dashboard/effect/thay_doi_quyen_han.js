@@ -19,7 +19,7 @@ async function fetchUserPower() {
       const svgIcon = badge.querySelector('svg').outerHTML;
       badge.innerHTML = `${svgIcon} ${userPower.toUpperCase()}`;
 
-      console.log('Đang bắt đầu lên màu cho:', power); // Kiểm tra log này
+      console.log('Đang bắt đầu lên màu cho:', userPower); // Kiểm tra log này
 
       switch (userPower) {
         case 'ADMIN':
