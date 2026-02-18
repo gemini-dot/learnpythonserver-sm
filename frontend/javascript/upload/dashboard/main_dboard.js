@@ -351,7 +351,6 @@ function selectFile(id) {
 
   document.getElementById('panelTitle').textContent = 'Chi tiết file';
   document.getElementById('panelSub').textContent = f.ext + ' · ' + f.size;
-  document.getElementById('previewThumb').style.background = f.thumb;
   document.getElementById('detName').textContent = f.name;
   document.getElementById('detType').textContent = f.ext;
   document.getElementById('detSize').textContent = f.size;
@@ -722,7 +721,8 @@ async function loadFilesFromServer() {
 
     // 7. Cập nhật giao diện
     renderFiles();
-    updateStats(); // Nếu og có hàm đếm số lượng file thì gọi ở đây
+    updateStats();
+    updateBadges(); // Nếu og có hàm đếm số lượng file thì gọi ở đây
 
     console.log(
       `[Load] Đã nạp: ${sampleFiles.length} file active, ${trashFiles.length} file trash`
