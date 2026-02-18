@@ -1,7 +1,7 @@
 async function updatePowerBadge() {
   try {
     const response = await fetch(
-      'https://learnpythonserver-sm.onrender.com/profile/get_power',
+      'https://learnpythonserver-sm.onrender.com/get_power',
       {
         method: 'GET',
         credentials: 'include',
@@ -9,18 +9,19 @@ async function updatePowerBadge() {
     );
 
     const data = await response.json();
-    if (response.ok && data.cap_nguoi_dung) {
-      const badgeEl = document.querySelector('.am-badge-pro');
+    console.log('Dữ liệu quyền hạn:', data);
+    const powerLevel = data.cap_nguoi_dung || data.ket_qua;
 
+    if (powerLevel) {
+      const badgeEl = document.querySelector('.am-badge-pro');
       if (badgeEl) {
         const svgIcon = badgeEl.querySelector('svg').outerHTML;
-        badgeEl.innerHTML = `${svgIcon} ${data.cap_nguoi_dung.toUpperCase()}`;
+        badgeEl.innerHTML = `${svgIcon} ${powerLevel.toUpperCase()}`;
+        badgeEl.style.color = '#00ff00';
       }
     }
   } catch (error) {
-    console.error('Lỗi khi cập nhật Badge quyền hạn:', error);
+    console.error('Lỗi cập nhật badge:', error);
   }
 }
-
-// Chạy hàm này khi trang load
-updatePowerBadge();
+window.addEventListener('DOMContentLoaded', updatePowerBadge);
