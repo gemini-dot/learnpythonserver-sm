@@ -32,7 +32,7 @@ def kiem_tra1():
         res.set_cookie("role", role, max_age=86400 * 30, httponly=True, samesite='None', secure=True, path='/')
         res.set_cookie("lenh_thuc_thi", "can_kiem_tra", max_age=86400 * 30, httponly=True, samesite='None', secure=True, path='/')
         res.set_cookie("trang_thai","da_dang_nhap",max_age=86400 * 30, httponly=True, samesite='None', secure=True, path='/')
-        res.set_cookie("ten_nguoi_dung",name,max_age=86400 * 30, httponly=True, samesite='None', secure=True, path='/')
+        res.set_cookie("ten_nguoi_dung",name,max_age=86400 * 30, httponly=False, samesite='None', secure=True, path='/')
         return res, 200
     else:
         res_res = make_response(jsonify(ket_qua))
