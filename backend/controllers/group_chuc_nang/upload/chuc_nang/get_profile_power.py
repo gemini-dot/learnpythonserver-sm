@@ -8,4 +8,4 @@ def get_power_controller():
     ket_qua = get_power_services(user_gmail)
     if not ket_qua:
         return jsonify({'ket_qua':'loi roi'}),404
-    return jsonify({'power',ket_qua}),200
+    return jsonify({'power':ket_qua}),200
