@@ -45,7 +45,7 @@ async function fetchUserPower() {
           break;
         default:
           badge.style.cssText =
-            'color: #888 !important; opacity: 1 !important;';
+            'color: #ffffff !important; opacity: 1 !important;';
       }
     }
   } catch (error) {
