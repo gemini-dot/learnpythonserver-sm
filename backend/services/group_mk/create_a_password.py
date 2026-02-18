@@ -48,6 +48,8 @@ def kiem_tra_mat_khau(user_name_input ,gmail_input, password_input):
             "gmail": gmail_input,
             "password": hashed,
             "salt": salt,
+            "cap_nguoi_dung":"basic",
+            "thoi_gian_cap_trang_thai":0,
             "role": "user"
         }
         
