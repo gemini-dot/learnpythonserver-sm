@@ -957,6 +957,7 @@ async function downloadCurrentFile() {
     toast(`Đang chuẩn bị tải: ${fileToDownload.name}...`);
 
     try {
+      isProcessing = true;
       const response = await fetch(fileToDownload.url);
       if (!response.ok) throw new Error('Không thể kết nối server');
       const blob = await response.blob();
