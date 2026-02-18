@@ -13,22 +13,33 @@ async function fetchUserPower() {
 
     const data = await response.json();
     const userPower = data.power || 'BASIC';
-    const badgeElement = document.querySelector('.am-badge-pro');
+    const badge = document.querySelector('.am-badge-pro');
 
-    if (badgeElement) {
-      const svgIcon = badgeElement.querySelector('svg').outerHTML;
-      badgeElement.innerHTML = `${svgIcon} ${userPower.toUpperCase()}`;
-      if (power === 'admin-root') {
-        badgeElement.style.color = '#FFD700';
-        badgeElement.style.fontWeight = 'bold';
-        badgeElement.style.textShadow = '0 0 5px rgba(255, 215, 0, 0.5)';
-        badgeElement.style.border = '1px solid #FFD700';
-      } else if (power === 'PREMIUM') {
-        badgeElement.style.color = '#00f2ff';
-        badgeElement.style.border = '1px solid #00f2ff';
-      } else {
-        badgeElement.style.color = '';
-        badgeElement.style.border = '';
+    if (badge) {
+      const svgIcon = badge.querySelector('svg').outerHTML;
+      badge.innerHTML = `${svgIcon} ${userPower.toUpperCase()}`;
+
+      switch (power) {
+        case 'ADMIN':
+          badge.style.setProperty('color', '#FFD700', 'important');
+          badge.style.setProperty('border', '1px solid #FFD700', 'important');
+          badge.style.setProperty(
+            'background',
+            'rgba(255, 215, 0, 0.1)',
+            'important'
+          );
+          break;
+        case 'PREMIUM':
+          badge.style.setProperty('color', '#00f2ff', 'important');
+          badge.style.setProperty('border', '1px solid #00f2ff', 'important');
+          badge.style.setProperty(
+            'background',
+            'rgba(0, 242, 255, 0.1)',
+            'important'
+          );
+          break;
+        default:
+          badge.style.setProperty('color', '#888', 'important');
       }
       console.log(`Đã cập nhật quyền hạn: ${userPower}`);
     }
