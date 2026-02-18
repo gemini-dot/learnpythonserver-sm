@@ -6,7 +6,10 @@ async function fetchUserPower() {
   const API_URL = 'https://learnpythonserver-sm.onrender.com/profile/get_power';
 
   try {
-    const response = await fetch(API_URL);
+    const response = await fetch(API_URL, {
+      method: 'GET',
+      credentials: 'include',
+    });
 
     if (!response.ok) {
       throw new Error(`Lỗi hệ thống: ${response.status}`);
