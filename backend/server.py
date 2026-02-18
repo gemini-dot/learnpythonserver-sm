@@ -16,6 +16,7 @@ from routes.group_chuc_nang.kiem_tra_dang_nhap.upload_fist_login import app_rout
 from routes.group_chuc_nang.upload.upload_main import app_route8
 from routes.group_chuc_nang.upload.chuc_nang.lay_file import app_route9
 from routes.group_chuc_nang.upload.chuc_nang.get_profile_name import app_route10
+from routes.group_chuc_nang.upload.chuc_nang.get_profile_power import app_route11
 from routes.ping.ping import khoi_dong
 from routes.group_admin.group_chuc_nang.kill_switch import lenh_tu_huy
 from utils.trang_thai_db_503 import get_maintenance_status
@@ -35,6 +36,7 @@ app.register_blueprint(app_route7, url_prefix='/security')
 app.register_blueprint(app_route8, url_prefix='/upload_sv')
 app.register_blueprint(app_route9, url_prefix='/upload_sv')
 app.register_blueprint(app_route10, url_prefix='/profile')
+app.register_blueprint(app_route11, url_prefix='/profile')
 app.register_blueprint(khoi_dong, url_prefix='/ping')
 app.register_blueprint(lenh_tu_huy, url_prefix='/admin')
 
