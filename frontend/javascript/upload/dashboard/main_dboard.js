@@ -408,7 +408,7 @@ function setNav(el) {
 
   // Re-render với filter mới
   renderFiles();
-
+  updateStats();
   // Reset panel về trạng thái trống
   const panelEmpty = document.getElementById('panelEmpty');
   const panelContent = document.getElementById('panelContent');
