@@ -1,6 +1,5 @@
 async function updatePowerBadge() {
   try {
-    console.log('Đang bắt đầu lấy quyền hạn...');
     const response = await fetch(
       'https://learnpythonserver-sm.onrender.com/profile/get_power',
       {
@@ -9,28 +8,53 @@ async function updatePowerBadge() {
       }
     );
 
-    const data = await response.json();
-    console.log('Dữ liệu Backend trả về:', data);
-    const powerText = data.cap_nguoi_dung || 'Basic';
-    const checkExist = setInterval(() => {
-      const badgeEl = document.querySelector('.am-badge-pro');
+    if (!response.ok) {
+      console.error('Lỗi HTTP:', response.status);
+      return;
+    }
 
-      if (badgeEl) {
-        console.log('Đã tìm thấy thẻ Badge, đang cập nhật...');
-        const svgIcon = badgeEl.querySelector('svg')
-          ? badgeEl.querySelector('svg').outerHTML
-          : '';
-        badgeEl.innerHTML = `${svgIcon} ${powerText.toUpperCase()}`;
-        if (powerText.toLowerCase() === 'admin-root') {
-          badgeEl.style.color = '#FFD700';
-          badgeEl.style.fontWeight = '800';
+    const data = await response.json();
+    const powerText = data.cap_nguoi_dung || data.ket_qua;
+
+    if (powerLevelFound(powerText)) {
+      // Đợi cho đến khi phần tử tồn tại trong DOM
+      let attempts = 0;
+      const checkExist = setInterval(() => {
+        const badgeEl = document.querySelector('.am-badge-pro');
+        attempts++;
+
+        if (badgeEl) {
+          const svgIcon = badgeEl.querySelector('svg')
+            ? badgeEl.querySelector('svg').outerHTML
+            : '';
+          badgeEl.innerHTML = `${svgIcon} ${powerText.toUpperCase()}`;
+
+          // Nếu là Admin thì đổi luôn màu nền cho dễ nhận diện
+          if (powerText.toLowerCase() === 'admin') {
+            badgeEl.style.background = 'var(--ink)';
+            badgeEl.style.color = '#FFD700';
+          }
+
+          clearInterval(checkExist);
         }
 
-        clearInterval(checkExist);
-      }
-    }, 100);
+        if (attempts > 50) {
+          // Sau 5 giây mà không thấy thì thôi
+          console.log('Không tìm thấy class .am-badge-pro sau 5s');
+          clearInterval(checkExist);
+        }
+      }, 100);
+    }
   } catch (error) {
-    console.error('Lỗi fetch hoặc xử lý DOM:', error);
+    // Nếu hiện cái alert này thì do lỗi kết nối/CORS
+    alert('Lỗi kết nối tới Server rồi og ơi!');
+    console.error(error);
   }
 }
+
+function powerLevelFound(val) {
+  return val !== undefined && val !== null;
+}
+
+// Chạy luôn
 updatePowerBadge();
