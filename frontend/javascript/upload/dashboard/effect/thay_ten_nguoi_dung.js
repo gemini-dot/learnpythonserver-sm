@@ -1,12 +1,18 @@
 async function updateAdminName() {
   try {
     const response = await fetch(
-      'https://learnpythonserver-sm.onrender.com/profile/get-profile',
+      'https://learnpythonserver-sm.onrender.com/api/get-profile',
       {
         method: 'GET',
         credentials: 'include',
       }
     );
+
+    const contentType = response.headers.get('content-type');
+    if (!contentType || !contentType.includes('application/json')) {
+      console.error('❌ Server nhả về HTML thay vì JSON rồi ông giáo ơi!');
+      return;
+    }
 
     const data = await response.json();
 
@@ -14,12 +20,15 @@ async function updateAdminName() {
       const nameTarget = document.querySelector('.am-name');
       if (nameTarget) {
         nameTarget.textContent = data.username;
-        console.log('✅ Đã đổi Anonymous thành: ' + data.username);
+        console.log('✅ [VAULT] Đã đổi tên thành: ' + data.username);
       }
     }
   } catch (err) {
-    console.error('Lỗi fetch tên rồi og ơi:', err);
+    console.error('⚠️ Lỗi fetch tên:', err);
   }
 }
-
-document.addEventListener('DOMContentLoaded', updateAdminName);
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', updateAdminName);
+} else {
+  updateAdminName();
+}
