@@ -1,29 +1,26 @@
-function getCookie(name) {
-  const value = `; ${document.cookie}`;
-  const parts = value.split(`; ${name}=`);
-  if (parts.length === 2) {
-    let val = parts.pop().split(';').shift();
-    // Decode và xóa dấu ngoặc kép nếu cookie bị bọc bởi ""
-    return decodeURIComponent(val).replace(/^"|"$/g, '');
-  }
-  return null;
-}
-
-// Chạy ngay khi DOM sẵn sàng
 document.addEventListener('DOMContentLoaded', function () {
-  const realName = getCookie('ten_nguoi_dung');
-  const emailFromCookie = getCookie('user_gmail');
-
-  if (realName) {
-    document.querySelector('.am-name').innerText = realName;
+  // 1. Công thức lấy cookie và gọt sạch dấu ngoặc kép
+  function getCleanCookie(name) {
+    const match = document.cookie.match(
+      new RegExp('(^| )' + name + '=([^;]+)')
+    );
+    if (match) {
+      // Giải mã và xóa dấu ngoặc kép ở đầu/cuối chuỗi
+      return decodeURIComponent(match[2]).replace(/^"|"$/g, '');
+    }
+    return null;
   }
 
-  // Tiện tay thay luôn cả Email cho nó "Root"
-  if (emailFromCookie) {
-    const emailElement = document.querySelector('.am-email a');
-    if (emailElement) {
-      emailElement.innerText = emailFromCookie;
-      emailElement.href = `mailto:${emailFromCookie}`;
+  // 2. Lấy tên và thực hiện thay thế
+  const userRealName = getCleanCookie('ten_nguoi_dung');
+
+  if (userRealName) {
+    const nameElement = document.querySelector('.am-name');
+    if (nameElement) {
+      nameElement.textContent = userRealName;
+      console.log('ADMIN-ROOT: Đã đổi tên thành ' + userRealName);
     }
+  } else {
+    console.log("ADMIN-ROOT: Không tìm thấy cookie 'ten_nguoi_dung'");
   }
 });
