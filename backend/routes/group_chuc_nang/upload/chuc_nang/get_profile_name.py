@@ -9,4 +9,4 @@ app_route10 = Blueprint('lay_name',__name__)
 @limit_requests(max_requests=MAX_REQUESTS, period=PERIOD)
 
 def get_profile_route():
-    return get_profile_controller
+    return get_profile_controller()
