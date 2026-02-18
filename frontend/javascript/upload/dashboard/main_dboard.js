@@ -965,6 +965,7 @@ async function downloadCurrentFile() {
       window.URL.revokeObjectURL(blobUrl);
 
       toast(`Đã tải xong: ${fileToDownload.name}`);
+      openRight();
     } catch (error) {
       console.error(error);
       toast('Lỗi khi tải file, thử lại sau nhé og!');
