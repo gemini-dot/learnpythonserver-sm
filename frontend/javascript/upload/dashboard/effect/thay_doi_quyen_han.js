@@ -18,7 +18,7 @@ async function fetchUserPower() {
     if (badgeElement) {
       const svgIcon = badgeElement.querySelector('svg').outerHTML;
       badgeElement.innerHTML = `${svgIcon} ${userPower.toUpperCase()}`;
-      if (power === 'ADMIN') {
+      if (power === 'admin-root') {
         badgeElement.style.color = '#FFD700';
         badgeElement.style.fontWeight = 'bold';
         badgeElement.style.textShadow = '0 0 5px rgba(255, 215, 0, 0.5)';
