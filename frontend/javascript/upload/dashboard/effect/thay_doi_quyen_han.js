@@ -19,42 +19,33 @@ async function fetchUserPower() {
       const svgIcon = badge.querySelector('svg').outerHTML;
       badge.innerHTML = `${svgIcon} ${userPower.toUpperCase()}`;
 
-      switch (userPower) {
+      console.log('Đang bắt đầu lên màu cho:', power); // Kiểm tra log này
+
+      switch (power) {
         case 'ADMIN':
-          badge.style.setProperty('color', '#FFD700', 'important'); // Vàng Gold rực rỡ
-          badge.style.setProperty(
-            'background',
-            'rgba(255, 214, 0, 0.2)',
-            'important'
-          ); // Nền vàng nhạt
-          badge.style.setProperty('border', '1px solid #FFD700', 'important');
-          badge.style.setProperty(
-            'text-shadow',
-            '0 0 8px rgba(255, 215, 0, 0.6)',
-            'important'
-          ); // Phát sáng
-          badge.style.setProperty('opacity', '1', 'important'); // Đảm bảo không bị mờ
+          badge.style.cssText = `
+            color: #FFD700 !important;
+            background: rgba(255, 215, 0, 0.15) !important;
+            border: 1px solid #FFD700 !important;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.8) !important;
+            font-weight: 800 !important;
+            opacity: 1 !important;
+          `;
           break;
         case 'PREMIUM':
-          badge.style.setProperty('color', '#00f2ff', 'important'); // Xanh Cyan Neon
-          badge.style.setProperty(
-            'background',
-            'rgba(0, 242, 255, 0.15)',
-            'important'
-          );
-          badge.style.setProperty('border', '1px solid #00f2ff', 'important');
-          badge.style.setProperty(
-            'text-shadow',
-            '0 0 8px rgba(0, 242, 255, 0.6)',
-            'important'
-          );
-          badge.style.setProperty('opacity', '1', 'important');
+          badge.style.cssText = `
+            color: #00f2ff !important;
+            background: rgba(0, 242, 255, 0.1) !important;
+            border: 1px solid #00f2ff !important;
+            text-shadow: 0 0 10px rgba(0, 242, 255, 0.8) !important;
+            font-weight: 800 !important;
+            opacity: 1 !important;
+          `;
           break;
         default:
-          badge.style.setProperty('color', 'var(--ink-3)', 'important');
-          badge.style.setProperty('background', 'transparent', 'important');
+          badge.style.cssText =
+            'color: #888 !important; opacity: 1 !important;';
       }
-      console.log(`Đã cập nhật quyền hạn: ${userPower}`);
     }
   } catch (error) {
     console.error('Nhưng! Có lỗi khi fetch quyền hạn:', error);
