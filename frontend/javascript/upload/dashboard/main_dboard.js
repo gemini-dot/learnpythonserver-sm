@@ -51,6 +51,7 @@ checkAccess();
 
 const sampleFiles = []; // Bắt đầu rỗng, sẽ được fill bởi loadFilesFromServer()
 const trashFiles = [];
+let isProcessing = false;
 
 let files = [...sampleFiles]; // Không dùng nữa, giữ để tương thích
 let selectedId = null;
@@ -156,7 +157,7 @@ function openRight() {
   panel.classList.add('open');
   app.classList.add('right-open');
 }
-let isProcessing = false;
+
 function closeRight() {
   rightCloseTimer = setTimeout(() => {
     if (isProcessing) return; // Nếu đang bận thì không đóng panel
@@ -972,10 +973,14 @@ async function downloadCurrentFile() {
       window.URL.revokeObjectURL(blobUrl);
 
       toast(`Đã tải xong: ${fileToDownload.name}`);
-      isProcessing = false;
     } catch (error) {
       console.error(error);
       toast('Lỗi khi tải file, thử lại sau nhé og!'); //
+    } finally {
+      // Đợi 1 chút sau khi tải xong mới mở khóa để tránh panel đóng sầm lại ngay
+      setTimeout(() => {
+        isProcessing = false;
+      }, 500);
     }
   } else {
     toast('Lỗi: Link file không tồn tại!');
