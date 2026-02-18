@@ -19,25 +19,25 @@ async function fetchUserPower() {
       const svgIcon = badge.querySelector('svg').outerHTML;
       badge.innerHTML = `${svgIcon} ${userPower.toUpperCase()}`;
 
-      console.log('Đang bắt đầu lên màu cho:', userPower); // Kiểm tra log này
+      console.log('[UPDATE] Đã nâng cấp quyền hạn lên:', userPower);
 
       switch (userPower) {
         case 'admin-root':
           badge.style.cssText = `
-            background-color: #D4AF37 !important; /* Vàng kim đục hoàn toàn */
-            color: #1a1a1a !important;            /* Chữ đen đậm cho tương phản */
-            border: none !important;              /* Không cần viền vì nền đã đậm */
+            background-color: #D4AF37 !important;
+            color: #1a1a1a !important;           
+            border: none !important;           
             font-weight: 800 !important;
-            padding: 2px 10px !important;         /* Thêm tí đệm cho nó dày dặn */
+            padding: 2px 10px !important;       
             border-radius: 4px !important;
-            opacity: 1 !important;                 /* Đục 100% */
+            opacity: 1 !important;                
             text-shadow: none !important;
-            box-shadow: 2px 2px 0px rgba(0,0,0,0.2) !important; /* Đổ bóng cứng cho giống cái thẻ */
+            box-shadow: 2px 2px 0px rgba(0,0,0,0.2) !important;
           `;
           break;
         case 'PREMIUM':
           badge.style.cssText = `
-            color: #A8A8A8 !important; /* Màu bạc cho Premium nếu thích */
+            color: #A8A8A8 !important;
             border: 1px solid #A8A8A8 !important;
             font-weight: 600 !important;
             text-shadow: none !important;
@@ -52,6 +52,4 @@ async function fetchUserPower() {
     console.error('Nhưng! Có lỗi khi fetch quyền hạn:', error);
   }
 }
-
-// Gọi hàm ngay khi trang web load xong
 document.addEventListener('DOMContentLoaded', fetchUserPower);

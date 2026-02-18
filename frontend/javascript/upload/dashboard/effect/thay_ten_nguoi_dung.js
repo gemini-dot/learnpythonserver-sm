@@ -10,7 +10,7 @@ async function updateAdminName() {
 
     const contentType = response.headers.get('content-type');
     if (!contentType || !contentType.includes('application/json')) {
-      console.error('❌ Server nhả về HTML thay vì JSON rồi ông giáo ơi!');
+      console.error('Server nhả về HTML thay vì JSON rồi ông giáo ơi!');
       return;
     }
 
@@ -20,11 +20,11 @@ async function updateAdminName() {
       const nameTarget = document.querySelector('.am-name');
       if (nameTarget) {
         nameTarget.textContent = data.username;
-        console.log('✅ [VAULT] Đã đổi tên thành: ' + data.username);
+        console.log('[VAULT] Đã đổi tên thành: ' + data.username);
       }
     }
   } catch (err) {
-    console.error('⚠️ Lỗi fetch tên:', err);
+    console.error('Lỗi fetch tên:', err);
   }
 }
 if (document.readyState === 'loading') {

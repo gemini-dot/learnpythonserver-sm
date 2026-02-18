@@ -10,8 +10,6 @@ function transformNameForLogo(fullName) {
     .replace(/Đ/g, 'D');
   return lastName.toUpperCase();
 }
-
-// Hàm gọi API để lấy và hiển thị tên
 async function syncLogoWithName() {
   try {
     const response = await fetch(

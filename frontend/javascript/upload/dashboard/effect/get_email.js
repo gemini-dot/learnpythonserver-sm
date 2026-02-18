@@ -11,7 +11,7 @@ window.addEventListener('DOMContentLoaded', () => {
                     ${cleanEmail}
                 </a>`;
 
-      console.log('Đã thay thẻ a cũ bằng email: ' + cleanEmail);
+      console.log('[REPLACE] Đã thay thẻ a cũ bằng email: ' + cleanEmail);
     }
   } else {
     console.warn(
