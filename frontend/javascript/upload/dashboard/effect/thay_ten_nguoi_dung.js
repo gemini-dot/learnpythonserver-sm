@@ -1,7 +1,7 @@
 async function updateAdminName() {
   try {
     const response = await fetch(
-      'https://learnpythonserver-sm.onrender.com/profile/get-profile',
+      'https://learnpythonserver-sm.onrender.com/profile/get_profile',
       {
         method: 'GET',
         credentials: 'include',
