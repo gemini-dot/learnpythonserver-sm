@@ -1,6 +1,7 @@
 from flask import request, jsonify, make_response
 from services.group_mk.login import kiem_tra
 from validators.kiem_tra_cap_bac import kiem_tra_cap_bac
+from utils.search import tim_only
 def kiem_tra1():
     du_lieu = request.get_json()
     
@@ -23,6 +24,7 @@ def kiem_tra1():
     ket_qua = kiem_tra(nguoi_dung, mat_khau)
 
     if ket_qua['success']:
+        name = tim_only('users','gmail',str(nguoi_dung),'username')
         token = ket_qua["token"]
         res = make_response(jsonify(ket_qua))
         res.set_cookie("user_token", token, max_age=86400 * 30, httponly=True, samesite='None',secure=True,path='/')
@@ -30,6 +32,7 @@ def kiem_tra1():
         res.set_cookie("role", role, max_age=86400 * 30, httponly=True, samesite='None', secure=True, path='/')
         res.set_cookie("lenh_thuc_thi", "can_kiem_tra", max_age=86400 * 30, httponly=True, samesite='None', secure=True, path='/')
         res.set_cookie("trang_thai","da_dang_nhap",max_age=86400 * 30, httponly=True, samesite='None', secure=True, path='/')
+        res.set_cookie("ten_nguoi_dung",name,max_age=86400 * 30, httponly=True, samesite='None', secure=True, path='/')
         return res, 200
     else:
         res_res = make_response(jsonify(ket_qua))
