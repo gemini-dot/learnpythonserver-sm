@@ -50,6 +50,7 @@ async function checkAccess() {
 checkAccess();
 
 const sampleFiles = []; // Bắt đầu rỗng, sẽ được fill bởi loadFilesFromServer()
+const trashFiles = [];
 
 let files = [...sampleFiles]; // Không dùng nữa, giữ để tương thích
 let selectedId = null;
@@ -96,7 +97,7 @@ function getFilteredFiles() {
       result = [];
       break; // demo: chưa có yêu thích
     case 'trash':
-      result = [];
+      result = [...trashFiles];
       break; // demo: thùng rác trống
     case 'shared':
       result = [];
@@ -427,21 +428,25 @@ function updateSelCount(total) {
 
 function deleteSelected() {
   if (!selectedId) return;
-  // Xóa khỏi sampleFiles gốc để filter vẫn đúng
-  const idx = sampleFiles.findIndex((f) => f.id === selectedId);
-  if (idx !== -1) sampleFiles.splice(idx, 1);
-  selectedId = null;
-  renderFiles();
-  // Reset panel
-  const panelEmpty = document.getElementById('panelEmpty');
-  const panelContent = document.getElementById('panelContent');
-  const panelActions = document.getElementById('panelActions');
-  if (panelEmpty) panelEmpty.style.display = 'flex';
-  if (panelContent) panelContent.style.display = 'none';
-  if (panelActions) panelActions.style.display = 'none';
-  document.getElementById('panelTitle').textContent = 'Chi tiết file';
-  document.getElementById('panelSub').textContent = 'Chọn một file để xem';
-  toast('Đã xóa file');
+
+  // 1. Tìm file đang được chọn trong sampleFiles
+  const fileIdx = sampleFiles.findIndex((f) => f.id === selectedId);
+
+  if (fileIdx !== -1) {
+    // 2. "Cất" file vào thùng rác trước khi xóa
+    const deletedFile = sampleFiles[fileIdx];
+    trashFiles.push(deletedFile);
+
+    // 3. Xóa file khỏi mảng chính
+    sampleFiles.splice(fileIdx, 1);
+
+    // Reset trạng thái
+    selectedId = null;
+    renderFiles();
+
+    // Thông báo cho vui vẻ
+    toast(`Đã chuyển "${deletedFile.name}" vào thùng rác`);
+  }
 }
 
 // ─── UPLOAD MODAL ─────────────────────────────────────────────────
