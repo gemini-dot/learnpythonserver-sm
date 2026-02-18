@@ -1,8 +1,4 @@
-/**
- * Hàm lấy quyền hạn từ Flask và cập nhật lên giao diện
- */
 async function fetchUserPower() {
-  // Đường dẫn route og đã định nghĩa trong Blueprint
   const API_URL = 'https://learnpythonserver-sm.onrender.com/profile/get_power';
 
   try {
@@ -16,21 +12,24 @@ async function fetchUserPower() {
     }
 
     const data = await response.json();
-
-    // Giả sử server trả về: { "power": "PREMIUM" }
-    // Og kiểm tra lại trong get_power_controller() xem key chính xác là gì nhé
     const userPower = data.power || 'BASIC';
-
-    // Tìm element chứa badge
     const badgeElement = document.querySelector('.am-badge-pro');
 
     if (badgeElement) {
-      // Cách này giữ nguyên cái icon ngôi sao (thẻ <svg>) và chỉ đổi chữ
-      // SVG là child đầu tiên, chữ là child thứ hai
       const svgIcon = badgeElement.querySelector('svg').outerHTML;
       badgeElement.innerHTML = `${svgIcon} ${userPower.toUpperCase()}`;
-
-      // Log nhẹ một cái để og dễ debug trên Console của Ubuntu
+      if (power === 'ADMIN') {
+        badgeElement.style.color = '#FFD700';
+        badgeElement.style.fontWeight = 'bold';
+        badgeElement.style.textShadow = '0 0 5px rgba(255, 215, 0, 0.5)';
+        badgeElement.style.border = '1px solid #FFD700';
+      } else if (power === 'PREMIUM') {
+        badgeElement.style.color = '#00f2ff';
+        badgeElement.style.border = '1px solid #00f2ff';
+      } else {
+        badgeElement.style.color = '';
+        badgeElement.style.border = '';
+      }
       console.log(`Đã cập nhật quyền hạn: ${userPower}`);
     }
   } catch (error) {
