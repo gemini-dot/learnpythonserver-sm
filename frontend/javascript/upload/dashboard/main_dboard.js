@@ -1,3 +1,4 @@
+const urlParams = new URLSearchParams(window.location.search);
 const userName = urlParams.get('useraccount');
 if (userName) {
   const cleanName = decodeURIComponent(userName);
