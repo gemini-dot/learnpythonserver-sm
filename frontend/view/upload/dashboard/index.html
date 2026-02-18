@@ -76,7 +76,13 @@
           </button>
         </div>
         <div class="header-actions">
-          <button class="btn btn-ghost" onclick="openModal()">
+          <button
+            class="btn btn-ghost"
+            onclick="
+              window.location.href =
+                'https://gemini-dot.github.io/learnpythonserver-sm/frontend/view/upload/web_upload/index.html'
+            "
+          >
             <svg
               width="14"
               height="14"
@@ -149,7 +155,14 @@
                     <div class="am-item-sub">Chỉnh sửa thông tin tài khoản</div>
                   </div>
                 </div>
-                <div class="am-item" onclick="menuAction('storage-plan')">
+                <div
+                  class="am-item"
+                  onclick="
+                    menuAction('storage-plan');
+                    window.location.href =
+                      'https://gemini-dot.github.io/learnpythonserver-sm/frontend/view/buy_package/index.html';
+                  "
+                >
                   <div class="am-icon">
                     <svg
                       width="14"
@@ -664,7 +677,7 @@
               </svg>
             </button>
           </div>
-          <select class="sort-select">
+          <select class="sort-select" onchange="sortFiles(this.value)">
             <option>Sắp xếp: Mới nhất</option>
             <option>Sắp xếp: Tên A-Z</option>
             <option>Sắp xếp: Kích thước</option>
@@ -1192,5 +1205,9 @@
       src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"
     ></script>
     <script src="../../../javascript/upload/dashboard/main_dboard.js"></script>
+    <script src="../../../javascript/upload/dashboard/effect/sap_xep_file.js"></script>
+    <script src="../../../javascript/upload/dashboard/effect/darkmode.js"></script>
+    <script src="../../../javascript/upload/dashboard/effect/menu_ac.js"></script>
+    <script src="../../../javascript/upload/dashboard/effect/notif.js"></script>
   </body>
 </html>

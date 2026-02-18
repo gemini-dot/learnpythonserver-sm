@@ -328,15 +328,25 @@ function selectFile(id) {
     document.getElementById('panelSub').textContent = 'Chọn một file để xem';
     return;
   }
+  const previewEl = document.getElementById('previewThumb');
+  const isImg = f.type === 'img' && f.url;
 
+  if (isImg) {
+    previewEl.innerHTML = ''; // Xóa emoji cũ
+    previewEl.style.backgroundImage = `url('${f.url}')`;
+    previewEl.style.backgroundSize = 'cover';
+    previewEl.style.backgroundPosition = 'center';
+  } else {
+    previewEl.innerHTML = `<span style="font-size:60px">${f.emoji}</span>`;
+    previewEl.style.backgroundImage = 'none';
+    previewEl.style.background = f.thumb;
+  }
   panelEmpty.style.display = 'none';
   panelContent.style.display = 'flex';
   panelActions.style.display = 'flex';
 
   document.getElementById('panelTitle').textContent = 'Chi tiết file';
   document.getElementById('panelSub').textContent = f.ext + ' · ' + f.size;
-  document.getElementById('previewThumb').innerHTML =
-    `<span style="font-size:60px">${f.emoji}</span>`;
   document.getElementById('previewThumb').style.background = f.thumb;
   document.getElementById('detName').textContent = f.name;
   document.getElementById('detType').textContent = f.ext;
@@ -591,42 +601,6 @@ document.addEventListener('click', (e) => {
   if (!document.querySelector('.avatar-wrap').contains(e.target))
     closeAvatarMenu();
 });
-
-function menuAction(action) {
-  closeAvatarMenu();
-  const msgs = {
-    profile: '👤 Mở hồ sơ cá nhân',
-    'storage-plan': '☁️ Quản lý gói lưu trữ',
-    billing: '💳 Mở trang thanh toán',
-    settings: '⚙️ Mở cài đặt',
-    help: '❓ Mở trung tâm hỗ trợ',
-    shortcut: '⌨️ Xem danh sách phím tắt',
-    logout: '👋 Đã đăng xuất!',
-  };
-  toast(msgs[action] || action);
-}
-
-function toggleNotif() {
-  const t = document.getElementById('notifToggle');
-  const on = t.classList.toggle('on');
-  toast(on ? '🔔 Đã bật thông báo' : '🔕 Đã tắt thông báo');
-}
-
-function toggleDark() {
-  const t = document.getElementById('darkToggle');
-  const on = t.classList.toggle('on');
-  const set = (k, dark, light) =>
-    document.documentElement.style.setProperty(k, on ? dark : light);
-  set('--bg', '#111111', '#f5f5f3');
-  set('--surface', '#1a1a1a', '#ffffff');
-  set('--border', '#2a2a2a', '#e0e0de');
-  set('--border-dark', '#3a3a3a', '#c0c0be');
-  set('--ink', '#f0f0ee', '#0a0a0a');
-  set('--ink-2', '#cccccc', '#333332');
-  set('--ink-3', '#999999', '#666664');
-  set('--ink-4', '#666666', '#999997');
-  toast(on ? '🌙 Giao diện tối đã bật' : '☀️ Giao diện sáng đã bật');
-}
 
 // ─── LOAD FILES FROM SERVER ───────────────────────────────────────
 /**
