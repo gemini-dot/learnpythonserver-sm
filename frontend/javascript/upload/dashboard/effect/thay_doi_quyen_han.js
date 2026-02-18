@@ -24,14 +24,15 @@ async function fetchUserPower() {
       switch (userPower) {
         case 'admin-root':
           badge.style.cssText = `
-            color: #D4AF37 !important; /* Màu vàng kim chuẩn, không phèn */
-            background: rgba(212, 175, 55, 0.1) !important; /* Nền vàng cực nhạt */
-            border: 1.5px solid #D4AF37 !important; /* Viền mỏng cho cứng cáp */
-            font-weight: 700 !important;
-            text-transform: uppercase !important;
-            letter-spacing: 0.5px !important;
-            text-shadow: none !important; /* Bỏ sạch glow theo ý og */
-            opacity: 1 !important;
+            background-color: #D4AF37 !important; /* Vàng kim đục hoàn toàn */
+            color: #1a1a1a !important;            /* Chữ đen đậm cho tương phản */
+            border: none !important;              /* Không cần viền vì nền đã đậm */
+            font-weight: 800 !important;
+            padding: 2px 10px !important;         /* Thêm tí đệm cho nó dày dặn */
+            border-radius: 4px !important;
+            opacity: 1 !important;                 /* Đục 100% */
+            text-shadow: none !important;
+            box-shadow: 2px 2px 0px rgba(0,0,0,0.2) !important; /* Đổ bóng cứng cho giống cái thẻ */
           `;
           break;
         case 'PREMIUM':
