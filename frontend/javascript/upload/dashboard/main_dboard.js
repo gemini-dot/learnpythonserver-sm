@@ -300,6 +300,7 @@ function renderFiles() {
 
   updateSelCount(filtered.length);
   updateStats(); // Cập nhật stats cards
+  updateBadges();
 }
 
 // Highlight từ khóa trong tên file
@@ -924,8 +925,52 @@ function clearSearch() {
   searchInput.focus();
 }
 
-// ─── INIT ─────────────────────────────────────────────────────────
-// Gọi loadFilesFromServer thay vì renderFiles
-// → Tự động fetch files từ server khi trang load
-// Cứ 30 giây (30000ms) tự động tải lại danh sách file một lần
+function updateBadges() {
+  document.getElementById('all_file').textContent = sampleFiles.length;
+  const imgCount = sampleFiles.filter((f) => f.type === 'img').length;
+  const docCount = sampleFiles.filter((f) => f.type === 'doc').length;
+  const vidCount = sampleFiles.filter((f) => f.type === 'vid').length;
+  if (document.getElementById('hinh_anh'))
+    document.getElementById('hinh_anh').textContent = imgCount;
+  if (document.getElementById('tai_lieu'))
+    document.getElementById('tai_lieu').textContent = docCount;
+  if (document.getElementById('video'))
+    document.getElementById('video').textContent = vidCount;
+}
+
 loadFilesFromServer();
+
+async function downloadCurrentFile() {
+  if (!selectedId) {
+    toast('Vui lòng chọn một file để tải!');
+    return;
+  }
+
+  const fileToDownload = sampleFiles.find((f) => f.id === selectedId);
+
+  if (fileToDownload && fileToDownload.url) {
+    toast(`Đang chuẩn bị tải: ${fileToDownload.name}...`);
+
+    try {
+      const response = await fetch(fileToDownload.url);
+      if (!response.ok) throw new Error('Không thể kết nối server');
+      const blob = await response.blob();
+      const blobUrl = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = blobUrl;
+      link.download = fileToDownload.name;
+
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(blobUrl);
+
+      toast(`Đã tải xong: ${fileToDownload.name}`);
+    } catch (error) {
+      console.error(error);
+      toast('Lỗi khi tải file, thử lại sau nhé og!');
+    }
+  } else {
+    toast('Lỗi: Link file không tồn tại!');
+  }
+}

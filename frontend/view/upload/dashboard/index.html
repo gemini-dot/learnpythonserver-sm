@@ -10,12 +10,17 @@
       rel="stylesheet"
     />
     <link href="../../../styles/upload/dashboard/style.css" rel="stylesheet" />
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="https://res.cloudinary.com/dshgtuy8f/image/upload/v1771402917/main_logo_2_bkgj5f.png"
+    />
   </head>
   <body>
     <div class="app" id="app">
       <!-- HEADER -->
       <header>
-        <div class="logo">VAULT <span>files</span></div>
+        <div class="logo">MY <span>files</span></div>
         <div class="header-center" id="searchWrap">
           <svg
             width="14"
@@ -377,7 +382,7 @@
               <polyline points="9 22 9 12 15 12 15 22" />
             </svg>
             <span class="nav-item-text">Tất cả file</span>
-            <span class="badge">47</span>
+            <span class="badge" id="all_file">0</span>
           </div>
           <div
             class="nav-item"
@@ -400,7 +405,7 @@
               <polyline points="21 15 16 10 5 21" />
             </svg>
             <span class="nav-item-text">Hình ảnh</span>
-            <span class="badge">12</span>
+            <span class="badge" id="hinh_anh">0</span>
           </div>
           <div
             class="nav-item"
@@ -426,7 +431,7 @@
               <line x1="16" y1="17" x2="8" y2="17" />
             </svg>
             <span class="nav-item-text">Tài liệu</span>
-            <span class="badge">21</span>
+            <span class="badge" id="tai_lieu">0</span>
           </div>
           <div
             class="nav-item"
@@ -448,7 +453,7 @@
               <rect x="1" y="5" width="15" height="14" rx="2" ry="2" />
             </svg>
             <span class="nav-item-text">Video</span>
-            <span class="badge">8</span>
+            <span class="badge" id="video">0</span>
           </div>
           <div
             class="nav-item"
@@ -473,7 +478,7 @@
               <line x1="15.41" y1="6.51" x2="8.59" y2="10.49" />
             </svg>
             <span class="nav-item-text">Chia sẻ</span>
-            <span class="badge">6</span>
+            <span class="badge" id="chia_se">0</span>
           </div>
         </div>
 
@@ -753,7 +758,7 @@
             </div>
             <div class="stat-info">
               <div class="stat-label">Tổng số file</div>
-              <div class="stat-value" id="statTotal">12</div>
+              <div class="stat-value" id="statTotal">0</div>
             </div>
           </div>
           <!-- Images -->
@@ -779,7 +784,7 @@
             </div>
             <div class="stat-info">
               <div class="stat-label">Hình ảnh</div>
-              <div class="stat-value" id="statImg">4</div>
+              <div class="stat-value" id="statImg">0</div>
             </div>
           </div>
           <!-- Documents -->
@@ -808,7 +813,7 @@
             </div>
             <div class="stat-info">
               <div class="stat-label">Tài liệu</div>
-              <div class="stat-value" id="statDoc">4</div>
+              <div class="stat-value" id="statDoc">0</div>
             </div>
           </div>
           <!-- Videos -->
@@ -833,7 +838,7 @@
             </div>
             <div class="stat-info">
               <div class="stat-label">Video</div>
-              <div class="stat-value" id="statVid">2</div>
+              <div class="stat-value" id="statVid">0</div>
             </div>
           </div>
           <!-- Others -->
@@ -859,7 +864,7 @@
             </div>
             <div class="stat-info">
               <div class="stat-label">Khác</div>
-              <div class="stat-value" id="statOther">2</div>
+              <div class="stat-value" id="statOther">0</div>
             </div>
           </div>
         </div>
@@ -1074,7 +1079,13 @@
             </div>
           </div>
           <div class="panel-actions" id="panelActions" style="display: none">
-            <button class="panel-btn" onclick="toast('Đang tải xuống...')">
+            <button
+              class="panel-btn"
+              onclick="
+                toast('Đang tải xuống...');
+                downloadCurrentFile();
+              "
+            >
               <svg
                 width="14"
                 height="14"
