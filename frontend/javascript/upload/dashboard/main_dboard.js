@@ -156,8 +156,10 @@ function openRight() {
   panel.classList.add('open');
   app.classList.add('right-open');
 }
+let isProcessing = false;
 function closeRight() {
   rightCloseTimer = setTimeout(() => {
+    if (isProcessing) return; // Nếu đang bận thì không đóng panel
     rightOpen = false;
     panel.classList.remove('open');
     app.classList.remove('right-open');
@@ -170,7 +172,11 @@ sidebar.addEventListener('mouseleave', closeLeft);
 
 // Hover events — panel phải
 panel.addEventListener('mouseenter', openRight);
-panel.addEventListener('mouseleave', closeRight);
+panel.addEventListener('mouseleave', () => {
+  if (!isProcessing) {
+    closeRight();
+  }
+});
 
 // toggleLeft/toggleRight vẫn giữ để các nút bên trong có thể gọi
 function toggleLeft() {
@@ -940,13 +946,13 @@ function updateBadges() {
 loadFilesFromServer();
 
 async function downloadCurrentFile() {
+  if (!selectedId) return;
+  const fileToDownload = sampleFiles.find((f) => f.id === selectedId);
+  if (!fileToDownload || !fileToDownload.url) return;
   if (!selectedId) {
     toast('Vui lòng chọn một file để tải!');
     return;
   }
-
-  const fileToDownload = sampleFiles.find((f) => f.id === selectedId);
-
   if (fileToDownload && fileToDownload.url) {
     toast(`Đang chuẩn bị tải: ${fileToDownload.name}...`);
 
@@ -965,7 +971,7 @@ async function downloadCurrentFile() {
       window.URL.revokeObjectURL(blobUrl);
 
       toast(`Đã tải xong: ${fileToDownload.name}`);
-      openRight();
+      isProcessing = false;
     } catch (error) {
       console.error(error);
       toast('Lỗi khi tải file, thử lại sau nhé og!'); //
