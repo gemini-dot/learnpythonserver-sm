@@ -101,6 +101,13 @@ header {
 .header-center:hover {
   border-color: var(--ink-3);
 }
+.header-center:focus-within {
+  border-color: var(--ink);
+  box-shadow: 0 0 0 3px rgba(10, 10, 10, 0.08);
+}
+.header-center input::placeholder {
+  color: var(--ink-4);
+}
 
 .header-actions {
   display: flex;
@@ -722,6 +729,49 @@ header {
 
 .tool-sep {
   flex: 1;
+}
+
+/* Stat Cards */
+.stat-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  transition: all 0.2s;
+}
+.stat-card:hover {
+  border-color: var(--ink-3);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+.stat-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ink);
+  flex-shrink: 0;
+}
+.stat-info {
+  flex: 1;
+  min-width: 0;
+}
+.stat-label {
+  font-size: 11.5px;
+  color: var(--ink-4);
+  font-weight: 500;
+  margin-bottom: 2px;
+}
+.stat-value {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--ink);
+  font-family: 'DM Mono', monospace;
+  line-height: 1;
 }
 
 /* Drop zone */

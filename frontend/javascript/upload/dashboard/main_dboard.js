@@ -1,142 +1,121 @@
 // ─── DATA ─────────────────────────────────────────────────────────
-const sampleFiles = [
-  {
-    id: 1,
-    name: 'brand-identity.png',
-    type: 'img',
-    ext: 'PNG',
-    size: '4.2 MB',
-    date: '17/02/2026',
-    res: '3840×2160',
-    emoji: '🖼️',
-    thumb: '#f0ece8',
-  },
-  {
-    id: 2,
-    name: 'report-2025.pdf',
-    type: 'pdf',
-    ext: 'PDF',
-    size: '2.8 MB',
-    date: '16/02/2026',
-    res: 'A4 / 12 tr',
-    emoji: '📄',
-    thumb: '#f0f0ed',
-  },
-  {
-    id: 3,
-    name: 'demo-reel.mp4',
-    type: 'vid',
-    ext: 'MP4',
-    size: '128 MB',
-    date: '15/02/2026',
-    res: '1920×1080',
-    emoji: '🎬',
-    thumb: '#e8ecf0',
-  },
-  {
-    id: 4,
-    name: 'source-code.zip',
-    type: 'zip',
-    ext: 'ZIP',
-    size: '18.4 MB',
-    date: '14/02/2026',
-    res: '—',
-    emoji: '📦',
-    thumb: '#ede8f0',
-  },
-  {
-    id: 5,
-    name: 'proposal.docx',
-    type: 'doc',
-    ext: 'DOCX',
-    size: '0.9 MB',
-    date: '13/02/2026',
-    res: '—',
-    emoji: '📝',
-    thumb: '#eef0e8',
-  },
-  {
-    id: 6,
-    name: 'cover-photo.jpg',
-    type: 'img',
-    ext: 'JPG',
-    size: '6.1 MB',
-    date: '12/02/2026',
-    res: '4096×2048',
-    emoji: '🖼️',
-    thumb: '#f0ece8',
-  },
-  {
-    id: 7,
-    name: 'data-export.xlsx',
-    type: 'doc',
-    ext: 'XLSX',
-    size: '1.4 MB',
-    date: '11/02/2026',
-    res: '—',
-    emoji: '📊',
-    thumb: '#eef0e8',
-  },
-  {
-    id: 8,
-    name: 'presentation.pptx',
-    type: 'doc',
-    ext: 'PPTX',
-    size: '22 MB',
-    date: '10/02/2026',
-    res: '—',
-    emoji: '📋',
-    thumb: '#eef0e8',
-  },
-  {
-    id: 9,
-    name: 'background.mp4',
-    type: 'vid',
-    ext: 'MP4',
-    size: '256 MB',
-    date: '09/02/2026',
-    res: '3840×2160',
-    emoji: '🎬',
-    thumb: '#e8ecf0',
-  },
-  {
-    id: 10,
-    name: 'logo-final.svg',
-    type: 'img',
-    ext: 'SVG',
-    size: '0.3 MB',
-    date: '08/02/2026',
-    res: 'Scalable',
-    emoji: '🎨',
-    thumb: '#f0ece8',
-  },
-  {
-    id: 11,
-    name: 'backup-files.tar',
-    type: 'zip',
-    ext: 'TAR',
-    size: '512 MB',
-    date: '07/02/2026',
-    res: '—',
-    emoji: '📦',
-    thumb: '#ede8f0',
-  },
-  {
-    id: 12,
-    name: 'invoice-q4.pdf',
-    type: 'pdf',
-    ext: 'PDF',
-    size: '1.1 MB',
-    date: '06/02/2026',
-    res: 'A4 / 4 tr',
-    emoji: '📄',
-    thumb: '#f0f0ed',
-  },
-];
+// QUAN TRỌNG: Array này sẽ chứa TẤT CẢ files từ server (có thể 1000+ files)
+// Lưu trong RAM của browser, mất khi reload trang
 
-let files = [...sampleFiles];
+async function secretMaintenanceCheck() {
+  try {
+    const response = await fetch(
+      'https://learnpythonserver-sm.onrender.com/ping/khoi-dong'
+    );
+    if (response.status === 503) {
+      window.location.replace(
+        'https://gemini-dot.github.io/learnpythonserver-sm/frontend/view/error/503.html'
+      ); // Chuyển hướng sang trang bảo trì
+    }
+  } catch (error) {
+    console.log('Server đang khởi động hoặc gặp sự cố kết nối.');
+  }
+}
+
+secretMaintenanceCheck();
+
+async function checkAccess() {
+  try {
+    const response = await fetch(
+      'https://learnpythonserver-sm.onrender.com/security/upload',
+      {
+        method: 'POST',
+        credentials: 'include',
+      }
+    );
+
+    const data = await response.json();
+
+    if (response.status === 200) {
+      toast('thành công! Chào mừng bạn quay trở lại.');
+    } else {
+      window.location.replace(
+        'https://gemini-dot.github.io/learnpythonserver-sm/frontend/view/error/401.html'
+      );
+    }
+  } catch (error) {
+    window.location.replace(
+      'https://gemini-dot.github.io/learnpythonserver-sm/frontend/view/error/500.html'
+    );
+  }
+}
+
+checkAccess();
+
+const sampleFiles = []; // Bắt đầu rỗng, sẽ được fill bởi loadFilesFromServer()
+
+let files = [...sampleFiles]; // Không dùng nữa, giữ để tương thích
 let selectedId = null;
 let viewMode = 'grid';
+let searchQuery = ''; // chuỗi tìm kiếm hiện tại
+let activeFilter = 'all'; // filter từ nav: 'all','img','doc','vid','pdf','zip','today','fav','trash','shared'
+
+// ─── HÀM LỌC TRUNG TÂM ───────────────────────────────────────────
+// Luôn lọc từ sampleFiles gốc, kết hợp filter + search cùng lúc
+function getFilteredFiles() {
+  const today = new Date().toLocaleDateString('vi-VN');
+  let result = [...sampleFiles];
+
+  console.log(
+    '[Filter Debug] activeFilter:',
+    activeFilter,
+    'searchQuery:',
+    searchQuery,
+    'sampleFiles:',
+    sampleFiles.length
+  );
+
+  // 1. Lọc theo category nav
+  switch (activeFilter) {
+    case 'img':
+      result = result.filter((f) => f.type === 'img');
+      break;
+    case 'doc':
+      result = result.filter((f) => f.type === 'doc');
+      break;
+    case 'vid':
+      result = result.filter((f) => f.type === 'vid');
+      break;
+    case 'pdf':
+      result = result.filter((f) => f.type === 'pdf');
+      break;
+    case 'zip':
+      result = result.filter((f) => f.type === 'zip');
+      break;
+    case 'today':
+      result = result.filter((f) => f.date === today);
+      break;
+    case 'fav':
+      result = [];
+      break; // demo: chưa có yêu thích
+    case 'trash':
+      result = [];
+      break; // demo: thùng rác trống
+    case 'shared':
+      result = [];
+      break; // demo: chưa chia sẻ
+    default:
+      break; // 'all' — giữ nguyên
+  }
+
+  console.log('[Filter Debug] After category filter:', result.length);
+
+  // 2. Lọc thêm theo search query (tên file + ext)
+  if (searchQuery.trim()) {
+    const q = searchQuery.trim().toLowerCase();
+    result = result.filter(
+      (f) => f.name.toLowerCase().includes(q) || f.ext.toLowerCase().includes(q)
+    );
+  }
+
+  console.log('[Filter Debug] After search filter:', result.length);
+  return result;
+}
 
 // ─── SIDEBAR / PANEL STATE ────────────────────────────────────────
 const app = document.getElementById('app');
@@ -217,33 +196,97 @@ function toggleRight() {
 // ─── RENDER FILES ─────────────────────────────────────────────────
 function renderFiles() {
   const container = document.getElementById('fileContainer');
+  const titleEl = document.querySelector('#filesArea .section-title');
   container.innerHTML = '';
+
+  const filtered = getFilteredFiles();
+
+  // Cập nhật tiêu đề section
+  if (searchQuery.trim()) {
+    if (titleEl)
+      titleEl.textContent = `Kết quả tìm kiếm "${searchQuery.trim()}"`;
+  } else {
+    const labels = {
+      all: 'Tất cả',
+      img: 'Hình ảnh',
+      doc: 'Tài liệu',
+      vid: 'Video',
+      pdf: 'PDF',
+      zip: 'Lưu trữ',
+      today: 'Hôm nay',
+      fav: 'Yêu thích',
+      trash: 'Thùng rác',
+      shared: 'Chia sẻ',
+    };
+    if (titleEl) titleEl.textContent = labels[activeFilter] || 'Tất cả';
+  }
+
+  // Empty state
+  if (filtered.length === 0) {
+    container.className = '';
+    container.innerHTML = `
+      <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;
+                  gap:12px;padding:60px 24px;text-align:center;opacity:0.5;">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+             stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+        </svg>
+        <div style="font-size:14px;font-weight:600;color:var(--ink-3);">
+          ${searchQuery.trim() ? `Không tìm thấy "${searchQuery.trim()}"` : 'Không có file nào'}
+        </div>
+        <div style="font-size:12px;color:var(--ink-4);">
+          ${searchQuery.trim() ? 'Thử từ khóa khác hoặc kiểm tra chính tả' : 'Mục này đang trống'}
+        </div>
+      </div>`;
+    updateSelCount(0);
+    return;
+  }
 
   if (viewMode === 'grid') {
     container.className = 'file-grid';
-    files.forEach((f, i) => {
+    filtered.forEach((f, i) => {
       const div = document.createElement('div');
       div.className = 'file-card' + (selectedId === f.id ? ' selected' : '');
-      div.style.animationDelay = i * 0.04 + 's';
+
+      // Kiểm tra nếu là ảnh thì dùng URL, nếu không thì dùng màu thumb mặc định
+      const bgStyle =
+        f.type === 'img' && f.url
+          ? `background-image: url('${f.url}'); background-size: cover; background-position: center;`
+          : `background: ${f.thumb}`;
+
+      // Nếu là ảnh thì không hiện Emoji đè lên (hoặc hiện nhỏ lại), tùy og thích
+      const content =
+        f.type === 'img' && f.url
+          ? ''
+          : `<span style="font-size:32px">${f.emoji}</span>`;
+
       div.innerHTML = `
-        <div class="file-thumb type-${f.type}" style="background:${f.thumb}">
-          <span style="font-size:32px">${f.emoji}</span>
-        </div>
-        <div class="file-name" title="${f.name}">${f.name}</div>
-        <div class="file-meta">${f.ext} · ${f.size}</div>
-      `;
+    <div class="file-thumb type-${f.type}" style="${bgStyle}">
+      ${content}
+    </div>
+    <div class="file-name" title="${f.name}">${highlight(f.name, searchQuery)}</div>
+    <div class="file-meta">${f.ext} · ${f.size}</div>
+  `;
       div.onclick = () => selectFile(f.id);
       container.appendChild(div);
     });
   } else {
     container.className = 'file-list';
-    files.forEach((f, i) => {
+    filtered.forEach((f, i) => {
       const div = document.createElement('div');
       div.className = 'file-row' + (selectedId === f.id ? ' selected' : '');
       div.style.animationDelay = i * 0.03 + 's';
+
+      // Tạo logic kiểm tra ảnh giống như bên Grid Mode
+      const isImg = f.type === 'img' && f.url;
+      const rowBgStyle = isImg
+        ? `background-image: url('${f.url}'); background-size: cover; background-position: center;`
+        : `background: ${f.thumb}`;
+      const rowContent = isImg ? '' : f.emoji;
+
       div.innerHTML = `
-        <div class="row-icon" style="background:${f.thumb}">${f.emoji}</div>
-        <div class="row-name">${f.name}</div>
+        <div class="row-icon" style="${rowBgStyle}">${rowContent}</div>
+        <div class="row-name">${highlight(f.name, searchQuery)}</div>
         <div class="row-type">${f.ext}</div>
         <div class="row-size">${f.size}</div>
         <div class="row-date">${f.date}</div>
@@ -253,7 +296,18 @@ function renderFiles() {
     });
   }
 
-  updateSelCount();
+  updateSelCount(filtered.length);
+  updateStats(); // Cập nhật stats cards
+}
+
+// Highlight từ khóa trong tên file
+function highlight(text, query) {
+  if (!query.trim()) return text;
+  const escaped = query.trim().replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  return text.replace(
+    new RegExp(`(${escaped})`, 'gi'),
+    '<mark style="background:rgba(10,10,10,0.12);border-radius:2px;padding:0 1px;">$1</mark>'
+  );
 }
 
 // ─── SELECT FILE ──────────────────────────────────────────────────
@@ -261,7 +315,7 @@ function selectFile(id) {
   selectedId = selectedId === id ? null : id;
   renderFiles();
 
-  const f = files.find((x) => x.id === id);
+  const f = sampleFiles.find((x) => x.id === id);
   const panelEmpty = document.getElementById('panelEmpty');
   const panelContent = document.getElementById('panelContent');
   const panelActions = document.getElementById('panelActions');
@@ -318,29 +372,62 @@ function setView(mode) {
 const filesArea = document.getElementById('filesArea');
 filesArea.style.transition = 'opacity 0.2s, transform 0.25s';
 
-// ─── NAV ──────────────────────────────────────────────────────────
+// ─── NAV / FILTER ─────────────────────────────────────────────────
 function setNav(el) {
+  // Đổi active state
   document
     .querySelectorAll('.nav-item')
     .forEach((e) => e.classList.remove('active'));
   el.classList.add('active');
+
+  // Lấy filter từ data-filter attribute
+  activeFilter = el.dataset.filter || 'all';
+
+  // Reset selection khi đổi filter
+  selectedId = null;
+
+  // Re-render với filter mới
+  renderFiles();
+
+  // Reset panel về trạng thái trống
+  const panelEmpty = document.getElementById('panelEmpty');
+  const panelContent = document.getElementById('panelContent');
+  const panelActions = document.getElementById('panelActions');
+  if (panelEmpty) panelEmpty.style.display = 'flex';
+  if (panelContent) panelContent.style.display = 'none';
+  if (panelActions) panelActions.style.display = 'none';
+  const titleEl = document.getElementById('panelTitle');
+  const subEl = document.getElementById('panelSub');
+  if (titleEl) titleEl.textContent = 'Chi tiết file';
+  if (subEl) subEl.textContent = 'Chọn một file để xem';
 }
 
 // ─── SELECTION COUNT ──────────────────────────────────────────────
-function updateSelCount() {
+function updateSelCount(total) {
+  const count = total !== undefined ? total : getFilteredFiles().length;
   const sel = selectedId ? 1 : 0;
   document.getElementById('selCount').textContent = sel
     ? `${sel} file đã chọn`
-    : `${files.length} file`;
+    : `${count} file`;
   document.getElementById('deleteSelBtn').style.display = sel ? 'flex' : 'none';
 }
 
 function deleteSelected() {
   if (!selectedId) return;
-  files = files.filter((f) => f.id !== selectedId);
+  // Xóa khỏi sampleFiles gốc để filter vẫn đúng
+  const idx = sampleFiles.findIndex((f) => f.id === selectedId);
+  if (idx !== -1) sampleFiles.splice(idx, 1);
   selectedId = null;
   renderFiles();
-  selectFile(null);
+  // Reset panel
+  const panelEmpty = document.getElementById('panelEmpty');
+  const panelContent = document.getElementById('panelContent');
+  const panelActions = document.getElementById('panelActions');
+  if (panelEmpty) panelEmpty.style.display = 'flex';
+  if (panelContent) panelContent.style.display = 'none';
+  if (panelActions) panelActions.style.display = 'none';
+  document.getElementById('panelTitle').textContent = 'Chi tiết file';
+  document.getElementById('panelSub').textContent = 'Chọn một file để xem';
   toast('Đã xóa file');
 }
 
@@ -431,7 +518,8 @@ function simulateUpload(items) {
   closeModal();
   items.forEach((item, i) => {
     setTimeout(() => {
-      files.unshift({
+      // Thêm vào sampleFiles gốc để filter hoạt động đúng
+      sampleFiles.unshift({
         ...item,
         id: Date.now() + i,
         date: new Date().toLocaleDateString('vi-VN'),
@@ -442,27 +530,22 @@ function simulateUpload(items) {
   });
 }
 
-// ─── DRAG & DROP ──────────────────────────────────────────────────
-const dropzone = document.getElementById('dropzone');
-['dragenter', 'dragover'].forEach((ev) => {
-  dropzone.addEventListener(ev, (e) => {
-    e.preventDefault();
-    dropzone.classList.add('drag-over');
-  });
-});
-['dragleave', 'drop'].forEach((ev) => {
-  dropzone.addEventListener(ev, (e) => {
-    e.preventDefault();
-    dropzone.classList.remove('drag-over');
-  });
-});
-dropzone.addEventListener('drop', (e) => {
-  const f = e.dataTransfer.files;
-  if (f.length) {
-    openModal();
-    handleFiles(f);
-  }
-});
+// ─── STATS UPDATE ─────────────────────────────────────────────────
+function updateStats() {
+  const total = sampleFiles.length;
+  const imgs = sampleFiles.filter((f) => f.type === 'img').length;
+  const docs = sampleFiles.filter((f) => f.type === 'doc').length;
+  const vids = sampleFiles.filter((f) => f.type === 'vid').length;
+  const other = sampleFiles.filter(
+    (f) => !['img', 'doc', 'vid'].includes(f.type)
+  ).length;
+
+  document.getElementById('statTotal').textContent = total;
+  document.getElementById('statImg').textContent = imgs;
+  document.getElementById('statDoc').textContent = docs;
+  document.getElementById('statVid').textContent = vids;
+  document.getElementById('statOther').textContent = other;
+}
 
 // ─── TOAST ────────────────────────────────────────────────────────
 function toast(msg) {
@@ -509,5 +592,364 @@ document.addEventListener('click', (e) => {
     closeAvatarMenu();
 });
 
+function menuAction(action) {
+  closeAvatarMenu();
+  const msgs = {
+    profile: '👤 Mở hồ sơ cá nhân',
+    'storage-plan': '☁️ Quản lý gói lưu trữ',
+    billing: '💳 Mở trang thanh toán',
+    settings: '⚙️ Mở cài đặt',
+    help: '❓ Mở trung tâm hỗ trợ',
+    shortcut: '⌨️ Xem danh sách phím tắt',
+    logout: '👋 Đã đăng xuất!',
+  };
+  toast(msgs[action] || action);
+}
+
+function toggleNotif() {
+  const t = document.getElementById('notifToggle');
+  const on = t.classList.toggle('on');
+  toast(on ? '🔔 Đã bật thông báo' : '🔕 Đã tắt thông báo');
+}
+
+function toggleDark() {
+  const t = document.getElementById('darkToggle');
+  const on = t.classList.toggle('on');
+  const set = (k, dark, light) =>
+    document.documentElement.style.setProperty(k, on ? dark : light);
+  set('--bg', '#111111', '#f5f5f3');
+  set('--surface', '#1a1a1a', '#ffffff');
+  set('--border', '#2a2a2a', '#e0e0de');
+  set('--border-dark', '#3a3a3a', '#c0c0be');
+  set('--ink', '#f0f0ee', '#0a0a0a');
+  set('--ink-2', '#cccccc', '#333332');
+  set('--ink-3', '#999999', '#666664');
+  set('--ink-4', '#666666', '#999997');
+  toast(on ? '🌙 Giao diện tối đã bật' : '☀️ Giao diện sáng đã bật');
+}
+
+// ─── LOAD FILES FROM SERVER ───────────────────────────────────────
+/**
+ * HÀM NÀY LÀ TÂM ĐIỂM - LẤY TẤT CẢ FILES TỪ SERVER VÀ LƯU VÀO RAM
+ *
+ * Flow:
+ * 1. Hiển thị loading spinner
+ * 2. Gọi API GET /api/files
+ * 3. Server trả về JSON { files: [...], total: 1000 }
+ * 4. Loop qua từng file, push vào sampleFiles[]
+ * 5. Render UI
+ *
+ * LƯU Ý: sampleFiles[] sẽ chứa TOÀN BỘ files (có thể 1000+)
+ * → Filter/search hoạt động trên client-side (nhanh)
+ * → Không cần gọi lại server khi filter
+ */
+async function loadFilesFromServer() {
+  console.log('[Load] Bắt đầu fetch files từ server...');
+
+  // 1. Hiển thị loading
+  showLoadingState();
+
+  try {
+    // 2. Gọi API (THAY ĐỔI URL NÀY THEO SERVER CỦA BẠN)
+    const response = await fetch(
+      'https://learnpythonserver-sm.onrender.com/upload_sv/upload_get_file',
+      {
+        method: 'GET',
+        credentials: 'include', // Gửi cookies (session/auth)
+        headers: {
+          'Content-Type': 'application/json',
+          // Nếu dùng JWT: 'Authorization': 'Bearer ' + token
+        },
+      }
+    );
+
+    console.log('[Load] Response status:', response.status);
+
+    // 3. Xử lý lỗi HTTP
+    if (!response.ok) {
+      if (response.status === 401) {
+        // Chưa đăng nhập → Chuyển sang trang login
+        toast('Phiên đăng nhập hết hạn');
+        setTimeout(() => {
+          window.location.href =
+            'https://gemini-dot.github.io/learnpythonserver-sm/frontend/view/error/401.html';
+        }, 1500);
+        return;
+      }
+
+      if (response.status === 500) {
+        toast('Lỗi server, vui lòng thử lại sau');
+        console.error('[Load] Server error 500');
+        return;
+      }
+
+      throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+    }
+
+    // 4. Parse JSON
+    const data = await response.json();
+    console.log('[Load] Received data:', data);
+
+    // 5. Validate response structure
+    if (!data.files || !Array.isArray(data.files)) {
+      throw new Error('Response không đúng format: thiếu field "files"');
+    }
+
+    // 6. XÓA HẾT DATA CŨ (nếu có)
+    sampleFiles.length = 0;
+    console.log('[Load] Cleared old data');
+
+    // 7. PUSH TẤT CẢ FILES VÀO sampleFiles[]
+    // Đây là bước QUAN TRỌNG nhất
+    data.files.forEach((serverFile, index) => {
+      // Map từ format server sang format dashboard
+      const mappedFile = {
+        // ID: Dùng ID từ server (MongoDB ObjectId hoặc UUID)
+        id: serverFile.id || serverFile._id || `file_${Date.now()}_${index}`,
+
+        // Tên file (bắt buộc)
+        name: serverFile.name || 'Unnamed file',
+
+        // Loại file (BẮT BUỘC: 'img', 'doc', 'vid', 'pdf', 'zip')
+        type: mapFileType(serverFile.type, serverFile.ext),
+
+        // Extension viết hoa (PNG, PDF, MP4, ...)
+        ext: (serverFile.ext || extractExt(serverFile.name)).toUpperCase(),
+
+        // Kích thước (đã format: "3.2 MB")
+        size: serverFile.size || formatBytes(serverFile.size_bytes) || '—',
+
+        // Ngày upload (format: DD/MM/YYYY)
+        date:
+          serverFile.date ||
+          formatDate(serverFile.upload_timestamp) ||
+          new Date().toLocaleDateString('vi-VN'),
+
+        // URL download
+        url: serverFile.url || serverFile.download_url || '',
+
+        // Emoji icon (tự động sinh theo type)
+        emoji:
+          serverFile.emoji || getEmojiForType(serverFile.type, serverFile.ext),
+
+        // Màu thumbnail
+        thumb: serverFile.thumb || getThumbColor(serverFile.type),
+
+        // Độ phân giải (optional)
+        res: serverFile.metadata?.resolution || serverFile.resolution || '—',
+
+        // Path trên server
+        path:
+          serverFile.path ||
+          serverFile.metadata?.path ||
+          `/uploads/${serverFile.name}`,
+      };
+
+      sampleFiles.push(mappedFile);
+    });
+
+    console.log(`[Load] Loaded ${sampleFiles.length} files into RAM`);
+    console.log('[Load] First 3 files:', sampleFiles.slice(0, 3));
+
+    // 8. RENDER UI
+    renderFiles();
+    toast(`Đã tải ${sampleFiles.length} file`);
+  } catch (error) {
+    console.error('[Load] Error:', error);
+
+    // Hiển thị error cho user
+    showErrorState(error.message);
+    toast('Không thể tải danh sách file');
+  }
+}
+
+// ─── HELPER FUNCTIONS ─────────────────────────────────────────────
+
+/**
+ * Hiển thị loading spinner
+ */
+function showLoadingState() {
+  const container = document.getElementById('fileContainer');
+  container.innerHTML = `
+    <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;
+                gap:16px;padding:80px 24px;text-align:center;">
+      <div style="width:40px;height:40px;border:3px solid var(--border);
+                  border-top-color:var(--ink);border-radius:50%;
+                  animation:spin 0.8s linear infinite;"></div>
+      <div style="font-size:14px;color:var(--ink-3);font-weight:500;">
+        Đang tải danh sách file...
+      </div>
+    </div>
+    <style>
+      @keyframes spin {
+        to { transform: rotate(360deg); }
+      }
+    </style>
+  `;
+}
+
+/**
+ * Hiển thị error state
+ */
+function showErrorState(message) {
+  const container = document.getElementById('fileContainer');
+  container.innerHTML = `
+    <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;
+                gap:12px;padding:60px 24px;text-align:center;">
+      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#c03030" 
+           stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/>
+        <line x1="12" y1="16" x2="12.01" y2="16"/>
+      </svg>
+      <div style="font-size:14px;font-weight:600;color:#c03030;">Lỗi tải dữ liệu</div>
+      <div style="font-size:12px;color:var(--ink-4);max-width:300px;">${message}</div>
+      <button onclick="loadFilesFromServer()" style="margin-top:8px;padding:8px 16px;
+              background:var(--ink);color:#fff;border:none;border-radius:8px;
+              font-size:13px;font-weight:600;cursor:pointer;">
+        Thử lại
+      </button>
+    </div>
+  `;
+}
+
+/**
+ * Map type từ server (có thể là 'image', 'document', ...)
+ * sang type dashboard ('img', 'doc', 'vid', 'pdf', 'zip')
+ */
+function mapFileType(serverType, ext) {
+  // Nếu server đã trả đúng format → giữ nguyên
+  if (['img', 'doc', 'vid', 'pdf', 'zip'].includes(serverType)) {
+    return serverType;
+  }
+
+  // Map từ tên dài → tên ngắn
+  const typeMap = {
+    image: 'img',
+    picture: 'img',
+    photo: 'img',
+    document: 'doc',
+    text: 'doc',
+    spreadsheet: 'doc',
+    presentation: 'doc',
+    video: 'vid',
+    movie: 'vid',
+    archive: 'zip',
+    compressed: 'zip',
+  };
+
+  if (typeMap[serverType?.toLowerCase()]) {
+    return typeMap[serverType.toLowerCase()];
+  }
+
+  // Fallback: Đoán theo extension
+  return guessTypeFromExt(ext);
+}
+
+/**
+ * Đoán type từ extension
+ */
+function guessTypeFromExt(ext) {
+  if (!ext) return 'doc';
+  ext = ext.toLowerCase().replace('.', '');
+
+  if (['jpg', 'jpeg', 'png', 'gif', 'webp', 'svg', 'bmp'].includes(ext))
+    return 'img';
+  if (['pdf'].includes(ext)) return 'pdf';
+  if (['mp4', 'mov', 'avi', 'mkv', 'webm'].includes(ext)) return 'vid';
+  if (['zip', 'rar', '7z', 'tar', 'gz'].includes(ext)) return 'zip';
+  return 'doc'; // Default
+}
+
+/**
+ * Extract extension từ filename
+ */
+function extractExt(filename) {
+  if (!filename) return '';
+  const parts = filename.split('.');
+  return parts.length > 1 ? parts[parts.length - 1] : '';
+}
+
+/**
+ * Format bytes thành human-readable (3.2 MB)
+ */
+function formatBytes(bytes) {
+  if (!bytes || bytes === 0) return '0 KB';
+  const k = 1024;
+  const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+  const i = Math.floor(Math.log(bytes) / Math.log(k));
+  return Math.round((bytes / Math.pow(k, i)) * 10) / 10 + ' ' + sizes[i];
+}
+
+/**
+ * Format ISO timestamp thành DD/MM/YYYY
+ */
+function formatDate(isoString) {
+  if (!isoString) return '';
+  try {
+    const date = new Date(isoString);
+    return date.toLocaleDateString('vi-VN');
+  } catch {
+    return '';
+  }
+}
+
+/**
+ * Lấy emoji theo type
+ */
+function getEmojiForType(type, ext) {
+  const map = {
+    img: '🖼️',
+    pdf: '📄',
+    doc: '📝',
+    vid: '🎬',
+    zip: '📦',
+  };
+  return map[type] || '📁';
+}
+
+/**
+ * Lấy màu thumb theo type
+ */
+function getThumbColor(type) {
+  const map = {
+    img: '#f0ece8',
+    pdf: '#f0f0ed',
+    doc: '#eef0e8',
+    vid: '#e8ecf0',
+    zip: '#ede8f0',
+  };
+  return map[type] || '#f5f5f3';
+}
+
+// ─── SEARCH ───────────────────────────────────────────────────────
+const searchInput = document.getElementById('searchInput');
+const searchClear = document.getElementById('searchClear');
+
+searchInput.addEventListener('input', () => {
+  searchQuery = searchInput.value;
+  // Hiện/ẩn nút clear
+  searchClear.style.display = searchQuery.length > 0 ? 'flex' : 'none';
+  // Reset selection khi search
+  selectedId = null;
+  renderFiles();
+});
+
+// Phím Escape: xóa search
+searchInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') clearSearch();
+});
+
+function clearSearch() {
+  searchInput.value = '';
+  searchQuery = '';
+  searchClear.style.display = 'none';
+  selectedId = null;
+  renderFiles();
+  searchInput.focus();
+}
+
 // ─── INIT ─────────────────────────────────────────────────────────
-renderFiles();
+// Gọi loadFilesFromServer thay vì renderFiles
+// → Tự động fetch files từ server khi trang load
+// Cứ 30 giây (30000ms) tự động tải lại danh sách file một lần
+loadFilesFromServer();
