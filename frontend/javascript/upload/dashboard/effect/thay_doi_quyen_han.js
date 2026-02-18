@@ -21,25 +21,38 @@ async function fetchUserPower() {
 
       switch (userPower) {
         case 'ADMIN':
-          badge.style.setProperty('color', '#FFD700', 'important');
+          badge.style.setProperty('color', '#FFD700', 'important'); // Vàng Gold rực rỡ
+          badge.style.setProperty(
+            'background',
+            'rgba(255, 214, 0, 0.2)',
+            'important'
+          ); // Nền vàng nhạt
           badge.style.setProperty('border', '1px solid #FFD700', 'important');
           badge.style.setProperty(
-            'background',
-            'rgba(255, 215, 0, 0.1)',
+            'text-shadow',
+            '0 0 8px rgba(255, 215, 0, 0.6)',
             'important'
-          );
+          ); // Phát sáng
+          badge.style.setProperty('opacity', '1', 'important'); // Đảm bảo không bị mờ
           break;
         case 'PREMIUM':
-          badge.style.setProperty('color', '#00f2ff', 'important');
-          badge.style.setProperty('border', '1px solid #00f2ff', 'important');
+          badge.style.setProperty('color', '#00f2ff', 'important'); // Xanh Cyan Neon
           badge.style.setProperty(
             'background',
-            'rgba(0, 242, 255, 0.1)',
+            'rgba(0, 242, 255, 0.15)',
             'important'
           );
+          badge.style.setProperty('border', '1px solid #00f2ff', 'important');
+          badge.style.setProperty(
+            'text-shadow',
+            '0 0 8px rgba(0, 242, 255, 0.6)',
+            'important'
+          );
+          badge.style.setProperty('opacity', '1', 'important');
           break;
         default:
-          badge.style.setProperty('color', '#888', 'important');
+          badge.style.setProperty('color', 'var(--ink-3)', 'important');
+          badge.style.setProperty('background', 'transparent', 'important');
       }
       console.log(`Đã cập nhật quyền hạn: ${userPower}`);
     }
