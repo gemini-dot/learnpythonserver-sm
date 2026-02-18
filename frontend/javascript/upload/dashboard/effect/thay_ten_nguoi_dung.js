@@ -1,26 +1,27 @@
 document.addEventListener('DOMContentLoaded', function () {
-  // 1. Công thức lấy cookie và gọt sạch dấu ngoặc kép
-  function getCleanCookie(name) {
-    const match = document.cookie.match(
-      new RegExp('(^| )' + name + '=([^;]+)')
-    );
-    if (match) {
-      // Giải mã và xóa dấu ngoặc kép ở đầu/cuối chuỗi
-      return decodeURIComponent(match[2]).replace(/^"|"$/g, '');
+  // Show hàng toàn bộ cookie ra console để og debug
+  console.log('Danh sách Cookie hiện có:');
+  console.table(document.cookie.split(';').map((c) => c.trim()));
+
+  function getCookie(name) {
+    let cookieArr = document.cookie.split(';');
+    for (let i = 0; i < cookieArr.length; i++) {
+      let cookiePair = cookieArr[i].split('=');
+      if (name == cookiePair[0].trim()) {
+        // Giải mã và gọt dấu ngoặc kép
+        return decodeURIComponent(cookiePair[1]).replace(/^"|"$/g, '');
+      }
     }
     return null;
   }
 
-  // 2. Lấy tên và thực hiện thay thế
-  const userRealName = getCleanCookie('ten_nguoi_dung');
+  const nameFromCookie = getCookie('ten_nguoi_dung');
+  const nameEl = document.querySelector('.am-name');
 
-  if (userRealName) {
-    const nameElement = document.querySelector('.am-name');
-    if (nameElement) {
-      nameElement.textContent = userRealName;
-      console.log('ADMIN-ROOT: Đã đổi tên thành ' + userRealName);
-    }
+  if (nameFromCookie && nameEl) {
+    nameEl.textContent = nameFromCookie;
+    console.log('✅ Đã tìm thấy và thay tên: ' + nameFromCookie);
   } else {
-    console.log("ADMIN-ROOT: Không tìm thấy cookie 'ten_nguoi_dung'");
+    console.warn("❌ Vẫn không thấy cookie 'ten_nguoi_dung' đâu og ơi!");
   }
 });
