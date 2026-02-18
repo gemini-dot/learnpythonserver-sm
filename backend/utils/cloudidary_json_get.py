@@ -40,6 +40,8 @@ def make_json_cloud(upload_result, user_email, ten_goc):
         "type": fe_type,
         "date": formatted_date,
         "user_gmail": user_email,
-        "thumb": thumb_url
+        "thumb": thumb_url,
+        "trang_thai":"chua_xoa",
+        "thoi_gian_ton_tai":0
     }        
     return file_info
