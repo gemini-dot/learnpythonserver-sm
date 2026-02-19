@@ -47,6 +47,14 @@ async function fetchUserPower() {
           badge.style.cssText =
             'color: #ffffff !important; opacity: 1 !important;';
       }
+      const planElement = document.querySelector('.am-item-sub');
+
+      if (planElement) {
+        const formattedPower =
+          userPower.charAt(0).toUpperCase() + userPower.slice(1);
+        planElement.innerHTML = `10 GB — ${formattedPower} plan`;
+        console.log('[UPDATE] Đã nâng cấp gói lên: ' + newPlanName);
+      }
     }
   } catch (error) {
     console.error('Nhưng! Có lỗi khi fetch quyền hạn:', error);
