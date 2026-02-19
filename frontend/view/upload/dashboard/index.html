@@ -903,7 +903,7 @@
           <button
             class="rail-icon-btn"
             data-tip="Tải xuống"
-            onclick="toast('Chọn file trước')"
+            onclick="downloadCurrentFile()"
           >
             <svg
               width="16"
@@ -1058,7 +1058,7 @@
                 ><span class="detail-val" id="detSize">—</span>
               </div>
               <div class="detail-row">
-                <span class="detail-key">Ngày tải</span
+                <span class="detail-key" id="detDateLabel">Ngày tải</span
                 ><span class="detail-val" id="detDate">—</span>
               </div>
               <div class="detail-row">
@@ -1078,13 +1078,17 @@
               </div>
             </div>
           </div>
+          <!-- ═══════════════════════════════════════════════════════════════ -->
+          <!-- ENHANCED PANEL ACTIONS -->
+          <!-- Copy đoạn này thay thế cho <div class="panel-actions"> cũ -->
+          <!-- ═══════════════════════════════════════════════════════════════ -->
+
           <div class="panel-actions" id="panelActions" style="display: none">
+            <!-- Nút Yêu thích (luôn hiện ở mọi mode) -->
             <button
-              class="panel-btn"
-              onclick="
-                toast('Đang tải xuống...');
-                downloadCurrentFile();
-              "
+              class="panel-btn favorite-panel"
+              id="favoritePanelBtn"
+              onclick="toggleFavorite()"
             >
               <svg
                 width="14"
@@ -1096,52 +1100,105 @@
                 stroke-linecap="round"
                 stroke-linejoin="round"
               >
-                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                <polyline points="7 10 12 15 17 10" />
-                <line x1="12" y1="15" x2="12" y2="3" />
-              </svg>
-              Tải xuống
-            </button>
-            <button
-              class="panel-btn"
-              onclick="toast('Đã sao chép link chia sẻ!')"
-            >
-              <svg
-                width="14"
-                height="14"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2.2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <circle cx="18" cy="5" r="3" />
-                <circle cx="6" cy="12" r="3" />
-                <circle cx="18" cy="19" r="3" />
-                <line x1="8.59" y1="13.51" x2="15.42" y2="17.49" />
-                <line x1="15.41" y1="6.51" x2="8.59" y2="10.49" />
-              </svg>
-              Chia sẻ
-            </button>
-            <button class="panel-btn danger" onclick="deleteSelected()">
-              <svg
-                width="14"
-                height="14"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2.2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <polyline points="3 6 5 6 21 6" />
                 <path
-                  d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"
+                  d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"
                 />
               </svg>
-              Xóa file
+              <span id="favoritePanelText">Yêu thích</span>
             </button>
+            <div id="normalActions">
+              <button class="panel-btn" onclick="downloadCurrentFile()">
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                  <polyline points="7 10 12 15 17 10" />
+                  <line x1="12" y1="15" x2="12" y2="3" />
+                </svg>
+                Tải xuống
+              </button>
+
+              <button class="panel-btn" onclick="shareFile()">
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <circle cx="18" cy="5" r="3" />
+                  <circle cx="6" cy="12" r="3" />
+                  <circle cx="18" cy="19" r="3" />
+                  <line x1="8.59" y1="13.51" x2="15.42" y2="17.49" />
+                  <line x1="15.41" y1="6.51" x2="8.59" y2="10.49" />
+                </svg>
+                Chia sẻ
+              </button>
+
+              <button class="panel-btn danger" onclick="deleteSelected()">
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <polyline points="3 6 5 6 21 6" />
+                  <path
+                    d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"
+                  />
+                </svg>
+                Xóa file
+              </button>
+            </div>
+            <div id="trashActions" style="display: none">
+              <button class="panel-btn restore" onclick="restoreFile()">
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <polyline points="1 4 1 10 7 10" />
+                  <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10" />
+                </svg>
+                Khôi phục file
+              </button>
+
+              <button class="panel-btn danger" onclick="permanentDelete()">
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <line x1="18" y1="6" x2="6" y2="18" />
+                  <line x1="6" y1="6" x2="18" y2="18" />
+                </svg>
+                Xóa vĩnh viễn
+              </button>
+            </div>
           </div>
         </div>
       </aside>

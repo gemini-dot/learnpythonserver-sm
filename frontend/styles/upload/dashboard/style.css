@@ -16,6 +16,7 @@
   --ink-3: #666664;
   --ink-4: #999997;
   --accent: #0a0a0a;
+  --favorite-color: #ff9500;
   --sidebar-w: 260px;
   --sidebar-rail: 56px;
   --panel-w: 320px;
@@ -370,6 +371,35 @@ header {
 .am-toggle.on::after {
   transform: translateX(14px);
 }
+/* Nút favorite trên card */
+.file-card .favorite-btn {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0;
+  transition: all 0.2s;
+  z-index: 10;
+}
+.file-card:hover .favorite-btn {
+  opacity: 1;
+}
+.file-card .favorite-btn.favorited {
+  opacity: 1;
+  background: var(--favorite-color);
+  border-color: var(--favorite-color);
+}
+.file-card .favorite-btn:hover {
+  transform: scale(1.1);
+}
 
 /* ─── SIDEBAR (LEFT) ─────────────────────── */
 .sidebar {
@@ -640,25 +670,6 @@ header {
 .rail-icon-btn:hover {
   background: var(--bg);
   color: var(--ink);
-}
-.rail-icon-btn[data-tip]::after {
-  content: attr(data-tip);
-  position: absolute;
-  right: calc(100% + 10px);
-  top: 50%;
-  transform: translateY(-50%);
-  background: var(--ink);
-  color: #fff;
-  font-size: 12px;
-  font-weight: 600;
-  padding: 5px 10px;
-  border-radius: 7px;
-  white-space: nowrap;
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.15s;
-  z-index: 999;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 .panel:not(.open) .rail-icon-btn[data-tip]:hover::after {
   opacity: 1;
@@ -1043,6 +1054,28 @@ header {
   flex-shrink: 0;
 }
 
+/* Nút favorite cho list view */
+.file-row .favorite-btn {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background: transparent;
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+.file-row .favorite-btn:hover {
+  background: var(--bg);
+  border-color: var(--favorite-color);
+}
+.file-row .favorite-btn.favorited {
+  background: var(--favorite-color);
+  border-color: var(--favorite-color);
+}
 /* Progress bar for uploading */
 .upload-progress {
   position: absolute;
@@ -1193,7 +1226,28 @@ header {
   border-color: #e04040;
   color: #c03030;
 }
+.panel-btn.favorite-panel {
+  background: #fff8e6;
+  color: #ff9500;
+  border: 1px solid #ff9500;
+}
+.panel-btn.favorite-panel.favorited {
+  background: #ff9500;
+  color: #fff;
+}
+.panel-btn.favorite-panel:hover {
+  background: #ff9500;
+  color: #fff;
+}
 
+.panel-btn.restore {
+  background: #e8f5e9;
+  color: #2e7d32;
+}
+.panel-btn.restore:hover {
+  background: #2e7d32;
+  color: #fff;
+}
 /* ─── EMPTY STATE ────────────────────────── */
 .panel-empty {
   flex: 1;
@@ -1430,4 +1484,58 @@ header {
   .panel {
     right: 0;
   }
+}
+
+.panel-actions {
+  padding: 20px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 16px !important; /* Tăng mạnh lên 16px */
+  flex-shrink: 0;
+}
+
+/* Ép khoảng cách cho từng nút cụ thể */
+.panel-btn {
+  margin-bottom: 4px !important; /* Tạo thêm khoảng trống phía dưới mỗi nút */
+}
+
+.panel-btn:last-child {
+  margin-bottom: 0; /* Nút cuối cùng thì không cần margin */
+}
+
+#favoritePanelBtn {
+  margin-top: 10px !important; /* Thay đổi số này để nhích lên/xuống tùy ý */
+}
+
+#favoritePanelBtn {
+  transform: translateY(16px); /* Số dương là đi xuống, số âm là đi lên */
+}
+
+/* 1. Lớp khung - Điều khiển việc chiếm chỗ của thanh thông tin */
+.panel {
+  transition:
+    width var(--transition),
+    opacity var(--transition),
+    border-color var(--transition);
+  will-change: width, opacity;
+}
+.panel-content {
+  width: var(--panel-w);
+  min-width: var(--panel-w);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  transition: transform var(--transition);
+  will-change: transform;
+}
+.panel.closed {
+  width: 0; /* Co lại để list file giãn ra */
+  opacity: 0; /* Mờ dần */
+  border-left-color: transparent; /* Mất viền mượt hơn border:none */
+  pointer-events: none;
+}
+
+/* Khi panel đóng, trượt nội dung bên trong sang phải một chút để tạo cảm giác biến mất mượt hơn */
+.panel.closed .panel-content {
+  transform: translateX(30px);
 }

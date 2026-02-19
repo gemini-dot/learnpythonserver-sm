@@ -58,7 +58,6 @@ let selectedId = null;
 let viewMode = 'grid';
 let searchQuery = ''; // chuỗi tìm kiếm hiện tại
 let activeFilter = 'all'; // filter từ nav: 'all','img','doc','vid','pdf','zip','today','fav','trash','shared'
-
 // ─── HÀM LỌC TRUNG TÂM ───────────────────────────────────────────
 // Luôn lọc từ sampleFiles gốc, kết hợp filter + search cùng lúc
 function getFilteredFiles() {
@@ -129,7 +128,7 @@ const panel = document.getElementById('panel');
 let leftOpen = false;
 let rightOpen = false;
 let leftCloseTimer, rightCloseTimer;
-const CLOSE_DELAY = 180; // ms chờ trước khi đóng, tránh giật khi di nhanh
+const CLOSE_DELAY = 580; // ms chờ trước khi đóng, tránh giật khi di nhanh
 
 function openLeft() {
   clearTimeout(leftCloseTimer);
@@ -340,11 +339,11 @@ function selectFile(id) {
     document.getElementById('panelSub').textContent = 'Chọn một file để xem';
     return;
   }
+
   const previewEl = document.getElementById('previewThumb');
   const isImg = f.type === 'img' && f.url;
-
   if (isImg) {
-    previewEl.innerHTML = ''; // Xóa emoji cũ
+    previewEl.innerHTML = '';
     previewEl.style.backgroundImage = `url('${f.url}')`;
     previewEl.style.backgroundSize = 'cover';
     previewEl.style.backgroundPosition = 'center';
@@ -357,7 +356,6 @@ function selectFile(id) {
   panelContent.style.display = 'flex';
   panelActions.style.display = 'flex';
 
-  document.getElementById('panelTitle').textContent = 'Chi tiết file';
   document.getElementById('panelSub').textContent = f.ext + ' · ' + f.size;
   document.getElementById('detName').textContent = f.name;
   document.getElementById('detType').textContent = f.ext;
@@ -366,8 +364,29 @@ function selectFile(id) {
   document.getElementById('detRes').textContent = f.res;
   document.getElementById('detPath').textContent = '/vault/uploads/' + f.name;
 
-  // Mở panel phải khi chọn file (nếu đang đóng)
   if (!rightOpen) openRight();
+
+  const isTrashMode =
+    (typeof activeFilter !== 'undefined' && activeFilter === 'trash') ||
+    f.deleted;
+
+  const favBtn = document.getElementById('favoritePanelBtn');
+  const normalActions = document.getElementById('normalActions');
+  const trashActions = document.getElementById('trashActions');
+  const dateLabel = document.getElementById('detDateLabel');
+
+  if (isTrashMode) {
+    if (favBtn) favBtn.style.display = 'none';
+    if (normalActions) normalActions.style.display = 'none';
+    if (trashActions) trashActions.style.display = 'block';
+    if (dateLabel) dateLabel.textContent = 'Ngày xóa';
+  } else {
+    if (favBtn) favBtn.style.display = 'block';
+    if (normalActions) normalActions.style.display = 'block';
+    if (trashActions) trashActions.style.display = 'none';
+    if (dateLabel) dateLabel.textContent = 'Ngày tải';
+    updateFavoriteButton(f.id);
+  }
 }
 
 // ─── VIEW MODE ────────────────────────────────────────────────────
