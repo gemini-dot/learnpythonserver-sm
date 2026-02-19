@@ -530,6 +530,88 @@ async function restoreFile() {
     }
   }
 }
+
+// ─── KHÔI PHỤC FILE TỪ THÙNG RÁC ──────────────────────────────────
+async function restoreFile() {
+  if (!selectedId) return;
+
+  // Tìm file trong thùng rác
+  const fileIdx = trashFiles.findIndex((f) => f.id === selectedId);
+
+  if (fileIdx !== -1) {
+    const fileToRestore = trashFiles[fileIdx];
+    const ma_dinh_danh = fileToRestore.ma_dinh_danh;
+
+    try {
+      const response = await fetch(
+        'https://learnpythonserver-sm.onrender.com/profile/restorefile_user',
+        {
+          method: 'POST',
+          credentials: 'include',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ ma_dinh_danh_file: ma_dinh_danh }),
+        }
+      );
+
+      const data = await response.json();
+
+      if (response.ok) {
+        // Chuyển từ mảng rác về mảng chính
+        sampleFiles.unshift(fileToRestore);
+        trashFiles.splice(fileIdx, 1);
+
+        selectedId = null; // Bỏ chọn sau khi khôi phục
+        renderFiles();
+        toast(`Đã khôi phục "${fileToRestore.name}"`);
+      } else {
+        toast(`Lỗi: ${data.mes || 'Không thể khôi phục'}`);
+      }
+    } catch (error) {
+      console.error('Lỗi khôi phục:', error);
+      toast('Lỗi kết nối server rồi og ơi!');
+    }
+  }
+}
+
+// ─── XÓA VĨNH VIỄN ────────────────────────────────────────────────
+async function permanentDelete() {
+  if (!selectedId) return;
+
+  const fileIdx = trashFiles.findIndex((f) => f.id === selectedId);
+  if (fileIdx === -1) return;
+
+  const fileToDelete = trashFiles[fileIdx];
+
+  // Hỏi lại cho chắc, tránh bấm nhầm
+  if (!confirm(`Ông có chắc muốn xóa vĩnh viễn "${fileToDelete.name}" không?`))
+    return;
+
+  try {
+    const response = await fetch(
+      'https://learnpythonserver-sm.onrender.com/profile/permanent_delete_user',
+      {
+        method: 'POST',
+        credentials: 'include',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ma_dinh_danh_file: fileToDelete.ma_dinh_danh }),
+      }
+    );
+
+    if (response.ok) {
+      // Xóa hẳn khỏi mảng rác
+      trashFiles.splice(fileIdx, 1);
+      selectedId = null;
+      renderFiles();
+      toast(`Đã xóa vĩnh viễn "${fileToDelete.name}"`);
+    } else {
+      const data = await response.json();
+      toast(`Lỗi: ${data.mes || 'Không thể xóa vĩnh viễn'}`);
+    }
+  } catch (error) {
+    console.error('Lỗi xóa vĩnh viễn:', error);
+    toast('Server có vấn đề, thử lại sau nhé!');
+  }
+}
 // ─── UPLOAD MODAL ─────────────────────────────────────────────────
 let queuedFiles = [];
 
