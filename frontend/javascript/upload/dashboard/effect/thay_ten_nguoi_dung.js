@@ -1,5 +1,5 @@
 function getAvatarName(fullName) {
-  if (!fullName) return 'S';
+  if (!fullName) return 'Ano';
   const words = fullName.trim().split(/\s+/);
   const firstName = words.pop();
   return firstName.charAt(0).toUpperCase();
@@ -35,6 +35,8 @@ async function updateAdminName() {
 
     if (data.trang_thai && data.username) {
       renderProfile(data.username);
+      document.title = `VAULT — ${data.username}'s Drive`;
+      console.log('[LOG] Đã thay đổi tile thành' + data.username);
       localStorage.setItem('user_name', data.username);
       console.log('[LOG] Profile updated & cached!');
     }
