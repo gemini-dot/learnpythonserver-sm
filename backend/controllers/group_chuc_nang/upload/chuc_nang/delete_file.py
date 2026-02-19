@@ -12,4 +12,4 @@ def detele_file_controller():
     ket_qua = delete_file_services(ma_dinh_danh,'file_info')
     if not ket_qua:
         return jsonify({'trang_thai':False,'mes':ket_qua}),404
-    return jsonify({'trang_thai':True,'mes':ket_qua})
+    return jsonify({'trang_thai':True,'mes':ket_qua}),200
