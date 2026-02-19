@@ -829,6 +829,7 @@ async function loadFilesFromServer() {
     ) {
       trashFiles.push(
         ...actualData.danh_sach_file_da_xoa.map((f, i) => ({
+          ma_dinh_danh: f.ma_dinh_danh_file || f.id || f._id,
           id: f.id || f._id || `f_t_${i}`,
           name: f.name || 'Unnamed',
           type: mapFileType(f.type, f.ext),
