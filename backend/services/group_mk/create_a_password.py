@@ -3,7 +3,7 @@ from validators.kiem_tra_do_bao_mat_pass import check_password_strength
 from configs.db import db
 from logs.logger import logger
 from utils.hash_password import hash_password,make_salt
-
+from datetime import datetime,timedelta
 def kiem_tra_mat_khau(user_name_input ,gmail_input, password_input):
     
     luu_tru = db['users']
@@ -40,6 +40,8 @@ def kiem_tra_mat_khau(user_name_input ,gmail_input, password_input):
 
     
     try:
+        thoi_gian_hien_tai = datetime.now()
+        thoi_gian_het_han = thoi_gian_hien_tai + timedelta(days=30)
         salt = make_salt()
         hashed = hash_password(password_input, salt)
         
@@ -49,7 +51,10 @@ def kiem_tra_mat_khau(user_name_input ,gmail_input, password_input):
             "password": hashed,
             "salt": salt,
             "cap_nguoi_dung":"basic",
-            "thoi_gian_cap_trang_thai":0,
+            "thoi_gian_cap_trang_thai":{
+                'bat_dau':thoi_gian_het_han,
+                'ket_thuc':thoi_gian_het_han,
+            },
             "khong_gian_luu_tru":"128",
             "role": "user"
         }
