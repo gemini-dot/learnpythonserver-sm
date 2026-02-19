@@ -55,7 +55,10 @@ def kiem_tra_mat_khau(user_name_input ,gmail_input, password_input):
                 'bat_dau':thoi_gian_het_han,
                 'ket_thuc':thoi_gian_het_han,
             },
-            "khong_gian_luu_tru":"128",
+            "luu_tru":{
+                'khong_gian_luu_tru':'128',
+                'don_vi':'mb'
+            },
             "role": "user"
         }
         
