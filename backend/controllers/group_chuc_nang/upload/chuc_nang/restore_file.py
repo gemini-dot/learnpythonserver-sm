@@ -1,7 +1,7 @@
 from flask import request, jsonify
 from services.group_chuc_nang.dashboard.restore_file import restore_file_services
 
-def detele_file_controller():
+def restore_file_controller():
     trang_thai_dang_nhap = request.cookies.get("trang_thai")
     if not trang_thai_dang_nhap or str(trang_thai_dang_nhap) == 'chua_dang_nhap':
         return jsonify({'trang_thai':False,'mes':'loi chua dang nhap'}),401
