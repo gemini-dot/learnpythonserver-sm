@@ -47,7 +47,7 @@ async function fetchUserPower() {
           badge.style.cssText =
             'color: #ffffff !important; opacity: 1 !important;';
       }
-      const planElement = document.querySelector('.am-item-sub');
+      const planElement = document.getElementById('goi');
 
       if (planElement) {
         const formattedPower =
