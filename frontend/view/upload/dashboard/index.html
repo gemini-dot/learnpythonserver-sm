@@ -354,7 +354,11 @@
                       <line x1="21" y1="12" x2="9" y2="12" />
                     </svg>
                   </div>
-                  <div class="am-item-text">
+                  <div
+                    class="am-item-text"
+                    onclick="toggleLogoutModal(true)"
+                    style="cursor: pointer"
+                  >
                     <div class="am-item-label">Đăng xuất</div>
                   </div>
                 </div>
@@ -1271,6 +1275,67 @@
       </div>
     </div>
 
+    <div
+      id="logoutModal"
+      style="
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(4px);
+        z-index: 10000; /* Cho số thật lớn để không bị cái gì đè lên */
+        justify-content: center;
+        align-items: center;
+      "
+    >
+      <div
+        style="
+          background: #fff;
+          padding: 25px;
+          border-radius: 15px;
+          box-shadow: 0 5px 30px rgba(0, 0, 0, 0.3);
+          text-align: center;
+          width: 300px;
+          font-family: sans-serif;
+        "
+      >
+        <h3 style="margin: 0; color: #000">Xác nhận</h3>
+        <p style="color: #444; margin: 15px 0">Ông có chắc muốn thoát không?</p>
+
+        <div style="display: flex; gap: 10px">
+          <button
+            onclick="toggleLogoutModal(false)"
+            style="
+              flex: 1;
+              padding: 10px;
+              border-radius: 8px;
+              border: 1px solid #000;
+              background: #fff;
+              cursor: pointer;
+            "
+          >
+            Hủy
+          </button>
+          <button
+            onclick="confirmLogout()"
+            style="
+              flex: 1;
+              padding: 10px;
+              border-radius: 8px;
+              border: none;
+              background: #000;
+              color: #fff;
+              cursor: pointer;
+            "
+          >
+            Đăng xuất
+          </button>
+        </div>
+      </div>
+    </div>
     <!-- TOAST -->
     <div class="toast-stack" id="toasts"></div>
 
@@ -1278,6 +1343,7 @@
       data-cfasync="false"
       src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"
     ></script>
+    <script src="../../../javascript/upload/dashboard/effect/thong_bao_xac_nhan_dang_xuat.js"></script>
     <script src="../../../javascript/group_password/effect/input_pass_effect/canh_bao_dep.js"></script>
     <script src="../../../javascript/upload/dashboard/effect/thay_doi_quyen_han.js"></script>
     <script src="../../../javascript/upload/dashboard/effect/thay_title.js"></script>
