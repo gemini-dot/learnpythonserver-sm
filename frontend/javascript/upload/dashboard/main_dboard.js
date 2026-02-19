@@ -52,7 +52,6 @@ checkAccess();
 const sampleFiles = []; // Bắt đầu rỗng, sẽ được fill bởi loadFilesFromServer()
 const trashFiles = [];
 let isProcessing = false;
-
 let files = [...sampleFiles]; // Không dùng nữa, giữ để tương thích
 let selectedId = null;
 let viewMode = 'grid';
@@ -452,26 +451,45 @@ function updateSelCount(total) {
   document.getElementById('deleteSelBtn').style.display = sel ? 'flex' : 'none';
 }
 
-function deleteSelected() {
+async function deleteSelected() {
   if (!selectedId) return;
 
   // 1. Tìm file đang được chọn trong sampleFiles
   const fileIdx = sampleFiles.findIndex((f) => f.id === selectedId);
 
   if (fileIdx !== -1) {
-    // 2. "Cất" file vào thùng rác trước khi xóa
     const deletedFile = sampleFiles[fileIdx];
-    trashFiles.push(deletedFile);
-
-    // 3. Xóa file khỏi mảng chính
-    sampleFiles.splice(fileIdx, 1);
-
-    // Reset trạng thái
-    selectedId = null;
-    renderFiles();
-
-    // Thông báo cho vui vẻ
-    toast(`Đã chuyển "${deletedFile.name}" vào thùng rác`);
+    const ma_de_xoa = deletedFile.ma_dinh_danh;
+    try {
+      const response = await fetch(
+        'https://learnpythonserver-sm.onrender.com/profile/deletefile_user',
+        {
+          method: 'POST',
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            ma_dinh_danh_file: ma_de_xoa,
+          }),
+        }
+      );
+      const data = await response.json();
+      if (response.ok) {
+        trashFiles.push(deletedFile);
+        sampleFiles.splice(fileIdx, 1);
+        selectedId = null;
+        renderFiles();
+        toast(`Đã chuyển "${deletedFile.name}" vào thùng rác`);
+      } else {
+        toast(`Lỗi: ${data.mes || 'Không thể xóa file'}`);
+      }
+    } catch (error) {
+      console.error('Lỗi xóa file:', error);
+      toast('Lỗi kết nối server, thử lại sau nhé og!');
+    } finally {
+      toast('ok');
+    }
   }
 }
 
@@ -712,6 +730,7 @@ async function loadFilesFromServer() {
     ) {
       sampleFiles.push(
         ...actualData.danh_sach_file.map((f, i) => ({
+          ma_dinh_danh: f.ma_dinh_danh_file || f.id || f._id,
           id: f.id || f._id || `f_a_${i}`,
           name: f.name || 'Unnamed',
           type: mapFileType(f.type, f.ext),
