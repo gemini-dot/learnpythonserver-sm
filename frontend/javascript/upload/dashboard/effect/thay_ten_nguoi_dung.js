@@ -1,10 +1,27 @@
 function getAvatarName(fullName) {
+  if (!fullName) return 'S';
   const words = fullName.trim().split(/\s+/);
   const firstName = words.pop();
   return firstName.charAt(0).toUpperCase();
 }
 
+function renderProfile(username) {
+  const char = getAvatarName(username);
+
+  const nameTarget = document.querySelector('.am-name');
+  if (nameTarget) nameTarget.textContent = username;
+
+  const bigAvatar = document.querySelector('.am-avatar-big');
+  if (bigAvatar) bigAvatar.innerText = char;
+
+  const btnAvatar = document.getElementById('avatarBtn');
+  if (btnAvatar) btnAvatar.innerText = char;
+}
+
 async function updateAdminName() {
+  const cachedName = localStorage.getItem('user_name');
+  if (cachedName) renderProfile(cachedName);
+
   try {
     const response = await fetch(
       'https://learnpythonserver-sm.onrender.com/profile/get_profile',
@@ -14,28 +31,12 @@ async function updateAdminName() {
       }
     );
 
-    const contentType = response.headers.get('content-type');
-    if (!contentType || !contentType.includes('application/json')) {
-      console.error('Server nhả về HTML thay vì JSON rồi ông giáo ơi!');
-      return;
-    }
-
     const data = await response.json();
 
     if (data.trang_thai && data.username) {
-      const nameTarget = document.querySelector('.am-name');
-      if (nameTarget) {
-        nameTarget.textContent = data.username;
-        const userName = data.username;
-        const avatarChar = getAvatarName(userName);
-
-        const avatarElement = document.querySelector('.am-avatar-big');
-        if (avatarElement) {
-          avatarElement.innerText = avatarChar;
-        }
-        console.log('[LOG] Đã đổi tên thành công');
-        console.log('[LOG] Đã đổi avatar thành công');
-      }
+      renderProfile(data.username);
+      localStorage.setItem('user_name', data.username);
+      console.log('[LOG] Profile updated & cached!');
     }
   } catch (err) {
     console.error('Lỗi fetch tên:', err);
