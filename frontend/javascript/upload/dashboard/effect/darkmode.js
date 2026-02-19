@@ -7,7 +7,7 @@ function toggleDark() {
   set('--surface', '#1a1a1a', '#ffffff');
   set('--border', '#2a2a2a', '#e0e0de');
   set('--border-dark', '#3a3a3a', '#c0c0be');
-  set('--ink', '#30302d', '#0a0a0a');
+  set('--ink', '#ffffff', '#0a0a0a');
   set('--ink-2', '#313030c5', '#333332');
   set('--ink-3', '#1d1c1c', '#666664');
   set('--ink-4', '#292626', '#999997');
