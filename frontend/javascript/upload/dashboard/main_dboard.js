@@ -492,7 +492,44 @@ async function deleteSelected() {
     }
   }
 }
+async function restoreFile() {
+  if (!selectedId) return;
 
+  const fileIdx = trashFiles.findIndex((f) => f.id === selectedId);
+
+  if (fileIdx !== -1) {
+    const fileToRestore = trashFiles[fileIdx];
+    const ma_dinh_danh = fileToRestore.ma_dinh_danh;
+
+    try {
+      const response = await fetch(
+        'https://learnpythonserver-sm.onrender.com/profile/restorefile_user',
+        {
+          method: 'POST',
+          credentials: 'include',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ ma_dinh_danh_file: ma_dinh_danh }),
+        }
+      );
+
+      const data = await response.json();
+
+      if (response.ok) {
+        sampleFiles.unshift(fileToRestore);
+        trashFiles.splice(fileIdx, 1);
+
+        selectedId = null; // Bỏ chọn sau khi khôi phục
+        renderFiles();
+        toast(`Đã khôi phục "${fileToRestore.name}"`);
+      } else {
+        toast(`Lỗi: ${data.mes || 'Không thể khôi phục'}`);
+      }
+    } catch (error) {
+      console.error('Lỗi khôi phục:', error);
+      toast('Lỗi kết nối server rồi og ơi!');
+    }
+  }
+}
 // ─── UPLOAD MODAL ─────────────────────────────────────────────────
 let queuedFiles = [];
 
