@@ -1,5 +1,5 @@
 from datetime import datetime
-
+from utils.create_id import create_id
 def make_json_cloud(upload_result, user_email, ten_goc):
     ext_raw = upload_result.get('format', '').lower()
     ext_display = ext_raw.upper() if ext_raw else "FILE"
@@ -30,7 +30,7 @@ def make_json_cloud(upload_result, user_email, ten_goc):
     thumb_url = None
     if res_type == "image" and secure_url:
         thumb_url = secure_url.replace("/upload/", "/upload/w_200,c_fill/")
-
+    ma_dinh_danh = create_id()
     file_info = {
         "id": upload_result.get('public_id'),
         "name": full_name,
@@ -42,6 +42,7 @@ def make_json_cloud(upload_result, user_email, ten_goc):
         "user_gmail": user_email,
         "thumb": thumb_url,
         "trang_thai":"chua_xoa",
+        "ma_dinh_danh_file":ma_dinh_danh,
         "thoi_gian_ton_tai":0
     }        
     return file_info
