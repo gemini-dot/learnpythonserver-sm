@@ -1,7 +1,7 @@
 from configs.db import db
 def lay_tat_ca_file(user_gmail, collection):
     collection_can_tim = db[str(collection)]
-    user_data = list(collection_can_tim.find({'user_gmail':user_gmail}))
+    user_data = list(collection_can_tim.find({'user_gmail':user_gmail,'trang_thai': {'$ne': 'xoa_vinh_vien'}}))
     if not user_data:
         return list(user_data)
     res = {
@@ -13,8 +13,9 @@ def lay_tat_ca_file(user_gmail, collection):
         if '_id' in doc:
             doc['_id'] = str(doc['_id'])   
             doc['id'] = doc['_id']
-        if doc.get('trang_thai') == 'da_xoa':
+        t_thai = str(doc.get('trang_thai'))
+        if t_thai == 'da_xoa':
             res['danh_sach_file_da_xoa'].append(doc)
-        else:
+        elif t_thai == 'chua_xoa':
             res['danh_sach_file'].append(doc)
     return res
