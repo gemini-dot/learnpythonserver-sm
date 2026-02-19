@@ -459,7 +459,7 @@ async function deleteSelected() {
 
   if (fileIdx !== -1) {
     const deletedFile = sampleFiles[fileIdx];
-    const ma_de_xoa = deletedFile.ma_dinh_danh;
+    const ma_de_xoa = deletedFile.ma_dinh_danh1;
     try {
       const response = await fetch(
         'https://learnpythonserver-sm.onrender.com/profile/deletefile_user',
@@ -806,7 +806,7 @@ async function loadFilesFromServer() {
     ) {
       sampleFiles.push(
         ...actualData.danh_sach_file.map((f, i) => ({
-          ma_dinh_danh: f.ma_dinh_danh_file || f.id || f._id,
+          ma_dinh_danh1: f.ma_dinh_danh_file || f.id || f._id,
           id: f.id || f._id || `f_a_${i}`,
           name: f.name || 'Unnamed',
           type: mapFileType(f.type, f.ext),
