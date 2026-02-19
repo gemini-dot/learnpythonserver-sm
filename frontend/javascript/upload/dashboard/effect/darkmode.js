@@ -11,7 +11,7 @@ function toggleDark() {
   set('--ink-2', '#ffffffc5', '#333332');
   set('--ink-3', '#ffffff', '#666664');
   set('--ink-4', '#ffffff', '#999997');
-  set('--ink-5', '#413f3f', '#999997');
+  set('--ink-5', '#161616', '#1d1d1d');
   set('--ink-6', '#242424', '#ffffff');
   set('--ink-7', '#ffffff', '#000000');
   set('--ink-8', '#ffffff', '#000000');
