@@ -57,6 +57,7 @@ if (formDangNhap) {
               'success',
               'Đăng nhập thành công! Chào mừng bạn quay trở lại.'
             );
+            localStorage.setItem('user_email', lay_gia_tri_user);
             setTimeout(() => {
               window.location.href = `https://gemini-dot.github.io/learnpythonserver-sm/frontend/view/upload/dashboard/index.html?useraccount=${lay_gia_tri_user}`;
             }, 2000); //
