@@ -1,3 +1,9 @@
+function getAvatarName(fullName) {
+  const words = fullName.trim().split(/\s+/);
+  const firstName = words.pop();
+  return firstName.charAt(0).toUpperCase();
+}
+
 async function updateAdminName() {
   try {
     const response = await fetch(
@@ -20,7 +26,15 @@ async function updateAdminName() {
       const nameTarget = document.querySelector('.am-name');
       if (nameTarget) {
         nameTarget.textContent = data.username;
-        console.log('[VAULT] Đã đổi tên thành: ' + data.username);
+        const userName = data.username;
+        const avatarChar = getAvatarName(userName);
+
+        const avatarElement = document.querySelector('.am-avatar-big');
+        if (avatarElement) {
+          avatarElement.innerText = avatarChar;
+        }
+        console.log('[LOG] Đã đổi tên thành công');
+        console.log('[LOG] Đã đổi avatar thành công');
       }
     }
   } catch (err) {
