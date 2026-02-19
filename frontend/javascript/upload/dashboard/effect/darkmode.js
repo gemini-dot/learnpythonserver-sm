@@ -7,9 +7,13 @@ function toggleDark() {
   set('--surface', '#1a1a1a', '#ffffff');
   set('--border', '#2a2a2a', '#e0e0de');
   set('--border-dark', '#3a3a3a', '#c0c0be');
-  set('--ink', '#ffffff', '#0a0a0a');
-  set('--ink-2', '#313030c5', '#333332');
-  set('--ink-3', '#1d1c1c', '#666664');
-  set('--ink-4', '#292626', '#999997');
+  set('--ink', '#30302d', '#0a0a0a');
+  set('--ink-2', '#ffffffc5', '#333332');
+  set('--ink-3', '#ffffff', '#666664');
+  set('--ink-4', '#ffffff', '#999997');
+  set('--ink-5', '#413f3f', '#999997');
+  set('--ink-6', '#242424', '#ffffff');
+  set('--ink-7', '#ffffff', '#000000');
+  set('--ink-8', '#ffffff', '#000000');
   toast(on ? '🌙 Giao diện tối đã bật' : '☀️ Giao diện sáng đã bật');
 }

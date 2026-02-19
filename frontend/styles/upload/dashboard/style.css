@@ -73,7 +73,7 @@ header {
   font-family: 'Instrument Serif', serif;
   font-size: 22px;
   letter-spacing: -0.02em;
-  color: var(--ink);
+  color: var(--ink-8);
 }
 
 .logo span {
@@ -140,7 +140,7 @@ header {
 }
 .btn-ghost {
   background: transparent;
-  color: var(--ink);
+  color: var(--ink-7);
   border: 1px solid var(--border);
 }
 .btn-ghost:hover {
@@ -511,7 +511,7 @@ header {
 .nav-item .badge {
   font-size: 11px;
   font-weight: 700;
-  background: var(--ink-4);
+  background: var(--ink-5);
   color: #fff;
   padding: 1px 7px;
   border-radius: 20px;
@@ -1227,7 +1227,7 @@ header {
   color: #c03030;
 }
 .panel-btn.favorite-panel {
-  background: #fff8e6;
+  background: var(--ink-6);
   color: #ff9500;
   border: 1px solid #ff9500;
 }
