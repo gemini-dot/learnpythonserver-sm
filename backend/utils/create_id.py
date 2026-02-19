@@ -1,5 +1,5 @@
 import secrets
-from hash256 import get_sha256_hash
+from utils.hash256 import get_sha256_hash
 def generate_secure_id(length=20):
     digits = "".join([str(secrets.randbelow(10)) for _ in range(length)])
     return digits
