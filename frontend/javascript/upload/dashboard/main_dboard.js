@@ -172,6 +172,21 @@ function getFavorites() {
   return favs ? JSON.parse(favs) : [];
 }
 
+function updateFavoriteButton(id) {
+  const favoritePanelText = document.getElementById('favoritePanelText');
+  if (!favoritePanelText) return;
+
+  const favs = getFavorites(); // Lấy mảng ID từ localStorage
+  // Tìm thông tin file từ ID để lấy mã định danh (ma_dinh_danh1)
+  const f = sampleFiles.find((x) => x.id === id);
+
+  if (f && favs.includes(f.ma_dinh_danh1)) {
+    favoritePanelText.textContent = 'Bỏ yêu thích';
+  } else {
+    favoritePanelText.textContent = 'Yêu thích';
+  }
+}
+
 function toggleFavorite() {
   if (!selectedId) {
     toast('Vui lòng chọn một file để yêu thích!');
