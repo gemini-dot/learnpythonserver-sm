@@ -3,157 +3,1448 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Upload Pricing</title>
+    <title>VAULT — Gói Lưu Trữ</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Instrument+Serif:ital@0;1&family=Manrope:wght@300;400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
-    <link href="../../styles/buy_package/styles.css" rel="stylesheet" />
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      :root {
+        --bg: #f5f5f3;
+        --surface: #ffffff;
+        --border: #e0e0de;
+        --border-dark: #c0c0be;
+        --ink: #0a0a0a;
+        --ink-2: #333332;
+        --ink-3: #666664;
+        --ink-4: #999997;
+        --accent: #0a0a0a;
+        --header-h: 60px;
+        --transition: 0.38s cubic-bezier(0.16, 1, 0.3, 1);
+        --premium: #d4af37;
+        --pro: #1a1a1a;
+        --enterprise: #2b579a;
+      }
+
+      html,
+      body {
+        height: 100%;
+        overflow-x: hidden;
+      }
+
+      body {
+        font-family: 'Manrope', sans-serif;
+        background: var(--bg);
+        color: var(--ink);
+        -webkit-font-smoothing: antialiased;
+      }
+
+      /* ─── HEADER ─────────────────────────────── */
+      header {
+        position: sticky;
+        top: 0;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 24px;
+        height: var(--header-h);
+        background: var(--surface);
+        border-bottom: 1px solid var(--border);
+        z-index: 100;
+      }
+
+      .logo {
+        font-family: 'Instrument Serif', serif;
+        font-size: 22px;
+        letter-spacing: -0.02em;
+        color: var(--ink);
+      }
+      .logo span {
+        font-style: italic;
+        opacity: 0.4;
+      }
+
+      .header-nav {
+        display: flex;
+        align-items: center;
+        gap: 24px;
+      }
+
+      .nav-link {
+        font-size: 14px;
+        font-weight: 500;
+        color: var(--ink-3);
+        text-decoration: none;
+        transition: color 0.2s;
+      }
+      .nav-link:hover {
+        color: var(--ink);
+      }
+      .nav-link.active {
+        color: var(--ink);
+        font-weight: 600;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 7px 14px;
+        font-family: 'Manrope', sans-serif;
+        font-size: 13px;
+        font-weight: 600;
+        border-radius: 8px;
+        border: none;
+        cursor: pointer;
+        transition: all 0.2s;
+        text-decoration: none;
+      }
+      .btn-primary {
+        background: var(--ink);
+        color: #fff;
+      }
+      .btn-primary:hover {
+        background: #333;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      }
+      .btn-ghost {
+        background: transparent;
+        color: var(--ink);
+        border: 1px solid var(--border);
+      }
+      .btn-ghost:hover {
+        background: var(--bg);
+        border-color: var(--ink-3);
+      }
+
+      /* ─── HERO SECTION ───────────────────────── */
+      .hero {
+        padding: 80px 24px 60px;
+        text-align: center;
+        background: var(--surface);
+        border-bottom: 1px solid var(--border);
+      }
+
+      .hero-title {
+        font-size: 48px;
+        font-weight: 800;
+        color: var(--ink);
+        margin-bottom: 16px;
+        letter-spacing: -0.03em;
+        line-height: 1.1;
+      }
+
+      .hero-subtitle {
+        font-size: 18px;
+        color: var(--ink-3);
+        margin-bottom: 12px;
+        line-height: 1.6;
+      }
+
+      .hero-price {
+        font-family: 'DM Mono', monospace;
+        font-size: 14px;
+        color: var(--ink-4);
+        margin-bottom: 32px;
+      }
+
+      .billing-toggle {
+        display: inline-flex;
+        gap: 4px;
+        padding: 4px;
+        background: var(--bg);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        margin-bottom: 48px;
+      }
+
+      .billing-toggle button {
+        padding: 8px 20px;
+        border: none;
+        background: transparent;
+        border-radius: 7px;
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--ink-3);
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+
+      .billing-toggle button.active {
+        background: var(--surface);
+        color: var(--ink);
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .save-badge {
+        display: inline-block;
+        padding: 2px 8px;
+        background: #e8f5e9;
+        color: #2e7d32;
+        border-radius: 99px;
+        font-size: 11px;
+        font-weight: 700;
+        margin-left: 6px;
+      }
+
+      /* ─── PRICING CARDS ──────────────────────── */
+      .pricing-container {
+        max-width: 1200px;
+        margin: -40px auto 80px;
+        padding: 0 24px;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 24px;
+      }
+
+      .pricing-card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 20px;
+        padding: 32px;
+        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .pricing-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+        border-color: var(--ink-3);
+      }
+
+      .pricing-card.featured {
+        border: 2px solid var(--ink);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+      }
+
+      .pricing-card.featured::before {
+        content: 'PHỔ BIẾN NHẤT';
+        position: absolute;
+        top: 16px;
+        right: -32px;
+        background: var(--ink);
+        color: #fff;
+        padding: 4px 40px;
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        transform: rotate(45deg);
+      }
+
+      .plan-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 4px 12px;
+        border-radius: 99px;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.05em;
+        margin-bottom: 16px;
+      }
+
+      .plan-badge.free {
+        background: var(--bg);
+        color: var(--ink-3);
+      }
+
+      .plan-badge.pro {
+        background: var(--ink);
+        color: #fff;
+      }
+
+      .plan-badge.premium {
+        background: var(--premium);
+        color: #1a1a1a;
+      }
+
+      .plan-badge.enterprise {
+        background: var(--enterprise);
+        color: #fff;
+      }
+
+      .plan-name {
+        font-size: 28px;
+        font-weight: 800;
+        color: var(--ink);
+        margin-bottom: 8px;
+        letter-spacing: -0.02em;
+      }
+
+      .plan-desc {
+        font-size: 14px;
+        color: var(--ink-3);
+        margin-bottom: 24px;
+        line-height: 1.6;
+      }
+
+      .plan-price {
+        margin-bottom: 24px;
+      }
+
+      .price-amount {
+        font-size: 48px;
+        font-weight: 800;
+        color: var(--ink);
+        font-family: 'DM Mono', monospace;
+        letter-spacing: -0.03em;
+      }
+
+      .price-currency {
+        font-size: 24px;
+        font-weight: 700;
+        color: var(--ink-3);
+        margin-right: 4px;
+      }
+
+      .price-period {
+        font-size: 14px;
+        color: var(--ink-4);
+        font-weight: 500;
+      }
+
+      .plan-cta {
+        width: 100%;
+        padding: 12px 24px;
+        font-size: 15px;
+        font-weight: 700;
+        margin-bottom: 32px;
+      }
+
+      .plan-features {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .feature-label {
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--ink-4);
+        margin-bottom: 4px;
+      }
+
+      .feature-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        font-size: 14px;
+        color: var(--ink-2);
+        line-height: 1.5;
+      }
+
+      .feature-icon {
+        width: 18px;
+        height: 18px;
+        flex-shrink: 0;
+        margin-top: 2px;
+      }
+
+      .feature-icon.check {
+        color: #2e7d32;
+      }
+
+      .feature-icon.cross {
+        color: #c0c0be;
+      }
+
+      /* ─── COMPARISON TABLE ───────────────────── */
+      .comparison {
+        max-width: 1200px;
+        margin: 0 auto 80px;
+        padding: 0 24px;
+      }
+
+      .comparison-title {
+        font-size: 32px;
+        font-weight: 800;
+        color: var(--ink);
+        text-align: center;
+        margin-bottom: 48px;
+        letter-spacing: -0.02em;
+      }
+
+      .comparison-table {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 20px;
+        overflow: hidden;
+      }
+
+      .comparison-header {
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+        gap: 16px;
+        padding: 24px 32px;
+        background: var(--bg);
+        border-bottom: 1px solid var(--border);
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--ink-3);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+
+      .comparison-row {
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+        gap: 16px;
+        padding: 20px 32px;
+        border-bottom: 1px solid var(--border);
+        font-size: 14px;
+        align-items: center;
+      }
+
+      .comparison-row:last-child {
+        border-bottom: none;
+      }
+
+      .comparison-row:hover {
+        background: rgba(0, 0, 0, 0.01);
+      }
+
+      .comparison-feature {
+        font-weight: 600;
+        color: var(--ink-2);
+      }
+
+      .comparison-value {
+        text-align: center;
+        color: var(--ink-3);
+        font-family: 'DM Mono', monospace;
+        font-size: 13px;
+      }
+
+      .comparison-check {
+        display: flex;
+        justify-content: center;
+      }
+
+      /* ─── FAQ SECTION ────────────────────────── */
+      .faq {
+        max-width: 800px;
+        margin: 0 auto 80px;
+        padding: 0 24px;
+      }
+
+      .faq-title {
+        font-size: 32px;
+        font-weight: 800;
+        color: var(--ink);
+        text-align: center;
+        margin-bottom: 48px;
+        letter-spacing: -0.02em;
+      }
+
+      .faq-item {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 24px 28px;
+        margin-bottom: 16px;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+
+      .faq-item:hover {
+        border-color: var(--ink-3);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+      }
+
+      .faq-question {
+        font-size: 16px;
+        font-weight: 700;
+        color: var(--ink);
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .faq-answer {
+        font-size: 14px;
+        color: var(--ink-3);
+        line-height: 1.7;
+        display: none;
+      }
+
+      .faq-item.open .faq-answer {
+        display: block;
+      }
+
+      .faq-icon {
+        width: 20px;
+        height: 20px;
+        color: var(--ink-3);
+        transition: transform 0.2s;
+      }
+
+      .faq-item.open .faq-icon {
+        transform: rotate(180deg);
+      }
+
+      /* ─── FOOTER CTA ─────────────────────────── */
+      .footer-cta {
+        background: var(--ink);
+        color: #fff;
+        padding: 80px 24px;
+        text-align: center;
+      }
+
+      .footer-cta-title {
+        font-size: 40px;
+        font-weight: 800;
+        margin-bottom: 16px;
+        letter-spacing: -0.02em;
+      }
+
+      .footer-cta-subtitle {
+        font-size: 16px;
+        color: rgba(255, 255, 255, 0.7);
+        margin-bottom: 32px;
+      }
+
+      .footer-cta .btn {
+        background: #fff;
+        color: var(--ink);
+        font-size: 15px;
+        padding: 14px 32px;
+      }
+
+      .footer-cta .btn:hover {
+        background: #f5f5f3;
+      }
+
+      /* ─── RESPONSIVE ─────────────────────────── */
+      @media (max-width: 768px) {
+        .pricing-container {
+          grid-template-columns: 1fr;
+        }
+
+        .comparison-header,
+        .comparison-row {
+          grid-template-columns: 1.5fr repeat(4, 0.5fr);
+          gap: 8px;
+          padding: 16px;
+          font-size: 11px;
+        }
+
+        .hero-title {
+          font-size: 36px;
+        }
+      }
+    </style>
   </head>
   <body>
+    <!-- HEADER -->
     <header>
-      <h1 class="wave" id="waveText">Nền tảng Upload Chuyên Nghiệp</h1>
-      <p>Tối giản. Bảo mật. Hiệu suất cao.</p>
+      <div class="logo">VAULT <span>files</span></div>
+      <nav class="header-nav">
+        <a href="dashboard.html" class="nav-link">Dashboard</a>
+        <a href="pricing.html" class="nav-link active">Gói lưu trữ</a>
+        <a href="dashboard.html" class="btn btn-ghost">Quay lại</a>
+      </nav>
     </header>
 
-    <section class="pricing">
-      <div class="card">
-        <h3>Cơ Bản</h3>
-        <div class="price">0đ</div>
-        <ul>
-          <li>
-            <svg class="icon" fill="none" viewBox="0 0 24 24" stroke-width="2">
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M5 13l4 4L19 7"
-              /></svg
-            >100MB / file
-          </li>
-          <li>
-            <svg class="icon" fill="none" viewBox="0 0 24 24" stroke-width="2">
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M5 13l4 4L19 7"
-              /></svg
-            >Lưu trữ 7 ngày
-          </li>
-          <li>
-            <svg class="icon" fill="none" viewBox="0 0 24 24" stroke-width="2">
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M5 13l4 4L19 7"
-              /></svg
-            >Tốc độ tiêu chuẩn
-          </li>
-        </ul>
-        <button>Chọn gói</button>
-      </div>
+    <!-- HERO SECTION -->
+    <section class="hero">
+      <h1 class="hero-title">Chọn gói lưu trữ phù hợp</h1>
+      <p class="hero-subtitle">
+        Lưu trữ an toàn, truy cập mọi lúc mọi nơi.<br />
+        Nâng cấp bất cứ lúc nào, hủy miễn phí.
+      </p>
+      <p class="hero-price">Tất cả gói đều có 14 ngày dùng thử miễn phí</p>
 
-      <div class="card popular">
-        <div class="badge">Phổ biến</div>
-        <h3>Nâng Cao</h3>
-        <div class="price">99.000đ/tháng</div>
-        <ul>
-          <li>
-            <svg class="icon" fill="none" viewBox="0 0 24 24" stroke-width="2">
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M5 13l4 4L19 7"
-              /></svg
-            >2GB / file
-          </li>
-          <li>
-            <svg class="icon" fill="none" viewBox="0 0 24 24" stroke-width="2">
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M5 13l4 4L19 7"
-              /></svg
-            >Lưu trữ không giới hạn
-          </li>
-          <li>
-            <svg class="icon" fill="none" viewBox="0 0 24 24" stroke-width="2">
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M5 13l4 4L19 7"
-              /></svg
-            >Tốc độ cao
-          </li>
-          <li>
-            <svg class="icon" fill="none" viewBox="0 0 24 24" stroke-width="2">
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M5 13l4 4L19 7"
-              /></svg
-            >Bảo mật nâng cao
-          </li>
-        </ul>
-        <button>Chọn gói</button>
-      </div>
-
-      <div class="card">
-        <h3>Siêu Cấp</h3>
-        <div class="price">299.000đ/tháng</div>
-        <ul>
-          <li>
-            <svg class="icon" fill="none" viewBox="0 0 24 24" stroke-width="2">
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M5 13l4 4L19 7"
-              /></svg
-            >Không giới hạn
-          </li>
-          <li>
-            <svg class="icon" fill="none" viewBox="0 0 24 24" stroke-width="2">
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M5 13l4 4L19 7"
-              /></svg
-            >CDN toàn cầu
-          </li>
-          <li>
-            <svg class="icon" fill="none" viewBox="0 0 24 24" stroke-width="2">
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M5 13l4 4L19 7"
-              /></svg
-            >Mã hóa end‑to‑end
-          </li>
-          <li>
-            <svg class="icon" fill="none" viewBox="0 0 24 24" stroke-width="2">
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M5 13l4 4L19 7"
-              /></svg
-            >Hỗ trợ 24/7
-          </li>
-        </ul>
-        <button>Chọn gói</button>
+      <!-- Billing Toggle -->
+      <div class="billing-toggle">
+        <button class="active" onclick="setBilling('monthly')">
+          Theo tháng
+        </button>
+        <button onclick="setBilling('yearly')">
+          Theo năm
+          <span class="save-badge">TIẾT KIỆM 20%</span>
+        </button>
       </div>
     </section>
 
-    <footer>© 2026 Upload Platform. All rights reserved.</footer>
+    <!-- PRICING CARDS -->
+    <div class="pricing-container">
+      <!-- FREE PLAN -->
+      <div class="pricing-card">
+        <div class="plan-badge free">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+            <circle cx="12" cy="12" r="10" />
+          </svg>
+          FREE
+        </div>
+        <h2 class="plan-name">Miễn phí</h2>
+        <p class="plan-desc">
+          Dùng thử miễn phí vĩnh viễn với các tính năng cơ bản
+        </p>
+
+        <div class="plan-price">
+          <span class="price-currency">₫</span>
+          <span class="price-amount">0</span>
+          <span class="price-period">/ tháng</span>
+        </div>
+
+        <button class="btn btn-ghost plan-cta">Bắt đầu miễn phí</button>
+
+        <div class="plan-features">
+          <div class="feature-label">Tính năng</div>
+
+          <div class="feature-item">
+            <svg
+              class="feature-icon check"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="3"
+            >
+              <polyline points="20 6 9 17 4 12" />
+            </svg>
+            <span><strong>2 GB</strong> dung lượng lưu trữ</span>
+          </div>
+
+          <div class="feature-item">
+            <svg
+              class="feature-icon check"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="3"
+            >
+              <polyline points="20 6 9 17 4 12" />
+            </svg>
+            <span>Upload file tối đa <strong>100 MB</strong></span>
+          </div>
+
+          <div class="feature-item">
+            <svg
+              class="feature-icon check"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="3"
+            >
+              <polyline points="20 6 9 17 4 12" />
+            </svg>
+            <span>Hỗ trợ tất cả định dạng file</span>
+          </div>
+
+          <div class="feature-item">
+            <svg
+              class="feature-icon check"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="3"
+            >
+              <polyline points="20 6 9 17 4 12" />
+            </svg>
+            <span>Chia sẻ file qua link</span>
+          </div>
+
+          <div class="feature-item">
+            <svg
+              class="feature-icon cross"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="3"
+            >
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+            <span style="color: var(--ink-4)">Không có mã hóa nâng cao</span>
+          </div>
+
+          <div class="feature-item">
+            <svg
+              class="feature-icon cross"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="3"
+            >
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+            <span style="color: var(--ink-4)">Không có hỗ trợ ưu tiên</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- PRO PLAN (FEATURED) -->
+      <div class="pricing-card featured">
+        <div class="plan-badge pro">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+            <path
+              d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+            />
+          </svg>
+          PRO
+        </div>
+        <h2 class="plan-name">Pro</h2>
+        <p class="plan-desc">
+          Dành cho cá nhân và freelancer cần lưu trữ nhiều hơn
+        </p>
+
+        <div class="plan-price">
+          <span class="price-currency">₫</span>
+          <span class="price-amount monthly-price">99.000</span>
+          <span class="price-period">/ tháng</span>
+        </div>
+
+        <button class="btn btn-primary plan-cta">Nâng cấp lên Pro</button>
+
+        <div class="plan-features">
+          <div class="feature-label">Tất cả tính năng Free, cộng thêm:</div>
+
+          <div class="feature-item">
+            <svg
+              class="feature-icon check"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="3"
+            >
+              <polyline points="20 6 9 17 4 12" />
+            </svg>
+            <span><strong>50 GB</strong> dung lượng lưu trữ</span>
+          </div>
+
+          <div class="feature-item">
+            <svg
+              class="feature-icon check"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="3"
+            >
+              <polyline points="20 6 9 17 4 12" />
+            </svg>
+            <span>Upload file tối đa <strong>2 GB</strong></span>
+          </div>
+
+          <div class="feature-item">
+            <svg
+              class="feature-icon check"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="3"
+            >
+              <polyline points="20 6 9 17 4 12" />
+            </svg>
+            <span>Mã hóa <strong>AES-256</strong></span>
+          </div>
+
+          <div class="feature-item">
+            <svg
+              class="feature-icon check"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="3"
+            >
+              <polyline points="20 6 9 17 4 12" />
+            </svg>
+            <span>Lịch sử phiên bản file <strong>30 ngày</strong></span>
+          </div>
+
+          <div class="feature-item">
+            <svg
+              class="feature-icon check"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="3"
+            >
+              <polyline points="20 6 9 17 4 12" />
+            </svg>
+            <span>Khôi phục file đã xóa <strong>30 ngày</strong></span>
+          </div>
+
+          <div class="feature-item">
+            <svg
+              class="feature-icon check"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="3"
+            >
+              <polyline points="20 6 9 17 4 12" />
+            </svg>
+            <span>Hỗ trợ email ưu tiên</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- PREMIUM PLAN -->
+      <div class="pricing-card">
+        <div class="plan-badge premium">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+            <path
+              d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+            />
+          </svg>
+          PREMIUM
+        </div>
+        <h2 class="plan-name">Premium</h2>
+        <p class="plan-desc">
+          Cho những người dùng chuyên nghiệp cần tính năng cao cấp
+        </p>
+
+        <div class="plan-price">
+          <span class="price-currency">₫</span>
+          <span class="price-amount monthly-price">249.000</span>
+          <span class="price-period">/ tháng</span>
+        </div>
+
+        <button class="btn btn-primary plan-cta">Nâng cấp lên Premium</button>
+
+        <div class="plan-features">
+          <div class="feature-label">Tất cả tính năng Pro, cộng thêm:</div>
+
+          <div class="feature-item">
+            <svg
+              class="feature-icon check"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="3"
+            >
+              <polyline points="20 6 9 17 4 12" />
+            </svg>
+            <span><strong>500 GB</strong> dung lượng lưu trữ</span>
+          </div>
+
+          <div class="feature-item">
+            <svg
+              class="feature-icon check"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="3"
+            >
+              <polyline points="20 6 9 17 4 12" />
+            </svg>
+            <span>Upload file tối đa <strong>10 GB</strong></span>
+          </div>
+
+          <div class="feature-item">
+            <svg
+              class="feature-icon check"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="3"
+            >
+              <polyline points="20 6 9 17 4 12" />
+            </svg>
+            <span>Lịch sử phiên bản <strong>không giới hạn</strong></span>
+          </div>
+
+          <div class="feature-item">
+            <svg
+              class="feature-icon check"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="3"
+            >
+              <polyline points="20 6 9 17 4 12" />
+            </svg>
+            <span>Chia sẻ file có mật khẩu</span>
+          </div>
+
+          <div class="feature-item">
+            <svg
+              class="feature-icon check"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="3"
+            >
+              <polyline points="20 6 9 17 4 12" />
+            </svg>
+            <span>Quét virus tự động</span>
+          </div>
+
+          <div class="feature-item">
+            <svg
+              class="feature-icon check"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="3"
+            >
+              <polyline points="20 6 9 17 4 12" />
+            </svg>
+            <span>Hỗ trợ chat <strong>24/7</strong></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ENTERPRISE PLAN -->
+      <div class="pricing-card">
+        <div class="plan-badge enterprise">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+            <circle cx="9" cy="7" r="4" />
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+            <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+          </svg>
+          ENTERPRISE
+        </div>
+        <h2 class="plan-name">Enterprise</h2>
+        <p class="plan-desc">
+          Giải pháp tùy chỉnh cho doanh nghiệp và team lớn
+        </p>
+
+        <div class="plan-price">
+          <span class="price-amount" style="font-size: 32px">Liên hệ</span>
+        </div>
+
+        <button class="btn btn-ghost plan-cta">Liên hệ tư vấn</button>
+
+        <div class="plan-features">
+          <div class="feature-label">Tất cả tính năng Premium, cộng thêm:</div>
+
+          <div class="feature-item">
+            <svg
+              class="feature-icon check"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="3"
+            >
+              <polyline points="20 6 9 17 4 12" />
+            </svg>
+            <span>Dung lượng <strong>không giới hạn</strong></span>
+          </div>
+
+          <div class="feature-item">
+            <svg
+              class="feature-icon check"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="3"
+            >
+              <polyline points="20 6 9 17 4 12" />
+            </svg>
+            <span>Số user <strong>không giới hạn</strong></span>
+          </div>
+
+          <div class="feature-item">
+            <svg
+              class="feature-icon check"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="3"
+            >
+              <polyline points="20 6 9 17 4 12" />
+            </svg>
+            <span>Quản lý team & phân quyền</span>
+          </div>
+
+          <div class="feature-item">
+            <svg
+              class="feature-icon check"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="3"
+            >
+              <polyline points="20 6 9 17 4 12" />
+            </svg>
+            <span>SSO & SAML integration</span>
+          </div>
+
+          <div class="feature-item">
+            <svg
+              class="feature-icon check"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="3"
+            >
+              <polyline points="20 6 9 17 4 12" />
+            </svg>
+            <span>API & Webhook tùy chỉnh</span>
+          </div>
+
+          <div class="feature-item">
+            <svg
+              class="feature-icon check"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="3"
+            >
+              <polyline points="20 6 9 17 4 12" />
+            </svg>
+            <span>Dedicated support manager</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- COMPARISON TABLE -->
+    <section class="comparison">
+      <h2 class="comparison-title">So sánh chi tiết các gói</h2>
+
+      <div class="comparison-table">
+        <div class="comparison-header">
+          <div>Tính năng</div>
+          <div>Free</div>
+          <div>Pro</div>
+          <div>Premium</div>
+          <div>Enterprise</div>
+        </div>
+
+        <div class="comparison-row">
+          <div class="comparison-feature">Dung lượng lưu trữ</div>
+          <div class="comparison-value">2 GB</div>
+          <div class="comparison-value">50 GB</div>
+          <div class="comparison-value">500 GB</div>
+          <div class="comparison-value">Không giới hạn</div>
+        </div>
+
+        <div class="comparison-row">
+          <div class="comparison-feature">Kích thước file tối đa</div>
+          <div class="comparison-value">100 MB</div>
+          <div class="comparison-value">2 GB</div>
+          <div class="comparison-value">10 GB</div>
+          <div class="comparison-value">Không giới hạn</div>
+        </div>
+
+        <div class="comparison-row">
+          <div class="comparison-feature">Lịch sử phiên bản</div>
+          <div class="comparison-value">—</div>
+          <div class="comparison-value">30 ngày</div>
+          <div class="comparison-value">Không giới hạn</div>
+          <div class="comparison-value">Không giới hạn</div>
+        </div>
+
+        <div class="comparison-row">
+          <div class="comparison-feature">Khôi phục file đã xóa</div>
+          <div class="comparison-value">7 ngày</div>
+          <div class="comparison-value">30 ngày</div>
+          <div class="comparison-value">90 ngày</div>
+          <div class="comparison-value">Không giới hạn</div>
+        </div>
+
+        <div class="comparison-row">
+          <div class="comparison-feature">Mã hóa AES-256</div>
+          <div class="comparison-check">
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#c0c0be"
+              stroke-width="3"
+            >
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+          </div>
+          <div class="comparison-check">
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#2e7d32"
+              stroke-width="3"
+            >
+              <polyline points="20 6 9 17 4 12" />
+            </svg>
+          </div>
+          <div class="comparison-check">
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#2e7d32"
+              stroke-width="3"
+            >
+              <polyline points="20 6 9 17 4 12" />
+            </svg>
+          </div>
+          <div class="comparison-check">
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#2e7d32"
+              stroke-width="3"
+            >
+              <polyline points="20 6 9 17 4 12" />
+            </svg>
+          </div>
+        </div>
+
+        <div class="comparison-row">
+          <div class="comparison-feature">Chia sẻ có mật khẩu</div>
+          <div class="comparison-check">
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#c0c0be"
+              stroke-width="3"
+            >
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+          </div>
+          <div class="comparison-check">
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#c0c0be"
+              stroke-width="3"
+            >
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+          </div>
+          <div class="comparison-check">
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#2e7d32"
+              stroke-width="3"
+            >
+              <polyline points="20 6 9 17 4 12" />
+            </svg>
+          </div>
+          <div class="comparison-check">
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#2e7d32"
+              stroke-width="3"
+            >
+              <polyline points="20 6 9 17 4 12" />
+            </svg>
+          </div>
+        </div>
+
+        <div class="comparison-row">
+          <div class="comparison-feature">Quét virus tự động</div>
+          <div class="comparison-check">
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#c0c0be"
+              stroke-width="3"
+            >
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+          </div>
+          <div class="comparison-check">
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#c0c0be"
+              stroke-width="3"
+            >
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+          </div>
+          <div class="comparison-check">
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#2e7d32"
+              stroke-width="3"
+            >
+              <polyline points="20 6 9 17 4 12" />
+            </svg>
+          </div>
+          <div class="comparison-check">
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#2e7d32"
+              stroke-width="3"
+            >
+              <polyline points="20 6 9 17 4 12" />
+            </svg>
+          </div>
+        </div>
+
+        <div class="comparison-row">
+          <div class="comparison-feature">Quản lý team</div>
+          <div class="comparison-check">
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#c0c0be"
+              stroke-width="3"
+            >
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+          </div>
+          <div class="comparison-check">
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#c0c0be"
+              stroke-width="3"
+            >
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+          </div>
+          <div class="comparison-check">
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#c0c0be"
+              stroke-width="3"
+            >
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+          </div>
+          <div class="comparison-check">
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#2e7d32"
+              stroke-width="3"
+            >
+              <polyline points="20 6 9 17 4 12" />
+            </svg>
+          </div>
+        </div>
+
+        <div class="comparison-row">
+          <div class="comparison-feature">Hỗ trợ</div>
+          <div class="comparison-value">Email</div>
+          <div class="comparison-value">Email ưu tiên</div>
+          <div class="comparison-value">Chat 24/7</div>
+          <div class="comparison-value">Dedicated manager</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq">
+      <h2 class="faq-title">Câu hỏi thường gặp</h2>
+
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-question">
+          <span>Tôi có thể thay đổi gói sau khi đã đăng ký không?</span>
+          <svg
+            class="faq-icon"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <polyline points="6 9 12 15 18 9" />
+          </svg>
+        </div>
+        <div class="faq-answer">
+          Có. Bạn có thể nâng cấp hoặc hạ cấp gói bất cứ lúc nào. Khi nâng cấp,
+          bạn sẽ được tính phí theo tỷ lệ thời gian còn lại. Khi hạ cấp, số tiền
+          dư sẽ được cộng vào chu kỳ thanh toán tiếp theo.
+        </div>
+      </div>
+
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-question">
+          <span>Điều gì xảy ra nếu tôi vượt quá dung lượng của gói?</span>
+          <svg
+            class="faq-icon"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <polyline points="6 9 12 15 18 9" />
+          </svg>
+        </div>
+        <div class="faq-answer">
+          Khi bạn đạt 80% dung lượng, chúng tôi sẽ gửi email nhắc nhở. Nếu vượt
+          quá 100%, bạn sẽ không thể upload thêm file mới cho đến khi xóa bớt
+          hoặc nâng cấp gói. Dữ liệu hiện có vẫn được giữ nguyên và truy cập
+          bình thường.
+        </div>
+      </div>
+
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-question">
+          <span>Dữ liệu của tôi có được sao lưu không?</span>
+          <svg
+            class="faq-icon"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <polyline points="6 9 12 15 18 9" />
+          </svg>
+        </div>
+        <div class="faq-answer">
+          Tất cả dữ liệu được sao lưu tự động hàng ngày và lưu trữ ở 3 data
+          center khác nhau. Gói Pro và cao hơn có thêm tính năng lịch sử phiên
+          bản để bạn khôi phục các phiên bản cũ của file.
+        </div>
+      </div>
+
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-question">
+          <span>Tôi có thể hủy gói bất cứ lúc nào không?</span>
+          <svg
+            class="faq-icon"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <polyline points="6 9 12 15 18 9" />
+          </svg>
+        </div>
+        <div class="faq-answer">
+          Có. Bạn có thể hủy bất cứ lúc nào mà không mất phí phạt. Dữ liệu của
+          bạn sẽ được giữ trong 30 ngày sau khi hủy để bạn có thể tải về. Sau 30
+          ngày, dữ liệu sẽ bị xóa vĩnh viễn.
+        </div>
+      </div>
+
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-question">
+          <span>Gói Enterprise có những gì khác biệt?</span>
+          <svg
+            class="faq-icon"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <polyline points="6 9 12 15 18 9" />
+          </svg>
+        </div>
+        <div class="faq-answer">
+          Gói Enterprise được tùy chỉnh theo nhu cầu doanh nghiệp: dung lượng
+          không giới hạn, số user không giới hạn, SSO/SAML, API tùy chỉnh, SLA
+          99.99%, dedicated support manager, và training cho team. Liên hệ
+          sales@vault.com để được tư vấn chi tiết.
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER CTA -->
+    <section class="footer-cta">
+      <h2 class="footer-cta-title">Bắt đầu dùng thử miễn phí 14 ngày</h2>
+      <p class="footer-cta-subtitle">
+        Không cần thẻ tín dụng. Hủy bất cứ lúc nào.
+      </p>
+      <a href="dashboard.html" class="btn">Bắt đầu ngay →</a>
+    </section>
 
     <script>
-      const text = document.getElementById('waveText');
-      const letters = text.innerText.split('');
-      text.innerHTML = letters
-        .map((letter, index) =>
-          letter === ' '
-            ? ' '
-            : `<span style="animation-delay:${index * 0.08}s">${letter}</span>`
-        )
-        .join('');
+      // Billing toggle
+      let currentBilling = 'monthly';
+
+      const monthlyPrices = {
+        pro: '99.000',
+        premium: '249.000',
+      };
+
+      const yearlyPrices = {
+        pro: '79.000', // 99k - 20%
+        premium: '199.000', // 249k - 20%
+      };
+
+      function setBilling(type) {
+        currentBilling = type;
+
+        // Update button states
+        document.querySelectorAll('.billing-toggle button').forEach((btn) => {
+          btn.classList.remove('active');
+        });
+        event.target.classList.add('active');
+
+        // Update prices
+        const prices = type === 'monthly' ? monthlyPrices : yearlyPrices;
+        document.querySelectorAll('.monthly-price').forEach((el) => {
+          const plan = el.classList.contains('pro-price') ? 'pro' : 'premium';
+          el.textContent = prices[plan] || el.textContent;
+        });
+      }
+
+      // FAQ toggle
+      function toggleFaq(element) {
+        const isOpen = element.classList.contains('open');
+
+        // Close all
+        document.querySelectorAll('.faq-item').forEach((item) => {
+          item.classList.remove('open');
+        });
+
+        // Open clicked if it was closed
+        if (!isOpen) {
+          element.classList.add('open');
+        }
+      }
+
+      // Add class to monthly prices for easier targeting
+      document.addEventListener('DOMContentLoaded', () => {
+        const priceElements = document.querySelectorAll('.monthly-price');
+        priceElements[0]?.classList.add('pro-price');
+        priceElements[1]?.classList.add('premium-price');
+      });
     </script>
   </body>
 </html>
