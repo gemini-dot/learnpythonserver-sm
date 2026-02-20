@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Test Scan Malware</title>
+    <style>
+      body {
+        font-family: sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background: #1a1a1a;
+        color: white;
+      }
+      button {
+        padding: 15px 30px;
+        font-size: 18px;
+        cursor: pointer;
+        background: #007bff;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        transition: 0.3s;
+      }
+      button:hover {
+        background: #0056b3;
+      }
+      #status {
+        margin-top: 20px;
+        color: #aaa;
+      }
+    </style>
+  </head>
+  <body>
+    <div style="text-align: center">
+      <h2>Hệ thống quét mã độc</h2>
+      <button onclick="chayLenhQuet()">Bấm để Quét ngầm</button>
+      <div id="status">Trạng thái: Đang chờ...</div>
+    </div>
+
+    <script>
+      function chayLenhQuet() {
+        const statusDiv = document.getElementById('status');
+        statusDiv.innerText =
+          'Trạng thái: Đã gửi lệnh, server đang xử lý ngầm...';
+
+        // Lệnh fetch "không nhận lại gì"
+        fetch('http://127.0.0.1:5000/security/scan_malware', {
+          // Thay bằng route Flask của og
+          method: 'GET',
+        }).catch((err) =>
+          console.log('Server nhận lệnh rồi, tui không quan tâm kết quả nha!')
+        );
+
+        // Thông báo cho og biết là đã bấm xong
+        alert('Lệnh đã bay vèo lên Server rồi đó og!');
+      }
+    </script>
+  </body>
+</html>
