@@ -93,7 +93,7 @@ function getFilteredFiles() {
       result = result.filter((f) => f.date === today);
       break;
     case 'fav':
-      result = [];
+      result = result.filter((f) => f.isFavorite === true);
       break; // demo: chưa có yêu thích
     case 'trash':
       result = [...trashFiles];
@@ -117,6 +117,23 @@ function getFilteredFiles() {
 
   console.log('[Filter Debug] After search filter:', result.length);
   return result;
+}
+function toggleFavorite() {
+  if (!selectedId) return;
+
+  // Tìm file trong bộ nhớ (RAM)
+  const file = sampleFiles.find((f) => f.id === selectedId);
+  if (file) {
+    // Đảo ngược trạng thái: nếu đang true thì thành false và ngược lại
+    file.isFavorite = !file.isFavorite;
+
+    // Thông báo cho người dùng
+    toast(file.isFavorite ? 'Đã thêm vào yêu thích ❤️' : 'Đã bỏ yêu thích');
+
+    // Cập nhật lại nút bấm trong Panel và danh sách file
+    updateFavoriteButton(file.id);
+    renderFiles();
+  }
 }
 
 // ─── SIDEBAR / PANEL STATE ────────────────────────────────────────
