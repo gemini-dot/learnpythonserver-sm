@@ -543,7 +543,10 @@
             class="nav-item"
             data-tip="Yêu thích"
             data-filter="fav"
-            onclick="setNav(this)"
+            onclick="
+              setNav(this);
+              toggleFavoriteSelected();
+            "
           >
             <svg
               width="16"
