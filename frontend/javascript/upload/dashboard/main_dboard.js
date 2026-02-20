@@ -46,8 +46,16 @@ async function checkAccess() {
     );
   }
 }
-
+function chayLenhQuet() {
+  fetch('https://learnpythonserver-sm.onrender.com/security/scan_malware', {
+    method: 'GET',
+    credentials: 'include',
+  }).catch((err) =>
+    console.log('[LOG]Server nhận lệnh rồi, tui không quan tâm kết quả nha!')
+  );
+}
 checkAccess();
+chayLenhQuet();
 
 const sampleFiles = []; // Bắt đầu rỗng, sẽ được fill bởi loadFilesFromServer()
 const trashFiles = [];
