@@ -1,8 +1,9 @@
 from configs.db import db
 
+
 def luu(du_lieu, thu_muc_luu):
     collection_name = str(thu_muc_luu).strip()
-    files_col = db[str(collection_name)]    
+    files_col = db[str(collection_name)]
     try:
         ket_qua = files_col.insert_one(du_lieu)
         if "_id" in du_lieu:

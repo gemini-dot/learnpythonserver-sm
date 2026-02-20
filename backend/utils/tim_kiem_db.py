@@ -1,6 +1,7 @@
 from configs.db import db
 import time
 
+
 def tim_kiem(ten_thu_muc_goc, thu_can_tim_kiem):
     vi_tri = db[str(ten_thu_muc_goc)]
     ten = vi_tri.find_one({"godmode": "private"})
@@ -13,9 +14,9 @@ def tim_kiem(ten_thu_muc_goc, thu_can_tim_kiem):
             "trang_thai": "on",
             "thoi_gian": thoi_gian_hien_tai,
             "thoi_gian_het_han": thoi_gian_het_han,
-            "gia_han":gia_han_mac_dinh,
-            "trang_thai_thoi_gian":"chua_het_han",
-            "du_lieu": {}
+            "gia_han": gia_han_mac_dinh,
+            "trang_thai_thoi_gian": "chua_het_han",
+            "du_lieu": {},
         }
         vi_tri.insert_one(new_doc)
         ten = new_doc

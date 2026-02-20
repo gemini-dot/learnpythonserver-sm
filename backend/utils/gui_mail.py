@@ -5,6 +5,7 @@ from utils.tinh_thoi_gian import thoi_gian_tuong_doi
 from datetime import datetime
 from utils.kiem_tra_thong_tin import lam_dep_thiet_bi
 
+
 def gui_mail_reset(email_nguoi_nhan, token, thoi_gian, dia_chi_ip, thiet_bi):
 
     service_id = "service_xszjius"
@@ -26,22 +27,21 @@ def gui_mail_reset(email_nguoi_nhan, token, thoi_gian, dia_chi_ip, thiet_bi):
         ket_qua_thiet_bi = lam_dep_thiet_bi(thiet_bi)
 
         data = {
-            'service_id': service_id,
-            'template_id': template_id,
-            'user_id': public_key,
-            'accessToken': pivate_key,
-            'template_params': {
-                'email': email_nguoi_nhan,
-                'LINK_RESET': link_reset,
-                'time_now': thoi_gian,
-                'ip_user': dia_chi_ip,
-                'thiet_bi': ket_qua_thiet_bi
-
-            }
+            "service_id": service_id,
+            "template_id": template_id,
+            "user_id": public_key,
+            "accessToken": pivate_key,
+            "template_params": {
+                "email": email_nguoi_nhan,
+                "LINK_RESET": link_reset,
+                "time_now": thoi_gian,
+                "ip_user": dia_chi_ip,
+                "thiet_bi": ket_qua_thiet_bi,
+            },
         }
         #
         response = requests.post(url, json=data)
-        
+
         print(f"EmailJS Response: {response.status_code} - {response.text}")
 
         if response.status_code == 200:
@@ -49,7 +49,7 @@ def gui_mail_reset(email_nguoi_nhan, token, thoi_gian, dia_chi_ip, thiet_bi):
             return {"success": True}
         else:
             print(f"EmailJS báo lỗi: {response.text}")
-            return {"success": False, "error": response.text}   
+            return {"success": False, "error": response.text}
     except Exception as e:
         print(f"Có lỗi bất ngờ rồi og ơi: {e}")
         return {"success": False, "error": str(e)}

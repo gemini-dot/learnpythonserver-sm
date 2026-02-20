@@ -1,5 +1,6 @@
 import re
 
+
 def check_password_strength(password):
     # Ban đầu cho là 0 điểm
     score = 0

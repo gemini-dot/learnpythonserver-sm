@@ -1,33 +1,35 @@
 import cloudinary
 import cloudinary.uploader
 from cloudinary.utils import cloudinary_url
-from flask import request,jsonify
+from flask import request, jsonify
 from utils.cloudidary_json_get import make_json_cloud
 from utils.luu_du_lieu_vao_db import luu
-cloudinary.config( 
-  cloud_name = "dshgtuy8f", 
-  api_key = "181457765166456", 
-  api_secret = "6WP17jm02xdtxUlZ4F9sHcOjpd8",
-  secure = True
+
+cloudinary.config(
+    cloud_name="dshgtuy8f",
+    api_key="181457765166456",
+    api_secret="6WP17jm02xdtxUlZ4F9sHcOjpd8",
+    secure=True,
 )
+
 
 def upload_to_cloud():
     print(request.cookies)
-    user_email = request.cookies.get('user_gmail','')
-    trang_thai = request.cookies.get('trang_thai','')
+    user_email = request.cookies.get("user_gmail", "")
+    trang_thai = request.cookies.get("trang_thai", "")
 
     if trang_thai != "da_dang_nhap":
-        return jsonify({"loi":"nguoi_dung_chua_dang_nhap"}),401
-    
+        return jsonify({"loi": "nguoi_dung_chua_dang_nhap"}), 401
+
     if not user_email:
-        return jsonify({"loi":"nguoi_dung"}),401
-    
+        return jsonify({"loi": "nguoi_dung"}), 401
+
     folder_name = f"my_project/users/{user_email.replace('@', '_').replace('.', '_')}"
 
-    if 'files[]' not in request.files:
+    if "files[]" not in request.files:
         return jsonify({"error": "Không có file"}), 400
-    
-    files = request.files.getlist('files[]')
+
+    files = request.files.getlist("files[]")
     urls = []
 
     for file in files:
@@ -40,17 +42,17 @@ def upload_to_cloud():
                 ten_file_goc = "no_name__file"
             upload_result = cloudinary.uploader.upload(
                 file,
-                folder = folder_name,
-                use_filename = True, 
-                resource_type = "auto",
-                unique_filename = True 
-            )   
+                folder=folder_name,
+                use_filename=True,
+                resource_type="auto",
+                unique_filename=True,
+            )
 
-            file_info = make_json_cloud(upload_result,user_email, ten_file_goc)
-            luu(file_info,"file_info")
+            file_info = make_json_cloud(upload_result, user_email, ten_file_goc)
+            luu(file_info, "file_info")
 
             urls.append(file_info)
         except Exception as e:
             print(f"Lỗi: {e}")
-            
+
     return jsonify({"links": urls}), 200

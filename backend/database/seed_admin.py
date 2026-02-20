@@ -6,15 +6,16 @@ from logs.logger import logger
 from dotenv import load_dotenv
 from pathlib import Path
 
-env_path = Path(__file__).resolve().parent.parent.parent / '.env'
+env_path = Path(__file__).resolve().parent.parent.parent / ".env"
 load_dotenv(dotenv_path=env_path, override=True)
+
 
 def create_initial_admin():
     admin_collection = db["users"]
-    
+
     # Kiểm tra thực tế kết nối
     try:
-        db.command('ping')
+        db.command("ping")
         logger.info("system: find to connect mongodb ")
     except Exception as e:
         logger.error(f"system: error connect {e}")
@@ -28,18 +29,18 @@ def create_initial_admin():
     # Thông tin admin
     username = os.getenv("ADMINROOTUSER")
     password = os.getenv("ADMINROOTPASS")
-    
+
     salt = make_salt()
     hashed = hash_password(password, salt)
-    
+
     admin_data = {
         "username": username,
         "password": hashed,
         "salt": salt,
         "role": "admin-root",
-        "god_mode_dev":"on",
-        "thoi_gian_het_han":"",
-        "full_name": "Hệ Thống Admin"
+        "god_mode_dev": "on",
+        "thoi_gian_het_han": "",
+        "full_name": "Hệ Thống Admin",
     }
 
     try:
@@ -47,6 +48,7 @@ def create_initial_admin():
         logger.info(f"Thanh cong: Đa khoi tao quyen Admin-Root cho {username}")
     except Exception as e:
         logger.error(f"Loi khi luu Admin vào DB: {e}")
+
 
 if __name__ == "__main__":
     create_initial_admin()
