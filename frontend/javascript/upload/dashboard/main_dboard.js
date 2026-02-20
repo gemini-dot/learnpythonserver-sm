@@ -53,6 +53,7 @@ function chayLenhQuet() {
   }).catch((err) =>
     console.log('[LOG]Server nhận lệnh rồi, tui không quan tâm kết quả nha!')
   );
+  console.log('[LOG] Đã gửi lệnh thực thi kiểm tra malware');
 }
 checkAccess();
 chayLenhQuet();
