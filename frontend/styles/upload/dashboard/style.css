@@ -400,6 +400,10 @@ header {
 .file-card .favorite-btn:hover {
   transform: scale(1.1);
 }
+.panel-btn svg {
+  position: relative;
+  top: 2.5px; /* Nhích xuống một chút xíu cho vừa mắt */
+}
 
 /* ─── SIDEBAR (LEFT) ─────────────────────── */
 .sidebar {
