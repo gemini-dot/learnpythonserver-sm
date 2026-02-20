@@ -93,8 +93,10 @@ function getFilteredFiles() {
       result = result.filter((f) => f.date === today);
       break;
     case 'fav':
-      result = result.filter((f) => f.isFavorite === true);
-      break; // demo: chưa có yêu thích
+      const currentFavs = getFavorites();
+      // Lọc những file có mã định danh nằm trong danh sách yêu thích
+      result = result.filter((f) => currentFavs.includes(f.ma_dinh_danh1));
+      break;
     case 'trash':
       result = [...trashFiles];
       break; // demo: thùng rác trống
@@ -104,7 +106,6 @@ function getFilteredFiles() {
     default:
       break; // 'all' — giữ nguyên
   }
-
   console.log('[Filter Debug] After category filter:', result.length);
 
   // 2. Lọc thêm theo search query (tên file + ext)
@@ -117,23 +118,6 @@ function getFilteredFiles() {
 
   console.log('[Filter Debug] After search filter:', result.length);
   return result;
-}
-function toggleFavorite() {
-  if (!selectedId) return;
-
-  // Tìm file trong bộ nhớ (RAM)
-  const file = sampleFiles.find((f) => f.id === selectedId);
-  if (file) {
-    // Đảo ngược trạng thái: nếu đang true thì thành false và ngược lại
-    file.isFavorite = !file.isFavorite;
-
-    // Thông báo cho người dùng
-    toast(file.isFavorite ? 'Đã thêm vào yêu thích ❤️' : 'Đã bỏ yêu thích');
-
-    // Cập nhật lại nút bấm trong Panel và danh sách file
-    updateFavoriteButton(file.id);
-    renderFiles();
-  }
 }
 
 // ─── SIDEBAR / PANEL STATE ────────────────────────────────────────
@@ -180,6 +164,33 @@ function closeRight() {
     panel.classList.remove('open');
     app.classList.remove('right-open');
   }, CLOSE_DELAY);
+}
+const FAVORITES_KEY = 'vault_favorites_list';
+
+function getFavorites() {
+  const favs = localStorage.getItem(FAVORITES_KEY);
+  return favs ? JSON.parse(favs) : [];
+}
+
+function toggleFavorite() {
+  if (!selectedId) {
+    toast('Vui lòng chọn một file để yêu thích!');
+    return;
+  }
+  const f = sampleFiles.find((x) => x.id === selectedId);
+  if (!f) return;
+  let favs = getFavorites();
+  const index = favs.indexOf(f.ma_dinh_danh1);
+  if (index > -1) {
+    favs.splice(index, 1);
+    toast('☆ Đã xóa khỏi yêu thích');
+  } else {
+    favs.push(f.ma_dinh_danh1);
+    toast('⭐ Đã thêm vào yêu thích');
+  }
+  localStorage.setItem(FAVORITES_KEY, JSON.stringify(favs));
+  renderFiles();
+  updateFavoriteButton(selectedId);
 }
 
 // Hover events — sidebar trái
