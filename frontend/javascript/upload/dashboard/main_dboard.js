@@ -95,7 +95,7 @@ function getFilteredFiles() {
     case 'fav':
       const currentFavs = getFavorites();
       // Lọc những file có mã định danh nằm trong danh sách yêu thích
-      result = result.filter((f) => currentFavs.includes(f.ma_dinh_danh1));
+      result = result.filter((f) => currentFavs.includes(f.ma_dinh_danh));
       break;
     case 'trash':
       result = [...trashFiles];
@@ -177,10 +177,10 @@ function updateFavoriteButton(id) {
   if (!favoritePanelText) return;
 
   const favs = getFavorites(); // Lấy mảng ID từ localStorage
-  // Tìm thông tin file từ ID để lấy mã định danh (ma_dinh_danh1)
+  // Tìm thông tin file từ ID để lấy mã định danh (ma_dinh_danh)
   const f = sampleFiles.find((x) => x.id === id);
 
-  if (f && favs.includes(f.ma_dinh_danh1)) {
+  if (f && favs.includes(f.ma_dinh_danh)) {
     favoritePanelText.textContent = 'Bỏ yêu thích';
   } else {
     favoritePanelText.textContent = 'Yêu thích';
@@ -195,12 +195,12 @@ function toggleFavorite() {
   const f = sampleFiles.find((x) => x.id === selectedId);
   if (!f) return;
   let favs = getFavorites();
-  const index = favs.indexOf(f.ma_dinh_danh1);
+  const index = favs.indexOf(f.ma_dinh_danh);
   if (index > -1) {
     favs.splice(index, 1);
     toast('☆ Đã xóa khỏi yêu thích');
   } else {
-    favs.push(f.ma_dinh_danh1);
+    favs.push(f.ma_dinh_danh);
     toast('⭐ Đã thêm vào yêu thích');
   }
   localStorage.setItem(FAVORITES_KEY, JSON.stringify(favs));
@@ -502,7 +502,7 @@ async function deleteSelected() {
 
   if (fileIdx !== -1) {
     const deletedFile = sampleFiles[fileIdx];
-    const ma_de_xoa = deletedFile.ma_dinh_danh1;
+    const ma_de_xoa = deletedFile.ma_dinh_danh;
     try {
       const response = await fetch(
         'https://learnpythonserver-sm.onrender.com/profile/deletefile_user',
@@ -556,7 +556,7 @@ async function restoreFile() {
       );
 
       const data = await response.json();
-
+      console.log('[LOG] Dữ liệu file trong thùng rác:', fileToRestore);
       if (response.ok) {
         sampleFiles.unshift(fileToRestore);
         trashFiles.splice(fileIdx, 1);
@@ -849,7 +849,7 @@ async function loadFilesFromServer() {
     ) {
       sampleFiles.push(
         ...actualData.danh_sach_file.map((f, i) => ({
-          ma_dinh_danh1: f.ma_dinh_danh_file || f.id || f._id,
+          ma_dinh_danh: f.ma_dinh_danh_file || f.id || f._id,
           id: f.id || f._id || `f_a_${i}`,
           name: f.name || 'Unnamed',
           type: mapFileType(f.type, f.ext),
