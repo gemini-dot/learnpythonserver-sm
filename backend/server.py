@@ -3,6 +3,7 @@ from flask_cors import CORS
 import os
 import sys
 import io
+import sentry_sdk
 #import file nội bộ
 from configs.db import db
 from routes.group_password.input_pass import app_route
@@ -24,6 +25,12 @@ from routes.scan_malware.scan_malware_link import app_route15
 from routes.ping.ping import khoi_dong
 from routes.group_admin.group_chuc_nang.kill_switch import lenh_tu_huy
 from utils.trang_thai_db_503 import get_maintenance_status
+
+sentry_sdk.init(
+    dsn="https://a5ad9555164abda45436dbd6d09fd251@o4510918588301312.ingest.us.sentry.io/4510918591905792",
+    send_default_pii=True,
+    traces_sample_rate=1.0,
+)
 
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 
