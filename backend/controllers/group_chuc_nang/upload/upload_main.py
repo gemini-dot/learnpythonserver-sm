@@ -40,7 +40,7 @@ def upload_to_cloud():
 
     for file in files:
         unique_filename = f"{uuid.uuid4()}_{file.filename}"
-        temp_path = os.path.join(TEMP_DIR, unique_filename)
+        temp_path = os.path.abspath(os.path.join(TEMP_DIR, unique_filename))
         try:
             file.save(temp_path)
             file.seek(0)
