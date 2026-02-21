@@ -45,6 +45,26 @@ async function secretMaintenanceCheck() {
 
 secretMaintenanceCheck();
 
+function updateMainAvatar(dataURL) {
+  const mainAvatar = document.getElementById('avatarBtn');
+  if (mainAvatar) {
+    mainAvatar.innerHTML = `<img src="${dataURL}" style="width:100%;height:100%;object-fit:cover;border-radius:50%">`;
+  }
+
+  const bigAvatar = document.querySelector('.am-avatar-big');
+  if (bigAvatar) {
+    bigAvatar.innerHTML = `<img src="${dataURL}" style="width:100%;height:100%;object-fit:cover;border-radius:50%">`;
+  }
+}
+
+const avatar = localStorage.getItem('user_avatar');
+
+if (avatar) {
+  document.getElementById('avatarPreview').innerHTML =
+    `<img src="${avatar}" alt="Avatar">`;
+  updateMainAvatar(avatar);
+}
+
 async function checkAccess() {
   try {
     const response = await fetch(
