@@ -889,7 +889,7 @@
           if (typeof toast === 'function')
             toast('✓ Cập nhật ảnh đại diện thành công!');
           if (data.url) {
-            const dataURL = data.url;
+            const dataURL = data.mes;
             document.getElementById('avatarPreview').innerHTML =
               `<img src="${dataURL}" alt="Avatar">`;
             localStorage.setItem('user_avatar', dataURL);
