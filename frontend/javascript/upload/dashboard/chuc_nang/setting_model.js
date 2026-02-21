@@ -888,7 +888,7 @@
         if (res.ok) {
           if (typeof toast === 'function')
             toast('✓ Cập nhật ảnh đại diện thành công!');
-          if (data.url) {
+          if (data.mes) {
             const dataURL = data.mes[0];
             document.getElementById('avatarPreview').innerHTML =
               `<img src="${dataURL}" alt="Avatar">`;
