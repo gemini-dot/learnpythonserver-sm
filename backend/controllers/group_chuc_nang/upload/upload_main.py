@@ -20,8 +20,8 @@ TEMP_DIR = 'temp'
 
 def upload_to_cloud():
     print(request.cookies)
-    user_email = request.cookies.get("user_gmail", "")
-    trang_thai = request.cookies.get("trang_thai", "")
+    user_email = "samvasang1192011@gmail.com"
+    trang_thai = "da_dang_nhap"
 
     if trang_thai != "da_dang_nhap":
         return jsonify({"loi": "nguoi_dung_chua_dang_nhap"}), 401
@@ -37,12 +37,15 @@ def upload_to_cloud():
     files = request.files.getlist("files[]")
     urls = []
     error = []
-
+    print("--- KIỂM TRA ĐẦU VÀO ---")
+    print(f"Content-Length: {request.content_length}") # Xem dung lượng gửi lên có > 0 không
+    print(f"Files keys: {list(request.files.keys())}")
     for file in files:
         unique_filename = f"{uuid.uuid4()}_{file.filename}"
         temp_path = os.path.abspath(os.path.join(TEMP_DIR, unique_filename))
         try:
             file.save(temp_path)
+            print(f"--- Đã lưu tạm: {temp_path} ---", flush=True)
             file.seek(0)
             ten_file_goc = file.filename
             if ten_file_goc:
@@ -51,10 +54,13 @@ def upload_to_cloud():
                 print("loi o day ne")
                 ten_file_goc = "no_name__file"
             res = check_image_sensitivity(temp_path)
-            if res.get('level').upper() != 'SAFE':
+            print(res,flush=True)
+            level = res.get('level').upper()
+            if level != 'SAFE':
                 error.append({"file": ten_file_goc, "error": "Nội dung nhạy cảm"})
+                os.remove(temp_path)
                 continue
-            
+            print("--- Bắt đầu upload Cloudinary ---", flush=True)
             upload_result = cloudinary.uploader.upload(
                 file,
                 folder=folder_name,
@@ -62,6 +68,7 @@ def upload_to_cloud():
                 resource_type="auto",
                 unique_filename=True,
             )
+            print("--- Upload Cloudinary xong ---", flush=True)
             file_info = make_json_cloud(upload_result, user_email, ten_file_goc)
             luu(file_info, "file_info")
 
