@@ -884,7 +884,7 @@
         );
 
         const data = await res.json();
-
+        console.log('Dữ liệu server trả về nè og:', data);
         if (res.ok) {
           if (typeof toast === 'function')
             toast('✓ Cập nhật ảnh đại diện thành công!');
