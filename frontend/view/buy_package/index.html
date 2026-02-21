@@ -9,553 +9,24 @@
       href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Instrument+Serif:ital@0;1&family=Manrope:wght@300;400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
-    <style>
-      *,
-      *::before,
-      *::after {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-      }
-
-      :root {
-        --bg: #f5f5f3;
-        --surface: #ffffff;
-        --border: #e0e0de;
-        --border-dark: #c0c0be;
-        --ink: #0a0a0a;
-        --ink-2: #333332;
-        --ink-3: #666664;
-        --ink-4: #999997;
-        --accent: #0a0a0a;
-        --header-h: 60px;
-        --transition: 0.38s cubic-bezier(0.16, 1, 0.3, 1);
-        --premium: #d4af37;
-        --pro: #1a1a1a;
-        --enterprise: #2b579a;
-      }
-
-      html,
-      body {
-        height: 100%;
-        overflow-x: hidden;
-      }
-
-      body {
-        font-family: 'Manrope', sans-serif;
-        background: var(--bg);
-        color: var(--ink);
-        -webkit-font-smoothing: antialiased;
-      }
-
-      /* ─── HEADER ─────────────────────────────── */
-      header {
-        position: sticky;
-        top: 0;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 0 24px;
-        height: var(--header-h);
-        background: var(--surface);
-        border-bottom: 1px solid var(--border);
-        z-index: 100;
-      }
-
-      .logo {
-        font-family: 'Instrument Serif', serif;
-        font-size: 22px;
-        letter-spacing: -0.02em;
-        color: var(--ink);
-      }
-      .logo span {
-        font-style: italic;
-        opacity: 0.4;
-      }
-
-      .header-nav {
-        display: flex;
-        align-items: center;
-        gap: 24px;
-      }
-
-      .nav-link {
-        font-size: 14px;
-        font-weight: 500;
-        color: var(--ink-3);
-        text-decoration: none;
-        transition: color 0.2s;
-      }
-      .nav-link:hover {
-        color: var(--ink);
-      }
-      .nav-link.active {
-        color: var(--ink);
-        font-weight: 600;
-      }
-
-      .btn {
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-        padding: 7px 14px;
-        font-family: 'Manrope', sans-serif;
-        font-size: 13px;
-        font-weight: 600;
-        border-radius: 8px;
-        border: none;
-        cursor: pointer;
-        transition: all 0.2s;
-        text-decoration: none;
-      }
-      .btn-primary {
-        background: var(--ink);
-        color: #fff;
-      }
-      .btn-primary:hover {
-        background: #333;
-        transform: translateY(-1px);
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-      }
-      .btn-ghost {
-        background: transparent;
-        color: var(--ink);
-        border: 1px solid var(--border);
-      }
-      .btn-ghost:hover {
-        background: var(--bg);
-        border-color: var(--ink-3);
-      }
-
-      /* ─── HERO SECTION ───────────────────────── */
-      .hero {
-        padding: 80px 24px 60px;
-        text-align: center;
-        background: var(--surface);
-        border-bottom: 1px solid var(--border);
-      }
-
-      .hero-title {
-        font-size: 48px;
-        font-weight: 800;
-        color: var(--ink);
-        margin-bottom: 16px;
-        letter-spacing: -0.03em;
-        line-height: 1.1;
-      }
-
-      .hero-subtitle {
-        font-size: 18px;
-        color: var(--ink-3);
-        margin-bottom: 12px;
-        line-height: 1.6;
-      }
-
-      .hero-price {
-        font-family: 'DM Mono', monospace;
-        font-size: 14px;
-        color: var(--ink-4);
-        margin-bottom: 32px;
-      }
-
-      .billing-toggle {
-        display: inline-flex;
-        gap: 4px;
-        padding: 4px;
-        background: var(--bg);
-        border: 1px solid var(--border);
-        border-radius: 10px;
-        margin-bottom: 48px;
-      }
-
-      .billing-toggle button {
-        padding: 8px 20px;
-        border: none;
-        background: transparent;
-        border-radius: 7px;
-        font-size: 14px;
-        font-weight: 600;
-        color: var(--ink-3);
-        cursor: pointer;
-        transition: all 0.2s;
-      }
-
-      .billing-toggle button.active {
-        background: var(--surface);
-        color: var(--ink);
-        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
-      }
-
-      .save-badge {
-        display: inline-block;
-        padding: 2px 8px;
-        background: #e8f5e9;
-        color: #2e7d32;
-        border-radius: 99px;
-        font-size: 11px;
-        font-weight: 700;
-        margin-left: 6px;
-      }
-
-      /* ─── PRICING CARDS ──────────────────────── */
-      .pricing-container {
-        max-width: 1200px;
-        margin: -40px auto 80px;
-        padding: 0 24px;
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-        gap: 24px;
-      }
-
-      .pricing-card {
-        background: var(--surface);
-        border: 1px solid var(--border);
-        border-radius: 20px;
-        padding: 32px;
-        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-        position: relative;
-        overflow: hidden;
-      }
-
-      .pricing-card:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
-        border-color: var(--ink-3);
-      }
-
-      .pricing-card.featured {
-        border: 2px solid var(--ink);
-        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-      }
-
-      .pricing-card.featured::before {
-        content: 'PHỔ BIẾN NHẤT';
-        position: absolute;
-        top: 16px;
-        right: -32px;
-        background: var(--ink);
-        color: #fff;
-        padding: 4px 40px;
-        font-size: 10px;
-        font-weight: 700;
-        letter-spacing: 0.1em;
-        transform: rotate(45deg);
-      }
-
-      .plan-badge {
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-        padding: 4px 12px;
-        border-radius: 99px;
-        font-size: 11px;
-        font-weight: 700;
-        letter-spacing: 0.05em;
-        margin-bottom: 16px;
-      }
-
-      .plan-badge.free {
-        background: var(--bg);
-        color: var(--ink-3);
-      }
-
-      .plan-badge.pro {
-        background: var(--ink);
-        color: #fff;
-      }
-
-      .plan-badge.premium {
-        background: var(--premium);
-        color: #1a1a1a;
-      }
-
-      .plan-badge.enterprise {
-        background: var(--enterprise);
-        color: #fff;
-      }
-
-      .plan-name {
-        font-size: 28px;
-        font-weight: 800;
-        color: var(--ink);
-        margin-bottom: 8px;
-        letter-spacing: -0.02em;
-      }
-
-      .plan-desc {
-        font-size: 14px;
-        color: var(--ink-3);
-        margin-bottom: 24px;
-        line-height: 1.6;
-      }
-
-      .plan-price {
-        margin-bottom: 24px;
-      }
-
-      .price-amount {
-        font-size: 48px;
-        font-weight: 800;
-        color: var(--ink);
-        font-family: 'DM Mono', monospace;
-        letter-spacing: -0.03em;
-      }
-
-      .price-currency {
-        font-size: 24px;
-        font-weight: 700;
-        color: var(--ink-3);
-        margin-right: 4px;
-      }
-
-      .price-period {
-        font-size: 14px;
-        color: var(--ink-4);
-        font-weight: 500;
-      }
-
-      .plan-cta {
-        width: 100%;
-        padding: 12px 24px;
-        font-size: 15px;
-        font-weight: 700;
-        margin-bottom: 32px;
-      }
-
-      .plan-features {
-        display: flex;
-        flex-direction: column;
-        gap: 12px;
-      }
-
-      .feature-label {
-        font-size: 11px;
-        font-weight: 700;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-        color: var(--ink-4);
-        margin-bottom: 4px;
-      }
-
-      .feature-item {
-        display: flex;
-        align-items: flex-start;
-        gap: 10px;
-        font-size: 14px;
-        color: var(--ink-2);
-        line-height: 1.5;
-      }
-
-      .feature-icon {
-        width: 18px;
-        height: 18px;
-        flex-shrink: 0;
-        margin-top: 2px;
-      }
-
-      .feature-icon.check {
-        color: #2e7d32;
-      }
-
-      .feature-icon.cross {
-        color: #c0c0be;
-      }
-
-      /* ─── COMPARISON TABLE ───────────────────── */
-      .comparison {
-        max-width: 1200px;
-        margin: 0 auto 80px;
-        padding: 0 24px;
-      }
-
-      .comparison-title {
-        font-size: 32px;
-        font-weight: 800;
-        color: var(--ink);
-        text-align: center;
-        margin-bottom: 48px;
-        letter-spacing: -0.02em;
-      }
-
-      .comparison-table {
-        background: var(--surface);
-        border: 1px solid var(--border);
-        border-radius: 20px;
-        overflow: hidden;
-      }
-
-      .comparison-header {
-        display: grid;
-        grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
-        gap: 16px;
-        padding: 24px 32px;
-        background: var(--bg);
-        border-bottom: 1px solid var(--border);
-        font-size: 13px;
-        font-weight: 700;
-        color: var(--ink-3);
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
-      }
-
-      .comparison-row {
-        display: grid;
-        grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
-        gap: 16px;
-        padding: 20px 32px;
-        border-bottom: 1px solid var(--border);
-        font-size: 14px;
-        align-items: center;
-      }
-
-      .comparison-row:last-child {
-        border-bottom: none;
-      }
-
-      .comparison-row:hover {
-        background: rgba(0, 0, 0, 0.01);
-      }
-
-      .comparison-feature {
-        font-weight: 600;
-        color: var(--ink-2);
-      }
-
-      .comparison-value {
-        text-align: center;
-        color: var(--ink-3);
-        font-family: 'DM Mono', monospace;
-        font-size: 13px;
-      }
-
-      .comparison-check {
-        display: flex;
-        justify-content: center;
-      }
-
-      /* ─── FAQ SECTION ────────────────────────── */
-      .faq {
-        max-width: 800px;
-        margin: 0 auto 80px;
-        padding: 0 24px;
-      }
-
-      .faq-title {
-        font-size: 32px;
-        font-weight: 800;
-        color: var(--ink);
-        text-align: center;
-        margin-bottom: 48px;
-        letter-spacing: -0.02em;
-      }
-
-      .faq-item {
-        background: var(--surface);
-        border: 1px solid var(--border);
-        border-radius: 16px;
-        padding: 24px 28px;
-        margin-bottom: 16px;
-        cursor: pointer;
-        transition: all 0.2s;
-      }
-
-      .faq-item:hover {
-        border-color: var(--ink-3);
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-      }
-
-      .faq-question {
-        font-size: 16px;
-        font-weight: 700;
-        color: var(--ink);
-        margin-bottom: 12px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-      }
-
-      .faq-answer {
-        font-size: 14px;
-        color: var(--ink-3);
-        line-height: 1.7;
-        display: none;
-      }
-
-      .faq-item.open .faq-answer {
-        display: block;
-      }
-
-      .faq-icon {
-        width: 20px;
-        height: 20px;
-        color: var(--ink-3);
-        transition: transform 0.2s;
-      }
-
-      .faq-item.open .faq-icon {
-        transform: rotate(180deg);
-      }
-
-      /* ─── FOOTER CTA ─────────────────────────── */
-      .footer-cta {
-        background: var(--ink);
-        color: #fff;
-        padding: 80px 24px;
-        text-align: center;
-      }
-
-      .footer-cta-title {
-        font-size: 40px;
-        font-weight: 800;
-        margin-bottom: 16px;
-        letter-spacing: -0.02em;
-      }
-
-      .footer-cta-subtitle {
-        font-size: 16px;
-        color: rgba(255, 255, 255, 0.7);
-        margin-bottom: 32px;
-      }
-
-      .footer-cta .btn {
-        background: #fff;
-        color: var(--ink);
-        font-size: 15px;
-        padding: 14px 32px;
-      }
-
-      .footer-cta .btn:hover {
-        background: #f5f5f3;
-      }
-
-      /* ─── RESPONSIVE ─────────────────────────── */
-      @media (max-width: 768px) {
-        .pricing-container {
-          grid-template-columns: 1fr;
-        }
-
-        .comparison-header,
-        .comparison-row {
-          grid-template-columns: 1.5fr repeat(4, 0.5fr);
-          gap: 8px;
-          padding: 16px;
-          font-size: 11px;
-        }
-
-        .hero-title {
-          font-size: 36px;
-        }
-      }
-    </style>
+    <link href="../../styles/buy_package/styles.css" rel="stylesheet" />
   </head>
   <body>
     <!-- HEADER -->
     <header>
       <div class="logo">VAULT <span>files</span></div>
       <nav class="header-nav">
-        <a href="dashboard.html" class="nav-link">Dashboard</a>
-        <a href="pricing.html" class="nav-link active">Gói lưu trữ</a>
-        <a href="dashboard.html" class="btn btn-ghost">Quay lại</a>
+        <a
+          href="https://gemini-dot.github.io/learnpythonserver-sm/frontend/view/upload/dashboard/index.html"
+          class="nav-link"
+          >Dashboard</a
+        >
+        <a href="#" class="nav-link active">Gói lưu trữ</a>
+        <a
+          href="https://gemini-dot.github.io/learnpythonserver-sm/frontend/view/upload/dashboard/index.html"
+          class="btn btn-ghost"
+          >Quay lại</a
+        >
       </nav>
     </header>
 
@@ -601,7 +72,15 @@
           <span class="price-period">/ tháng</span>
         </div>
 
-        <button class="btn btn-ghost plan-cta">Bắt đầu miễn phí</button>
+        <button
+          class="btn btn-ghost plan-cta"
+          onclick="
+            window.location.href =
+              'https://gemini-dot.github.io/learnpythonserver-sm/frontend/view/upload/dashboard/index.html'
+          "
+        >
+          Bắt đầu miễn phí
+        </button>
 
         <div class="plan-features">
           <div class="feature-label">Tính năng</div>
@@ -705,7 +184,7 @@
 
         <div class="plan-price">
           <span class="price-currency">₫</span>
-          <span class="price-amount monthly-price">99.000</span>
+          <span class="price-amount monthly-price">20.000</span>
           <span class="price-period">/ tháng</span>
         </div>
 
@@ -724,7 +203,7 @@
             >
               <polyline points="20 6 9 17 4 12" />
             </svg>
-            <span><strong>50 GB</strong> dung lượng lưu trữ</span>
+            <span><strong>10 GB</strong> dung lượng lưu trữ</span>
           </div>
 
           <div class="feature-item">
@@ -811,7 +290,7 @@
 
         <div class="plan-price">
           <span class="price-currency">₫</span>
-          <span class="price-amount monthly-price">249.000</span>
+          <span class="price-amount monthly-price">50.000</span>
           <span class="price-period">/ tháng</span>
         </div>
 
@@ -830,7 +309,7 @@
             >
               <polyline points="20 6 9 17 4 12" />
             </svg>
-            <span><strong>500 GB</strong> dung lượng lưu trữ</span>
+            <span><strong>50 GB</strong> dung lượng lưu trữ</span>
           </div>
 
           <div class="feature-item">
@@ -1022,8 +501,8 @@
         <div class="comparison-row">
           <div class="comparison-feature">Dung lượng lưu trữ</div>
           <div class="comparison-value">2 GB</div>
+          <div class="comparison-value">10 GB</div>
           <div class="comparison-value">50 GB</div>
-          <div class="comparison-value">500 GB</div>
           <div class="comparison-value">Không giới hạn</div>
         </div>
 
@@ -1379,7 +858,7 @@
           Gói Enterprise được tùy chỉnh theo nhu cầu doanh nghiệp: dung lượng
           không giới hạn, số user không giới hạn, SSO/SAML, API tùy chỉnh, SLA
           99.99%, dedicated support manager, và training cho team. Liên hệ
-          sales@vault.com để được tư vấn chi tiết.
+          samvasang1192011@gmail.com để được tư vấn chi tiết.
         </div>
       </div>
     </section>
@@ -1390,7 +869,11 @@
       <p class="footer-cta-subtitle">
         Không cần thẻ tín dụng. Hủy bất cứ lúc nào.
       </p>
-      <a href="dashboard.html" class="btn">Bắt đầu ngay →</a>
+      <a
+        href="https://gemini-dot.github.io/learnpythonserver-sm/frontend/view/group_password/input_pass.html"
+        class="btn"
+        >Bắt đầu ngay →</a
+      >
     </section>
 
     <script>
@@ -1398,13 +881,13 @@
       let currentBilling = 'monthly';
 
       const monthlyPrices = {
-        pro: '99.000',
-        premium: '249.000',
+        pro: '20.000',
+        premium: '50.000',
       };
 
       const yearlyPrices = {
-        pro: '79.000', // 99k - 20%
-        premium: '199.000', // 249k - 20%
+        pro: '16.000', // 99k - 20%
+        premium: '40.000', // 249k - 20%
       };
 
       function setBilling(type) {
