@@ -31,3 +31,5 @@ dnspython
 gunicorn
 sentry_sdk
 nudenet
+eventlet
+flask_socketio
