@@ -16,7 +16,14 @@ cloudinary.config(
     secure=True,
 )
 
-TEMP_DIR = 'temp'
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+TEMP_DIR = os.path.join(BASE_DIR, 'temp')
+
+if not os.path.exists(TEMP_DIR):
+    os.makedirs(TEMP_DIR, exist_ok=True)
+    print(f"📁 Đã tạo thư mục tạm tại: {TEMP_DIR}", flush=True)
+else:
+    print(f"✅ Thư mục tạm đã sẵn sàng: {TEMP_DIR}", flush=True)
 
 def upload_to_cloud():
     print(request.cookies)
