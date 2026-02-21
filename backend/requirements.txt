@@ -30,3 +30,4 @@ Werkzeug==3.1.5
 dnspython
 gunicorn
 sentry_sdk
+nudenet
