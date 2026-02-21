@@ -57,15 +57,17 @@ function updateMainAvatar(dataURL) {
   }
 }
 
-const avatar = localStorage.getItem('user_avatar');
+document.addEventListener('DOMContentLoaded', () => {
+  const avatar = localStorage.getItem('user_avatar');
 
-if (avatar) {
-  const previewElement = document.getElementById('avatarPreview');
-  if (previewElement) {
-    previewElement.innerHTML = `<img src="${avatar}" alt="Avatar">`;
+  if (avatar) {
+    const previewElement = document.getElementById('avatarPreview');
+    if (previewElement) {
+      previewElement.innerHTML = `<img src="${avatar}" alt="Avatar">`;
+    }
+    updateMainAvatar(avatar);
   }
-  updateMainAvatar(avatar);
-}
+});
 
 async function checkAccess() {
   try {
