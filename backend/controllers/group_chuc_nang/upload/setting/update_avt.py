@@ -25,7 +25,7 @@ if not os.path.exists(TEMP_DIR):
 else:
     print(f"✅ Thư mục tạm đã sẵn sàng: {TEMP_DIR}", flush=True)
 
-def upload_to_cloud():
+def upload_to_cloud_avt():
     print(request.cookies)
     user_email = request.cookies.get("user_gmail")
     trang_thai = request.cookies.get("trang_thai")
@@ -38,10 +38,10 @@ def upload_to_cloud():
 
     folder_name = f"my_project/users/{user_email.replace('@', '_').replace('.', '_')}"
 
-    if "files[]" not in request.files:
+    if "avatar" not in request.files:
         return jsonify({"error": "Không có file"}), 400
 
-    files = request.files.getlist("files[]")
+    files = request.files.getlist("avatar")
     urls = []
     error = []
     print("--- KIỂM TRA ĐẦU VÀO ---")
@@ -76,7 +76,7 @@ def upload_to_cloud():
                 unique_filename=True,
             )
             print("--- Upload Cloudinary xong ---", flush=True)
-            file_info = make_json_cloud(upload_result, user_email, ten_file_goc, 'upload')
+            file_info = make_json_cloud(upload_result, user_email, ten_file_goc, 'avatar')
             luu(file_info, "file_info")
 
             urls.append(file_info['url'])
@@ -85,4 +85,4 @@ def upload_to_cloud():
         finally:
             if os.path.exists(temp_path):
                 os.remove(temp_path)
-    return jsonify({"links": urls, 'error':error}), 200
+    return jsonify({"mes": urls, 'error':error}), 200

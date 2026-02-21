@@ -2,7 +2,7 @@ from datetime import datetime
 from utils.create_id import create_id
 
 
-def make_json_cloud(upload_result, user_email, ten_goc):
+def make_json_cloud(upload_result, user_email, ten_goc,loai_file):
     ext_raw = upload_result.get("format", "").lower()
     ext_display = ext_raw.upper() if ext_raw else "FILE"
 
@@ -54,5 +54,6 @@ def make_json_cloud(upload_result, user_email, ten_goc):
         "trang_thai": "chua_xoa",
         "ma_dinh_danh_file": ma_dinh_danh,
         "thoi_gian_ton_tai": 0,
+        "loai_file":loai_file
     }
     return file_info

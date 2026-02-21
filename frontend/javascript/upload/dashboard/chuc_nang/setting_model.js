@@ -818,10 +818,26 @@
     }
 
     // Load bio
-    const savedBio = localStorage.getItem('user_bio');
-    if (savedBio) {
-      document.getElementById('bioInput').value = savedBio;
+    async function get_bio_from_server() {
+      try {
+        const resp = await fetch(
+          'https://learnpythonserver-sm.onrender.com/profile/setting/get_bio',
+          {
+            method: 'GET',
+            credentials: 'include',
+          }
+        );
+        const da = await resp.json();
+        if (!resp.ok) {
+          console.error('[LOG] khong lay duoc bio' + da.mes);
+        }
+        document.getElementById('bioInput').value = da.mes;
+        localStorage.setItem('user_bio', bioValue);
+      } catch (error) {
+        console.error(error);
+      }
     }
+    get_bio_from_server();
 
     // Load dark mode
     const darkMode = localStorage.getItem('dark_mode') === 'true';
@@ -845,26 +861,53 @@
       return;
     }
 
-    // Read and preview
-    const reader = new FileReader();
-    reader.onload = function (e) {
-      const dataURL = e.target.result;
+    const avatar = localStorage.getItem('user_avatar');
 
-      // Update preview
+    if (avatar) {
       document.getElementById('avatarPreview').innerHTML =
-        `<img src="${dataURL}" alt="Avatar">`;
+        `<img src="${avatar}" alt="Avatar">`;
+      updateMainAvatar(avatar);
+    }
 
-      // Save to localStorage
-      localStorage.setItem('user_avatar', dataURL);
+    const formData = new FormData();
+    formData.append('avatar', file);
 
-      // Update main avatar (nếu có)
-      updateMainAvatar(dataURL);
+    async function uploadAvatar() {
+      try {
+        const res = await fetch(
+          'https://learnpythonserver-sm.onrender.com/profile/setting/avatar',
+          {
+            method: 'POST',
+            body: formData,
+            credentials: 'include',
+          }
+        );
 
-      if (typeof toast === 'function') {
-        toast('✓ Đã cập nhật avatar');
+        const data = await res.json();
+
+        if (res.ok) {
+          if (typeof toast === 'function')
+            toast('✓ Cập nhật ảnh đại diện thành công!');
+          if (data.url) {
+            const dataURL = data.url;
+            document.getElementById('avatarPreview').innerHTML =
+              `<img src="${dataURL}" alt="Avatar">`;
+            localStorage.setItem('user_avatar', dataURL);
+            updateMainAvatar(dataURL);
+            if (typeof toast === 'function') {
+              toast('✓ Đã cập nhật avatar');
+            }
+          }
+        } else {
+          if (typeof toast === 'function') toast('❌ Lỗi: ' + data.mes);
+        }
+      } catch (error) {
+        console.error('Lỗi upload:', error);
+        if (typeof toast === 'function') toast('❌ Lỗi kết nối server!');
       }
-    };
-    reader.readAsDataURL(file);
+    }
+
+    uploadAvatar();
   };
 
   // Remove avatar
@@ -935,10 +978,36 @@
   window.saveBio = function () {
     const bio = document.getElementById('bioInput').value.trim();
     localStorage.setItem('user_bio', bio);
+    async function bio_server() {
+      try {
+        const res = await fetch(
+          'https://learnpythonserver-sm.onrender.com/profile/setting/bio',
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ bio: bio }),
+            credentials: 'include',
+          }
+        );
 
-    if (typeof toast === 'function') {
-      toast('✓ Đã lưu bio');
+        const data = await res.json();
+
+        if (!res.ok) {
+          console.error('Lỗi rồi og ơi:', data.mes);
+          if (typeof toast === 'function') toast('Lỗi: ' + data.mes);
+          return;
+        }
+        if (typeof toast === 'function') {
+          console.log('Thành công:', data.mes);
+          toast('✓ Đã lưu bio');
+        }
+      } catch (error) {
+        console.error(error);
+      }
     }
+    bio_server();
   };
 
   // Toggle dark mode

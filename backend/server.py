@@ -25,6 +25,9 @@ from routes.group_chuc_nang.upload.chuc_nang.delete_file import app_route12
 from routes.group_chuc_nang.upload.chuc_nang.restore_file import app_route13
 from routes.group_chuc_nang.upload.chuc_nang.permanentDelete import app_route14
 from routes.scan_malware.scan_malware_link import app_route15
+from routes.group_chuc_nang.upload.setting.bio import app_route16
+from routes.group_chuc_nang.upload.setting.get_bio import app_route17
+from routes.group_chuc_nang.upload.setting.update_avatar import app_route18
 from routes.ping.ping import khoi_dong
 from routes.group_admin.group_chuc_nang.kill_switch import lenh_tu_huy
 from utils.trang_thai_db_503 import get_maintenance_status
@@ -72,6 +75,9 @@ app.register_blueprint(app_route12, url_prefix="/profile")
 app.register_blueprint(app_route13, url_prefix="/profile")
 app.register_blueprint(app_route14, url_prefix="/profile")
 app.register_blueprint(app_route15, url_prefix="/security")
+app.register_blueprint(app_route16, url_prefix="/profile")
+app.register_blueprint(app_route17, url_prefix="/profile")
+app.register_blueprint(app_route18, url_prefix="/profile")
 app.register_blueprint(khoi_dong, url_prefix="/ping")
 app.register_blueprint(lenh_tu_huy, url_prefix="/admin")
 
