@@ -79,7 +79,7 @@ def upload_to_cloud_avt():
             file_info = make_json_cloud(upload_result, user_email, ten_file_goc, 'avatar')
             luu(file_info, "file_info")
 
-            urls.append(file_info['url'])
+            urls.append(file_info.get("url"))
         except Exception as e:
             print(f"Lỗi: {e}")
         finally:

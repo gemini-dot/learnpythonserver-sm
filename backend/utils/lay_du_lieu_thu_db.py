@@ -5,7 +5,7 @@ def lay_tat_ca_file(user_gmail, collection):
     collection_can_tim = db[str(collection)]
     user_data = list(
         collection_can_tim.find(
-            {"user_gmail": user_gmail, "trang_thai": {"$ne": "xoa_vinh_vien"}}
+            {"user_gmail": user_gmail, "trang_thai": {"$ne": "xoa_vinh_vien"},"loai_file": {"$ne": "avatar"}}
         )
     )
     if not user_data:
