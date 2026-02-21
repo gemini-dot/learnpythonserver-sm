@@ -139,7 +139,13 @@
 
               <!-- Section 1: Account -->
               <div class="am-section">
-                <div class="am-item" onclick="menuAction('profile')">
+                <div
+                  class="am-item"
+                  onclick="
+                    menuAction('profile');
+                    openSettings();
+                  "
+                >
                   <div class="am-icon">
                     <svg
                       width="14"
