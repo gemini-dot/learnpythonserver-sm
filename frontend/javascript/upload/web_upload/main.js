@@ -1,4 +1,26 @@
 import { showToast } from '../../../javascript/popup/popup.js';
+
+(function () {
+  const socket = io('https://learnpythonserver-sm.onrender.com');
+
+  socket.on('global_notification', (data) => {
+    console.log('📡 Đã nhận thông báo hệ thống:', data.message);
+
+    if (typeof toast === 'function') {
+      showToast('info', `THÔNG BÁO: ${data.message}`);
+    } else {
+      showToast('info', 'Thông báo hệ thống: ' + data.message);
+    }
+  });
+  socket.on('connect_error', (err) => {
+    console.error('❌ Lỗi kết nối Socket:', err.message);
+  });
+
+  socket.on('connect', () => {
+    console.log('✅ Đã kết nối thành công với trạm phát sóng Python!');
+  });
+})();
+
 const urlParams = new URLSearchParams(window.location.search);
 const userName = urlParams.get('useraccount');
 if (userName) {
