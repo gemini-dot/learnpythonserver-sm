@@ -32,13 +32,17 @@ async function updateAdminName() {
     );
 
     const data = await response.json();
-
+    const mainAvatar = document.getElementById('avatarBtn');
     if (data.trang_thai && data.username) {
-      renderProfile(data.username);
+      if (!mainAvatar) {
+        renderProfile(data.username);
+        console.log('[LOG] Profile updated & cached!');
+      }
+      const nameTarget = document.querySelector('.am-name');
+      if (nameTarget) nameTarget.textContent = data.username;
       document.title = `VAULT — ${data.username}'s Drive`;
       console.log('[LOG] Đã thay đổi tile thành' + data.username);
       localStorage.setItem('user_name', data.username);
-      console.log('[LOG] Profile updated & cached!');
     }
   } catch (err) {
     console.error('Lỗi fetch tên:', err);
