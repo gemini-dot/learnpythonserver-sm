@@ -60,8 +60,10 @@ function updateMainAvatar(dataURL) {
 const avatar = localStorage.getItem('user_avatar');
 
 if (avatar) {
-  document.getElementById('avatarPreview').innerHTML =
-    `<img src="${avatar}" alt="Avatar">`;
+  const previewElement = document.getElementById('avatarPreview');
+  if (previewElement) {
+    previewElement.innerHTML = `<img src="${avatar}" alt="Avatar">`;
+  }
   updateMainAvatar(avatar);
 }
 
