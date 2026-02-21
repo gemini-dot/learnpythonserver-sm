@@ -48,7 +48,14 @@ CORS(
     ],
 )
 
-socketio = SocketIO(app, cors_allowed_origins="*", async_mode='eventlet')
+socketio = SocketIO(
+    app, 
+    cors_allowed_origins="*", 
+    async_mode='eventlet', 
+    engineio_logger=True, 
+    logger=True,
+    always_connect=True
+)
 
 app.register_blueprint(app_route, url_prefix="/auth")
 app.register_blueprint(app_route2, url_prefix="/auth")

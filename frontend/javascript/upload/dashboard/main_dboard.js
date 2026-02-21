@@ -1,5 +1,8 @@
 (function () {
-  const socket = io('https://learnpythonserver-sm.onrender.com');
+  const socket = io('https://learnpythonserver-sm.onrender.com', {
+    transports: ['polling', 'websocket'], // Cho phép cả hai
+    withCredentials: true,
+  });
 
   socket.on('global_notification', (data) => {
     console.log('📡 Đã nhận thông báo hệ thống:', data.message);
