@@ -17,13 +17,14 @@ cloudinary.config(
 )
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-TEMP_DIR = os.path.join(BASE_DIR, 'temp')
+TEMP_DIR = os.path.join(BASE_DIR, "temp")
 
 if not os.path.exists(TEMP_DIR):
     os.makedirs(TEMP_DIR, exist_ok=True)
     print(f"📁 Đã tạo thư mục tạm tại: {TEMP_DIR}", flush=True)
 else:
     print(f"✅ Thư mục tạm đã sẵn sàng: {TEMP_DIR}", flush=True)
+
 
 def upload_to_cloud_avt():
     print(request.cookies)
@@ -45,7 +46,9 @@ def upload_to_cloud_avt():
     urls = []
     error = []
     print("--- KIỂM TRA ĐẦU VÀO ---")
-    print(f"Content-Length: {request.content_length}") # Xem dung lượng gửi lên có > 0 không
+    print(
+        f"Content-Length: {request.content_length}"
+    )  # Xem dung lượng gửi lên có > 0 không
     print(f"Files keys: {list(request.files.keys())}")
     for file in files:
         unique_filename = f"{uuid.uuid4()}_{file.filename}"
@@ -61,9 +64,9 @@ def upload_to_cloud_avt():
                 print("loi o day ne")
                 ten_file_goc = "no_name__file"
             res = check_image_sensitivity(temp_path)
-            print(res,flush=True)
-            level = res.get('level').upper()
-            if level != 'SAFE':
+            print(res, flush=True)
+            level = res.get("level").upper()
+            if level != "SAFE":
                 error.append({"file": ten_file_goc, "error": "Nội dung nhạy cảm"})
                 os.remove(temp_path)
                 continue
@@ -76,7 +79,9 @@ def upload_to_cloud_avt():
                 unique_filename=True,
             )
             print("--- Upload Cloudinary xong ---", flush=True)
-            file_info = make_json_cloud(upload_result, user_email, ten_file_goc, 'avatar')
+            file_info = make_json_cloud(
+                upload_result, user_email, ten_file_goc, "avatar"
+            )
             luu(file_info, "file_info")
 
             urls.append(file_info.get("url"))
@@ -85,4 +90,4 @@ def upload_to_cloud_avt():
         finally:
             if os.path.exists(temp_path):
                 os.remove(temp_path)
-    return jsonify({"mes": urls, 'error':error}), 200
+    return jsonify({"mes": urls, "error": error}), 200

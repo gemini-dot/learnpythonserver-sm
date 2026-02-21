@@ -1,4 +1,5 @@
 import eventlet
+
 eventlet.monkey_patch()
 from flask import Flask, abort, request
 from flask_cors import CORS
@@ -7,6 +8,7 @@ import sys
 import io
 import sentry_sdk
 from flask_socketio import SocketIO, emit
+
 # import file nội bộ
 from configs.db import db
 from routes.group_password.input_pass import app_route
@@ -52,12 +54,12 @@ CORS(
 )
 
 socketio = SocketIO(
-    app, 
-    cors_allowed_origins="*", 
-    async_mode='eventlet', 
-    engineio_logger=True, 
+    app,
+    cors_allowed_origins="*",
+    async_mode="eventlet",
+    engineio_logger=True,
     logger=True,
-    always_connect=True
+    always_connect=True,
 )
 
 app.register_blueprint(app_route, url_prefix="/auth")
@@ -107,10 +109,11 @@ admin_pass_on, admin_pass_off = str(os.getenv("BAOTRI_KEY_ON")), str(
 )
 
 
-@socketio.on('admin_broadcast')
+@socketio.on("admin_broadcast")
 def handle_broadcast(data):
-    print(f"Đang phát tin: {data['msg']}",flush=True)
-    emit('global_notification', {'message': data['msg']}, broadcast=True)
+    print(f"Đang phát tin: {data['msg']}", flush=True)
+    emit("global_notification", {"message": data["msg"]}, broadcast=True)
+
 
 @app.before_request
 def check_for_maintenance():
@@ -156,7 +159,7 @@ if __name__ == "__main__":
     try:
         db.command("ping")
         logger.info("Database: Kết nối thành công!")
-        socketio.run(app,host="0.0.0.0", port=port)
+        socketio.run(app, host="0.0.0.0", port=port)
     except Exception as e:
         logger.error(f"System: Lỗi khởi động: {e}")
 

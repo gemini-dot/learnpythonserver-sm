@@ -2,16 +2,22 @@ from nudenet import NudeDetector
 
 detector = NudeDetector()
 
+
 def check_image_sensitivity(image_path: str) -> dict:
     detections = detector.detect(image_path)
 
     EXPLICIT_LABELS = {
-        "FEMALE_GENITALIA_EXPOSED", "MALE_GENITALIA_EXPOSED",
-        "FEMALE_BREAST_EXPOSED", "ANUS_EXPOSED", "BUTTOCKS_EXPOSED"
+        "FEMALE_GENITALIA_EXPOSED",
+        "MALE_GENITALIA_EXPOSED",
+        "FEMALE_BREAST_EXPOSED",
+        "ANUS_EXPOSED",
+        "BUTTOCKS_EXPOSED",
     }
     MILD_LABELS = {
-        "FEMALE_BREAST_COVERED", "BUTTOCKS_COVERED",
-        "BELLY_EXPOSED", "ARMPITS_EXPOSED"
+        "FEMALE_BREAST_COVERED",
+        "BUTTOCKS_COVERED",
+        "BELLY_EXPOSED",
+        "ARMPITS_EXPOSED",
     }
 
     explicit_score = 0.0
@@ -49,5 +55,5 @@ def check_image_sensitivity(image_path: str) -> dict:
         "categories": list(set(explicit_found + mild_found)),
         "reason": f"Phát hiện: {', '.join(set(explicit_found + mild_found)) or 'Không có nội dung nhạy cảm'}",
         "safe_for_work": safe_for_work,
-        "raw_detections": detections
+        "raw_detections": detections,
     }
