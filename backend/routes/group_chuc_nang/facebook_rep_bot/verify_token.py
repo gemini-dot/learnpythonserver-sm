@@ -109,10 +109,6 @@ def ask_gemini(user_text,doan_chat_truoc):
         response = client.models.generate_content(
             model="gemini-3-flash-preview",
             contents=messages,
-            config={
-                "system_instruction": system_prompt,
-                "temperature": 0.7
-            }
         )
         return response.text.strip()
     except Exception as e:
