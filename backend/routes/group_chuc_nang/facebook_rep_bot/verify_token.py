@@ -101,17 +101,14 @@ def ask_gemini(user_text,doan_chat_truoc):
             doan_chat_truoc = []
         
         clean_history = []
-        if isinstance(doan_chat_truoc, list):
-            for chat in doan_chat_truoc:
-                role = chat.get("role")
-                raw_parts = chat.get("parts", [""])
-                text_content = raw_parts[0] if isinstance(raw_parts, list) else str(raw_parts)
-                
-                clean_history.append({
-                    "role": role,
-                    "parts": [{"text": text_content}]
-                })
-
+        for chat in doan_chat_truoc:
+            role = chat.get("role")
+            parts = chat.get("parts", [])
+            if parts and isinstance(parts, list):
+                t = parts[0].get("text", "") if isinstance(parts[0], dict) else str(parts[0])
+                if t and not t.startswith("loi"):
+                    clean_history.append({"role": role, "parts": [{"text": t}]})
+                    
         system_prompt = (
             "Ông là hỗ trợ viên vui vẻ thuộc quyền quản lý của admin Lại Văn Sâm. Nếu khách hỏi check file,phàn nàn về lỗi hệ thống gặp phải, hãy hỏi gmail và giải thích sơ bộ lý do khác bị vẫn đề trên. "
             "Nếu có gmail, trả về: [Lời nhắn] ||| gmail:abc@test.com, action:kiem_tra. "
