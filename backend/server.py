@@ -53,7 +53,6 @@ app.secret_key = 'og_thich_ghi_gi_vao_day_cung_duoc_mien_la_bi_mat'
 
 app.config.update(
     SESSION_COOKIE_NAME='google-auth-session',
-    SESSION_COOKIE_SAMESITE='Lax', 
     SESSION_COOKIE_SECURE=True,  
     SESSION_COOKIE_SAMESITE='None',
 )
