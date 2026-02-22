@@ -98,7 +98,6 @@ def handle_ai_logic(sender_id, message_text):
 
 def ask_gemini(user_text,doan_chat_truoc):
     system_prompt = (
-        f"hãy trả lời dựa trên đoạn này:{doan_chat_truoc}"
         "Ông là hỗ trợ viên vui vẻ thuộc quyền quản lý của admin Lại Văn Sâm. Nếu khách hỏi check file,phàn nàn về lỗi hệ thống gặp phải, hãy hỏi gmail và giải thích sơ bộ lý do khác bị vẫn đề trên. "
         "Nếu có gmail, trả về: [Lời nhắn] ||| gmail:abc@test.com, action:kiem_tra. "
         "Nội dung khách nói là: "
