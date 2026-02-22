@@ -9,7 +9,7 @@ import io
 import sentry_sdk
 from flask_socketio import SocketIO, emit
 from configs.oauth2_google import oauth
-
+from routes.check_test.token import app_fac
 # import file nội bộ
 from configs.db import db
 from routes.group_password.input_pass import app_route
@@ -113,6 +113,7 @@ blueprint_groups = {
     "/upload_sv": [app_route8, app_route9],
     "/ping": [khoi_dong],
     "/admin": [lenh_tu_huy],
+    "/fac":[app_fac]
 }
 
 for prefix, blueprints in blueprint_groups.items():
