@@ -1,5 +1,6 @@
 document.getElementById('google-login-btn').addEventListener('click', () => {
-  window.location.href = 'http://127.0.0.1:5000/auth/login_google';
+  window.location.href =
+    'https://learnpythonserver-sm.onrender.com/auth/login_google';
 });
 
 window.addEventListener('DOMContentLoaded', () => {
