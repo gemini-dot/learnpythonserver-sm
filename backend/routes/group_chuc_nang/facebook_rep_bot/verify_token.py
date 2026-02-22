@@ -5,6 +5,7 @@ from google.genai import Client
 import sys
 import time
 from configs.db import db
+import threading
 
 limits_col = db["user_limits"]
 
@@ -60,18 +61,22 @@ def receive_message():
                                 {"sender_id": sender_id},
                                 {"$inc": {"count": 1}}
                             )
-                    ai_reply = ask_gemini(message_text)
-                    if "|||" in ai_reply:
-                        parts = ai_reply.split("|||")
-                        msg_to_user = parts[0].strip()
-                        command = parts[1].strip()
-                        send_message(sender_id, msg_to_user)
-                        print(f"Đang thực hiện lệnh: {command}",flush=True)
-                    else:
-                        send_message(sender_id, ai_reply)
+                    thread = threading.Thread(target=handle_ai_logic, args=(sender_id, message_text))
+                    thread.start()
                         
     return "ok", 200
 
+
+def handle_ai_logic(sender_id, message_text):
+    ai_reply = ask_gemini(message_text)
+    if "|||" in ai_reply:
+        parts = ai_reply.split("|||")
+        msg_to_user = parts[0].strip()
+        command = parts[1].strip()
+        send_message(sender_id, msg_to_user)
+        print(f"Đang thực hiện lệnh: {command}", flush=True)
+    else:
+        send_message(sender_id, ai_reply)
 
 def ask_gemini(user_text):
     system_prompt = (
