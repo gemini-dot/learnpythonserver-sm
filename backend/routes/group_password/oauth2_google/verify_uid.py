@@ -4,7 +4,7 @@ from middleware.rate_limiting import limit_requests
 from configs.settings import MAX_REQUESTS,PERIOD
 
 app_route21 = Blueprint('kiem tra uid',__name__)
-@app_route21.route('/google/verify_uid',methods=['GET'])
+@app_route21.route('/google/verify_uid',methods=['POST'])
 
 @limit_requests(max_requests=MAX_REQUESTS,period=PERIOD)
 

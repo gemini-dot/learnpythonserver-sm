@@ -8,18 +8,13 @@ window.addEventListener('DOMContentLoaded', async () => {
   const sid = params.get('sid');
   const gmail = params.get('gmail');
 
-  // Nếu có đủ thông tin thì mới chạy verify
   if (sid && gmail) {
-    // 1. Xóa "vết tích" trên URL ngay lập tức để bảo mật mà KHÔNG load lại trang
     window.history.replaceState({}, document.title, window.location.pathname);
-
-    // 2. Gọi hàm verify
     await handleVerifyUID(sid, gmail);
   }
 
   async function handleVerifyUID(uidVal, emailVal) {
     try {
-      // Hiện hiệu ứng chờ đợi ở đây nếu cần
       const response = await fetch(
         'https://learnpythonserver-sm.onrender.com/auth/google/verify_uid',
         {
