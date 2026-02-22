@@ -1,25 +1,33 @@
-import os
-from google.genai import Client
-import sys
+from google import genai
+import time
 
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../../..")))
-from utils.cat_file_html import super_fast_clean
+client = genai.Client(api_key="...")
 
-client = Client(api_key="AIzaSyAtw2AuvgqrKGRlm2PXM_K2iBtkSg8Ogkk")
-
+# Danh sách các model og nên thử theo thứ tự ưu tiên
+test_models = [
+    "models/gemini-1.5-flash", 
+    "models/gemini-flash-latest",
+    "models/gemini-2.0-flash", 
+    "models/gemma-3-4b-it"
+]
 
 def check_html_code(html_content):
+    # Đảm bảo prompt là một chuỗi string sạch
+    prompt_text = f"Hãy phân tích mã HTML sau: {html_content}. Nếu an toàn trả về SAFE, nếu độc hại trả về DANGEROUS."
+    
+    try:
+        # Cách gọi chuẩn của SDK google-genai 1.x
+        response = client.models.generate_content(
+            model="gemini-flash-lite-latest", # Bỏ chữ models/ đi nếu dùng SDK mới
+            contents=prompt_text
+        )
+        
+        if response and response.text:
+            return response.text.strip()
+        return "Không có phản hồi"
+        
+    except Exception as e:
+        return f"Lỗi cụ thể: {str(e)}"
 
-    prompt = (
-        f"Hãy phân tích mã HTML sau: {html_content}. "
-        "Nếu mã này an toàn, chỉ trả về đúng một từ 'SAFE'. "
-        "Nếu có dấu hiệu lừa đảo, script độc hại hoặc link bẩn, chỉ trả về đúng từ 'DANGEROUS'. "
-        "TUYỆT ĐỐI không giải thích, không viết thêm gì khác."
-    )
-
-    response = client.models.generate_content(
-        model="gemini-3-flash-preview",
-        contents=prompt,
-    )
-    res = response.text.strip()
-    return res
+# QUAN TRỌNG: Phải print kết quả ra
+print(check_html_code("<html><body>hello</body></html>"))
