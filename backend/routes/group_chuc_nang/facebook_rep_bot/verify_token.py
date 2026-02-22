@@ -44,7 +44,7 @@ def receive_message():
                         new_user = {
                             "sender_id": sender_id,
                             "count": 1,
-                            "reset_time": current_time + 86400
+                            "reset_time": current_time + 86400,
                         }
                         limits_col.insert_one(new_user)
                     else:
@@ -68,26 +68,56 @@ def receive_message():
 
 
 def handle_ai_logic(sender_id, message_text):
-    ai_reply = ask_gemini(message_text)
+
+    user_data = limits_col.find_one({"sender_id": sender_id})
+    history = user_data.get("history", []) if user_data else []
+
+    ai_reply = ask_gemini(message_text, history)
+
     if "|||" in ai_reply:
         parts = ai_reply.split("|||")
         msg_to_user = parts[0].strip()
-        command = parts[1].strip()
         send_message(sender_id, msg_to_user)
-        print(f"Đang thực hiện lệnh: {command}", flush=True)
     else:
         send_message(sender_id, ai_reply)
 
-def ask_gemini(user_text):
+    limits_col.update_one(
+        {"sender_id": sender_id},
+        {
+            "$push": {
+                "history": {
+                    "$each": [
+                        {"role": "user", "parts": message_text},
+                        {"role": "model", "parts": ai_reply}
+                    ],
+                    "$slice": -10  # Giữ đúng 10 tin nhắn cuối
+                }
+            }
+        }
+    )
+
+def ask_gemini(user_text,doan_chat_truoc):
     system_prompt = (
-        "Ông là hỗ trợ viên vui vẻ. Nếu khách hỏi check file, hãy hỏi gmail. "
+        f"hãy trả lời dựa trên đoạn này:{doan_chat_truoc}"
+        "Ông là hỗ trợ viên vui vẻ thuộc quyền quản lý của admin Lại Văn Sâm. Nếu khách hỏi check file,phàn nàn về lỗi hệ thống gặp phải, hãy hỏi gmail và giải thích sơ bộ lý do khác bị vẫn đề trên. "
         "Nếu có gmail, trả về: [Lời nhắn] ||| gmail:abc@test.com, action:kiem_tra. "
         "Nội dung khách nói là: "
     )
     
+    formatted_history = []
+
+    for chat in doan_chat_truoc:
+        formatted_history.append({
+            "role": chat["role"],
+            "parts": [chat["parts"]]
+        })
+
+    messages = formatted_history + [{"role": "user", "parts": [user_text]}]
+
     response = client.models.generate_content(
         model="gemini-3-flash-preview",
-        contents=system_prompt + user_text,
+        contents=messages,
+        config={"system_instruction": system_prompt}
     )
     return response.text.strip()
 
