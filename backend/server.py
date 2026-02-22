@@ -37,6 +37,8 @@ from routes.ping.ping import khoi_dong
 from routes.group_admin.group_chuc_nang.kill_switch import lenh_tu_huy
 from utils.trang_thai_db_503 import get_maintenance_status
 
+os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
+
 sentry_sdk.init(
     dsn="https://a5ad9555164abda45436dbd6d09fd251@o4510918588301312.ingest.us.sentry.io/4510918591905792",
     send_default_pii=True,
@@ -53,6 +55,7 @@ app.config.update(
     SESSION_COOKIE_NAME='google-auth-session',
     SESSION_COOKIE_SAMESITE='Lax', 
     SESSION_COOKIE_SECURE=True,  
+    SESSION_COOKIE_SAMESITE='None',
 )
 
 CORS(
