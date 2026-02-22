@@ -117,7 +117,9 @@ def ask_gemini(user_text,doan_chat_truoc):
                 "temperature": 0.7
             }
         )
-        return response.text.strip()
+        if response and response.text:
+            return response.text.strip()
+        return "Tui chưa nghĩ ra câu trả lời, og thử lại sau nha!"
     except Exception as e:
         return f"loi{e}"
 def send_message(recipient_id, text):
