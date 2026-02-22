@@ -71,44 +71,47 @@ def handle_ai_logic(sender_id, message_text):
 
     user_data = limits_col.find_one({"sender_id": sender_id})
     history = user_data.get("history", []) if user_data else []
+    clean_history = []
+    for chat in history:
+        content = chat.get("parts", [""])[0]
+        if isinstance(content, str) and not content.startswith("loi"):
+            clean_history.append(chat)
+    ai_reply = ask_gemini(message_text, clean_history)
 
-    ai_reply = ask_gemini(message_text, history)
+    if ai_reply.startswith("loi"):
+        send_message(sender_id, "Tui đang 'reset' lại não xíu, og nhắn lại câu vừa nãy nha! 🧠")
+        print(f"Bỏ qua lưu vì lỗi API: {ai_reply}", flush=True)
+        return
 
-    if "|||" in ai_reply:
-        parts = ai_reply.split("|||")
-        msg_to_user = parts[0].strip()
-        send_message(sender_id, msg_to_user)
-    else:
-        send_message(sender_id, ai_reply)
-
+    msg_to_send = ai_reply.split("|||")[0].strip() if "|||" in ai_reply else ai_reply
+    send_message(sender_id, msg_to_send)
     limits_col.update_one(
-        {"sender_id": sender_id},
-        {
-            "$push": {
-                "history": {
-                    "$each": [
-                        {"role": "user", "parts": [message_text]},
-                        {"role": "model", "parts": [ai_reply]}
-                    ],
-                    "$slice": -10  # Giữ đúng 10 tin nhắn cuối
+            {"sender_id": sender_id},
+            {
+                "$push": {
+                    "history": {
+                        "$each": [
+                            {"role": "user", "parts": [message_text]},
+                            {"role": "model", "parts": [ai_reply]}
+                        ],
+                        "$slice": -10 
+                    }
                 }
             }
-        }
     )
 
 def ask_gemini(user_text,doan_chat_truoc):
     try:
         if doan_chat_truoc is None:
             doan_chat_truoc = []
-        
+
         system_prompt = (
             "Ông là hỗ trợ viên vui vẻ thuộc quyền quản lý của admin Lại Văn Sâm. Nếu khách hỏi check file,phàn nàn về lỗi hệ thống gặp phải, hãy hỏi gmail và giải thích sơ bộ lý do khác bị vẫn đề trên. "
             "Nếu có gmail, trả về: [Lời nhắn] ||| gmail:abc@test.com, action:kiem_tra. "
             "Nội dung khách nói là: "
         )
-
-        messages = doan_chat_truoc + [{"role": "user", "parts": [user_text]}]
-
+        history_input = doan_chat_truoc if isinstance(doan_chat_truoc, list) else []
+        messages = history_input + [{"role": "user", "parts": [user_text]}]
         response = client.models.generate_content(
             model="gemini-3-flash-preview",
             contents=messages,
