@@ -24,23 +24,38 @@ async function fetchUserPower() {
       switch (userPower) {
         case 'admin-root':
           badge.style.cssText = `
-            background-color: #D4AF37 !important;
-            color: #1a1a1a !important;           
-            border: none !important;           
-            font-weight: 800 !important;
-            padding: 2px 10px !important;       
-            border-radius: 4px !important;
-            opacity: 1 !important;                
-            text-shadow: none !important;
-            box-shadow: 2px 2px 0px rgba(0,0,0,0.2) !important;
+            background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%) !important;
+            color: #1a1a1a !important;
+            border: 2px solid #FFED4E !important;
+            box-shadow: 
+              0 0 20px rgba(255, 215, 0, 0.5),
+              0 4px 12px rgba(0, 0, 0, 0.2),
+              inset 0 1px 0 rgba(255, 255, 255, 0.3) !important;
+            font-weight: 900 !important;
+            font-size: 11px !important;
+            letter-spacing: 0.08em !important;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2) !important;
+            padding: 5px 14px !important;
+            border-radius: 6px !important;
+            animation: goldGlow 3s ease-in-out infinite !important;
           `;
           break;
+
         case 'PREMIUM':
           badge.style.cssText = `
-            color: #A8A8A8 !important;
-            border: 1px solid #A8A8A8 !important;
-            font-weight: 600 !important;
-            text-shadow: none !important;
+            background: linear-gradient(135deg, #E8E8E8 0%, #C0C0C0 50%, #A8A8A8 100%) !important;
+            color: #2a2a2a !important;
+            border: 2px solid #F5F5F5 !important;
+            box-shadow: 
+              0 0 15px rgba(192, 192, 192, 0.4),
+              0 3px 10px rgba(0, 0, 0, 0.15),
+              inset 0 1px 0 rgba(255, 255, 255, 0.6) !important;
+            font-weight: 800 !important;
+            font-size: 10px !important;
+            letter-spacing: 0.1em !important;
+            text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1) !important;
+            padding: 4px 12px !important;
+            border-radius: 5px !important;
           `;
           break;
         default:
