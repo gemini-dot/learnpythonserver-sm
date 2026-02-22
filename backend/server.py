@@ -38,7 +38,7 @@ from routes.ping.ping import khoi_dong
 from routes.group_admin.group_chuc_nang.kill_switch import lenh_tu_huy
 from utils.trang_thai_db_503 import get_maintenance_status
 
-os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
+os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
 
 sentry_sdk.init(
     dsn="https://a5ad9555164abda45436dbd6d09fd251@o4510918588301312.ingest.us.sentry.io/4510918591905792",
@@ -50,12 +50,12 @@ sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8")
 
 app = Flask(__name__)
 
-app.secret_key = 'og_thich_ghi_gi_vao_day_cung_duoc_mien_la_bi_mat'
+app.secret_key = "og_thich_ghi_gi_vao_day_cung_duoc_mien_la_bi_mat"
 
 app.config.update(
-    SESSION_COOKIE_NAME='google-auth-session',
-    SESSION_COOKIE_SECURE=True,  
-    SESSION_COOKIE_SAMESITE='None',
+    SESSION_COOKIE_NAME="google-auth-session",
+    SESSION_COOKIE_SECURE=True,
+    SESSION_COOKIE_SAMESITE="None",
 )
 
 CORS(
@@ -80,25 +80,45 @@ socketio = SocketIO(
 oauth.init_app(app)
 
 google = oauth.register(
-    name='google',
-    client_id = os.getenv('GOOGLE_CLIENT_ID'),
-    client_secret = os.getenv('GOOGLE_CLIENT_SECRET'),
-    server_metadata_url='https://accounts.google.com/.well-known/openid-configuration',
-    client_kwargs={'scope': 'openid email profile'}
+    name="google",
+    client_id=os.getenv("GOOGLE_CLIENT_ID"),
+    client_secret=os.getenv("GOOGLE_CLIENT_SECRET"),
+    server_metadata_url="https://accounts.google.com/.well-known/openid-configuration",
+    client_kwargs={"scope": "openid email profile"},
 )
 
 blueprint_groups = {
-    "/auth": [app_route, app_route2, app_route3, app_route4, app_route5, app_route6, app_route19, app_route20,app_route21],
-    "/profile": [app_route10, app_route11, app_route12, app_route13, app_route14, app_route16, app_route17, app_route18],
+    "/auth": [
+        app_route,
+        app_route2,
+        app_route3,
+        app_route4,
+        app_route5,
+        app_route6,
+        app_route19,
+        app_route20,
+        app_route21,
+    ],
+    "/profile": [
+        app_route10,
+        app_route11,
+        app_route12,
+        app_route13,
+        app_route14,
+        app_route16,
+        app_route17,
+        app_route18,
+    ],
     "/security": [app_route7, app_route15],
     "/upload_sv": [app_route8, app_route9],
     "/ping": [khoi_dong],
-    "/admin": [lenh_tu_huy]
+    "/admin": [lenh_tu_huy],
 }
 
 for prefix, blueprints in blueprint_groups.items():
     for bp in blueprints:
         app.register_blueprint(bp, url_prefix=prefix)
+
 
 @app.errorhandler(500)
 def internal_server_error(e):
