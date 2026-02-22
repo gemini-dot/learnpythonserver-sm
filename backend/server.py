@@ -9,7 +9,7 @@ import io
 import sentry_sdk
 from flask_socketio import SocketIO, emit
 from configs.oauth2_google import oauth
-from routes.check_test.token import app_fac
+
 # import file nội bộ
 from configs.db import db
 from routes.group_password.input_pass import app_route
@@ -34,6 +34,7 @@ from routes.group_chuc_nang.upload.setting.update_avatar import app_route18
 from routes.group_password.oauth2_google.login_frontend import app_route19
 from routes.group_password.oauth2_google.sed_data import app_route20
 from routes.group_password.oauth2_google.verify_uid import app_route21
+from routes.group_chuc_nang.facebook_rep_bot.verify_token import app_route22
 from routes.ping.ping import khoi_dong
 from routes.group_admin.group_chuc_nang.kill_switch import lenh_tu_huy
 from utils.trang_thai_db_503 import get_maintenance_status
@@ -113,7 +114,7 @@ blueprint_groups = {
     "/upload_sv": [app_route8, app_route9],
     "/ping": [khoi_dong],
     "/admin": [lenh_tu_huy],
-    "/fac":[app_fac]
+    "/fac":[app_route22]
 }
 
 for prefix, blueprints in blueprint_groups.items():
