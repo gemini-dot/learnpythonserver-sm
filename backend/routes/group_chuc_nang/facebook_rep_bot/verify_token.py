@@ -6,9 +6,10 @@ import sys
 
 app_route22 = Blueprint("facebook-bot",__name__)
 
+google_api = os.getenv("API_GOOGLE_KEY")
 VERIFY_TOKEN = "samvasang1192011"
 PAGE_ACCESS_TOKEN = "EAAWQ4rWjGfoBQ6LqxaZAR643TLZBUQQCsQrkNQe0RZChhuVM9LfC6IoZB3rDKw8z75ZBm0NKM9jMnCxBWerZAolmnv7uJZAu9beVSTZBpf88nqy24NvVi4QJ54ZAgM6bEjGRcV2Ee9v7cMNUZAEC66S9idXwjddfyBOcloQOZCB0TSjnxUKT0ijH3nGHKZC6ZAjR0GQ8Gum6iPwZDZD"
-client = Client(api_key=os.getenv("API_GOOGLE_KEY"))
+client = Client(api_key=google_api)
 @app_route22.route('/mes', methods=['GET'])
 def verify():
     token_sent = request.args.get("hub.verify_token")
