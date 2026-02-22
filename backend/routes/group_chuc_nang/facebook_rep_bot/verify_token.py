@@ -87,8 +87,8 @@ def handle_ai_logic(sender_id, message_text):
             "$push": {
                 "history": {
                     "$each": [
-                        {"role": "user", "parts": message_text},
-                        {"role": "model", "parts": ai_reply}
+                        {"role": "user", "parts": [message_text]},
+                        {"role": "model", "parts": [ai_reply]}
                     ],
                     "$slice": -10  # Giữ đúng 10 tin nhắn cuối
                 }
@@ -97,29 +97,26 @@ def handle_ai_logic(sender_id, message_text):
     )
 
 def ask_gemini(user_text,doan_chat_truoc):
-    system_prompt = (
-        "Ông là hỗ trợ viên vui vẻ thuộc quyền quản lý của admin Lại Văn Sâm. Nếu khách hỏi check file,phàn nàn về lỗi hệ thống gặp phải, hãy hỏi gmail và giải thích sơ bộ lý do khác bị vẫn đề trên. "
-        "Nếu có gmail, trả về: [Lời nhắn] ||| gmail:abc@test.com, action:kiem_tra. "
-        "Nội dung khách nói là: "
-    )
-    
-    formatted_history = []
+    try:
+        system_prompt = (
+            "Ông là hỗ trợ viên vui vẻ thuộc quyền quản lý của admin Lại Văn Sâm. Nếu khách hỏi check file,phàn nàn về lỗi hệ thống gặp phải, hãy hỏi gmail và giải thích sơ bộ lý do khác bị vẫn đề trên. "
+            "Nếu có gmail, trả về: [Lời nhắn] ||| gmail:abc@test.com, action:kiem_tra. "
+            "Nội dung khách nói là: "
+        )
 
-    for chat in doan_chat_truoc:
-        formatted_history.append({
-            "role": chat["role"],
-            "parts": [chat["parts"]]
-        })
+        messages = doan_chat_truoc + [{"role": "user", "parts": [user_text]}]
 
-    messages = formatted_history + [{"role": "user", "parts": [user_text]}]
-
-    response = client.models.generate_content(
-        model="gemini-3-flash-preview",
-        contents=messages,
-        config={"system_instruction": system_prompt}
-    )
-    return response.text.strip()
-
+        response = client.models.generate_content(
+            model="gemini-3-flash-preview",
+            contents=messages,
+            config={
+                "system_instruction": system_prompt,
+                "temperature": 0.7
+            }
+        )
+        return response.text.strip()
+    except Exception as e:
+        return f"loi{e}"
 def send_message(recipient_id, text):
     url = "https://graph.facebook.com/v12.0/me/messages"
     params = {"access_token": PAGE_ACCESS_TOKEN}
