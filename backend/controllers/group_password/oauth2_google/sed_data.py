@@ -7,9 +7,9 @@ def kiem_tra_goole(dulieu):
     full_name = dulieu.get('name')   
     avatar = dulieu.get('picture')          
     google_id = dulieu.get('sub')
-    ket_qua = kiem_tra_db(full_name,email,avatar)
+    sid = str(uuid.uuid4())
+    ket_qua = kiem_tra_db(full_name,email,avatar,sid)
     if ket_qua.get('trang_thai') == True:
-        sid = str(uuid.uuid4())
-        return redirect(f"https://gemini-dot.github.io/learnpythonserver-sm/frontend/view/group_password/input_pass.html?sid={sid}")
+        return redirect(f"https://gemini-dot.github.io/learnpythonserver-sm/frontend/view/group_password/input_pass.html?sid={sid}&gmail={email}")
     
     return redirect("https://gemini-dot.github.io/learnpythonserver-sm/frontend/view/error/500.html")

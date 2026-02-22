@@ -33,6 +33,7 @@ from routes.group_chuc_nang.upload.setting.get_bio import app_route17
 from routes.group_chuc_nang.upload.setting.update_avatar import app_route18
 from routes.group_password.oauth2_google.login_frontend import app_route19
 from routes.group_password.oauth2_google.sed_data import app_route20
+from routes.group_password.oauth2_google.verify_uid import app_route21
 from routes.ping.ping import khoi_dong
 from routes.group_admin.group_chuc_nang.kill_switch import lenh_tu_huy
 from utils.trang_thai_db_503 import get_maintenance_status
@@ -87,7 +88,7 @@ google = oauth.register(
 )
 
 blueprint_groups = {
-    "/auth": [app_route, app_route2, app_route3, app_route4, app_route5, app_route6, app_route19, app_route20],
+    "/auth": [app_route, app_route2, app_route3, app_route4, app_route5, app_route6, app_route19, app_route20,app_route21],
     "/profile": [app_route10, app_route11, app_route12, app_route13, app_route14, app_route16, app_route17, app_route18],
     "/security": [app_route7, app_route15],
     "/upload_sv": [app_route8, app_route9],
