@@ -3,6 +3,10 @@ import requests
 import os
 from google.genai import Client
 import sys
+import time
+from configs.db import db
+
+limits_col = db["user_limits"]
 
 app_route22 = Blueprint("facebook-bot",__name__)
 
@@ -17,6 +21,7 @@ def verify():
         return request.args.get("hub.challenge")
     return 'Sai Verify Token rồi og ơi!', 403
 
+user_limits = {}
 
 @app_route22.route('/mes', methods=['POST'])
 def receive_message():
@@ -27,13 +32,41 @@ def receive_message():
                 if messaging_event.get('message'):
                     sender_id = messaging_event['sender']['id']
                     message_text = messaging_event['message'].get('text')
+                    if not message_text: # Trường hợp khách gửi ảnh/sticker
+                        continue
+
+                    current_time = time.time()
+
+                    user_data = limits_col.find_one({"sender_id": sender_id})
+                    
+                    if not user_data:
+                        new_user = {
+                            "sender_id": sender_id,
+                            "count": 1,
+                            "reset_time": current_time + 86400
+                        }
+                        limits_col.insert_one(new_user)
+                    else:
+                        if current_time > user_data["reset_time"]:
+                            limits_col.update_one(
+                                {"sender_id": sender_id},
+                                {"$set": {"count": 1, "reset_time": current_time + 86400}}
+                            )
+                        else:
+                            if user_data["count"] >= 20:
+                                send_message(sender_id, "Og nhắn hơi nhiều rồi đó, mai quay lại nha! 🤐")
+                                return "ok", 200
+                            limits_col.update_one(
+                                {"sender_id": sender_id},
+                                {"$inc": {"count": 1}}
+                            )
                     ai_reply = ask_gemini(message_text)
                     if "|||" in ai_reply:
                         parts = ai_reply.split("|||")
                         msg_to_user = parts[0].strip()
                         command = parts[1].strip()
                         send_message(sender_id, msg_to_user)
-                        print(f"Đang thực hiện lệnh: {command}")
+                        print(f"Đang thực hiện lệnh: {command}",flush=True)
                     else:
                         send_message(sender_id, ai_reply)
                         
@@ -41,7 +74,6 @@ def receive_message():
 
 
 def ask_gemini(user_text):
-    # System Prompt để ép AI làm theo ý og trong từng câu đơn lẻ
     system_prompt = (
         "Ông là hỗ trợ viên vui vẻ. Nếu khách hỏi check file, hãy hỏi gmail. "
         "Nếu có gmail, trả về: [Lời nhắn] ||| gmail:abc@test.com, action:kiem_tra. "
@@ -49,7 +81,7 @@ def ask_gemini(user_text):
     )
     
     response = client.models.generate_content(
-        model="gemini-3-flash-preview", # Dùng bản flash cho nhanh
+        model="gemini-3-flash-preview",
         contents=system_prompt + user_text,
     )
     return response.text.strip()
