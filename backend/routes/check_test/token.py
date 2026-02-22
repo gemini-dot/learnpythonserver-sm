@@ -4,7 +4,7 @@ app_fac = Blueprint('face',__name__)
 
 MY_VERIFY_TOKEN = "samvasang1192011"
 
-@app_fac.route('/fac/mes', methods=['GET'])
+@app_fac.route('/mes', methods=['GET'])
 def verify():
     # Facebook gửi yêu cầu GET để kiểm tra Webhook
     mode = request.args.get("hub.mode")
