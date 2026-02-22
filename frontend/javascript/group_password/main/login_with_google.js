@@ -4,6 +4,7 @@ document.getElementById('google-login-btn').addEventListener('click', () => {
 });
 
 window.addEventListener('DOMContentLoaded', () => {
+  e.preventDefault();
   const params = new URLSearchParams(window.location.search);
   const sid = params.get('sid');
   const gmail = params.get('gmail');
@@ -37,4 +38,5 @@ window.addEventListener('DOMContentLoaded', () => {
       alert('Server đang bận, og thử lại sau nhé!');
     }
   }
+  handleVerifyUID();
 });
