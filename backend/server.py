@@ -8,6 +8,7 @@ import sys
 import io
 import sentry_sdk
 from flask_socketio import SocketIO, emit
+from configs.oauth2_google import oauth
 
 # import file nội bộ
 from configs.db import db
@@ -30,6 +31,8 @@ from routes.scan_malware.scan_malware_link import app_route15
 from routes.group_chuc_nang.upload.setting.bio import app_route16
 from routes.group_chuc_nang.upload.setting.get_bio import app_route17
 from routes.group_chuc_nang.upload.setting.update_avatar import app_route18
+from routes.group_password.oauth2_google.login_frontend import app_route19
+from routes.group_password.oauth2_google.sed_data import app_route20
 from routes.ping.ping import khoi_dong
 from routes.group_admin.group_chuc_nang.kill_switch import lenh_tu_huy
 from utils.trang_thai_db_503 import get_maintenance_status
@@ -43,6 +46,15 @@ sentry_sdk.init(
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8")
 
 app = Flask(__name__)
+
+app.secret_key = 'og_thich_ghi_gi_vao_day_cung_duoc_mien_la_bi_mat'
+
+app.config.update(
+    SESSION_COOKIE_NAME='google-auth-session',
+    SESSION_COOKIE_SAMESITE='Lax', 
+    SESSION_COOKIE_SECURE=True,  
+)
+
 CORS(
     app,
     supports_credentials=True,
@@ -62,27 +74,28 @@ socketio = SocketIO(
     always_connect=True,
 )
 
-app.register_blueprint(app_route, url_prefix="/auth")
-app.register_blueprint(app_route2, url_prefix="/auth")
-app.register_blueprint(app_route3, url_prefix="/auth")
-app.register_blueprint(app_route4, url_prefix="/auth")
-app.register_blueprint(app_route5, url_prefix="/auth")
-app.register_blueprint(app_route6, url_prefix="/auth")
-app.register_blueprint(app_route7, url_prefix="/security")
-app.register_blueprint(app_route8, url_prefix="/upload_sv")
-app.register_blueprint(app_route9, url_prefix="/upload_sv")
-app.register_blueprint(app_route10, url_prefix="/profile")
-app.register_blueprint(app_route11, url_prefix="/profile")
-app.register_blueprint(app_route12, url_prefix="/profile")
-app.register_blueprint(app_route13, url_prefix="/profile")
-app.register_blueprint(app_route14, url_prefix="/profile")
-app.register_blueprint(app_route15, url_prefix="/security")
-app.register_blueprint(app_route16, url_prefix="/profile")
-app.register_blueprint(app_route17, url_prefix="/profile")
-app.register_blueprint(app_route18, url_prefix="/profile")
-app.register_blueprint(khoi_dong, url_prefix="/ping")
-app.register_blueprint(lenh_tu_huy, url_prefix="/admin")
+oauth.init_app(app)
 
+google = oauth.register(
+    name='google',
+    client_id = os.getenv('GOOGLE_CLIENT_ID'),
+    client_secret = os.getenv('GOOGLE_CLIENT_SECRET'),
+    server_metadata_url='https://accounts.google.com/.well-known/openid-configuration',
+    client_kwargs={'scope': 'openid email profile'}
+)
+
+blueprint_groups = {
+    "/auth": [app_route, app_route2, app_route3, app_route4, app_route5, app_route6, app_route19, app_route20],
+    "/profile": [app_route10, app_route11, app_route12, app_route13, app_route14, app_route16, app_route17, app_route18],
+    "/security": [app_route7, app_route15],
+    "/upload_sv": [app_route8, app_route9],
+    "/ping": [khoi_dong],
+    "/admin": [lenh_tu_huy]
+}
+
+for prefix, blueprints in blueprint_groups.items():
+    for bp in blueprints:
+        app.register_blueprint(bp, url_prefix=prefix)
 
 @app.errorhandler(500)
 def internal_server_error(e):

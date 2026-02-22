@@ -4,4 +4,5 @@ app.log
 kill_server.py
 viec_phai_lam.txt
 __pycache__/
-node_modules
+node_modules.env
+.env
