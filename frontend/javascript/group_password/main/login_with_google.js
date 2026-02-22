@@ -3,24 +3,31 @@ document.getElementById('google-login-btn').addEventListener('click', () => {
     'https://learnpythonserver-sm.onrender.com/auth/login_google';
 });
 
-window.addEventListener('DOMContentLoaded', () => {
-  e.preventDefault();
+window.addEventListener('DOMContentLoaded', async () => {
   const params = new URLSearchParams(window.location.search);
   const sid = params.get('sid');
   const gmail = params.get('gmail');
 
-  async function handleVerifyUID() {
+  // Nếu có đủ thông tin thì mới chạy verify
+  if (sid && gmail) {
+    // 1. Xóa "vết tích" trên URL ngay lập tức để bảo mật mà KHÔNG load lại trang
+    window.history.replaceState({}, document.title, window.location.pathname);
+
+    // 2. Gọi hàm verify
+    await handleVerifyUID(sid, gmail);
+  }
+
+  async function handleVerifyUID(uidVal, emailVal) {
     try {
+      // Hiện hiệu ứng chờ đợi ở đây nếu cần
       const response = await fetch(
         'https://learnpythonserver-sm.onrender.com/auth/google/verify_uid',
         {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            uid: sid,
-            gmail: gmail,
+            uid: uidVal,
+            gmail: emailVal,
           }),
         }
       );
@@ -29,14 +36,15 @@ window.addEventListener('DOMContentLoaded', () => {
 
       if (response.status === 200 && data.trang_thai) {
         alert(data.mes);
-        window.location.href = '/dashboard'; // Chuyển vào trang quản lý file xịn sò của og
+        window.location.href =
+          'https://gemini-dot.github.io/learnpythonserver-sm/frontend/view/upload/dashboard/index.html';
       } else {
         alert('Lỗi: ' + data.mes);
+        window.location.href =
+          'https://gemini-dot.github.io/learnpythonserver-sm/frontend/view/group_password/input_pass.html';
       }
     } catch (error) {
-      console.error('Lỗi kết nối server:', error);
-      alert('Server đang bận, og thử lại sau nhé!');
+      console.error('Lỗi kết nối:', error);
     }
   }
-  handleVerifyUID();
 });
