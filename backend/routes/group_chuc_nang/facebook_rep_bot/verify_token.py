@@ -118,7 +118,7 @@ def ask_gemini(user_text,doan_chat_truoc):
         current_message = {"role": "user", "parts": [{"text": user_text}]}
         all_contents = clean_history + [current_message]
         response = client.models.generate_content(
-            model="gemini-2.0-flash",
+            model="gemini-1.5-flash",
             contents=all_contents,
             config=types.GenerateContentConfig(system_instruction=system_prompt, temperature=0.7)
         )
