@@ -1,7 +1,7 @@
 from flask import Blueprint,request
 import requests
 import os
-from google.genai import Client
+from google.genai import Client,types
 import sys
 import time
 from configs.db import db
@@ -108,7 +108,7 @@ def ask_gemini(user_text,doan_chat_truoc):
                 t = parts[0].get("text", "") if isinstance(parts[0], dict) else str(parts[0])
                 if t and not t.startswith("loi"):
                     clean_history.append({"role": role, "parts": [{"text": t}]})
-                    
+
         system_prompt = (
             "Ông là hỗ trợ viên vui vẻ thuộc quyền quản lý của admin Lại Văn Sâm. Nếu khách hỏi check file,phàn nàn về lỗi hệ thống gặp phải, hãy hỏi gmail và giải thích sơ bộ lý do khác bị vẫn đề trên. "
             "Nếu có gmail, trả về: [Lời nhắn] ||| gmail:abc@test.com, action:kiem_tra. "
@@ -118,12 +118,9 @@ def ask_gemini(user_text,doan_chat_truoc):
         current_message = {"role": "user", "parts": [{"text": user_text}]}
         all_contents = clean_history + [current_message]
         response = client.models.generate_content(
-            model="gemini-3-flash-preview",
+            model="gemini-2.0-flash",
             contents=all_contents,
-            config={
-                "system_instruction": system_prompt,
-                "temperature": 0.7
-            }
+            config=types.GenerateContentConfig(system_instruction=system_prompt, temperature=0.7)
         )
         if response and response.text:
             return response.text.strip()
