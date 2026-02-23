@@ -1,11 +1,12 @@
-from flask import Blueprint,request
+from flask import Blueprint, request
 
-app_fac = Blueprint('face',__name__)
+app_fac = Blueprint("face", __name__)
 
 MY_VERIFY_TOKEN = "samvasang1192011"
 PAGE_ACCESS_TOKEN = "EAAWQ4rWjGfoBQ6LqxaZAR643TLZBUQQCsQrkNQe0RZChhuVM9LfC6IoZB3rDKw8z75ZBm0NKM9jMnCxBWerZAolmnv7uJZAu9beVSTZBpf88nqy24NvVi4QJ54ZAgM6bEjGRcV2Ee9v7cMNUZAEC66S9idXwjddfyBOcloQOZCB0TSjnxUKT0ijH3nGHKZC6ZAjR0GQ8Gum6iPwZDZD"
 
-@app_fac.route('/mes', methods=['GET'])
+
+@app_fac.route("/mes", methods=["GET"])
 def verify():
     # Facebook gửi yêu cầu GET để kiểm tra Webhook
     mode = request.args.get("hub.mode")
@@ -14,6 +15,6 @@ def verify():
 
     if mode == "subscribe" and token == MY_VERIFY_TOKEN:
         print("WEBHOOK_VERIFIED")
-        return challenge, 200 # BẮT BUỘC trả về challenge này
-    
+        return challenge, 200  # BẮT BUỘC trả về challenge này
+
     return "Verification failed", 403

@@ -114,7 +114,7 @@ blueprint_groups = {
     "/upload_sv": [app_route8, app_route9],
     "/ping": [khoi_dong],
     "/admin": [lenh_tu_huy],
-    "/fac":[app_route22]
+    "/fac": [app_route22],
 }
 
 for prefix, blueprints in blueprint_groups.items():
