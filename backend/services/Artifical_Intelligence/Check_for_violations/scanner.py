@@ -18,7 +18,7 @@ def check_html_code(html_content):
     try:
         # Cách gọi chuẩn của SDK google-genai 1.x
         response = client.models.generate_content(
-            model="gemini-flash-lite-latest", # Bỏ chữ models/ đi nếu dùng SDK mới
+            model="gemma-3-27b-it", # Bỏ chữ models/ đi nếu dùng SDK mới
             contents=prompt_text
         )
         
