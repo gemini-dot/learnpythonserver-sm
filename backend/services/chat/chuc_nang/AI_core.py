@@ -2,6 +2,7 @@ from google.genai import types
 from configs.AI_clinet import client
 from configs.prompt import system_prompt
 
+
 def ask_gemini(user_text, doan_chat_truoc):
     try:
         if doan_chat_truoc is None:
