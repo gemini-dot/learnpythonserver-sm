@@ -42,7 +42,7 @@ def handle_ai_logic(sender_id, message_text):
                         {"role": "user", "parts": [{"text": message_text}]},
                         {"role": "model", "parts": [{"text": ai_reply}]},
                     ],
-                    "$slice": -10,
+                    "$slice": -20,
                 }
             }
         },
