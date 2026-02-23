@@ -1,340 +1,399 @@
-json = '''[
+json = """[
   {
-    "type": "directory",
-    "name": ".",
-    "contents": [
-      { "type": "file", "name": "404.html" },
-      {
-        "type": "directory",
-        "name": "backend",
-        "contents": [
-          {
-            "type": "directory",
-            "name": "configs",
-            "contents": [
-              { "type": "file", "name": "AI_clinet.py" },
-              { "type": "file", "name": "db.py" },
-              { "type": "file", "name": "__init__.py" },
-              { "type": "file", "name": "oauth2_google.py" },
-              { "type": "file", "name": "prompt.py" },
-              { "type": "directory", "name": "__pycache__" },
-              { "type": "file", "name": "settings.py" }
-            ]
-          },
-          {
-            "type": "directory",
-            "name": "controllers",
-            "contents": [
-              { "type": "directory", "name": "Artifical_Intelligence" },
-              { "type": "directory", "name": "group_admin" },
-              { "type": "directory", "name": "group_chuc_nang" },
-              { "type": "directory", "name": "group_password" },
-              { "type": "directory", "name": "scan_malware" }
-            ]
-          },
-          {
-            "type": "directory",
-            "name": "database",
-            "contents": [
-              { "type": "file", "name": "__init__.py" },
-              { "type": "file", "name": "seed_admin.py" }
-            ]
-          },
-          { "type": "file", "name": "explain_folder.md" },
-          { "type": "file", "name": "HUONG_DAN_HIEN_THI_FILE_TU_SERVER.md" },
-          { "type": "file", "name": "__init__.py" },
-          {
-            "type": "directory",
-            "name": "logs",
-            "contents": [
-              { "type": "file", "name": "app.log" },
-              { "type": "file", "name": "__init__.py" },
-              { "type": "file", "name": "logger.py" },
-              { "type": "directory", "name": "__pycache__" }
-            ]
-          },
-          {
-            "type": "directory",
-            "name": "middleware",
-            "contents": [
-              { "type": "directory", "name": "__pycache__" },
-              { "type": "file", "name": "rate_limiting.py" }
-            ]
-          },
-          {
-            "type": "directory",
-            "name": "models",
-            "contents": [
-              { "type": "file", "name": "mongodb__pass.py" },
-              { "type": "directory", "name": "__pycache__" }
-            ]
-          },
-          { "type": "file", "name": "requirements.txt" },
-          {
-            "type": "directory",
-            "name": "routes",
-            "contents": [
-              { "type": "directory", "name": "check_test" },
-              { "type": "directory", "name": "group_admin" },
-              { "type": "directory", "name": "group_chuc_nang" },
-              { "type": "directory", "name": "group_password" },
-              { "type": "directory", "name": "ping" },
-              { "type": "directory", "name": "scan_malware" }
-            ]
-          },
-          { "type": "file", "name": "server.py" },
-          {
-            "type": "directory",
-            "name": "services",
-            "contents": [
-              { "type": "directory", "name": "Artifical_Intelligence" },
-              { "type": "directory", "name": "chat" },
-              { "type": "directory", "name": "group_chuc_nang" },
-              { "type": "directory", "name": "group_mk" },
-              { "type": "directory", "name": "scan_malware" },
-              { "type": "directory", "name": "scan_vi_pham" },
-              { "type": "directory", "name": "upload" }
-            ]
-          },
-          {
-            "type": "directory",
-            "name": "tests",
-            "contents": [
-              { "type": "file", "name": "__init__.py" },
-              { "type": "file", "name": "test2.py" },
-              { "type": "file", "name": "test3.py" },
-              { "type": "file", "name": "test4.py" },
-              { "type": "file", "name": "test_hash.py" },
-              { "type": "file", "name": "test.html" },
-              { "type": "file", "name": "test.py" }
-            ]
-          },
-          {
-            "type": "directory",
-            "name": "utils",
-            "contents": [
-              { "type": "file", "name": "cat_file_html.py" },
-              { "type": "file", "name": "cloudidary_json_get.py" },
-              { "type": "file", "name": "cookie.py" },
-              { "type": "file", "name": "create_id.py" },
-              { "type": "file", "name": "create_number.py" },
-              { "type": "file", "name": "get_data.py" },
-              { "type": "file", "name": "god_mode.py" },
-              { "type": "file", "name": "gui_mail.py" },
-              { "type": "file", "name": "hash256.py" },
-              { "type": "file", "name": "hash_password.py" },
-              { "type": "file", "name": "hash.py" },
-              { "type": "file", "name": "__init__.py" },
-              { "type": "file", "name": "kiem_tra_het_han_toan_cuc.py" },
-              { "type": "file", "name": "kiem_tra_thong_tin.py" },
-              { "type": "file", "name": "lay_du_lieu_thu_db.py" },
-              { "type": "file", "name": "lay_file_html.py" },
-              { "type": "file", "name": "luu_du_lieu_vao_db.py" },
-              { "type": "file", "name": "make_token.py" },
-              { "type": "directory", "name": "__pycache__" },
-              { "type": "file", "name": "scan_img.py" },
-              { "type": "file", "name": "search.py" },
-              { "type": "file", "name": "telegram_bot_cloud.py" },
-              { "type": "file", "name": "tim_kiem_db.py" },
-              { "type": "file", "name": "tinh_thoi_gian.py" },
-              { "type": "file", "name": "token_het_han.py" },
-              { "type": "file", "name": "trang_thai_db_503.py" },
-              { "type": "file", "name": "update_db.py" }
-            ]
-          },
-          {
-            "type": "directory",
-            "name": "validators",
-            "contents": [
-              { "type": "file", "name": "__init__.py" },
-              { "type": "file", "name": "kiem_tra_admin.py" },
-              { "type": "file", "name": "kiem_tra_cap_bac.py" },
-              { "type": "file", "name": "kiem_tra_dinh_dang_gmail.py" },
-              { "type": "file", "name": "kiem_tra_do_bao_mat_pass.py" },
-              { "type": "file", "name": "kiem_tra_token.py" },
-              { "type": "directory", "name": "__pycache__" }
-            ]
-          }
-        ]
-      },
-      { "type": "file", "name": "desktop.ini" },
-      {
-        "type": "directory",
-        "name": "frontend",
-        "contents": [
-          {
-            "type": "directory",
-            "name": "asset",
-            "contents": [
-              { "type": "directory", "name": "font" },
-              { "type": "directory", "name": "icons" },
-              { "type": "directory", "name": "images" }
-            ]
-          },
-          {
-            "type": "directory",
-            "name": "javascript",
-            "contents": [
-              { "type": "directory", "name": "dieu_khoan&chinh_sach" },
-              { "type": "directory", "name": "error_site" },
-              { "type": "directory", "name": "group_admin" },
-              { "type": "directory", "name": "group_password" },
-              { "type": "directory", "name": "load" },
-              { "type": "directory", "name": "popup" },
-              { "type": "directory", "name": "upload" }
-            ]
-          },
-          {
-            "type": "directory",
-            "name": "styles",
-            "contents": [
-              { "type": "directory", "name": "buy_package" },
-              { "type": "directory", "name": "dieu_khoan&chinh_sach" },
-              { "type": "directory", "name": "error_site" },
-              { "type": "directory", "name": "group_admin" },
-              { "type": "directory", "name": "group_password" },
-              { "type": "directory", "name": "load" },
-              { "type": "directory", "name": "popup" },
-              { "type": "directory", "name": "upload" }
-            ]
-          },
-          {
-            "type": "directory",
-            "name": "view",
-            "contents": [
-              { "type": "directory", "name": "buy_package" },
-              { "type": "directory", "name": "dieu_khoan&chinh_sach" },
-              { "type": "directory", "name": "error" },
-              { "type": "directory", "name": "giao_dien_email" },
-              { "type": "directory", "name": "group_admin" },
-              { "type": "directory", "name": "group_password" },
-              { "type": "directory", "name": "load" },
-              { "type": "directory", "name": "upload" }
-            ]
-          }
-        ]
-      },
-      { "type": "file", "name": "index.html" },
-      {
-        "type": "directory",
-        "name": "node_modules",
-        "contents": [
-          {
-            "type": "directory",
-            "name": "prettier",
-            "contents": [
-              { "type": "directory", "name": "bin" },
-              { "type": "file", "name": "doc.d.ts" },
-              { "type": "file", "name": "doc.js" },
-              { "type": "file", "name": "doc.mjs" },
-              { "type": "file", "name": "index.cjs" },
-              { "type": "file", "name": "index.d.ts" },
-              { "type": "file", "name": "index.mjs" },
-              { "type": "directory", "name": "internal" },
-              { "type": "file", "name": "LICENSE" },
-              { "type": "file", "name": "package.json" },
-              { "type": "directory", "name": "plugins" },
-              { "type": "file", "name": "README.md" },
-              { "type": "file", "name": "standalone.d.ts" },
-              { "type": "file", "name": "standalone.js" },
-              { "type": "file", "name": "standalone.mjs" },
-              { "type": "file", "name": "THIRD-PARTY-NOTICES.md" }
-            ]
-          }
-        ]
-      },
-      { "type": "file", "name": "package.json" },
-      { "type": "file", "name": "package-lock.json" },
-      { "type": "file", "name": "project_map.json" },
-      { "type": "file", "name": "README.md" },
-      { "type": "file", "name": "robots.txt" },
-      { "type": "file", "name": "sitemap.xml" },
-      {
-        "type": "directory",
-        "name": "tools",
-        "contents": [
-          { "type": "file", "name": "cleaner.py" },
-          { "type": "file", "name": "dong_goi.py" },
-          { "type": "file", "name": "quet_file.js" }
-        ]
-      },
-      {
-        "type": "directory",
-        "name": "venv",
-        "contents": [
-          {
-            "type": "directory",
-            "name": "bin",
-            "contents": [
-              { "type": "file", "name": "activate" },
-              { "type": "file", "name": "activate.csh" },
-              { "type": "file", "name": "activate.fish" },
-              { "type": "file", "name": "Activate.ps1" },
-              { "type": "file", "name": "black" },
-              { "type": "file", "name": "blackd" },
-              { "type": "file", "name": "ddgs" },
-              { "type": "file", "name": "distro" },
-              { "type": "file", "name": "dotenv" },
-              { "type": "file", "name": "f2py" },
-              { "type": "file", "name": "flask" },
-              { "type": "file", "name": "gunicorn" },
-              { "type": "file", "name": "httpx" },
-              { "type": "file", "name": "isympy" },
-              { "type": "file", "name": "normalizer" },
-              { "type": "file", "name": "nudenet" },
-              { "type": "file", "name": "numpy-config" },
-              { "type": "file", "name": "onnxruntime_test" },
-              { "type": "file", "name": "pip" },
-              { "type": "file", "name": "pip3" },
-              { "type": "file", "name": "pip3.12" },
-              { "type": "file", "name": "pygmentize" },
-              { "type": "file", "name": "pyrsa-decrypt" },
-              { "type": "file", "name": "pyrsa-encrypt" },
-              { "type": "file", "name": "pyrsa-keygen" },
-              { "type": "file", "name": "pyrsa-priv2pub" },
-              { "type": "file", "name": "pyrsa-sign" },
-              { "type": "file", "name": "pyrsa-verify" },
-              { "type": "file", "name": "py.test" },
-              { "type": "file", "name": "pytest" },
-              { "type": "link", "name": "python", "target": "python3" },
-              {
-                "type": "link",
-                "name": "python3",
-                "target": "/usr/bin/python3"
-              },
-              { "type": "link", "name": "python3.12", "target": "python3" },
-              { "type": "file", "name": "tqdm" },
-              { "type": "file", "name": "websockets" },
-              { "type": "file", "name": "wsdump" }
-            ]
-          },
-          {
-            "type": "directory",
-            "name": "include",
-            "contents": [
-              { "type": "directory", "name": "python3.12" },
-              { "type": "directory", "name": "site" }
-            ]
-          },
-          {
-            "type": "directory",
-            "name": "lib",
-            "contents": [{ "type": "directory", "name": "python3.12" }]
-          },
-          { "type": "link", "name": "lib64", "target": "lib" },
-          { "type": "file", "name": "pyvenv.cfg" },
-          {
-            "type": "directory",
-            "name": "share",
-            "contents": [{ "type": "directory", "name": "man" }]
-          }
-        ]
-      }
-    ]
+    "file_name": ".prettierrc",
+    "path": ".prettierrc"
   },
-  { "type": "report", "directories": 84, "files": 119 }
+  {
+    "file_name": "package-lock.json",
+    "path": "package-lock.json"
+  },
+  {
+    "file_name": "README.md",
+    "path": "README.md"
+  },
+  {
+    "file_name": "404.html",
+    "path": "404.html"
+  },
+  {
+    "file_name": "robots.txt",
+    "path": "robots.txt"
+  },
+  {
+    "file_name": ".env.example",
+    "path": ".env.example"
+  },
+  {
+    "file_name": ".gitignore",
+    "path": ".gitignore"
+  },
+  {
+    "file_name": "package.json",
+    "path": "package.json"
+  },
+  {
+    "file_name": "index.html",
+    "path": "index.html"
+  },
+  {
+    "file_name": ".env",
+    "path": ".env"
+  },
+  {
+    "file_name": "sitemap.xml",
+    "path": "sitemap.xml"
+  },
+  {
+    "file_name": "history.txt",
+    "path": "history.txt"
+  },
+  {
+    "file_name": "cleaner.py",
+    "path": "tools/cleaner.py"
+  },
+  {
+    "file_name": "dong_goi.py",
+    "path": "tools/dong_goi.py"
+  },
+  {
+    "file_name": "gom.py",
+    "path": "tools/gom.py"
+  },
+  {
+    "file_name": "quet_file.js",
+    "path": "tools/quet_file.js"
+  },
+  {
+    "file_name": "settings.json",
+    "path": ".vscode/settings.json"
+  },
+  {
+    "file_name": "styles.css",
+    "path": "frontend/styles/buy_package/styles.css"
+  },
+  {
+    "file_name": "403.css",
+    "path": "frontend/styles/error_site/403.css"
+  },
+  {
+    "file_name": "401.css",
+    "path": "frontend/styles/error_site/401.css"
+  },
+  {
+    "file_name": "503.css",
+    "path": "frontend/styles/error_site/503.css"
+  },
+  {
+    "file_name": "404.css",
+    "path": "frontend/styles/error_site/404.css"
+  },
+  {
+    "file_name": "500.css",
+    "path": "frontend/styles/error_site/500.css"
+  },
+  {
+    "file_name": "admin_input_password.css",
+    "path": "frontend/styles/group_admin/password/admin_input_password.css"
+  },
+  {
+    "file_name": "remake_password2.css",
+    "path": "frontend/styles/group_admin/password/doi_mk_co_mail/remake_password2.css"
+  },
+  {
+    "file_name": "remake_password.css",
+    "path": "frontend/styles/group_admin/password/doi_mk_co_mail/remake_password.css"
+  },
+  {
+    "file_name": "style.css",
+    "path": "frontend/styles/upload/dashboard/style.css"
+  },
+  {
+    "file_name": "styles.css",
+    "path": "frontend/styles/upload/web_upload/styles.css"
+  },
+  {
+    "file_name": "popup_admin.css",
+    "path": "frontend/styles/popup/popup_admin.css"
+  },
+  {
+    "file_name": "styles.css",
+    "path": "frontend/styles/popup/styles.css"
+  },
+  {
+    "file_name": "styles.css",
+    "path": "frontend/styles/dieu_khoan&chinh_sach/styles.css"
+  },
+  {
+    "file_name": "create_a_password.css",
+    "path": "frontend/styles/group_password/create_a_password.css"
+  },
+  {
+    "file_name": "forgot_password.css",
+    "path": "frontend/styles/group_password/forgot_password.css"
+  },
+  {
+    "file_name": "input_pass.css",
+    "path": "frontend/styles/group_password/input_pass.css"
+  },
+  {
+    "file_name": "create_new_pass.css",
+    "path": "frontend/styles/group_password/create_new_pass.css"
+  },
+  {
+    "file_name": "khoi_dong2.css",
+    "path": "frontend/styles/load/khoi_dong2.css"
+  },
+  {
+    "file_name": "khoi_dong.css",
+    "path": "frontend/styles/load/khoi_dong.css"
+  },
+  {
+    "file_name": "503(2).js",
+    "path": "frontend/javascript/error_site/effect/503/503(2).js"
+  },
+  {
+    "file_name": "503.js",
+    "path": "frontend/javascript/error_site/effect/503/503.js"
+  },
+  {
+    "file_name": "admin_input_password.js",
+    "path": "frontend/javascript/group_admin/password/admin_input_password.js"
+  },
+  {
+    "file_name": "remake_password.js",
+    "path": "frontend/javascript/group_admin/password/doi_mk_co_mail/remake_password.js"
+  },
+  {
+    "file_name": "remake_password2.js",
+    "path": "frontend/javascript/group_admin/password/doi_mk_co_mail/remake_password2.js"
+  },
+  {
+    "file_name": "main_dboard.js",
+    "path": "frontend/javascript/upload/dashboard/main_dboard.js"
+  },
+  {
+    "file_name": "thay_doi_quyen_han.js",
+    "path": "frontend/javascript/upload/dashboard/effect/thay_doi_quyen_han.js"
+  },
+  {
+    "file_name": "thay_title.js",
+    "path": "frontend/javascript/upload/dashboard/effect/thay_title.js"
+  },
+  {
+    "file_name": "menu_ac.js",
+    "path": "frontend/javascript/upload/dashboard/effect/menu_ac.js"
+  },
+  {
+    "file_name": "thong_bao_xac_nhan_dang_xuat.js",
+    "path": "frontend/javascript/upload/dashboard/effect/thong_bao_xac_nhan_dang_xuat.js"
+  },
+  {
+    "file_name": "darkmode.js",
+    "path": "frontend/javascript/upload/dashboard/effect/darkmode.js"
+  },
+  {
+    "file_name": "sap_xep_file.js",
+    "path": "frontend/javascript/upload/dashboard/effect/sap_xep_file.js"
+  },
+  {
+    "file_name": "notif.js",
+    "path": "frontend/javascript/upload/dashboard/effect/notif.js"
+  },
+  {
+    "file_name": "thay_ten_nguoi_dung.js",
+    "path": "frontend/javascript/upload/dashboard/effect/thay_ten_nguoi_dung.js"
+  },
+  {
+    "file_name": "get_email.js",
+    "path": "frontend/javascript/upload/dashboard/effect/get_email.js"
+  },
+  {
+    "file_name": "right_click.js",
+    "path": "frontend/javascript/upload/dashboard/chuc_nang/right_click.js"
+  },
+  {
+    "file_name": "setting_model.js",
+    "path": "frontend/javascript/upload/dashboard/chuc_nang/setting_model.js"
+  },
+  {
+    "file_name": "main.js",
+    "path": "frontend/javascript/upload/web_upload/main.js"
+  },
+  {
+    "file_name": "popup_admin.js",
+    "path": "frontend/javascript/popup/popup_admin.js"
+  },
+  {
+    "file_name": "popup.js",
+    "path": "frontend/javascript/popup/popup.js"
+  },
+  {
+    "file_name": "main.js",
+    "path": "frontend/javascript/dieu_khoan&chinh_sach/main.js"
+  },
+  {
+    "file_name": "effect.js",
+    "path": "frontend/javascript/group_password/effect/forgot_password/effect.js"
+  },
+  {
+    "file_name": "year.js",
+    "path": "frontend/javascript/group_password/effect/forgot_password/year.js"
+  },
+  {
+    "file_name": "hieu_ung_dat_pass.js",
+    "path": "frontend/javascript/group_password/effect/create_a_password/hieu_ung_dat_pass.js"
+  },
+  {
+    "file_name": "goback.js",
+    "path": "frontend/javascript/group_password/effect/create_a_password/goback.js"
+  },
+  {
+    "file_name": "togglepassword.js",
+    "path": "frontend/javascript/group_password/effect/create_a_password/togglepassword.js"
+  },
+  {
+    "file_name": "dieu_khoan&chinh_sach.js",
+    "path": "frontend/javascript/group_password/effect/create_a_password/dieu_khoan&chinh_sach.js"
+  },
+  {
+    "file_name": "thamkhao-nouse.js",
+    "path": "frontend/javascript/group_password/effect/create_a_password/thamkhao-nouse.js"
+  },
+  {
+    "file_name": "goto.js",
+    "path": "frontend/javascript/group_password/effect/input_pass_effect/goto.js"
+  },
+  {
+    "file_name": "mang_nhen.js",
+    "path": "frontend/javascript/group_password/effect/input_pass_effect/mang_nhen.js"
+  },
+  {
+    "file_name": "an_hien_mk_khi_an_vao_mat.js",
+    "path": "frontend/javascript/group_password/effect/input_pass_effect/an_hien_mk_khi_an_vao_mat.js"
+  },
+  {
+    "file_name": "canh_bao_dep.js",
+    "path": "frontend/javascript/group_password/effect/input_pass_effect/canh_bao_dep.js"
+  },
+  {
+    "file_name": "create_a_password.js",
+    "path": "frontend/javascript/group_password/main/create_a_password.js"
+  },
+  {
+    "file_name": "forgot_password3.js",
+    "path": "frontend/javascript/group_password/main/forgot_password3.js"
+  },
+  {
+    "file_name": "login_with_google.js",
+    "path": "frontend/javascript/group_password/main/login_with_google.js"
+  },
+  {
+    "file_name": "input_pass.js",
+    "path": "frontend/javascript/group_password/main/input_pass.js"
+  },
+  {
+    "file_name": "forgot_password2.js",
+    "path": "frontend/javascript/group_password/main/forgot_password2.js"
+  },
+  {
+    "file_name": "forgot_password.js",
+    "path": "frontend/javascript/group_password/main/forgot_password.js"
+  },
+  {
+    "file_name": "gi_nho.js",
+    "path": "frontend/javascript/group_password/gi_nho_dang_nhap/gi_nho.js"
+  },
+  {
+    "file_name": "khoi_dong2.js",
+    "path": "frontend/javascript/load/khoi_dong2.js"
+  },
+  {
+    "file_name": "khoi_dong.js",
+    "path": "frontend/javascript/load/khoi_dong.js"
+  },
+  {
+    "file_name": "index.html",
+    "path": "frontend/view/buy_package/index.html"
+  },
+  {
+    "file_name": "index.html",
+    "path": "frontend/view/giao_dien_email/index.html"
+  },
+  {
+    "file_name": "admin_input_password.html",
+    "path": "frontend/view/group_admin/password/admin_input_password.html"
+  },
+  {
+    "file_name": "remake_password.html",
+    "path": "frontend/view/group_admin/password/doi_mk_co_mail/remake_password.html"
+  },
+  {
+    "file_name": "remake_password2.html",
+    "path": "frontend/view/group_admin/password/doi_mk_co_mail/remake_password2.html"
+  },
+  {
+    "file_name": "index.html",
+    "path": "frontend/view/upload/dashboard/index.html"
+  },
+  {
+    "file_name": "index.html",
+    "path": "frontend/view/upload/web_upload/index.html"
+  },
+  {
+    "file_name": "403.html",
+    "path": "frontend/view/error/403.html"
+  },
+  {
+    "file_name": "500.html",
+    "path": "frontend/view/error/500.html"
+  },
+  {
+    "file_name": "401.html",
+    "path": "frontend/view/error/401.html"
+  },
+  {
+    "file_name": "503.html",
+    "path": "frontend/view/error/503.html"
+  },
+  {
+    "file_name": "index.html",
+    "path": "frontend/view/dieu_khoan&chinh_sach/index.html"
+  },
+  {
+    "file_name": "privacy_policy.txt",
+    "path": "frontend/view/dieu_khoan&chinh_sach/privacy_policy.txt"
+  },
+  {
+    "file_name": "terms_of_service.txt",
+    "path": "frontend/view/dieu_khoan&chinh_sach/terms_of_service.txt"
+  },
+  {
+    "file_name": "create_a_password.html",
+    "path": "frontend/view/group_password/create_a_password.html"
+  },
+  {
+    "file_name": "input_pass.html",
+    "path": "frontend/view/group_password/input_pass.html"
+  },
+  {
+    "file_name": "forgot_password.html",
+    "path": "frontend/view/group_password/forgot_password.html"
+  },
+  {
+    "file_name": "create_new_pass.html",
+    "path": "frontend/view/group_password/create_new_pass.html"
+  },
+  {
+    "file_name": "khoi_dong2.html",
+    "path": "frontend/view/load/khoi_dong2.html"
+  },
+  {
+    "file_name": "khoi_dong.html",
+    "path": "frontend/view/load/khoi_dong.html"
+  }
 ]
-'''
+
+"""
 
 system_prompt = f"""Bạn là nhân viên chăm sóc khách hàng ảo cho một nền tảng lưu trữ và tải lên tệp tin (VAULT).
             "Nếu bạn không hiểu ý khách đang nói gì, đừng trả lời bừa. Hãy nhẹ nhàng nhờ khách giải thích kỹ hơn một chút để mình hỗ trợ tốt nhất nhé :))"
@@ -434,3 +493,164 @@ system_prompt = f"""Bạn là nhân viên chăm sóc khách hàng ảo cho một
 
             Nếu khách hỏi trang không có trong sơ đồ, hãy báo là "Tính năng này đang được Admin Sâm cập nhật nha :))".
             """
+
+facebook_caption = """1️1. ROLE
+
+Bạn là AI chuyên viết caption Facebook cá nhân ngắn, sâu sắc, có logic nhân quả rõ ràng.
+Bạn có khả năng tự tạo chủ đề, hoàn cảnh và cảm xúc sao cho chúng liên kết chặt chẽ với nhau.
+
+2. RANDOM GENERATION RULE
+
+Nếu người dùng không cung cấp {topic}, {mood}, {context}, {style}
+→ Bạn phải tự tạo theo quy trình sau:
+
+Bước 1: Random cảm xúc chính
+
+Chọn 1 trong các nhóm:
+
+Trưởng thành
+
+Buồn nhẹ
+
+Sadboy trầm lặng
+
+Tuổi teen vui vẻ
+
+Tự động viên
+
+Cô đơn
+
+Nỗ lực
+
+Yêu bản thân
+
+Thất vọng nhẹ
+
+Hài hước logic
+
+Bước 2: Tạo chủ đề phù hợp với cảm xúc
+
+Ví dụ mapping:
+
+Buồn nhẹ → lỡ hẹn, im lặng, trưởng thành, buông bỏ
+
+Sadboy → đêm khuya, mưa, tin nhắn cũ, một mình
+
+Tuổi teen vui vẻ → bạn bè, deadline, tiền tiêu vặt, crush
+
+Nỗ lực → học tập, công việc, thất bại
+
+Yêu bản thân → chữa lành, nghỉ ngơi, chấp nhận
+
+Chủ đề phải thực tế, không mơ hồ.
+
+Bước 3: Tạo hoàn cảnh hợp lý
+
+Hoàn cảnh phải giải thích được vì sao cảm xúc xuất hiện.
+
+Ví dụ:
+
+Đêm muộn + tin nhắn không trả lời → sadboy hợp lý
+
+Sắp thi + chưa học bài → vui vẻ lo lắng
+
+Thất bại + tự nhìn lại → trưởng thành
+
+Không được để hoàn cảnh tách rời chủ đề.
+
+Bước 4: Áp dụng phong cách
+
+Phong cách phải ảnh hưởng đến:
+
+Từ vựng
+
+Nhịp câu
+
+Độ “lạnh” hoặc “nhí nhảnh”
+
+Ví dụ:
+
+Sadboy:
+
+Từ ngắn
+
+Nhịp chậm
+
+Ít emoji
+
+Lạnh nhưng không toxic
+
+Tuổi teen vui vẻ:
+
+Nhịp nhanh
+
+Tươi sáng
+
+Có thể 1–2 emoji
+
+Hơi tinh nghịch
+
+3. LOGIC RULE (BẮT BUỘC)
+
+Caption phải có cấu trúc nhân quả rõ:
+
+Vì A nên B
+
+Làm A để B
+
+Nếu A thì B
+
+Chấp nhận A để không B
+
+Càng A càng B
+
+Nếu không xác định được A và B rõ ràng → không xuất.
+
+4. CHỐNG SÁO RỖNG
+
+Không dùng ẩn dụ kiểu:
+
+Gom nắng
+
+Nhặt mây
+
+Ôm gió
+
+Giữ hoàng hôn
+
+Trừ khi giải thích ý nghĩa thực tế.
+
+5. STYLE CONSTRAINT
+
+1–3 câu
+
+Tối đa 25 từ mỗi câu
+
+Tự nhiên như người thật viết
+
+Không giáo điều
+
+Không triết lý quá đà
+
+Không vi phạm chính sách Facebook
+
+Tối đa 2 emoji
+
+6. OUTPUT FORMAT
+
+Chỉ xuất caption cuối cùng.
+Không giải thích.
+Không ghi chủ đề.
+Không ghi cảm xúc.
+
+🔥 ADVANCED MODE – CÂN BẰNG TỰ NHIÊN
+
+Trước khi xuất:
+
+Logic ≥ 8/10
+
+Cảm xúc rõ ≥ 8/10
+
+Tự nhiên ≥ 8/10
+
+Nếu chưa đạt → viết lại."""

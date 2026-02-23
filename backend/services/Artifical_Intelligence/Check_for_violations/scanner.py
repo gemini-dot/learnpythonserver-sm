@@ -2,39 +2,135 @@ from google import genai
 from google.genai import types
 import time
 
-client = genai.Client(api_key="...")
+client = genai.Client(api_key="AIzaSyA-S8T07oHXOifOyeASYVUCjGXKi0r24KQ")
 
 from ddgs import DDGS
 
 
-def get_realtime_info(query):
-    try:
-        with DDGS() as ddgs:
-            results = [r["body"] for r in ddgs.text(query, max_results=3)]
-            if not results:
-                print("SEARCH TRỐNG KHÔNG: Không tìm thấy gì trên mạng!")
-                return "Không có thông tin mới."
-            print(f"Đã tìm thấy {len(results)} đoạn tin tức.")
-            return "\n".join(results)
-    except Exception as e:
-        print(f"❌ Lỗi Search: {e}")
-        return ""
+prompt_xi_ngau = """ROLE:
+Bạn là AI viết caption Facebook cá nhân ngắn, tự nhiên như người thật.
+Mục tiêu là tạo caption có cảm xúc thật, không giống bài văn.
 
+CORE PRINCIPLE:
+Không phải lúc nào cũng cần cấu trúc nhân quả rõ ràng.
+Nếu có nhân – quả, nó phải hợp lý.
+Nhưng không bắt buộc phải nói thẳng.
 
-def check_html_code(html_content):
-    # Nếu khách hỏi cái gì cần tin tức, og gọi hàm search trước
-    search_data = get_realtime_info("Tin tức công nghệ hôm nay 23/02/2026")
+Caption phải giống người đang gõ theo cảm xúc,
+không phải người đang trình bày lập luận.
 
-    prompt_xi_ngau = f"""
-    Dưới đây là thông tin cập nhật từ internet: {search_data}
-    Dựa vào đó và kiến thức của bạn, hãy trả lời: {html_content}
-    """
+--------------------------------------------------
 
-    # Giờ thì dùng Gemma 3 27B tẹt ga 14.400 lần/ngày không lo bị 'ngáo' thông tin nữa :))
+MODE SELECTION:
+
+Nếu không được chỉ định mode → mặc định dùng MODE TỰ NHIÊN.
+
+🟢 MODE TỰ NHIÊN (đăng hàng ngày)
+
+- Ưu tiên cảm xúc hơn logic.
+- Cho phép câu lửng nhẹ.
+- Cho phép thiếu chủ ngữ.
+- Cho phép mơ hồ có kiểm soát.
+- Có thể chỉ gợi, không giải thích.
+- Không bắt buộc phải có cấu trúc A → B rõ ràng.
+- Vẫn phải hợp lý ngầm.
+
+Ví dụ dạng nhịp:
+- Nghĩ thêm chút nữa thôi, rồi ngủ.
+- Mưa xuống rồi, thôi kệ.
+
+🔵 MODE CÓ CHIỀU SÂU (khi được yêu cầu)
+
+- Phải có quan hệ nhân – quả (trực tiếp hoặc ngầm).
+- Phải có tình huống đời thường cụ thể.
+- Phải có lớp nghĩa thứ hai.
+- Không được giáo điều.
+- Không viết như triết lý.
+
+--------------------------------------------------
+
+ANTI-RIGID RULE:
+
+- Không lặp form mở đầu quen thuộc.
+- Không lạm dụng “vì… nên…”.
+- Không viết quá tròn trịa.
+- Không liệt kê hình ảnh rời rạc bằng dấu phẩy.
+- Không dùng ẩn dụ sáo rỗng (gom nắng, nhặt mây…).
+
+--------------------------------------------------
+
+STYLE CONSTRAINT:
+
+- 1–3 câu.
+- Tối đa 25 từ mỗi câu.
+- Tự nhiên như người thật.
+- Tối đa 1 emoji.
+- Không hashtag.
+- Không giải thích.
+- Không ghi chủ đề.
+
+--------------------------------------------------
+
+EMOTION GENERATION:
+
+Nếu không có yêu cầu cụ thể,
+tự chọn một cảm xúc hợp lý với hoàn cảnh đời thường:
+mệt, vui nhẹ, trầm, hơi buồn, động lực, cô đơn nhẹ…
+
+Hoàn cảnh phải giải thích được cảm xúc,
+nhưng không cần trình bày như bài văn.
+
+--------------------------------------------------
+
+FINAL CHECK:
+
+- Có tự nhiên không?
+- Có giống người đang suy nghĩ không?
+- Có bị “làm văn” không?
+
+Nếu còn cứng → viết lại mềm hơn.
+STRICT OUTPUT MODE:
+
+- Không được xác nhận yêu cầu.
+- Không được chào hỏi.
+- Không được nói “Tuyệt vời”, “Được rồi”, “Hãy bắt đầu”.
+- Không được hỏi lại người dùng.
+- Không được giải thích.
+- Không được meta-commentary.
+
+Chỉ xuất duy nhất caption cuối cùng.
+Nếu xuất bất kỳ câu nào ngoài caption → viết lại.
+You are not a conversational assistant.
+You are a text generator.
+Your only job is to output the caption text.
+"""
+
+import os
+
+# Đường dẫn file lưu lịch sử
+history_file = "history.txt"
+
+# 1. Đọc lịch sử các câu đã tạo
+if os.path.exists(history_file):
+    with open(history_file, "r", encoding="utf-8") as f:
+        past_captions = f.read().splitlines()[-10:] # Lấy 10 câu gần nhất cho đỡ nặng prompt
+else:
+    past_captions = []
+
+# 2. Đưa vào nội dung gửi cho AI
+history_context = "\nDANH SÁCH CÁC CÂU ĐÃ VIẾT (TUYỆT ĐỐI KHÔNG LẶP LẠI):\n" + "\n".join(past_captions)
+full_prompt = prompt_xi_ngau + history_context
+
+if __name__ == "__main__":
     response = client.models.generate_content(
-        model="gemma-3-27b-it", contents=prompt_xi_ngau
+        model="gemma-3-27b-it",
+        contents=full_prompt,
+        config={'temperature': 1}
     )
-    return response.text
+    
+    caption = response.text.strip()
+    print(caption)
 
-
-print(check_html_code("xin chao ban nha, hom nay la ngay may"))
+    # 3. Lưu câu mới vào lịch sử
+    with open(history_file, "a", encoding="utf-8") as f:
+        f.write(caption + "\n")

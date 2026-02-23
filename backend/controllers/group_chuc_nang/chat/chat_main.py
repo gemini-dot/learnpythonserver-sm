@@ -16,8 +16,10 @@ def receive_message():
                 if messaging_event.get("message"):
                     sender_id = messaging_event["sender"]["id"]
                     message_text = messaging_event["message"].get("text")
-                    if not message_text: 
-                        send_message(sender_id,"thử gửi lại mà không dùng icon đi bạn:)") # Trường hợp khách gửi ảnh/sticker
+                    if not message_text:
+                        send_message(
+                            sender_id, "thử gửi lại mà không dùng icon đi bạn:)"
+                        )  # Trường hợp khách gửi ảnh/sticker
                         continue
 
                     current_time = time.time()
