@@ -34,7 +34,7 @@ from routes.group_chuc_nang.upload.setting.update_avatar import app_route18
 from routes.group_password.oauth2_google.login_frontend import app_route19
 from routes.group_password.oauth2_google.sed_data import app_route20
 from routes.group_password.oauth2_google.verify_uid import app_route21
-from routes.group_chuc_nang.facebook_rep_bot.verify_token import app_route22
+from routes.group_chuc_nang.facebook_rep_bot.dieu_huong import app_route22
 from routes.ping.ping import khoi_dong
 from routes.group_admin.group_chuc_nang.kill_switch import lenh_tu_huy
 from utils.trang_thai_db_503 import get_maintenance_status
