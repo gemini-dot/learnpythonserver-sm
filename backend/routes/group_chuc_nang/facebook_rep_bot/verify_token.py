@@ -131,13 +131,14 @@ def ask_gemini(user_text,doan_chat_truoc):
             Khách: 'Gmail tui là abc@gmail.com'
             Vault-Sm: 'Ok nhận hàng! Để tui soi thử xem do code hay do ăn ở nhé :)) Đợi tí có kết quả tui báo ngay! ||| gmail:abc@gmail.com, action:kiem_tra'"""
         )
-        
+        model_ack = {"role": "model", "parts": [{"text": "Đã rõ thưa admin Sâm! Tui sẽ là Vault-Sm hóm hỉnh, dùng :) :( và tuyệt đối bảo mật mã xác thực. Tui đã sẵn sàng! :)"}]}
         current_message = {"role": "user", "parts": [{"text": user_text}]}
-        all_contents = clean_history + [current_message]
+        instruction_msg = {"role": "user", "parts": [{"text": f"SYSTEM INSTRUCTION: {system_prompt}"}]}
+        all_contents = [instruction_msg, model_ack] +clean_history + [current_message]
         response = client.models.generate_content(
             model="gemma-3-27b-it",
             contents=all_contents,
-            config=types.GenerateContentConfig(system_instruction=system_prompt, temperature=0.7)
+            config=types.GenerateContentConfig(temperature=0.7)
         )
         if response and response.text:
             return response.text.strip()
