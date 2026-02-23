@@ -6,6 +6,7 @@ import sys
 import time
 from configs.db import db
 import threading
+from ddgs import DDGS
 
 limits_col = db["user_limits"]
 
@@ -67,10 +68,32 @@ def receive_message():
     return "ok", 200
 
 
+def get_realtime_info(query):
+    try:
+        with DDGS() as ddgs:
+            results = [r['body'] for r in ddgs.text(query, max_results=3)]
+            if not results:
+                print("SEARCH TRỐNG KHÔNG: Không tìm thấy gì trên mạng!")
+                return "Không có thông tin mới."
+            print(f"Đã tìm thấy {len(results)} đoạn tin tức.")
+            return "\n".join(results)
+    except Exception as e:
+        print(f"❌ Lỗi Search: {e}")
+        return ""
+
 def handle_ai_logic(sender_id, message_text):
 
     user_data = limits_col.find_one({"sender_id": sender_id})
     history = user_data.get("history", []) if user_data else []
+
+    keywords = ["tin tức", "thời tiết", "giá", "hôm nay", "ngày mấy", "mấy giờ"]
+    search_context = ""
+
+    if any(word in message_text.lower() for word in keywords):
+        print(f"--- Đang tìm tin tức cho: {message_text} ---")
+        search_context = get_realtime_info(message_text)
+        message_text = f"(Bối cảnh thực tế: {search_context})\nCâu hỏi khách: {message_text}"
+        
     ai_reply = ask_gemini(message_text, history)
 
     if ai_reply.startswith("loi"):
