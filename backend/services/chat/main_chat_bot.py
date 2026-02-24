@@ -1,7 +1,7 @@
 from configs.db import db
 from services.chat.chuc_nang.AI_core import ask_gemini
 from services.chat.chuc_nang.search_duck import get_realtime_info
-from services.chat.chuc_nang.send_mes import send_message,send_typing
+from services.chat.chuc_nang.send_mes import send_message,send_typing,send_button_message
 from configs.AI_clinet import client
 from services.chat.chuc_nang.AI_core import find_relevant_doc
 
@@ -27,6 +27,12 @@ def handle_ai_logic(sender_id, message_text):
 
     ai_reply = ask_gemini(message_text, history)
 
+    if "||| SHOW_PRICING" in ai_reply:
+        clean_msg = ai_reply.replace("||| SHOW_PRICING", "").strip()
+        send_message(sender_id, clean_msg)
+        send_button_message(sender_id) 
+        ai_reply = clean_msg
+        
     if "||| find_info:" in ai_reply:
         search_query = ai_reply.split("||| find_info:")[1].strip()
         context_doc = find_relevant_doc(search_query)
