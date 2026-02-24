@@ -27,28 +27,31 @@ def handle_ai_logic(sender_id, message_text):
 
     ai_reply = ask_gemini(message_text, history)
 
+    has_sent = False
+
     if "||| SHOW_PRICING" in ai_reply:
         clean_msg = ai_reply.replace("||| SHOW_PRICING", "").strip()
         send_message(sender_id, clean_msg)
         send_button_message(sender_id) 
         ai_reply = clean_msg
-        
+        has_sent = True
+    
     if "||| find_info:" in ai_reply:
         search_query = ai_reply.split("||| find_info:")[1].strip()
         context_doc = find_relevant_doc(search_query)
         final_prompt = f"(Thông tin từ hệ thống: {context_doc})\nDựa vào thông tin trên, trả lời khách: {message_text}"
         ai_reply = ask_gemini(final_prompt, history)
-
-    if ai_reply.startswith("loi"):
-        send_message(
-            sender_id, "Tui đang 'reset' lại não xíu, og nhắn lại câu vừa nãy nha! 🧠"
-        )
-        print(f"Bỏ qua lưu vì lỗi API: {ai_reply}", flush=True)
-        return
-
-    msg_to_send = ai_reply.split("|||")[0].strip() if "|||" in ai_reply else ai_reply
-
-    send_message(sender_id, msg_to_send)
+        
+    if not has_sent:
+        if ai_reply.startswith("loi"):
+            send_message(
+                sender_id, "Tui đang 'reset' lại não xíu, og nhắn lại câu vừa nãy nha! 🧠"
+            )
+            print(f"Bỏ qua lưu vì lỗi API: {ai_reply}", flush=True)
+            return
+        msg_to_send = ai_reply.split("|||")[0].strip() if "|||" in ai_reply else ai_reply
+        send_message(sender_id, msg_to_send)
+        
     limits_col.update_one(
         {"sender_id": sender_id},
         {
