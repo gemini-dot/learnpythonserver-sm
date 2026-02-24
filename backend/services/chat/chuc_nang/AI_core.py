@@ -1,7 +1,7 @@
 from google.genai import types
 import google.genai as genai
 from configs.AI_clinet import client
-from configs.prompt import system_prompt
+from configs.prompt import system_prompt, thong_tin_web
 import numpy as np
 
 
@@ -48,12 +48,7 @@ def ask_gemini(user_text, doan_chat_truoc):
         return f"loi{e}"
 
 
-documents = [
-    "Web VAULT cho phép upload file tối đa 2GB mỗi tệp tin.",
-    "Admin của hệ thống VAULT là anh Sâm (Sam).",
-    "Nếu mất file, bạn cần cung cấp email để kỹ thuật viên kiểm tra log server.",
-    "Tốc độ upload phụ thuộc vào khu vực địa lý và nhà mạng bạn đang dùng.",
-]
+documents = thong_tin_web
 
 
 def get_embedding(text):

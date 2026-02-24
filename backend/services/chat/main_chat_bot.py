@@ -1,7 +1,7 @@
 from configs.db import db
 from services.chat.chuc_nang.AI_core import ask_gemini
 from services.chat.chuc_nang.search_duck import get_realtime_info
-from services.chat.chuc_nang.send_mes import send_message
+from services.chat.chuc_nang.send_mes import send_message,send_typing
 from configs.AI_clinet import client
 from services.chat.chuc_nang.AI_core import find_relevant_doc
 
@@ -10,6 +10,8 @@ limits_col = db["user_limits"]
 
 def handle_ai_logic(sender_id, message_text):
 
+    send_typing(sender_id)
+    
     user_data = limits_col.find_one({"sender_id": sender_id})
     history = user_data.get("history", []) if user_data else []
 

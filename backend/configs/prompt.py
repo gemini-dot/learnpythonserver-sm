@@ -5,27 +5,11 @@ json = """[
   },
   {
     "file_name": "index.html",
-    "path": "frontend/view/giao_dien_email/index.html"
-  },
-  {
-    "file_name": "index.html",
-    "path": "frontend/view/upload/dashboard/index.html"
-  },
-  {
-    "file_name": "index.html",
     "path": "frontend/view/upload/web_upload/index.html"
   },
   {
     "file_name": "index.html",
     "path": "frontend/view/dieu_khoan&chinh_sach/index.html"
-  },
-  {
-    "file_name": "privacy_policy.txt",
-    "path": "frontend/view/dieu_khoan&chinh_sach/privacy_policy.txt"
-  },
-  {
-    "file_name": "terms_of_service.txt",
-    "path": "frontend/view/dieu_khoan&chinh_sach/terms_of_service.txt"
   },
   {
     "file_name": "create_a_password.html",
@@ -43,14 +27,6 @@ json = """[
     "file_name": "create_new_pass.html",
     "path": "frontend/view/group_password/create_new_pass.html"
   },
-  {
-    "file_name": "khoi_dong2.html",
-    "path": "frontend/view/load/khoi_dong2.html"
-  },
-  {
-    "file_name": "khoi_dong.html",
-    "path": "frontend/view/load/khoi_dong.html"
-  }
 ]
 
 """
@@ -328,3 +304,34 @@ Cảm xúc rõ ≥ 8/10
 Tự nhiên ≥ 8/10
 
 Nếu chưa đạt → viết lại."""
+
+
+thong_tin_web = [
+    "web VAULT cho phép upload file tối đa 2GB mỗi tệp tin.",
+    "Admin của hệ thống VAULT là anh Sâm (Sam).",
+    "Nếu mất file, bạn cần cung cấp email để kỹ thuật viên kiểm tra log server.",
+    "Tốc độ upload phụ thuộc vào khu vực địa lý và nhà mạng bạn đang dùng.",
+    """
+    "Gói Free của VAULT có dung lượng 2GB và giới hạn file 100MB.",
+    "Gói Pro giá 20.000đ/tháng, cho phép lưu trữ 10GB và file tối đa 2GB.",
+    "Gói Premium giá 50.000đ/tháng, có dung lượng 50GB và hỗ trợ chat 24/7.",
+    "Tính năng quét virus tự động và chia sẻ có mật khẩu chỉ có từ gói Premium trở lên.",
+    "Tất cả các gói từ Pro trở lên đều được hỗ trợ mã hóa file AES-256.",
+    "Gói Enterprise không giới hạn dung lượng và hỗ trợ quản lý team.",
+    "VAULT hỗ trợ khôi phục file đã xóa: 7 ngày cho gói Free và 30 ngày cho gói Pro.",
+    "Hệ thống chạy trên nền tảng Ubuntu và sử dụng mô hình Gemini AI để xử lý tin nhắn.",
+    "Địa chỉ truy cập server chính thức là learnpythonserver-sm.onrender.com."
+    """,
+    "Gói Enterprise được tùy chỉnh theo nhu cầu doanh nghiệp: dung lượng không giới hạn, số user không giới hạn, SSO/SAML, API tùy chỉnh, SLA 99.99%, dedicated support manager, và training cho team. Liên hệ samvasang1192011@gmail.com để được tư vấn chi tiết.",
+    "Có. Bạn có thể hủy bất cứ lúc nào mà không mất phí phạt. Dữ liệu của bạn sẽ được giữ trong 30 ngày sau khi hủy để bạn có thể tải về. Sau 30 ngày, dữ liệu sẽ bị xóa vĩnh viễn.",
+    "Tất cả dữ liệu được sao lưu tự động hàng ngày và lưu trữ ở 3 data center khác nhau. Gói Pro và cao hơn có thêm tính năng lịch sử phiên bản để bạn khôi phục các phiên bản cũ của file.",
+    "Khi bạn đạt 80% dung lượng, chúng tôi sẽ gửi email nhắc nhở. Nếu vượt quá 100%, bạn sẽ không thể upload thêm file mới cho đến khi xóa bớt hoặc nâng cấp gói. Dữ liệu hiện có vẫn được giữ nguyên và truy cập bình thường.",
+    "Có. Bạn có thể nâng cấp hoặc hạ cấp gói bất cứ lúc nào. Khi nâng cấp, bạn sẽ được tính phí theo tỷ lệ thời gian còn lại. Khi hạ cấp, số tiền dư sẽ được cộng vào chu kỳ thanh toán tiếp theo."
+    "Tất cả gói đều có 14 ngày dùng thử miễn phí",
+    "Về công nghệ: Tui được chạy trên nền tảng Ubuntu mạnh mẽ và sử dụng trí tuệ nhân tạo từ mô hình Gemma/Gemini của Google."
+    """Nội dung cấm: "VAULT nghiêm cấm lưu trữ các nội dung vi phạm pháp luật, văn hóa phẩm đồi trụy hoặc phần mềm độc hại."
+    Chính sách xóa tài khoản: "Tài khoản Free không đăng nhập trong 90 ngày sẽ bị tạm khóa để tối ưu dung lượng server."
+    Bản quyền: "Người dùng tự chịu trách nhiệm về bản quyền của tệp tin mình tải lên hệ thống.""",
+    "Nếu hệ thống báo 'Mã độc', file của bạn sẽ bị cách ly để đảm bảo an toàn cho máy chủ.",
+    "Admin không thể khôi phục mật khẩu file đã mã hóa AES-256, vì vậy hãy ghi nhớ kỹ mật khẩu khi cài đặt."
+]
