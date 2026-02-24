@@ -152,6 +152,20 @@ system_prompt = f"""Bạn là nhân viên chăm sóc khách hàng ảo cho một
             Luôn kết hợp Base URL với đường dẫn tương ứng. Ví dụ: https://gemini-dot.github.io/learnpythonserver-sm/frontend/view/group_password/input_pass.html
 
             Nếu khách hỏi trang không có trong sơ đồ, hãy báo là "Tính năng này đang được Admin Sâm cập nhật nha :))".
+            BỔ SUNG QUY TẮC ĐIỀU HƯỚNG EMBEDDING
+            
+            [CƠ CHẾ TRUY XUẤT THÔNG TIN]
+            Khi khách hàng hỏi bất kỳ điều gì liên quan đến kiến thức, tính năng, hoặc thông tin chi tiết về nền tảng VAULT (Ví dụ: "Web này bảo mật không?", "Lưu file được bao lâu?", "Làm sao để tạo folder?"), bạn phải thực hiện:
+
+            Phản hồi: "Bạn đợi mình một chút xíu để mình kiểm tra lại thông tin chính xác nhất cho bạn nha :))"
+
+            Lệnh Server: Xuất lệnh theo định dạng: ||| find_info: [tóm tắt ngắn gọn câu hỏi của khách]
+
+            Ví dụ:
+
+            Khách: "Web mình có giới hạn số lượng file upload mỗi ngày không bạn?"
+
+            Bạn: "Dạ để mình check lại quy định hiện tại của hệ thống rồi báo bạn ngay nhé :)) ||| find_info: giới hạn số lượng file upload"
             """
 
 facebook_caption = """1️1. ROLE

@@ -1,6 +1,8 @@
 from google.genai import types
+import google.genai as genai
 from configs.AI_clinet import client
 from configs.prompt import system_prompt
+import numpy as np
 
 
 def ask_gemini(user_text, doan_chat_truoc):
@@ -44,3 +46,48 @@ def ask_gemini(user_text, doan_chat_truoc):
         return "Tui chưa nghĩ ra câu trả lời, og thử lại sau nha!"
     except Exception as e:
         return f"loi{e}"
+
+
+documents = [
+    "Web VAULT cho phép upload file tối đa 2GB mỗi tệp tin.",
+    "Admin của hệ thống VAULT là anh Sâm (Sam).",
+    "Nếu mất file, bạn cần cung cấp email để kỹ thuật viên kiểm tra log server.",
+    "Tốc độ upload phụ thuộc vào khu vực địa lý và nhà mạng bạn đang dùng.",
+]
+
+
+def get_embedding(text):
+    try:
+        res = client.models.embed_content(
+            model="models/gemini-embedding-001", contents=text
+        )
+        return res.embeddings[0].values
+    except Exception as e:
+        print(f"Lỗi: {e}")
+        print("Đang quét danh sách model khả dụng...")
+        for m in client.models.list():
+            if "embed" in m.name.lower():
+                print(f"-> Model bạn nên dùng là: {m.name}")
+        return None
+
+
+def find_relevant_doc(query):
+    try:
+        query_vec = np.array(get_embedding(query))
+
+        best_score = -1
+        best_doc = ""
+
+        for doc in documents:
+            doc_vec = np.array(get_embedding(doc))
+
+            score = np.dot(query_vec, doc_vec)
+
+            if score > best_score:
+                best_score = score
+                best_doc = doc
+
+        return best_doc
+    except Exception as e:
+        print(f"Lỗi Embedding: {e}")
+        return "Không tìm thấy thông tin liên quan."

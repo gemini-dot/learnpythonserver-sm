@@ -3,6 +3,7 @@ from services.chat.chuc_nang.AI_core import ask_gemini
 from services.chat.chuc_nang.search_duck import get_realtime_info
 from services.chat.chuc_nang.send_mes import send_message
 from configs.AI_clinet import client
+from services.chat.chuc_nang.AI_core import find_relevant_doc
 
 limits_col = db["user_limits"]
 
@@ -24,6 +25,12 @@ def handle_ai_logic(sender_id, message_text):
 
     ai_reply = ask_gemini(message_text, history)
 
+    if "||| find_info:" in ai_reply:
+        search_query = ai_reply.split("||| find_info:")[1].strip()
+        context_doc = find_relevant_doc(search_query)
+        final_prompt = f"(Thông tin từ hệ thống: {context_doc})\nDựa vào thông tin trên, trả lời khách: {message_text}"
+        ai_reply = ask_gemini(final_prompt, history)
+
     if ai_reply.startswith("loi"):
         send_message(
             sender_id, "Tui đang 'reset' lại não xíu, og nhắn lại câu vừa nãy nha! 🧠"
@@ -32,6 +39,7 @@ def handle_ai_logic(sender_id, message_text):
         return
 
     msg_to_send = ai_reply.split("|||")[0].strip() if "|||" in ai_reply else ai_reply
+
     send_message(sender_id, msg_to_send)
     limits_col.update_one(
         {"sender_id": sender_id},

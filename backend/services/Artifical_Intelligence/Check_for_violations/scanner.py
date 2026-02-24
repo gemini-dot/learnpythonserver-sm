@@ -6,7 +6,6 @@ client = genai.Client(api_key="AIzaSyA-S8T07oHXOifOyeASYVUCjGXKi0r24KQ")
 
 from ddgs import DDGS
 
-
 prompt_xi_ngau = """ROLE:
 Bạn là AI viết caption Facebook cá nhân ngắn, tự nhiên như người thật.
 Mục tiêu là tạo caption có cảm xúc thật, không giống bài văn.
@@ -113,21 +112,24 @@ history_file = "history.txt"
 # 1. Đọc lịch sử các câu đã tạo
 if os.path.exists(history_file):
     with open(history_file, "r", encoding="utf-8") as f:
-        past_captions = f.read().splitlines()[-10:] # Lấy 10 câu gần nhất cho đỡ nặng prompt
+        past_captions = f.read().splitlines()[
+            -10:
+        ]  # Lấy 10 câu gần nhất cho đỡ nặng prompt
 else:
     past_captions = []
 
 # 2. Đưa vào nội dung gửi cho AI
-history_context = "\nDANH SÁCH CÁC CÂU ĐÃ VIẾT (TUYỆT ĐỐI KHÔNG LẶP LẠI):\n" + "\n".join(past_captions)
+history_context = (
+    "\nDANH SÁCH CÁC CÂU ĐÃ VIẾT (TUYỆT ĐỐI KHÔNG LẶP LẠI):\n"
+    + "\n".join(past_captions)
+)
 full_prompt = prompt_xi_ngau + history_context
 
 if __name__ == "__main__":
     response = client.models.generate_content(
-        model="gemma-3-27b-it",
-        contents=full_prompt,
-        config={'temperature': 1}
+        model="gemma-3-27b-it", contents=full_prompt, config={"temperature": 1}
     )
-    
+
     caption = response.text.strip()
     print(caption)
 
