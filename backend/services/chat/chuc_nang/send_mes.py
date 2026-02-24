@@ -6,5 +6,5 @@ PAGE_ACCESS_TOKEN = "EAAWQ4rWjGfoBQ6LqxaZAR643TLZBUQQCsQrkNQe0RZChhuVM9LfC6IoZB3
 def send_message(recipient_id, text):
     url = "https://graph.facebook.com/v12.0/me/messages"
     params = {"access_token": PAGE_ACCESS_TOKEN}
-    payload = {"recipient": {"id": recipient_id}, "message": {"text": text}}
+    payload = {"recipient": {"id": recipient_id}, "message": {"text": text},"sender_action": "typing_on"}
     requests.post(url, params=params, json=payload)
