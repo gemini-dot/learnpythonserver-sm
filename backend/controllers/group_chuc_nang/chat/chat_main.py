@@ -3,7 +3,7 @@ import time
 import threading
 from configs.db import db
 from services.chat.chuc_nang.send_mes import send_message
-from services.chat.main_chat_bot import handle_ai_logic
+from services.chat.bot_facebook import handle_ai_logic
 
 limits_col = db["user_limits"]
 

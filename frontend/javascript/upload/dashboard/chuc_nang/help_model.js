@@ -601,7 +601,13 @@
 
         <!-- Typing Indicator -->
         <div class="chat-typing" id="chatTyping">
-          <div class="chat-message-avatar">${CONFIG.BOT_AVATAR}</div>
+          <div class="chat-message-avatar">
+    ${
+      CONFIG.BOT_AVATAR.startsWith('http')
+        ? `<img src="${CONFIG.BOT_AVATAR}" style="width:100%;height:100%;border-radius:50%;object-fit:cover">`
+        : CONFIG.BOT_AVATAR
+    }
+  </div>
           <div class="chat-typing-bubble">
             <span class="chat-typing-dot"></span>
             <span class="chat-typing-dot"></span>
@@ -747,61 +753,56 @@
     const input = document.getElementById('chatInput');
     const message = input.value.trim();
 
-    if (!message && attachedFiles.length === 0) return;
+    // 1. Lấy danh sách tên file để gửi cho Gemini biết
+    const fileNames = attachedFiles.map((f) => f.name);
 
-    // Add user message
-    if (message) {
-      addUserMessage(message);
-    }
+    if (!message && fileNames.length === 0) return;
 
-    // Add files if any
-    if (attachedFiles.length > 0) {
-      attachedFiles.forEach((file) => {
-        addUserMessage(`📎 ${file.name}`);
-      });
-    }
+    if (message) addUserMessage(message);
 
-    // Clear input
+    // Hiển thị các file đã đính kèm lên khung chat cho vui mắt
+    attachedFiles.forEach((file) => {
+      addUserMessage(`📎 ${file.name}`);
+    });
+
+    // Reset input
+    const currentFiles = [...attachedFiles]; // Giữ bản sao để gửi API
     input.value = '';
     input.style.height = 'auto';
     attachedFiles = [];
     updateAttachmentsUI();
     updateSendButton();
 
-    // Show typing
     showTypingIndicator();
 
-    // Send to API
     try {
       const response = await fetch(CONFIG.API_URL, {
         method: 'POST',
-        credentials: 'include',
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'application/json', // Bắt buộc phải có
         },
         body: JSON.stringify({
           message: message,
-          files: attachedFiles.map((f) => f.name),
+          files: fileNames, // Gửi mảng tên file qua đây
           timestamp: new Date().toISOString(),
         }),
       });
 
       const data = await response.json();
-
-      // Hide typing
       hideTypingIndicator();
 
-      // Add bot response
-      if (data.message) {
+      // Backend trả về { success: true, message: "..." }
+      if (data.success && data.message) {
         addBotMessage(data.message);
+      } else {
+        addBotMessage('Có lỗi xảy ra từ phía server rồi og ơi! :)');
       }
     } catch (error) {
       hideTypingIndicator();
-
-      // Fallback: Generate bot response locally
+      console.error('Lỗi kết nối:', error);
+      // Fallback nếu server sập
       setTimeout(() => {
-        const botResponse = generateBotResponse(message);
-        addBotMessage(botResponse);
+        addBotMessage(generateBotResponse(message));
       }, 1000);
     }
   };

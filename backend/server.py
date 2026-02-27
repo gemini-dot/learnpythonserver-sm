@@ -35,6 +35,7 @@ from routes.group_password.oauth2_google.login_frontend import app_route19
 from routes.group_password.oauth2_google.sed_data import app_route20
 from routes.group_password.oauth2_google.verify_uid import app_route21
 from routes.group_chuc_nang.facebook_rep_bot.dieu_huong import app_route22
+from routes.group_chuc_nang.upload.chuc_nang.rep_bot import app_route23
 from routes.ping.ping import khoi_dong
 from routes.group_admin.group_chuc_nang.kill_switch import lenh_tu_huy
 from utils.trang_thai_db_503 import get_maintenance_status
@@ -115,6 +116,7 @@ blueprint_groups = {
     "/ping": [khoi_dong],
     "/admin": [lenh_tu_huy],
     "/fac": [app_route22],
+    "/api": [app_route23],
 }
 
 for prefix, blueprints in blueprint_groups.items():
