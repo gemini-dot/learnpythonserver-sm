@@ -36,3 +36,4 @@ flask_socketio
 Authlib
 google-genai
 ddgs
+PyGithub
