@@ -86,6 +86,7 @@ const allowedTypes = [
   'image/jpeg',
   'image/png',
   'application/zip',
+  'text/html', //
 ];
 
 const uploadArea = document.getElementById('uploadArea');
