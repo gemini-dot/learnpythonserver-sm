@@ -6,6 +6,7 @@ from utils.cloudidary_json_get import make_json_cloud
 from utils.luu_du_lieu_vao_db import luu
 from utils.scan_img import check_image_sensitivity
 from services.upload.chuc_nang.upload_html import upload_html_to_github
+from services.upload.chuc_nang.save_metadata import save_metadata_html
 import os
 import time
 import uuid
@@ -70,6 +71,8 @@ def upload_to_cloud():
                 link_github = upload_html_to_github(temp_path,ten_file_goc,user_email)
                 if link_github:
                     urls.append(link_github)
+                    file_info_html = save_metadata_html(temp_path,user_email,ten_file_goc,link_github)
+                    luu(file_info_html,"file_info")
                 else:
                     error.append({"file": ten_file_goc, "error": "Lỗi upload GitHub"})
                 continue
