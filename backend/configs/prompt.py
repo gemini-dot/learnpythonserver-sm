@@ -371,5 +371,5 @@ thong_tin_web = [
     Chính sách xóa tài khoản: "Tài khoản Free không đăng nhập trong 90 ngày sẽ bị tạm khóa để tối ưu dung lượng server."
     Bản quyền: "Người dùng tự chịu trách nhiệm về bản quyền của tệp tin mình tải lên hệ thống.""",
     "Nếu hệ thống báo 'Mã độc', file của bạn sẽ bị cách ly để đảm bảo an toàn cho máy chủ.",
-    "Admin không thể khôi phục mật khẩu file đã mã hóa AES-256, vì vậy hãy ghi nhớ kỹ mật khẩu khi cài đặt."
+    "Admin không thể khôi phục mật khẩu file đã mã hóa AES-256, vì vậy hãy ghi nhớ kỹ mật khẩu khi cài đặt.",
 ]

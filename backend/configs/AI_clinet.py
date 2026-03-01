@@ -3,4 +3,7 @@ import os
 
 google_api = os.getenv("API_GOOGLE_KEY")
 
-client = Client(api_key=google_api)
+try:
+    client = Client(api_key=google_api)
+except Exception as e:
+    print(e)

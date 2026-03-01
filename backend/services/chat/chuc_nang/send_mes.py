@@ -9,16 +9,18 @@ def send_typing(recipient_id):
     payload = {"recipient": {"id": recipient_id}, "sender_action": "typing_on"}
     requests.post(url, params=params, json=payload)
 
+
 def send_message(recipient_id, text):
     url = "https://graph.facebook.com/v12.0/me/messages"
     params = {"access_token": PAGE_ACCESS_TOKEN}
     payload = {"recipient": {"id": recipient_id}, "message": {"text": text}}
     requests.post(url, params=params, json=payload)
 
+
 def send_button_message(recipient_id):
     url = "https://graph.facebook.com/v12.0/me/messages"
     params = {"access_token": PAGE_ACCESS_TOKEN}
-    
+
     payload = {
         "recipient": {"id": recipient_id},
         "message": {
@@ -31,16 +33,16 @@ def send_button_message(recipient_id):
                         {
                             "type": "web_url",
                             "url": "https://gemini-dot.github.io/learnpythonserver-sm/frontend/view/buy_package/index.html",
-                            "title": "Xem Bảng Giá"
+                            "title": "Xem Bảng Giá",
                         },
                         {
                             "type": "postback",
                             "title": "Hỗ trợ kỹ thuật",
-                            "payload": "SUPPORT_PAYLOAD"
-                        }
-                    ]
-                }
+                            "payload": "SUPPORT_PAYLOAD",
+                        },
+                    ],
+                },
             }
-        }
+        },
     }
     requests.post(url, params=params, json=payload)
