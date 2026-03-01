@@ -7,6 +7,7 @@ from configs.settings import MAX_REQUESTS, PERIOD
 
 app_route = Blueprint("auth_input", __name__)
 
+app_route.config['MAX_CONTENT_LENGTH'] = 5 * 1024 * 1024
 
 @app_route.route("/input-pass", methods=["POST"])
 @limit_requests(max_requests=MAX_REQUESTS, period=PERIOD)
