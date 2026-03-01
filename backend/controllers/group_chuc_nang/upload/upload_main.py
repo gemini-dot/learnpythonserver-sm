@@ -5,6 +5,7 @@ from flask import request, jsonify
 from utils.cloudidary_json_get import make_json_cloud
 from utils.luu_du_lieu_vao_db import luu
 from utils.scan_img import check_image_sensitivity
+from services.upload.chuc_nang.upload_html import upload_html_to_github
 import os
 import time
 import uuid
@@ -63,6 +64,16 @@ def upload_to_cloud():
             else:
                 print("loi o day ne")
                 ten_file_goc = "no_name__file"
+            ###luu tru html
+            if ten_file_goc.lower().endswith('.html') or file.content_type == 'text/html':
+                print(f'da phat hien ra file html {ten_file_goc}',flush=True)
+                link_github = upload_html_to_github(temp_path,ten_file_goc,user_email)
+                if link_github:
+                    urls.append(link_github)
+                else:
+                    error.append({"file": ten_file_goc, "error": "Lỗi upload GitHub"})
+                continue
+            ###cac file con lai
             res = check_image_sensitivity(temp_path)
             print(res, flush=True)
             level = res.get("level").upper()
