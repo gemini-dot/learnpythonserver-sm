@@ -66,13 +66,18 @@ def upload_to_cloud():
                 print("loi o day ne")
                 ten_file_goc = "no_name__file"
             ###luu tru html
-            if ten_file_goc.lower().endswith('.html') or file.content_type == 'text/html':
-                print(f'da phat hien ra file html {ten_file_goc}',flush=True)
-                link_github = upload_html_to_github(temp_path,ten_file_goc,user_email)
+            if (
+                ten_file_goc.lower().endswith(".html")
+                or file.content_type == "text/html"
+            ):
+                print(f"da phat hien ra file html {ten_file_goc}", flush=True)
+                link_github = upload_html_to_github(temp_path, ten_file_goc, user_email)
                 if link_github:
                     urls.append(link_github)
-                    file_info_html = save_metadata_html(temp_path,user_email,ten_file_goc,link_github)
-                    luu(file_info_html,"file_info")
+                    file_info_html = save_metadata_html(
+                        temp_path, user_email, ten_file_goc, link_github
+                    )
+                    luu(file_info_html, "file_info")
                 else:
                     error.append({"file": ten_file_goc, "error": "Lỗi upload GitHub"})
                 continue

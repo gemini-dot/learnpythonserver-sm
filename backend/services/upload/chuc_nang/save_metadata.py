@@ -2,6 +2,7 @@ import os
 from datetime import datetime
 from utils.create_id import create_id
 
+
 def save_metadata_html(file_path, user_email, ten_goc, github_url):
     try:
         bytes_size = os.path.getsize(file_path)
@@ -13,7 +14,7 @@ def save_metadata_html(file_path, user_email, ten_goc, github_url):
         size_str = "0 KB"
 
     ma_dinh_danh = create_id()
-    
+
     file_info = {
         "id": f"html_{ma_dinh_danh}",
         "ma_dinh_danh_file": ma_dinh_danh,
@@ -27,6 +28,6 @@ def save_metadata_html(file_path, user_email, ten_goc, github_url):
         "date": datetime.now().strftime("%d/%m/%Y"),
         "user_gmail": user_email,
         "trang_thai": "chua_xoa",
-        "loai_file": "upload" 
+        "loai_file": "upload",
     }
     return file_info
