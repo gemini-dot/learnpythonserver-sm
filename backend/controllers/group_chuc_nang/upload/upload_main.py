@@ -82,13 +82,15 @@ def upload_to_cloud():
                     error.append({"file": ten_file_goc, "error": "Lỗi upload GitHub"})
                 continue
             ###cac file con lai
-            res = check_image_sensitivity(temp_path)
-            print(res, flush=True)
-            level = res.get("level").upper()
-            if level != "SAFE":
-                error.append({"file": ten_file_goc, "error": "Nội dung nhạy cảm"})
-                os.remove(temp_path)
-                continue
+            is_document = ten_file_goc.lower().endswith(('.pptx', '.ppt', '.pdf', '.docx', '.xlsx'))
+            if not is_document:
+                res = check_image_sensitivity(temp_path)
+                print(res, flush=True)
+                level = res.get("level").upper()
+                if level != "SAFE":
+                    error.append({"file": ten_file_goc, "error": "Nội dung nhạy cảm"})
+                    os.remove(temp_path)
+                    continue
             print("--- Bắt đầu upload Cloudinary ---", flush=True)
             upload_result = cloudinary.uploader.upload(
                 file,
