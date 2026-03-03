@@ -516,7 +516,7 @@
                   <div class="settings-item-title">Email</div>
                 </div>
                 <div class="settings-item-desc">Email đăng nhập và nhận thông báo</div>
-                <input type="email" class="settings-input" id="emailInput" placeholder="tuan@example.com" value="tuan@example.com" readonly>
+                <input type="email" class="settings-input" id="emailInput" placeholder="sam@example.com" value="sam@example.com" readonly>
                 <p style="font-size:12px;color:var(--ink-4);margin-top:8px;">Không thể thay đổi email</p>
               </div>
 
