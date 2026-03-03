@@ -88,6 +88,8 @@ const allowedTypes = [
   'application/zip',
   'text/html', //
   'text/plain',
+  'application/vnd.ms-powerpoint',
+  'application/vnd.openxmlformats-officedocument.presentationml.presentation',
 ];
 
 const uploadArea = document.getElementById('uploadArea');
