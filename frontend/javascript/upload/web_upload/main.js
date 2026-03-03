@@ -7,7 +7,7 @@ import { showToast } from '../../../javascript/popup/popup.js';
   });
 
   socket.on('global_notification', (data) => {
-    console.log('📡 Đã nhận thông báo hệ thống:', data.message);
+    console.log('[LOG] Đã nhận thông báo hệ thống:', data.message);
 
     if (typeof toast === 'function') {
       showToast('info', `THÔNG BÁO: ${data.message}`);
@@ -87,6 +87,7 @@ const allowedTypes = [
   'image/png',
   'application/zip',
   'text/html', //
+  'text/plain',
 ];
 
 const uploadArea = document.getElementById('uploadArea');
