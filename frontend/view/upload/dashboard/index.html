@@ -11,6 +11,10 @@
     />
     <link href="../../../styles/upload/dashboard/style.css" rel="stylesheet" />
     <link
+      href="../../../styles/upload/dashboard/chuc_nang/share_model.css"
+      rel="stylesheet"
+    />
+    <link
       rel="icon"
       type="image/x-icon"
       href="https://res.cloudinary.com/dshgtuy8f/image/upload/v1771402917/main_logo_2_bkgj5f.png"
@@ -1365,6 +1369,244 @@
         </div>
       </div>
     </div>
+    <!-- SHARE MODAL -->
+    <div class="share-modal-overlay" id="shareModalOverlay">
+      <div class="share-modal">
+        <!-- Header -->
+        <div class="share-header">
+          <div class="share-header-left">
+            <div class="share-icon">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <circle cx="18" cy="5" r="3" />
+                <circle cx="6" cy="12" r="3" />
+                <circle cx="18" cy="19" r="3" />
+                <line x1="8.59" y1="13.51" x2="15.42" y2="17.49" />
+                <line x1="15.41" y1="6.51" x2="8.59" y2="10.49" />
+              </svg>
+            </div>
+            <div class="share-title-wrap">
+              <h3>Chia sẻ file</h3>
+              <p id="shareFileName">document.pdf</p>
+            </div>
+          </div>
+          <button class="share-close" onclick="closeShareModal()">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+            >
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+          </button>
+        </div>
+
+        <!-- Content -->
+        <div class="share-content">
+          <!-- Link Section -->
+          <div class="share-section">
+            <div class="share-section-label">Link chia sẻ</div>
+            <div class="share-link-box">
+              <input
+                type="text"
+                class="share-link-input"
+                id="shareLinkInput"
+                readonly
+                value="https://vault.com/share/abc123"
+              />
+              <button class="share-copy-btn" onclick="copyShareLink()">
+                Copy
+              </button>
+            </div>
+            <div class="share-info-box">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <circle cx="12" cy="12" r="10" />
+                <line x1="12" y1="16" x2="12" y2="12" />
+                <line x1="12" y1="8" x2="12.01" y2="8" />
+              </svg>
+              <div>
+                Link này cho phép người khác xem và tải file của bạn. Bạn có thể
+                thu hồi quyền truy cập bất cứ lúc nào.
+              </div>
+            </div>
+          </div>
+
+          <!-- Social Share -->
+          <div class="share-section">
+            <div class="share-section-label">Chia sẻ qua</div>
+            <div class="share-social-grid">
+              <a
+                href="#"
+                class="share-social-btn"
+                onclick="
+                  shareToFacebook();
+                  return false;
+                "
+              >
+                <div class="share-social-icon facebook">📘</div>
+                <div class="share-social-label">Facebook</div>
+              </a>
+
+              <a
+                href="#"
+                class="share-social-btn"
+                onclick="
+                  shareToTwitter();
+                  return false;
+                "
+              >
+                <div class="share-social-icon twitter">🐦</div>
+                <div class="share-social-label">Twitter</div>
+              </a>
+
+              <a
+                href="#"
+                class="share-social-btn"
+                onclick="
+                  shareToEmail();
+                  return false;
+                "
+              >
+                <div class="share-social-icon email">
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path
+                      d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"
+                    />
+                    <polyline points="22,6 12,13 2,6" />
+                  </svg>
+                </div>
+                <div class="share-social-label">Email</div>
+              </a>
+
+              <a
+                href="#"
+                class="share-social-btn"
+                onclick="
+                  shareToWhatsApp();
+                  return false;
+                "
+              >
+                <div class="share-social-icon whatsapp">💬</div>
+                <div class="share-social-label">WhatsApp</div>
+              </a>
+
+              <a
+                href="#"
+                class="share-social-btn"
+                onclick="
+                  shareToTelegram();
+                  return false;
+                "
+              >
+                <div class="share-social-icon telegram">✈️</div>
+                <div class="share-social-label">Telegram</div>
+              </a>
+            </div>
+          </div>
+
+          <!-- HTML File Access (Only for .html files) -->
+          <div
+            class="share-section"
+            id="htmlAccessSection"
+            style="display: none"
+          >
+            <div class="share-section-label">Truy cập trực tiếp (HTML)</div>
+
+            <div class="html-access-card">
+              <div class="html-access-header">
+                <div class="html-access-info">
+                  <div class="html-access-icon">🌐</div>
+                  <div class="html-access-text">
+                    <h4>Chế độ truy cập</h4>
+                    <p>Cho phép xem file HTML trực tiếp</p>
+                  </div>
+                </div>
+
+                <!-- Privacy Toggle -->
+                <div
+                  class="privacy-toggle"
+                  id="privacyToggle"
+                  onclick="togglePrivacy()"
+                ></div>
+              </div>
+
+              <!-- Privacy Label -->
+              <div class="privacy-label private" id="privacyLabel">
+                <div class="privacy-label-text">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                  </svg>
+                  <span id="privacyLabelText">Riêng tư</span>
+                </div>
+                <div class="privacy-badge" id="privacyBadge">PRIVATE</div>
+              </div>
+
+              <!-- Access Button -->
+              <button class="html-access-btn" onclick="openHTMLPreview()">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path
+                    d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"
+                  />
+                  <polyline points="15 3 21 3 21 9" />
+                  <line x1="10" y1="14" x2="21" y2="3" />
+                </svg>
+                Mở file HTML
+              </button>
+            </div>
+
+            <div class="share-info-box">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path
+                  d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"
+                />
+                <line x1="12" y1="9" x2="12" y2="13" />
+                <line x1="12" y1="17" x2="12.01" y2="17" />
+              </svg>
+              <div>
+                <strong>Riêng tư:</strong> Chỉ bạn và người có link mới xem
+                được.<br />
+                <strong>Công khai:</strong> Ai cũng có thể tìm thấy qua search
+                engines.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
     <!-- TOAST -->
     <div class="toast-stack" id="toasts"></div>
 
@@ -1387,5 +1629,6 @@
     <script src="../../../javascript/upload/dashboard/effect/menu_ac.js"></script>
     <script src="../../../javascript/upload/dashboard/effect/notif.js"></script>
     <script src="../../../javascript/upload/dashboard/effect/get_email.js"></script>
+    <script src="../../../javascript/upload/dashboard/chuc_nang/share_model.js"></script>
   </body>
 </html>
