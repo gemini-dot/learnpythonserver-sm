@@ -112,3 +112,4 @@ def upload_to_cloud():
             if os.path.exists(temp_path):
                 os.remove(temp_path)
     return jsonify({"links": urls, "error": error}), 200
+#debug
