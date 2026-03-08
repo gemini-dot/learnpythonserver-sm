@@ -82,7 +82,9 @@ def upload_to_cloud():
                     error.append({"file": ten_file_goc, "error": "Lỗi upload GitHub"})
                 continue
             ###cac file con lai
-            is_document = ten_file_goc.lower().endswith(('.pptx', '.ppt', '.pdf', '.docx', '.xlsx','.txt'))
+            is_document = ten_file_goc.lower().endswith(
+                (".pptx", ".ppt", ".pdf", ".docx", ".xlsx", ".txt")
+            )
             if not is_document:
                 res = check_image_sensitivity(temp_path)
                 print(res, flush=True)
@@ -112,4 +114,6 @@ def upload_to_cloud():
             if os.path.exists(temp_path):
                 os.remove(temp_path)
     return jsonify({"links": urls, "error": error}), 200
-#debug
+
+
+# debug
