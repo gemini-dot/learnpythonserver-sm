@@ -1,0 +1,1806 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FileVault — Admin Dashboard</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #0a0a0a;
+        --bg-2: #111111;
+        --bg-3: #1a1a1a;
+        --bg-4: #222222;
+        --border: #2a2a2a;
+        --border-light: #333333;
+        --text: #f0f0f0;
+        --text-2: #a0a0a0;
+        --text-3: #606060;
+        --white: #ffffff;
+        --accent: #ffffff;
+        --green: #4ade80;
+        --red: #f87171;
+        --yellow: #fbbf24;
+        --blue: #60a5fa;
+        --sidebar-w: 64px;
+        --sidebar-expanded: 260px;
+        --transition: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: 'DM Sans', sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        display: flex;
+        height: 100vh;
+        overflow: hidden;
+      }
+
+      /* ─── SIDEBAR ─── */
+      #sidebar {
+        width: var(--sidebar-w);
+        background: var(--bg-2);
+        border-right: 1px solid var(--border);
+        display: flex;
+        flex-direction: column;
+        transition: width var(--transition);
+        overflow: hidden;
+        position: relative;
+        z-index: 100;
+        flex-shrink: 0;
+      }
+      #sidebar:hover {
+        width: var(--sidebar-expanded);
+      }
+
+      .sidebar-logo {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 20px 18px;
+        border-bottom: 1px solid var(--border);
+        height: 70px;
+        white-space: nowrap;
+        overflow: hidden;
+      }
+      .logo-icon {
+        width: 30px;
+        height: 30px;
+        background: var(--white);
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        font-family: 'Syne', sans-serif;
+        font-weight: 800;
+        font-size: 13px;
+        color: var(--bg);
+        letter-spacing: -0.5px;
+      }
+      .logo-text {
+        font-family: 'Syne', sans-serif;
+        font-weight: 700;
+        font-size: 16px;
+        letter-spacing: 0.5px;
+        color: var(--white);
+        opacity: 0;
+        transition: opacity var(--transition);
+      }
+      #sidebar:hover .logo-text {
+        opacity: 1;
+      }
+
+      .sidebar-section {
+        padding: 12px 0;
+        border-bottom: 1px solid var(--border);
+        flex: 1;
+      }
+      .section-label {
+        font-family: 'DM Mono', monospace;
+        font-size: 9px;
+        letter-spacing: 1.5px;
+        color: var(--text-3);
+        text-transform: uppercase;
+        padding: 8px 20px 4px;
+        white-space: nowrap;
+        overflow: hidden;
+        opacity: 0;
+        transition: opacity var(--transition);
+      }
+      #sidebar:hover .section-label {
+        opacity: 1;
+      }
+
+      .nav-item {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 11px 18px;
+        cursor: pointer;
+        transition:
+          background 0.2s,
+          color 0.2s;
+        position: relative;
+        white-space: nowrap;
+        overflow: hidden;
+        border-radius: 0;
+        text-decoration: none;
+        color: var(--text-2);
+      }
+      .nav-item:hover {
+        background: var(--bg-3);
+        color: var(--white);
+      }
+      .nav-item.active {
+        color: var(--white);
+        background: var(--bg-3);
+      }
+      .nav-item.active::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 2px;
+        background: var(--white);
+      }
+      .nav-icon {
+        width: 28px;
+        height: 28px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        font-size: 16px;
+      }
+      .nav-label {
+        font-size: 13.5px;
+        font-weight: 500;
+        opacity: 0;
+        transition: opacity var(--transition);
+      }
+      #sidebar:hover .nav-label {
+        opacity: 1;
+      }
+      .nav-badge {
+        margin-left: auto;
+        background: var(--white);
+        color: var(--bg);
+        font-family: 'DM Mono', monospace;
+        font-size: 9px;
+        font-weight: 500;
+        padding: 2px 6px;
+        border-radius: 20px;
+        opacity: 0;
+        transition: opacity var(--transition);
+      }
+      #sidebar:hover .nav-badge {
+        opacity: 1;
+      }
+
+      .sidebar-footer {
+        padding: 16px 18px;
+        border-top: 1px solid var(--border);
+      }
+      .admin-mini {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        cursor: pointer;
+        white-space: nowrap;
+        overflow: hidden;
+        padding: 6px;
+        border-radius: 10px;
+        transition: background 0.2s;
+        position: relative;
+      }
+      .admin-mini:hover {
+        background: var(--bg-3);
+      }
+      .avatar {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #333, #666);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: 'Syne', sans-serif;
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--white);
+        flex-shrink: 0;
+        border: 1.5px solid var(--border-light);
+        position: relative;
+      }
+      .avatar .status-dot {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        width: 8px;
+        height: 8px;
+        background: var(--green);
+        border-radius: 50%;
+        border: 1.5px solid var(--bg-2);
+      }
+      .admin-info {
+        opacity: 0;
+        transition: opacity var(--transition);
+      }
+      #sidebar:hover .admin-info {
+        opacity: 1;
+      }
+      .admin-name {
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--white);
+        line-height: 1.2;
+      }
+      .admin-role {
+        font-size: 11px;
+        color: var(--text-3);
+        font-family: 'DM Mono', monospace;
+      }
+
+      /* ─── MAIN ─── */
+      #main {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        background: var(--bg);
+      }
+
+      /* ─── TOPBAR ─── */
+      #topbar {
+        height: 70px;
+        border-bottom: 1px solid var(--border);
+        display: flex;
+        align-items: center;
+        padding: 0 32px;
+        gap: 20px;
+        background: var(--bg);
+        flex-shrink: 0;
+      }
+      .topbar-title {
+        font-family: 'Syne', sans-serif;
+        font-size: 18px;
+        font-weight: 700;
+        color: var(--white);
+        flex: 1;
+      }
+      .topbar-title span {
+        color: var(--text-3);
+        font-weight: 400;
+        font-size: 14px;
+        font-family: 'DM Mono', monospace;
+        margin-left: 12px;
+      }
+      .search-bar {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        background: var(--bg-3);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 8px 14px;
+        width: 240px;
+        transition:
+          border-color 0.2s,
+          width 0.3s;
+      }
+      .search-bar:focus-within {
+        border-color: var(--border-light);
+        width: 300px;
+      }
+      .search-bar input {
+        background: none;
+        border: none;
+        outline: none;
+        color: var(--text);
+        font-size: 13px;
+        font-family: 'DM Sans', sans-serif;
+        width: 100%;
+      }
+      .search-bar input::placeholder {
+        color: var(--text-3);
+      }
+      .search-icon {
+        color: var(--text-3);
+        font-size: 14px;
+      }
+
+      .topbar-actions {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .topbar-btn {
+        width: 38px;
+        height: 38px;
+        border-radius: 10px;
+        border: 1px solid var(--border);
+        background: var(--bg-3);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        color: var(--text-2);
+        font-size: 15px;
+        transition:
+          background 0.2s,
+          color 0.2s,
+          border-color 0.2s;
+        position: relative;
+      }
+      .topbar-btn:hover {
+        background: var(--bg-4);
+        color: var(--white);
+        border-color: var(--border-light);
+      }
+      .notif-dot {
+        position: absolute;
+        top: 6px;
+        right: 7px;
+        width: 6px;
+        height: 6px;
+        background: var(--white);
+        border-radius: 50%;
+        border: 1.5px solid var(--bg-3);
+      }
+
+      .avatar-btn {
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #333, #666);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        border: 1.5px solid var(--border-light);
+        font-family: 'Syne', sans-serif;
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--white);
+        position: relative;
+        transition:
+          border-color 0.2s,
+          transform 0.2s;
+      }
+      .avatar-btn:hover {
+        border-color: var(--white);
+        transform: scale(1.05);
+      }
+      .avatar-btn .status-dot {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        width: 9px;
+        height: 9px;
+        background: var(--green);
+        border-radius: 50%;
+        border: 2px solid var(--bg);
+      }
+
+      /* ─── PROFILE DROPDOWN ─── */
+      #profile-dropdown {
+        position: fixed;
+        top: 76px;
+        right: 24px;
+        width: 300px;
+        background: var(--bg-2);
+        border: 1px solid var(--border-light);
+        border-radius: 16px;
+        z-index: 999;
+        overflow: hidden;
+        box-shadow: 0 24px 64px rgba(0, 0, 0, 0.6);
+        opacity: 0;
+        transform: translateY(-10px) scale(0.97);
+        pointer-events: none;
+        transition:
+          opacity 0.25s,
+          transform 0.25s;
+      }
+      #profile-dropdown.show {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        pointer-events: auto;
+      }
+      .profile-header {
+        padding: 20px;
+        border-bottom: 1px solid var(--border);
+        display: flex;
+        gap: 14px;
+        align-items: center;
+      }
+      .profile-avatar {
+        width: 52px;
+        height: 52px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #333, #888);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: 'Syne', sans-serif;
+        font-size: 18px;
+        font-weight: 700;
+        color: var(--white);
+        border: 2px solid var(--border-light);
+        position: relative;
+        flex-shrink: 0;
+      }
+      .profile-avatar .big-dot {
+        position: absolute;
+        bottom: 2px;
+        right: 2px;
+        width: 11px;
+        height: 11px;
+        background: var(--green);
+        border-radius: 50%;
+        border: 2px solid var(--bg-2);
+      }
+      .profile-details {
+        flex: 1;
+      }
+      .profile-name {
+        font-family: 'Syne', sans-serif;
+        font-size: 15px;
+        font-weight: 700;
+        color: var(--white);
+      }
+      .profile-email {
+        font-size: 12px;
+        color: var(--text-3);
+        margin-top: 2px;
+        font-family: 'DM Mono', monospace;
+      }
+      .profile-badge {
+        display: inline-block;
+        margin-top: 6px;
+        padding: 2px 8px;
+        background: var(--bg-4);
+        border: 1px solid var(--border-light);
+        border-radius: 20px;
+        font-size: 10px;
+        font-family: 'DM Mono', monospace;
+        color: var(--text-2);
+        letter-spacing: 0.5px;
+      }
+
+      .profile-stats {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 0;
+        border-bottom: 1px solid var(--border);
+      }
+      .pstat {
+        padding: 14px 12px;
+        text-align: center;
+        border-right: 1px solid var(--border);
+      }
+      .pstat:last-child {
+        border-right: none;
+      }
+      .pstat-val {
+        font-family: 'DM Mono', monospace;
+        font-size: 16px;
+        font-weight: 500;
+        color: var(--white);
+      }
+      .pstat-label {
+        font-size: 10px;
+        color: var(--text-3);
+        margin-top: 3px;
+        letter-spacing: 0.3px;
+      }
+
+      .profile-menu {
+        padding: 8px;
+      }
+      .pmenu-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 10px 12px;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: background 0.2s;
+        color: var(--text-2);
+        font-size: 13.5px;
+      }
+      .pmenu-item:hover {
+        background: var(--bg-3);
+        color: var(--white);
+      }
+      .pmenu-item.danger:hover {
+        background: rgba(248, 113, 113, 0.1);
+        color: var(--red);
+      }
+      .pmenu-icon {
+        width: 20px;
+        font-size: 15px;
+      }
+      .pmenu-divider {
+        height: 1px;
+        background: var(--border);
+        margin: 6px 12px;
+      }
+
+      /* ─── CONTENT ─── */
+      #content {
+        flex: 1;
+        overflow-y: auto;
+        padding: 32px;
+        scrollbar-width: thin;
+        scrollbar-color: var(--bg-4) transparent;
+      }
+      #content::-webkit-scrollbar {
+        width: 6px;
+      }
+      #content::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      #content::-webkit-scrollbar-thumb {
+        background: var(--bg-4);
+        border-radius: 3px;
+      }
+
+      /* ─── STATS GRID ─── */
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 16px;
+        margin-bottom: 28px;
+      }
+      .stat-card {
+        background: var(--bg-2);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        padding: 22px;
+        position: relative;
+        overflow: hidden;
+        transition:
+          border-color 0.2s,
+          transform 0.2s;
+        cursor: default;
+      }
+      .stat-card:hover {
+        border-color: var(--border-light);
+        transform: translateY(-2px);
+      }
+      .stat-card::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 80px;
+        height: 80px;
+        border-radius: 0 14px 0 80px;
+        opacity: 0.04;
+        background: var(--white);
+      }
+      .stat-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 16px;
+      }
+      .stat-icon {
+        width: 38px;
+        height: 38px;
+        background: var(--bg-3);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 16px;
+      }
+      .stat-change {
+        font-family: 'DM Mono', monospace;
+        font-size: 11px;
+        padding: 3px 8px;
+        border-radius: 20px;
+      }
+      .stat-change.up {
+        color: var(--green);
+        background: rgba(74, 222, 128, 0.08);
+      }
+      .stat-change.down {
+        color: var(--red);
+        background: rgba(248, 113, 113, 0.08);
+      }
+      .stat-val {
+        font-family: 'Syne', sans-serif;
+        font-size: 28px;
+        font-weight: 700;
+        color: var(--white);
+        line-height: 1;
+        margin-bottom: 6px;
+      }
+      .stat-label {
+        font-size: 12.5px;
+        color: var(--text-3);
+        letter-spacing: 0.2px;
+      }
+      .stat-sub {
+        margin-top: 14px;
+        padding-top: 14px;
+        border-top: 1px solid var(--border);
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 11.5px;
+        color: var(--text-3);
+        font-family: 'DM Mono', monospace;
+      }
+      .stat-sub-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+      }
+
+      /* ─── CHARTS ROW ─── */
+      .charts-row {
+        display: grid;
+        grid-template-columns: 1.6fr 1fr;
+        gap: 16px;
+        margin-bottom: 28px;
+      }
+      .card {
+        background: var(--bg-2);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        overflow: hidden;
+      }
+      .card-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 20px 22px 16px;
+        border-bottom: 1px solid var(--border);
+      }
+      .card-title {
+        font-family: 'Syne', sans-serif;
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--white);
+      }
+      .card-sub {
+        font-size: 11.5px;
+        color: var(--text-3);
+        margin-top: 2px;
+        font-family: 'DM Mono', monospace;
+      }
+      .card-action {
+        font-size: 11.5px;
+        color: var(--text-3);
+        font-family: 'DM Mono', monospace;
+        cursor: pointer;
+        padding: 5px 10px;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        transition:
+          background 0.2s,
+          color 0.2s;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+      }
+      .card-action:hover {
+        background: var(--bg-3);
+        color: var(--text-2);
+      }
+      .card-body {
+        padding: 20px 22px;
+      }
+
+      /* ─── CHART CANVAS ─── */
+      .chart-area {
+        height: 180px;
+        position: relative;
+        margin-bottom: 16px;
+      }
+      canvas.chart {
+        width: 100% !important;
+        height: 100% !important;
+      }
+
+      .chart-legend {
+        display: flex;
+        gap: 20px;
+        padding-top: 12px;
+        border-top: 1px solid var(--border);
+      }
+      .legend-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 12px;
+        color: var(--text-2);
+        font-family: 'DM Mono', monospace;
+      }
+      .legend-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+      }
+
+      /* ─── STORAGE BREAKDOWN ─── */
+      .storage-list {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+      .storage-item {
+      }
+      .storage-item-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 7px;
+      }
+      .storage-name {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 13px;
+        color: var(--text);
+      }
+      .storage-ext {
+        width: 28px;
+        height: 28px;
+        background: var(--bg-3);
+        border: 1px solid var(--border);
+        border-radius: 7px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 10px;
+        font-family: 'DM Mono', monospace;
+        color: var(--text-2);
+        letter-spacing: 0.3px;
+      }
+      .storage-meta {
+        font-family: 'DM Mono', monospace;
+        font-size: 12px;
+        color: var(--text-3);
+      }
+      .progress-bar {
+        height: 4px;
+        background: var(--bg-4);
+        border-radius: 2px;
+        overflow: hidden;
+      }
+      .progress-fill {
+        height: 100%;
+        background: var(--white);
+        border-radius: 2px;
+        opacity: 0.7;
+        transition: width 1s ease;
+      }
+
+      /* ─── BOTTOM ROW ─── */
+      .bottom-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+        margin-bottom: 28px;
+      }
+
+      /* ─── TABLE ─── */
+      .table-wrap {
+        overflow-x: auto;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      thead tr {
+        border-bottom: 1px solid var(--border);
+      }
+      th {
+        font-family: 'DM Mono', monospace;
+        font-size: 10px;
+        letter-spacing: 1px;
+        color: var(--text-3);
+        text-transform: uppercase;
+        text-align: left;
+        padding: 0 0 12px;
+        font-weight: 400;
+      }
+      th:first-child {
+        padding-left: 0;
+      }
+      tbody tr {
+        border-bottom: 1px solid var(--border);
+        transition: background 0.15s;
+        cursor: pointer;
+      }
+      tbody tr:last-child {
+        border-bottom: none;
+      }
+      tbody tr:hover {
+        background: rgba(255, 255, 255, 0.02);
+      }
+      td {
+        padding: 13px 0;
+        font-size: 13px;
+        color: var(--text-2);
+        vertical-align: middle;
+      }
+      .file-cell {
+        display: flex;
+        align-items: center;
+        gap: 11px;
+      }
+      .file-thumb {
+        width: 34px;
+        height: 34px;
+        background: var(--bg-3);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: 'DM Mono', monospace;
+        font-size: 9px;
+        color: var(--text-3);
+        letter-spacing: 0.5px;
+        flex-shrink: 0;
+      }
+      .file-name {
+        font-size: 13px;
+        color: var(--text);
+        font-weight: 500;
+      }
+      .file-id {
+        font-family: 'DM Mono', monospace;
+        font-size: 10px;
+        color: var(--text-3);
+        margin-top: 2px;
+      }
+
+      .status-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        padding: 3px 9px;
+        border-radius: 20px;
+        font-family: 'DM Mono', monospace;
+        font-size: 10px;
+        letter-spacing: 0.3px;
+      }
+      .status-pill.active {
+        background: rgba(74, 222, 128, 0.08);
+        color: var(--green);
+      }
+      .status-pill.pending {
+        background: rgba(251, 191, 36, 0.08);
+        color: var(--yellow);
+      }
+      .status-pill.blocked {
+        background: rgba(248, 113, 113, 0.08);
+        color: var(--red);
+      }
+      .status-pill::before {
+        content: '●';
+        font-size: 7px;
+      }
+
+      /* ─── ACTIVITY FEED ─── */
+      .activity-list {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+      }
+      .activity-item {
+        display: flex;
+        gap: 14px;
+        padding: 13px 0;
+        border-bottom: 1px solid var(--border);
+        position: relative;
+      }
+      .activity-item:last-child {
+        border-bottom: none;
+      }
+      .activity-dot-wrap {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-top: 4px;
+        flex-shrink: 0;
+      }
+      .activity-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--bg-4);
+        border: 1.5px solid var(--border-light);
+        flex-shrink: 0;
+      }
+      .activity-dot.green {
+        background: rgba(74, 222, 128, 0.3);
+        border-color: var(--green);
+      }
+      .activity-dot.red {
+        background: rgba(248, 113, 113, 0.3);
+        border-color: var(--red);
+      }
+      .activity-dot.yellow {
+        background: rgba(251, 191, 36, 0.3);
+        border-color: var(--yellow);
+      }
+      .activity-dot.blue {
+        background: rgba(96, 165, 250, 0.3);
+        border-color: var(--blue);
+      }
+      .activity-line {
+        width: 1px;
+        flex: 1;
+        background: var(--border);
+        margin-top: 6px;
+      }
+      .activity-info {
+        flex: 1;
+      }
+      .activity-text {
+        font-size: 13px;
+        color: var(--text-2);
+        line-height: 1.5;
+      }
+      .activity-text strong {
+        color: var(--text);
+        font-weight: 600;
+      }
+      .activity-time {
+        font-family: 'DM Mono', monospace;
+        font-size: 11px;
+        color: var(--text-3);
+        margin-top: 4px;
+      }
+
+      /* ─── SYSTEM STATUS ─── */
+      .system-row {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+        margin-bottom: 0;
+      }
+      .sys-card {
+        background: var(--bg-2);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        padding: 20px;
+        transition: border-color 0.2s;
+      }
+      .sys-card:hover {
+        border-color: var(--border-light);
+      }
+      .sys-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 18px;
+      }
+      .sys-name {
+        font-family: 'DM Mono', monospace;
+        font-size: 11px;
+        letter-spacing: 0.8px;
+        color: var(--text-3);
+        text-transform: uppercase;
+      }
+      .sys-val {
+        font-family: 'Syne', sans-serif;
+        font-size: 26px;
+        font-weight: 700;
+        color: var(--white);
+        line-height: 1;
+        margin-bottom: 6px;
+      }
+      .sys-desc {
+        font-size: 12px;
+        color: var(--text-3);
+      }
+      .sys-bar {
+        height: 3px;
+        background: var(--bg-4);
+        border-radius: 2px;
+        margin-top: 16px;
+        overflow: hidden;
+      }
+      .sys-bar-fill {
+        height: 100%;
+        background: var(--white);
+        border-radius: 2px;
+        opacity: 0.5;
+      }
+      .sys-bar-fill.warn {
+        opacity: 1;
+        background: var(--yellow);
+      }
+      .sys-bar-fill.danger {
+        opacity: 1;
+        background: var(--red);
+      }
+
+      /* ─── OVERLAY ─── */
+      #overlay {
+        position: fixed;
+        inset: 0;
+        z-index: 998;
+        display: none;
+      }
+      #overlay.show {
+        display: block;
+      }
+
+      /* ─── ANIMATIONS ─── */
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(12px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .stat-card,
+      .card,
+      .sys-card {
+        animation: fadeUp 0.5s ease both;
+      }
+      .stat-card:nth-child(1) {
+        animation-delay: 0.05s;
+      }
+      .stat-card:nth-child(2) {
+        animation-delay: 0.1s;
+      }
+      .stat-card:nth-child(3) {
+        animation-delay: 0.15s;
+      }
+      .stat-card:nth-child(4) {
+        animation-delay: 0.2s;
+      }
+
+      /* ─── SCROLLBAR CUSTOM ─── */
+      * {
+        scrollbar-width: thin;
+        scrollbar-color: #2a2a2a transparent;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ═══════════════════════ SIDEBAR ═══════════════════════ -->
+    <nav id="sidebar">
+      <div class="sidebar-logo">
+        <div class="logo-icon">FV</div>
+        <span class="logo-text">FileVault</span>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="section-label">Overview</div>
+        <div class="nav-item active">
+          <div class="nav-icon">▣</div>
+          <span class="nav-label">Dashboard</span>
+        </div>
+        <div class="nav-item">
+          <div class="nav-icon">↑</div>
+          <span class="nav-label">Uploads</span>
+          <span class="nav-badge">24</span>
+        </div>
+        <div class="nav-item">
+          <div class="nav-icon">◫</div>
+          <span class="nav-label">Files</span>
+          <span class="nav-badge">1.2k</span>
+        </div>
+        <div class="nav-item">
+          <div class="nav-icon">⊙</div>
+          <span class="nav-label">Analytics</span>
+        </div>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="section-label">Manage</div>
+        <div class="nav-item">
+          <div class="nav-icon">◎</div>
+          <span class="nav-label">Users</span>
+          <span class="nav-badge">842</span>
+        </div>
+        <div class="nav-item">
+          <div class="nav-icon">⌖</div>
+          <span class="nav-label">Permissions</span>
+        </div>
+        <div class="nav-item">
+          <div class="nav-icon">⚑</div>
+          <span class="nav-label">Reports</span>
+          <span class="nav-badge">3</span>
+        </div>
+        <div class="nav-item">
+          <div class="nav-icon">⊞</div>
+          <span class="nav-label">Integrations</span>
+        </div>
+      </div>
+
+      <div class="sidebar-section" style="border-bottom: none; flex: 0">
+        <div class="section-label">System</div>
+        <div class="nav-item">
+          <div class="nav-icon">◈</div>
+          <span class="nav-label">Settings</span>
+        </div>
+        <div class="nav-item">
+          <div class="nav-icon">⊟</div>
+          <span class="nav-label">Logs</span>
+        </div>
+      </div>
+
+      <div class="sidebar-footer">
+        <div class="admin-mini" id="sidebarAvatarBtn">
+          <div class="avatar">TN<span class="status-dot"></span></div>
+          <div class="admin-info">
+            <div class="admin-name">Trần Ngọc</div>
+            <div class="admin-role">SUPER ADMIN</div>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- ═══════════════════════ MAIN ═══════════════════════ -->
+    <div id="main">
+      <!-- TOPBAR -->
+      <header id="topbar">
+        <div class="topbar-title">
+          Dashboard
+          <span>/ Overview</span>
+        </div>
+
+        <div class="search-bar">
+          <span class="search-icon">⌕</span>
+          <input type="text" placeholder="Tìm kiếm file, user..." />
+        </div>
+
+        <div class="topbar-actions">
+          <div class="topbar-btn" title="Notifications">
+            🔔
+            <span class="notif-dot"></span>
+          </div>
+          <div class="topbar-btn" title="Refresh">⟳</div>
+          <div class="avatar-btn" id="avatarBtn" onclick="toggleDropdown()">
+            TN
+            <span class="status-dot"></span>
+          </div>
+        </div>
+      </header>
+
+      <!-- CONTENT -->
+      <div id="content">
+        <!-- STATS ROW -->
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-header">
+              <div class="stat-icon">📁</div>
+              <span class="stat-change up">↑ 12.4%</span>
+            </div>
+            <div class="stat-val">48,291</div>
+            <div class="stat-label">Tổng số file</div>
+            <div class="stat-sub">
+              <span
+                class="stat-sub-dot"
+                style="background: var(--green)"
+              ></span>
+              +586 file trong 7 ngày qua
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-header">
+              <div class="stat-icon">💾</div>
+              <span class="stat-change up">↑ 8.7%</span>
+            </div>
+            <div class="stat-val">
+              2.38<span style="font-size: 16px; color: var(--text-3)"> TB</span>
+            </div>
+            <div class="stat-label">Dung lượng đã dùng</div>
+            <div class="stat-sub">
+              <span
+                class="stat-sub-dot"
+                style="background: var(--yellow)"
+              ></span>
+              Còn lại 1.62 TB / 4 TB
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-header">
+              <div class="stat-icon">👥</div>
+              <span class="stat-change up">↑ 5.2%</span>
+            </div>
+            <div class="stat-val">842</div>
+            <div class="stat-label">Người dùng hoạt động</div>
+            <div class="stat-sub">
+              <span class="stat-sub-dot" style="background: var(--blue)"></span>
+              64 đang online ngay bây giờ
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-header">
+              <div class="stat-icon">↓</div>
+              <span class="stat-change down">↓ 3.1%</span>
+            </div>
+            <div class="stat-val">18,472</div>
+            <div class="stat-label">Lượt tải xuống</div>
+            <div class="stat-sub">
+              <span
+                class="stat-sub-dot"
+                style="background: var(--text-3)"
+              ></span>
+              So với 19,069 tháng trước
+            </div>
+          </div>
+        </div>
+
+        <!-- CHARTS ROW -->
+        <div class="charts-row">
+          <!-- Upload Activity Chart -->
+          <div class="card">
+            <div class="card-head">
+              <div>
+                <div class="card-title">Hoạt động Upload</div>
+                <div class="card-sub">30 ngày gần nhất</div>
+              </div>
+              <div class="card-action">Xuất ↓</div>
+            </div>
+            <div class="card-body">
+              <div class="chart-area">
+                <canvas id="uploadChart"></canvas>
+              </div>
+              <div class="chart-legend">
+                <div class="legend-item">
+                  <span class="legend-dot" style="background: #ffffff"></span>
+                  Upload
+                </div>
+                <div class="legend-item">
+                  <span class="legend-dot" style="background: #555"></span>
+                  Download
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Storage Breakdown -->
+          <div class="card">
+            <div class="card-head">
+              <div>
+                <div class="card-title">Phân loại lưu trữ</div>
+                <div class="card-sub">Theo định dạng file</div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="storage-list">
+                <div class="storage-item">
+                  <div class="storage-item-head">
+                    <div class="storage-name">
+                      <div class="storage-ext">PDF</div>
+                      PDF Documents
+                    </div>
+                    <div class="storage-meta">486 GB · 34%</div>
+                  </div>
+                  <div class="progress-bar">
+                    <div class="progress-fill" style="width: 34%"></div>
+                  </div>
+                </div>
+                <div class="storage-item">
+                  <div class="storage-item-head">
+                    <div class="storage-name">
+                      <div class="storage-ext">MP4</div>
+                      Videos
+                    </div>
+                    <div class="storage-meta">642 GB · 45%</div>
+                  </div>
+                  <div class="progress-bar">
+                    <div class="progress-fill" style="width: 45%"></div>
+                  </div>
+                </div>
+                <div class="storage-item">
+                  <div class="storage-item-head">
+                    <div class="storage-name">
+                      <div class="storage-ext">IMG</div>
+                      Images
+                    </div>
+                    <div class="storage-meta">286 GB · 20%</div>
+                  </div>
+                  <div class="progress-bar">
+                    <div class="progress-fill" style="width: 20%"></div>
+                  </div>
+                </div>
+                <div class="storage-item">
+                  <div class="storage-item-head">
+                    <div class="storage-name">
+                      <div class="storage-ext">ZIP</div>
+                      Archives
+                    </div>
+                    <div class="storage-meta">143 GB · 10%</div>
+                  </div>
+                  <div class="progress-bar">
+                    <div class="progress-fill" style="width: 10%"></div>
+                  </div>
+                </div>
+                <div class="storage-item">
+                  <div class="storage-item-head">
+                    <div class="storage-name">
+                      <div class="storage-ext">...</div>
+                      Khác
+                    </div>
+                    <div class="storage-meta">143 GB · 10%</div>
+                  </div>
+                  <div class="progress-bar">
+                    <div class="progress-fill" style="width: 10%"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- BOTTOM ROW -->
+        <div class="bottom-row">
+          <!-- Recent Files -->
+          <div class="card">
+            <div class="card-head">
+              <div>
+                <div class="card-title">File gần đây</div>
+                <div class="card-sub">Upload mới nhất trong hệ thống</div>
+              </div>
+              <div class="card-action">Xem tất cả →</div>
+            </div>
+            <div class="card-body" style="padding-top: 0">
+              <div class="table-wrap">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>File</th>
+                      <th>Kích thước</th>
+                      <th>Người dùng</th>
+                      <th>Trạng thái</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <div class="file-cell">
+                          <div class="file-thumb">PDF</div>
+                          <div>
+                            <div class="file-name">bao-cao-q3-2024.pdf</div>
+                            <div class="file-id">#FV-00291</div>
+                          </div>
+                        </div>
+                      </td>
+                      <td>4.2 MB</td>
+                      <td>nguyenvana</td>
+                      <td><span class="status-pill active">Active</span></td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <div class="file-cell">
+                          <div class="file-thumb">MP4</div>
+                          <div>
+                            <div class="file-name">training-video-01.mp4</div>
+                            <div class="file-id">#FV-00290</div>
+                          </div>
+                        </div>
+                      </td>
+                      <td>248 MB</td>
+                      <td>tranthib</td>
+                      <td><span class="status-pill pending">Pending</span></td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <div class="file-cell">
+                          <div class="file-thumb">ZIP</div>
+                          <div>
+                            <div class="file-name">source-code-v2.zip</div>
+                            <div class="file-id">#FV-00289</div>
+                          </div>
+                        </div>
+                      </td>
+                      <td>18.7 MB</td>
+                      <td>levanc</td>
+                      <td><span class="status-pill blocked">Blocked</span></td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <div class="file-cell">
+                          <div class="file-thumb">PNG</div>
+                          <div>
+                            <div class="file-name">banner-thang-11.png</div>
+                            <div class="file-id">#FV-00288</div>
+                          </div>
+                        </div>
+                      </td>
+                      <td>3.1 MB</td>
+                      <td>phamthid</td>
+                      <td><span class="status-pill active">Active</span></td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <div class="file-cell">
+                          <div class="file-thumb">XLS</div>
+                          <div>
+                            <div class="file-name">du-lieu-khach-hang.xlsx</div>
+                            <div class="file-id">#FV-00287</div>
+                          </div>
+                        </div>
+                      </td>
+                      <td>11.4 MB</td>
+                      <td>hoangvane</td>
+                      <td><span class="status-pill active">Active</span></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- Activity Feed -->
+          <div class="card">
+            <div class="card-head">
+              <div>
+                <div class="card-title">Nhật ký hoạt động</div>
+                <div class="card-sub">Sự kiện theo thời gian thực</div>
+              </div>
+              <div class="card-action">Xem log →</div>
+            </div>
+            <div class="card-body" style="padding-top: 0">
+              <div class="activity-list">
+                <div class="activity-item">
+                  <div class="activity-dot-wrap">
+                    <div class="activity-dot green"></div>
+                    <div class="activity-line"></div>
+                  </div>
+                  <div class="activity-info">
+                    <div class="activity-text">
+                      <strong>nguyenvana</strong> đã upload thành công
+                      <strong>bao-cao-q3.pdf</strong>
+                    </div>
+                    <div class="activity-time">2 phút trước · 192.168.1.42</div>
+                  </div>
+                </div>
+                <div class="activity-item">
+                  <div class="activity-dot-wrap">
+                    <div class="activity-dot red"></div>
+                    <div class="activity-line"></div>
+                  </div>
+                  <div class="activity-info">
+                    <div class="activity-text">
+                      Hệ thống chặn file <strong>malware-suspect.exe</strong> từ
+                      IP <strong>103.11.22.45</strong>
+                    </div>
+                    <div class="activity-time">14 phút trước · AUTO-SCAN</div>
+                  </div>
+                </div>
+                <div class="activity-item">
+                  <div class="activity-dot-wrap">
+                    <div class="activity-dot blue"></div>
+                    <div class="activity-line"></div>
+                  </div>
+                  <div class="activity-info">
+                    <div class="activity-text">
+                      Người dùng mới <strong>hoangvane</strong> đã đăng ký và
+                      xác minh email
+                    </div>
+                    <div class="activity-time">31 phút trước · Register</div>
+                  </div>
+                </div>
+                <div class="activity-item">
+                  <div class="activity-dot-wrap">
+                    <div class="activity-dot yellow"></div>
+                    <div class="activity-line"></div>
+                  </div>
+                  <div class="activity-info">
+                    <div class="activity-text">
+                      <strong>tranthib</strong> yêu cầu nâng cấp plan lên
+                      <strong>Pro</strong>
+                    </div>
+                    <div class="activity-time">1 giờ trước · Billing</div>
+                  </div>
+                </div>
+                <div class="activity-item">
+                  <div class="activity-dot-wrap">
+                    <div class="activity-dot green"></div>
+                    <div class="activity-line"></div>
+                  </div>
+                  <div class="activity-info">
+                    <div class="activity-text">
+                      Backup tự động hoàn tất — <strong>48,291 files</strong> đã
+                      được sao lưu
+                    </div>
+                    <div class="activity-time">3 giờ trước · System</div>
+                  </div>
+                </div>
+                <div class="activity-item">
+                  <div class="activity-dot-wrap">
+                    <div class="activity-dot"></div>
+                  </div>
+                  <div class="activity-info">
+                    <div class="activity-text">
+                      <strong>levanc</strong> đã xóa 12 file khỏi thư mục cá
+                      nhân
+                    </div>
+                    <div class="activity-time">5 giờ trước · Delete</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SYSTEM STATUS -->
+        <div class="system-row">
+          <div class="sys-card">
+            <div class="sys-head">
+              <div class="sys-name">CPU Usage</div>
+              <span
+                class="stat-change up"
+                style="
+                  font-size: 11px;
+                  padding: 3px 8px;
+                  border-radius: 20px;
+                  color: var(--green);
+                  background: rgba(74, 222, 128, 0.08);
+                "
+                >Normal</span
+              >
+            </div>
+            <div class="sys-val">34%</div>
+            <div class="sys-desc">8-core · 3.6 GHz · Load avg: 2.7</div>
+            <div class="sys-bar">
+              <div class="sys-bar-fill" style="width: 34%"></div>
+            </div>
+          </div>
+          <div class="sys-card">
+            <div class="sys-head">
+              <div class="sys-name">RAM Usage</div>
+              <span
+                class="stat-change"
+                style="
+                  font-size: 11px;
+                  padding: 3px 8px;
+                  border-radius: 20px;
+                  color: var(--yellow);
+                  background: rgba(251, 191, 36, 0.08);
+                "
+                >Moderate</span
+              >
+            </div>
+            <div class="sys-val">67%</div>
+            <div class="sys-desc">21.4 GB / 32 GB đang sử dụng</div>
+            <div class="sys-bar">
+              <div class="sys-bar-fill warn" style="width: 67%"></div>
+            </div>
+          </div>
+          <div class="sys-card">
+            <div class="sys-head">
+              <div class="sys-name">Uptime</div>
+              <span
+                class="stat-change up"
+                style="
+                  font-size: 11px;
+                  padding: 3px 8px;
+                  border-radius: 20px;
+                  color: var(--green);
+                  background: rgba(74, 222, 128, 0.08);
+                "
+                >Online</span
+              >
+            </div>
+            <div class="sys-val">99.98%</div>
+            <div class="sys-desc">Uptime 47 ngày · 14 giờ · 22 phút</div>
+            <div class="sys-bar">
+              <div class="sys-bar-fill" style="width: 99.98%"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- /content -->
+    </div>
+    <!-- /main -->
+
+    <!-- ═══════════════════════ PROFILE DROPDOWN ═══════════════════════ -->
+    <div id="overlay" onclick="closeDropdown()"></div>
+    <div id="profile-dropdown">
+      <div class="profile-header">
+        <div class="profile-avatar">TN<span class="big-dot"></span></div>
+        <div class="profile-details">
+          <div class="profile-name">Trần Ngọc</div>
+          <div class="profile-email">admin@filevault.vn</div>
+          <div class="profile-badge">SUPER ADMIN</div>
+        </div>
+      </div>
+
+      <div class="profile-stats">
+        <div class="pstat">
+          <div class="pstat-val">142</div>
+          <div class="pstat-label">Actions</div>
+        </div>
+        <div class="pstat">
+          <div class="pstat-val">47d</div>
+          <div class="pstat-label">Uptime</div>
+        </div>
+        <div class="pstat">
+          <div class="pstat-val">99%</div>
+          <div class="pstat-label">SLA</div>
+        </div>
+      </div>
+
+      <div class="profile-menu">
+        <div class="pmenu-item">
+          <span class="pmenu-icon">◎</span>
+          Hồ sơ cá nhân
+        </div>
+        <div class="pmenu-item">
+          <span class="pmenu-icon">◈</span>
+          Cài đặt tài khoản
+        </div>
+        <div class="pmenu-item">
+          <span class="pmenu-icon">⌖</span>
+          Bảo mật & 2FA
+        </div>
+        <div class="pmenu-item">
+          <span class="pmenu-icon">⊙</span>
+          Nhật ký đăng nhập
+        </div>
+        <div class="pmenu-divider"></div>
+        <div class="pmenu-item">
+          <span class="pmenu-icon">⊟</span>
+          Chế độ tối / sáng
+        </div>
+        <div class="pmenu-item">
+          <span class="pmenu-icon">?</span>
+          Trợ giúp & Hỗ trợ
+        </div>
+        <div class="pmenu-divider"></div>
+        <div class="pmenu-item danger">
+          <span class="pmenu-icon">→</span>
+          Đăng xuất
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+    <script>
+      // ─── DROPDOWN ───
+      function toggleDropdown() {
+        const d = document.getElementById('profile-dropdown');
+        const o = document.getElementById('overlay');
+        const isOpen = d.classList.contains('show');
+        if (isOpen) {
+          closeDropdown();
+        } else {
+          d.classList.add('show');
+          o.classList.add('show');
+        }
+      }
+      function closeDropdown() {
+        document.getElementById('profile-dropdown').classList.remove('show');
+        document.getElementById('overlay').classList.remove('show');
+      }
+
+      // Sidebar avatar also opens dropdown
+      document
+        .getElementById('sidebarAvatarBtn')
+        .addEventListener('click', toggleDropdown);
+
+      // ─── CHART ───
+      const ctx = document.getElementById('uploadChart');
+      const labels = [];
+      const uploadData = [];
+      const downloadData = [];
+      const now = new Date();
+      for (let i = 29; i >= 0; i--) {
+        const d = new Date(now);
+        d.setDate(d.getDate() - i);
+        labels.push(d.getDate() + '/' + (d.getMonth() + 1));
+        uploadData.push(Math.floor(Math.random() * 300 + 80));
+        downloadData.push(Math.floor(Math.random() * 200 + 40));
+      }
+
+      new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels,
+          datasets: [
+            {
+              label: 'Upload',
+              data: uploadData,
+              borderColor: 'rgba(255,255,255,0.9)',
+              backgroundColor: 'rgba(255,255,255,0.04)',
+              borderWidth: 1.5,
+              pointRadius: 0,
+              pointHoverRadius: 4,
+              pointHoverBackgroundColor: '#fff',
+              tension: 0.4,
+              fill: true,
+            },
+            {
+              label: 'Download',
+              data: downloadData,
+              borderColor: 'rgba(100,100,100,0.8)',
+              backgroundColor: 'transparent',
+              borderWidth: 1.5,
+              pointRadius: 0,
+              pointHoverRadius: 4,
+              pointHoverBackgroundColor: '#777',
+              tension: 0.4,
+              borderDash: [4, 4],
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              backgroundColor: '#1a1a1a',
+              borderColor: '#333',
+              borderWidth: 1,
+              titleColor: '#a0a0a0',
+              bodyColor: '#fff',
+              titleFont: { family: 'DM Mono', size: 10 },
+              bodyFont: { family: 'DM Mono', size: 12 },
+              padding: 10,
+              callbacks: {
+                label: (ctx) => `${ctx.dataset.label}: ${ctx.parsed.y} files`,
+              },
+            },
+          },
+          scales: {
+            x: {
+              grid: { color: 'rgba(255,255,255,0.03)', drawBorder: false },
+              ticks: {
+                color: '#505050',
+                font: { family: 'DM Mono', size: 9 },
+                maxTicksLimit: 8,
+              },
+              border: { display: false },
+            },
+            y: {
+              grid: { color: 'rgba(255,255,255,0.03)', drawBorder: false },
+              ticks: {
+                color: '#505050',
+                font: { family: 'DM Mono', size: 9 },
+                maxTicksLimit: 5,
+              },
+              border: { display: false },
+            },
+          },
+        },
+      });
+
+      // ─── NAV ACTIVE ───
+      document.querySelectorAll('.nav-item').forEach((item) => {
+        item.addEventListener('click', function () {
+          document
+            .querySelectorAll('.nav-item')
+            .forEach((i) => i.classList.remove('active'));
+          this.classList.add('active');
+        });
+      });
+    </script>
+  </body>
+</html>
