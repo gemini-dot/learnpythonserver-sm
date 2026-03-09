@@ -1177,16 +1177,19 @@ async function downloadCurrentFile() {
 
     try {
       isProcessing = true;
-      fetch('/upload_sv/log-download', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        credentials: 'include',
-        body: JSON.stringify({
-          fileId: selectedId,
-          fileName: fileToDownload.name,
-          timestamp: new Date().toISOString(),
-        }),
-      }).catch((err) => console.error('Lỗi ghi log:', err));
+      fetch(
+        'https://learnpythonserver-sm.onrender.com/upload_sv/log-download',
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          credentials: 'include',
+          body: JSON.stringify({
+            fileId: selectedId,
+            fileName: fileToDownload.name,
+            timestamp: new Date().toISOString(),
+          }),
+        }
+      ).catch((err) => console.error('Lỗi ghi log:', err));
 
       const response = await fetch(fileToDownload.url);
       if (!response.ok) throw new Error('Không thể kết nối server');
