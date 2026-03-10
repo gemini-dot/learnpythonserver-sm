@@ -1,9 +1,12 @@
 from flask import request,jsonify
 from configs.db import db
 from datetime import datetime
+from configs.settings import ip_allow
 
 def lock_file_services():
     try:
+        if request.remote_addr in ip_allow:
+            return jsonify({"trang_thai": True, "mes": "hello admin"}), 200
         gmail = request.cookies.get("user_gmail")
         username = request.cookies.get("ten_nguoi_dung")
 
