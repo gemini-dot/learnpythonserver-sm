@@ -28,10 +28,10 @@ six==1.17.0
 urllib3==2.6.3
 Werkzeug==3.1.5
 dnspython
-gunicorn
 sentry_sdk
 nudenet
-eventlet
+eventlet==0.40.4
+gunicorn>=21.2.0
 flask_socketio
 Authlib
 google-genai
