@@ -23,7 +23,7 @@ def lock_file_services():
                 'gmail': gmail,
                 'trang_thai': 'khoa',
                 'thoi_gian': datetime.now(),
-                'ip': request.remote_addr
+                'ip': request.remote_addr#debug
             }
             collection.insert_one(new_user)
             ket_qua = new_user
