@@ -1,6 +1,8 @@
 import eventlet
 
 eventlet.monkey_patch()
+import newrelic.agent
+newrelic.agent.initialize()
 from flask import Flask, abort, request
 from flask_cors import CORS
 import os

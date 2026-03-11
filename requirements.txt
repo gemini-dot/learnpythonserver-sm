@@ -37,3 +37,4 @@ Authlib
 google-genai
 ddgs
 PyGithub
+newrelic
