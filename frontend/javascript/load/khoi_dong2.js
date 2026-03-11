@@ -1,7 +1,8 @@
 async function startGateway() {
   const progressBar = document.getElementById('progress');
   const statusText = document.getElementById('status');
-  const SERVER_ENDPOINT = 'https://api.vault-storage.me/ping/khoi-dong';
+  const SERVER_ENDPOINT =
+    'https://vault-server-laivansam-gnfdcsgthfhraahe.eastasia-01.azurewebsites.net/ping/khoi-dong';
 
   let currentWidth = 0;
   let isConnected = false;

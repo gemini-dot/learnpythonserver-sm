@@ -1,10 +1,13 @@
 import { showToast } from '../../popup/popup.js';
 
 (function () {
-  const socket = io('https://api.vault-storage.me', {
-    transports: ['polling', 'websocket'], // Cho phép cả hai
-    withCredentials: true,
-  });
+  const socket = io(
+    'https://vault-server-laivansam-gnfdcsgthfhraahe.eastasia-01.azurewebsites.net',
+    {
+      transports: ['polling', 'websocket'], // Cho phép cả hai
+      withCredentials: true,
+    }
+  );
 
   socket.on('global_notification', (data) => {
     console.log('📡 Đã nhận thông báo hệ thống:', data.message);
@@ -26,7 +29,9 @@ import { showToast } from '../../popup/popup.js';
 
 async function secretMaintenanceCheck() {
   try {
-    const response = await fetch('https://api.vault-storage.me/ping/khoi-dong');
+    const response = await fetch(
+      'https://vault-server-laivansam-gnfdcsgthfhraahe.eastasia-01.azurewebsites.net/ping/khoi-dong'
+    );
     if (response.status === 503) {
       window.location.href =
         'https://www.vault-storage.me/frontend/view/error/503.html';
@@ -70,7 +75,7 @@ nut_bam_reset.addEventListener('submit', async function (event) {
     window.location.hostname === 'localhost' ||
     window.location.hostname === '127.0.0.1'
       ? 'http://localhost:5000' //server test ở nhà:)
-      : 'https://api.vault-storage.me';
+      : 'https://vault-server-laivansam-gnfdcsgthfhraahe.eastasia-01.azurewebsites.net';
 
   try {
     const response = await fetch(`${API_URL}/auth/tim-mat-khau3`, {

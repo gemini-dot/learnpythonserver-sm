@@ -1,8 +1,11 @@
 (function () {
-  const socket = io('https://api.vault-storage.me', {
-    transports: ['polling', 'websocket'], // Cho phép cả hai
-    withCredentials: true,
-  });
+  const socket = io(
+    'https://vault-server-laivansam-gnfdcsgthfhraahe.eastasia-01.azurewebsites.net',
+    {
+      transports: ['polling', 'websocket'], // Cho phép cả hai
+      withCredentials: true,
+    }
+  );
 
   socket.on('global_notification', (data) => {
     console.log('📡 Đã nhận thông báo hệ thống:', data.message);
@@ -30,7 +33,9 @@ if (userName) {
 }
 async function secretMaintenanceCheck() {
   try {
-    const response = await fetch('https://api.vault-storage.me/ping/khoi-dong');
+    const response = await fetch(
+      'https://vault-server-laivansam-gnfdcsgthfhraahe.eastasia-01.azurewebsites.net/ping/khoi-dong'
+    );
     if (response.status === 503) {
       window.location.replace(
         'https://www.vault-storage.me/frontend/view/error/503.html'
@@ -70,7 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
 async function checkAccess() {
   try {
     const response = await fetch(
-      'https://api.vault-storage.me/security/upload',
+      'https://vault-server-laivansam-gnfdcsgthfhraahe.eastasia-01.azurewebsites.net/security/upload',
       {
         method: 'POST',
         credentials: 'include',
@@ -93,10 +98,13 @@ async function checkAccess() {
   }
 }
 function chayLenhQuet() {
-  fetch('https://api.vault-storage.me/security/scan_malware', {
-    method: 'GET',
-    credentials: 'include',
-  }).catch((err) =>
+  fetch(
+    'https://vault-server-laivansam-gnfdcsgthfhraahe.eastasia-01.azurewebsites.net/security/scan_malware',
+    {
+      method: 'GET',
+      credentials: 'include',
+    }
+  ).catch((err) =>
     console.log('[LOG]Server nhận lệnh rồi, tui không quan tâm kết quả nha!')
   );
   console.log('[LOG] Đã gửi lệnh thực thi kiểm tra malware');
@@ -560,7 +568,7 @@ async function deleteSelected() {
     const ma_de_xoa = deletedFile.ma_dinh_danh;
     try {
       const response = await fetch(
-        'https://api.vault-storage.me/profile/deletefile_user',
+        'https://vault-server-laivansam-gnfdcsgthfhraahe.eastasia-01.azurewebsites.net/profile/deletefile_user',
         {
           method: 'POST',
           credentials: 'include',
@@ -601,7 +609,7 @@ async function restoreFile() {
 
     try {
       const response = await fetch(
-        'https://api.vault-storage.me/profile/restorefile_user',
+        'https://vault-server-laivansam-gnfdcsgthfhraahe.eastasia-01.azurewebsites.net/profile/restorefile_user',
         {
           method: 'POST',
           credentials: 'include',
@@ -643,7 +651,7 @@ async function permanentDelete() {
 
   try {
     const response = await fetch(
-      'https://api.vault-storage.me/profile/permanent_delete_user',
+      'https://vault-server-laivansam-gnfdcsgthfhraahe.eastasia-01.azurewebsites.net/profile/permanent_delete_user',
       {
         method: 'POST',
         credentials: 'include',
@@ -854,7 +862,7 @@ async function loadFilesFromServer() {
   try {
     // 2. Gọi API (THAY ĐỔI URL NÀY THEO SERVER CỦA BẠN)
     const response = await fetch(
-      'https://api.vault-storage.me/upload_sv/upload_get_file',
+      'https://vault-server-laivansam-gnfdcsgthfhraahe.eastasia-01.azurewebsites.net/upload_sv/upload_get_file',
       {
         method: 'GET',
         credentials: 'include', // Gửi cookies (session/auth)
@@ -1175,16 +1183,19 @@ async function downloadCurrentFile() {
 
     try {
       isProcessing = true;
-      fetch('https://api.vault-storage.me/upload_sv/log-download', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        credentials: 'include',
-        body: JSON.stringify({
-          fileId: selectedId,
-          fileName: fileToDownload.name,
-          timestamp: new Date().toISOString(),
-        }),
-      }).catch((err) => console.error('Lỗi ghi log:', err));
+      fetch(
+        'https://vault-server-laivansam-gnfdcsgthfhraahe.eastasia-01.azurewebsites.net/upload_sv/log-download',
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          credentials: 'include',
+          body: JSON.stringify({
+            fileId: selectedId,
+            fileName: fileToDownload.name,
+            timestamp: new Date().toISOString(),
+          }),
+        }
+      ).catch((err) => console.error('Lỗi ghi log:', err));
 
       const response = await fetch(fileToDownload.url);
       if (!response.ok) throw new Error('Không thể kết nối server');

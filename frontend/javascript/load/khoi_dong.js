@@ -17,7 +17,7 @@ const API_URL =
   window.location.hostname === 'localhost' ||
   window.location.hostname === '127.0.0.1'
     ? 'http://localhost:5000'
-    : 'https://api.vault-storage.me';
+    : 'https://vault-server-laivansam-gnfdcsgthfhraahe.eastasia-01.azurewebsites.net';
 
 async function wakeUpServer() {
   try {

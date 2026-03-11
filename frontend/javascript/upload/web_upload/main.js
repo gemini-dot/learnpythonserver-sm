@@ -1,10 +1,13 @@
 import { showToast } from '../../../javascript/popup/popup.js';
 
 (function () {
-  const socket = io('https://api.vault-storage.me', {
-    transports: ['polling', 'websocket'], // Cho phép cả hai
-    withCredentials: true,
-  });
+  const socket = io(
+    'https://vault-server-laivansam-gnfdcsgthfhraahe.eastasia-01.azurewebsites.net',
+    {
+      transports: ['polling', 'websocket'], // Cho phép cả hai
+      withCredentials: true,
+    }
+  );
 
   socket.on('global_notification', (data) => {
     console.log('[LOG] Đã nhận thông báo hệ thống:', data.message);
@@ -32,7 +35,9 @@ if (userName) {
 }
 async function secretMaintenanceCheck() {
   try {
-    const response = await fetch('https://api.vault-storage.me/ping/khoi-dong');
+    const response = await fetch(
+      'https://vault-server-laivansam-gnfdcsgthfhraahe.eastasia-01.azurewebsites.net/ping/khoi-dong'
+    );
     if (response.status === 503) {
       window.location.replace(
         'https://www.vault-storage.me/frontend/view/error/503.html'
@@ -48,7 +53,7 @@ secretMaintenanceCheck();
 async function checkAccess() {
   try {
     const response = await fetch(
-      'https://api.vault-storage.me/security/upload',
+      'https://vault-server-laivansam-gnfdcsgthfhraahe.eastasia-01.azurewebsites.net/security/upload',
       {
         method: 'POST',
         credentials: 'include',
@@ -240,11 +245,14 @@ function uploadFiles() {
     formData.append('files[]', file);
   });
 
-  fetch('https://api.vault-storage.me/upload_sv/upload', {
-    method: 'POST',
-    body: formData,
-    credentials: 'include',
-  })
+  fetch(
+    'https://vault-server-laivansam-gnfdcsgthfhraahe.eastasia-01.azurewebsites.net/upload_sv/upload',
+    {
+      method: 'POST',
+      body: formData,
+      credentials: 'include',
+    }
+  )
     .then((response) => {
       if (response.status === 401) {
         window.location.replace(

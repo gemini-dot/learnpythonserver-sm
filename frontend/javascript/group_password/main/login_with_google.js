@@ -1,5 +1,6 @@
 document.getElementById('google-login-btn').addEventListener('click', () => {
-  window.location.href = 'https://api.vault-storage.me/auth/login_google';
+  window.location.href =
+    'https://vault-server-laivansam-gnfdcsgthfhraahe.eastasia-01.azurewebsites.net/auth/login_google';
 });
 
 window.addEventListener('DOMContentLoaded', async () => {
@@ -15,7 +16,7 @@ window.addEventListener('DOMContentLoaded', async () => {
   async function handleVerifyUID(uidVal, emailVal) {
     try {
       const response = await fetch(
-        'https://api.vault-storage.me/auth/google/verify_uid',
+        'https://vault-server-laivansam-gnfdcsgthfhraahe.eastasia-01.azurewebsites.net/auth/google/verify_uid',
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
