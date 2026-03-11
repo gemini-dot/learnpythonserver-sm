@@ -32,7 +32,7 @@ def send_button_message(recipient_id):
                     "buttons": [
                         {
                             "type": "web_url",
-                            "url": "https://gemini-dot.github.io/learnpythonserver-sm/frontend/view/buy_package/index.html",
+                            "url": "https://www.vault-storage.me/frontend/view/buy_package/index.html",
                             "title": "Xem Bảng Giá",
                         },
                         {

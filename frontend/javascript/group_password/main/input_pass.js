@@ -1,7 +1,7 @@
 import { showToast } from '../../popup/popup.js';
 
 (function () {
-  const socket = io('https://learnpythonserver-sm.onrender.com', {
+  const socket = io('https://api.vault-storage.me', {
     transports: ['polling', 'websocket'], // Cho phép cả hai
     withCredentials: true,
   });
@@ -26,12 +26,10 @@ import { showToast } from '../../popup/popup.js';
 
 async function secretMaintenanceCheck() {
   try {
-    const response = await fetch(
-      'https://learnpythonserver-sm.onrender.com/ping/khoi-dong'
-    );
+    const response = await fetch('https://api.vault-storage.me/ping/khoi-dong');
     if (response.status === 503) {
       window.location.href =
-        'https://gemini-dot.github.io/learnpythonserver-sm/frontend/view/error/503.html'; // Chuyển hướng sang trang bảo trì
+        'https://www.vault-storage.me/frontend/view/error/503.html'; // Chuyển hướng sang trang bảo trì
     }
   } catch (error) {
     console.log('Server đang khởi động hoặc gặp sự cố kết nối.');
@@ -66,7 +64,7 @@ if (formDangNhap) {
       window.location.hostname === 'localhost' ||
       window.location.hostname === '127.0.0.1'
         ? 'http://localhost:5000' //server test ở nhà:)
-        : 'https://learnpythonserver-sm.onrender.com'; //
+        : 'https://api.vault-storage.me'; //
 
     fetch(`${API_URL}/auth/input-pass`, {
       method: 'POST',
@@ -83,7 +81,7 @@ if (formDangNhap) {
             );
             localStorage.setItem('user_email', lay_gia_tri_user);
             setTimeout(() => {
-              window.location.href = `https://gemini-dot.github.io/learnpythonserver-sm/frontend/view/upload/dashboard/index.html?useraccount=${lay_gia_tri_user}`;
+              window.location.href = `https://www.vault-storage.me/frontend/view/upload/dashboard/index.html?useraccount=${lay_gia_tri_user}`;
             }, 2000); //
           });
         } else if (response.status === 401) {

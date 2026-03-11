@@ -1,7 +1,7 @@
 import { showToast } from '../../../javascript/popup/popup.js';
 
 (function () {
-  const socket = io('https://learnpythonserver-sm.onrender.com', {
+  const socket = io('https://api.vault-storage.me', {
     transports: ['polling', 'websocket'], // Cho phép cả hai
     withCredentials: true,
   });
@@ -32,12 +32,10 @@ if (userName) {
 }
 async function secretMaintenanceCheck() {
   try {
-    const response = await fetch(
-      'https://learnpythonserver-sm.onrender.com/ping/khoi-dong'
-    );
+    const response = await fetch('https://api.vault-storage.me/ping/khoi-dong');
     if (response.status === 503) {
       window.location.replace(
-        'https://gemini-dot.github.io/learnpythonserver-sm/frontend/view/error/503.html'
+        'https://www.vault-storage.me/frontend/view/error/503.html'
       ); // Chuyển hướng sang trang bảo trì
     }
   } catch (error) {
@@ -50,7 +48,7 @@ secretMaintenanceCheck();
 async function checkAccess() {
   try {
     const response = await fetch(
-      'https://learnpythonserver-sm.onrender.com/security/upload',
+      'https://api.vault-storage.me/security/upload',
       {
         method: 'POST',
         credentials: 'include',
@@ -63,12 +61,12 @@ async function checkAccess() {
       showToast('success', 'thành công! Chào mừng bạn quay trở lại.');
     } else {
       window.location.replace(
-        'https://gemini-dot.github.io/learnpythonserver-sm/frontend/view/error/401.html'
+        'https://www.vault-storage.me/frontend/view/error/401.html'
       );
     }
   } catch (error) {
     window.location.replace(
-      'https://gemini-dot.github.io/learnpythonserver-sm/frontend/view/error/500.html'
+      'https://www.vault-storage.me/frontend/view/error/500.html'
     );
   }
 }
@@ -242,7 +240,7 @@ function uploadFiles() {
     formData.append('files[]', file);
   });
 
-  fetch('https://learnpythonserver-sm.onrender.com/upload_sv/upload', {
+  fetch('https://api.vault-storage.me/upload_sv/upload', {
     method: 'POST',
     body: formData,
     credentials: 'include',
@@ -250,7 +248,7 @@ function uploadFiles() {
     .then((response) => {
       if (response.status === 401) {
         window.location.replace(
-          'https://gemini-dot.github.io/learnpythonserver-sm/frontend/view/error/401.html'
+          'https://www.vault-storage.me/frontend/view/error/401.html'
         );
         return;
       }

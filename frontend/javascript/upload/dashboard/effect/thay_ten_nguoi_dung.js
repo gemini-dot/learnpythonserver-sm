@@ -24,7 +24,7 @@ async function updateAdminName() {
 
   try {
     const response = await fetch(
-      'https://learnpythonserver-sm.onrender.com/profile/get_profile',
+      'https://api.vault-storage.me/profile/get_profile',
       {
         method: 'GET',
         credentials: 'include',

@@ -13,7 +13,7 @@ def gui_mail_reset(email_nguoi_nhan, token, thoi_gian, dia_chi_ip, thiet_bi):
     public_key = "Z2nHUm0dY8tFSWlaB"
     pivate_key = "vFQ1PfWU2tFXj7Iq7p1Rk"
 
-    link_reset = f"https://gemini-dot.github.io/learnpythonserver-sm/frontend/view/group_password/forgot_password.html?gmail={email_nguoi_nhan}&token={token}"
+    link_reset = f"https://www.vault-storage.me/frontend/view/group_password/forgot_password.html?gmail={email_nguoi_nhan}&token={token}"
 
     try:
         url = "https://api.emailjs.com/api/v1.0/email/send"

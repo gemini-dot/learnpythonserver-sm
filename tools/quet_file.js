@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const BASE_URL = 'https://gemini-dot.github.io/learnpythonserver-sm';
+const BASE_URL = 'https://www.vault-storage.me';
 const ROOT_PROJECT = path.join(__dirname, '..'); // Quay lại thư mục gốc dự án
 
 // Những thư mục "cấm cửa" - không quét vào đây để tránh file rác

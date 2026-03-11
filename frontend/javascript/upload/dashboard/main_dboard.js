@@ -1,5 +1,5 @@
 (function () {
-  const socket = io('https://learnpythonserver-sm.onrender.com', {
+  const socket = io('https://api.vault-storage.me', {
     transports: ['polling', 'websocket'], // Cho phép cả hai
     withCredentials: true,
   });
@@ -30,12 +30,10 @@ if (userName) {
 }
 async function secretMaintenanceCheck() {
   try {
-    const response = await fetch(
-      'https://learnpythonserver-sm.onrender.com/ping/khoi-dong'
-    );
+    const response = await fetch('https://api.vault-storage.me/ping/khoi-dong');
     if (response.status === 503) {
       window.location.replace(
-        'https://gemini-dot.github.io/learnpythonserver-sm/frontend/view/error/503.html'
+        'https://www.vault-storage.me/frontend/view/error/503.html'
       );
     }
   } catch (error) {
@@ -72,7 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
 async function checkAccess() {
   try {
     const response = await fetch(
-      'https://learnpythonserver-sm.onrender.com/security/upload',
+      'https://api.vault-storage.me/security/upload',
       {
         method: 'POST',
         credentials: 'include',
@@ -85,17 +83,17 @@ async function checkAccess() {
       toast('thành công! Chào mừng bạn quay trở lại.');
     } else {
       window.location.replace(
-        'https://gemini-dot.github.io/learnpythonserver-sm/frontend/view/error/401.html'
+        'https://www.vault-storage.me/frontend/view/error/401.html'
       );
     }
   } catch (error) {
     window.location.replace(
-      'https://gemini-dot.github.io/learnpythonserver-sm/frontend/view/error/500.html'
+      'https://www.vault-storage.me/frontend/view/error/500.html'
     );
   }
 }
 function chayLenhQuet() {
-  fetch('https://learnpythonserver-sm.onrender.com/security/scan_malware', {
+  fetch('https://api.vault-storage.me/security/scan_malware', {
     method: 'GET',
     credentials: 'include',
   }).catch((err) =>
@@ -562,7 +560,7 @@ async function deleteSelected() {
     const ma_de_xoa = deletedFile.ma_dinh_danh;
     try {
       const response = await fetch(
-        'https://learnpythonserver-sm.onrender.com/profile/deletefile_user',
+        'https://api.vault-storage.me/profile/deletefile_user',
         {
           method: 'POST',
           credentials: 'include',
@@ -603,7 +601,7 @@ async function restoreFile() {
 
     try {
       const response = await fetch(
-        'https://learnpythonserver-sm.onrender.com/profile/restorefile_user',
+        'https://api.vault-storage.me/profile/restorefile_user',
         {
           method: 'POST',
           credentials: 'include',
@@ -645,7 +643,7 @@ async function permanentDelete() {
 
   try {
     const response = await fetch(
-      'https://learnpythonserver-sm.onrender.com/profile/permanent_delete_user',
+      'https://api.vault-storage.me/profile/permanent_delete_user',
       {
         method: 'POST',
         credentials: 'include',
@@ -856,7 +854,7 @@ async function loadFilesFromServer() {
   try {
     // 2. Gọi API (THAY ĐỔI URL NÀY THEO SERVER CỦA BẠN)
     const response = await fetch(
-      'https://learnpythonserver-sm.onrender.com/upload_sv/upload_get_file',
+      'https://api.vault-storage.me/upload_sv/upload_get_file',
       {
         method: 'GET',
         credentials: 'include', // Gửi cookies (session/auth)
@@ -876,7 +874,7 @@ async function loadFilesFromServer() {
         toast('Phiên đăng nhập hết hạn');
         setTimeout(() => {
           window.location.href =
-            'https://gemini-dot.github.io/learnpythonserver-sm/frontend/view/error/401.html';
+            'https://www.vault-storage.me/frontend/view/error/401.html';
         }, 1500);
         return;
       }
@@ -1177,19 +1175,16 @@ async function downloadCurrentFile() {
 
     try {
       isProcessing = true;
-      fetch(
-        'https://learnpythonserver-sm.onrender.com/upload_sv/log-download',
-        {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          credentials: 'include',
-          body: JSON.stringify({
-            fileId: selectedId,
-            fileName: fileToDownload.name,
-            timestamp: new Date().toISOString(),
-          }),
-        }
-      ).catch((err) => console.error('Lỗi ghi log:', err));
+      fetch('https://api.vault-storage.me/upload_sv/log-download', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({
+          fileId: selectedId,
+          fileName: fileToDownload.name,
+          timestamp: new Date().toISOString(),
+        }),
+      }).catch((err) => console.error('Lỗi ghi log:', err));
 
       const response = await fetch(fileToDownload.url);
       if (!response.ok) throw new Error('Không thể kết nối server');

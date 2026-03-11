@@ -13,9 +13,9 @@ def kiem_tra_goole(dulieu):
     ket_qua = kiem_tra_db(full_name, email, avatar, sid)
     if ket_qua.get("trang_thai") == True:
         return redirect(
-            f"https://gemini-dot.github.io/learnpythonserver-sm/frontend/view/group_password/input_pass.html?sid={sid}&gmail={email}"
+            f"https://www.vault-storage.me/frontend/view/group_password/input_pass.html?sid={sid}&gmail={email}"
         )
 
     return redirect(
-        "https://gemini-dot.github.io/learnpythonserver-sm/frontend/view/error/500.html"
+        "https://www.vault-storage.me/frontend/view/error/500.html"
     )

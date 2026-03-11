@@ -1,8 +1,7 @@
 async function startGateway() {
   const progressBar = document.getElementById('progress');
   const statusText = document.getElementById('status');
-  const SERVER_ENDPOINT =
-    'https://learnpythonserver-sm.onrender.com/ping/khoi-dong';
+  const SERVER_ENDPOINT = 'https://api.vault-storage.me/ping/khoi-dong';
 
   let currentWidth = 0;
   let isConnected = false;
@@ -38,7 +37,7 @@ async function startGateway() {
           setTimeout(() => {
             document.body.classList.add('fade-exit');
             window.location.href =
-              'https://gemini-dot.github.io/learnpythonserver-sm/frontend/view/group_password/input_pass.html'; // Hoặc trang og muốn
+              'https://www.vault-storage.me/frontend/view/group_password/input_pass.html'; // Hoặc trang og muốn
           }, 1000);
         }
       }

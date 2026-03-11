@@ -1,6 +1,5 @@
 document.getElementById('google-login-btn').addEventListener('click', () => {
-  window.location.href =
-    'https://learnpythonserver-sm.onrender.com/auth/login_google';
+  window.location.href = 'https://api.vault-storage.me/auth/login_google';
 });
 
 window.addEventListener('DOMContentLoaded', async () => {
@@ -16,7 +15,7 @@ window.addEventListener('DOMContentLoaded', async () => {
   async function handleVerifyUID(uidVal, emailVal) {
     try {
       const response = await fetch(
-        'https://learnpythonserver-sm.onrender.com/auth/google/verify_uid',
+        'https://api.vault-storage.me/auth/google/verify_uid',
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -32,11 +31,11 @@ window.addEventListener('DOMContentLoaded', async () => {
       if (response.status === 200 && data.trang_thai) {
         alert(data.mes);
         window.location.href =
-          'https://gemini-dot.github.io/learnpythonserver-sm/frontend/view/upload/dashboard/index.html';
+          'https://www.vault-storage.me/frontend/view/upload/dashboard/index.html';
       } else {
         alert('Lỗi: ' + data.mes);
         window.location.href =
-          'https://gemini-dot.github.io/learnpythonserver-sm/frontend/view/group_password/input_pass.html';
+          'https://www.vault-storage.me/frontend/view/group_password/input_pass.html';
       }
     } catch (error) {
       console.error('Lỗi kết nối:', error);

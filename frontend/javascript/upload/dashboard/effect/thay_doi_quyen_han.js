@@ -1,5 +1,5 @@
 async function fetchUserPower() {
-  const API_URL = 'https://learnpythonserver-sm.onrender.com/profile/get_power';
+  const API_URL = 'https://api.vault-storage.me/profile/get_power';
 
   try {
     const response = await fetch(API_URL, {

@@ -1,7 +1,7 @@
 import { showToast } from '../../popup/popup.js';
 
 (function () {
-  const socket = io('https://learnpythonserver-sm.onrender.com', {
+  const socket = io('https://api.vault-storage.me', {
     transports: ['polling', 'websocket'], // Cho phép cả hai
     withCredentials: true,
   });
@@ -26,12 +26,10 @@ import { showToast } from '../../popup/popup.js';
 
 async function secretMaintenanceCheck() {
   try {
-    const response = await fetch(
-      'https://learnpythonserver-sm.onrender.com/ping/khoi-dong'
-    );
+    const response = await fetch('https://api.vault-storage.me/ping/khoi-dong');
     if (response.status === 503) {
       window.location.href =
-        'https://gemini-dot.github.io/learnpythonserver-sm/frontend/view/error/503.html';
+        'https://www.vault-storage.me/frontend/view/error/503.html';
     }
   } catch (error) {
     console.log('Server đang khởi động hoặc gặp sự cố kết nối.');
@@ -66,7 +64,7 @@ form.addEventListener('submit', async function (event) {
     window.location.hostname === 'localhost' ||
     window.location.hostname === '127.0.0.1'
       ? 'http://localhost:5000' //server test ở nhà:)
-      : 'https://learnpythonserver-sm.onrender.com';
+      : 'https://api.vault-storage.me';
 
   try {
     const response = await fetch(`${API_URL}/auth/tim-mat-khau1`, {
