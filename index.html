@@ -1,13 +1,1305 @@
 <!doctype html>
-<html lang="en">
+<html lang="vi">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dieu huong</title>
-    <meta
-      http-equiv="refresh"
-      content="0; url=frontend\view\load\khoi_dong2.html"
+    <title>VAULT - Cloud Storage Platform | Lưu trữ đám mây an toàn</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Instrument+Serif:ital@0;1&family=Manrope:wght@300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
     />
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="https://res.cloudinary.com/dshgtuy8f/image/upload/v1771402917/main_logo_2_bkgj5f.png"
+    />
+    <style>
+      /* ═══ DESIGN SYSTEM ═══ */
+      :root {
+        --bg: #f5f5f3;
+        --surface: #ffffff;
+        --border: #e0e0de;
+        --border-dark: #c0c0be;
+        --ink: #0a0a0a;
+        --ink-2: #333332;
+        --ink-3: #666664;
+        --ink-4: #999997;
+        --accent: #0a0a0a;
+        --transition: 0.38s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: 'Manrope', sans-serif;
+        background: var(--bg);
+        color: var(--ink);
+        -webkit-font-smoothing: antialiased;
+        overflow-x: hidden;
+      }
+
+      /* ═══ NAVBAR ═══ */
+      .navbar {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid var(--border);
+      }
+
+      .nav-container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 40px;
+        height: 72px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 40px;
+      }
+
+      .nav-logo {
+        font-family: 'Instrument Serif', serif;
+        font-size: 26px;
+        letter-spacing: -0.02em;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: var(--ink);
+        text-decoration: none;
+        flex-shrink: 0;
+      }
+
+      .nav-logo-icon {
+        width: 36px;
+        height: 36px;
+        /* background: var(--ink); <- Og nên comment hoặc xóa dòng này nếu logo đã có nền riêng */
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden; /* Để bo góc bám theo border-radius của div cha */
+      }
+
+      .nav-logo-icon img {
+        width: 100%; /* Ảnh rộng bằng khung cha */
+        height: 100%; /* Ảnh cao bằng khung cha */
+        object-fit: cover; /* Hoặc 'contain' nếu og muốn giữ nguyên tỉ lệ logo không bị mất góc */
+      }
+
+      .nav-search {
+        flex: 1;
+        max-width: 500px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 10px 20px;
+        background: var(--bg);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        transition: all 0.2s;
+      }
+
+      .nav-search:focus-within {
+        border-color: var(--ink-3);
+        box-shadow: 0 0 0 3px rgba(10, 10, 10, 0.08);
+      }
+
+      .nav-search svg {
+        width: 18px;
+        height: 18px;
+        stroke: var(--ink-4);
+        flex-shrink: 0;
+      }
+
+      .nav-search input {
+        border: none;
+        outline: none;
+        background: transparent;
+        font-family: 'DM Mono', monospace;
+        font-size: 14px;
+        color: var(--ink);
+        width: 100%;
+      }
+
+      .nav-search input::placeholder {
+        color: var(--ink-4);
+      }
+
+      .nav-actions {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex-shrink: 0;
+      }
+
+      .btn {
+        padding: 10px 24px;
+        border-radius: 10px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        border: none;
+        font-family: inherit;
+        transition: all var(--transition);
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        text-decoration: none;
+        white-space: nowrap;
+      }
+
+      .btn svg {
+        width: 16px;
+        height: 16px;
+        stroke-width: 2.5;
+      }
+
+      .btn-ghost {
+        background: transparent;
+        color: var(--ink-2);
+        border: 1px solid transparent;
+      }
+
+      .btn-ghost:hover {
+        background: var(--bg);
+        color: var(--ink);
+        border-color: var(--border);
+      }
+
+      .btn-primary {
+        background: var(--ink);
+        color: var(--surface);
+      }
+
+      .btn-primary:hover {
+        background: var(--ink-2);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+      }
+
+      /* ═══ HERO SECTION ═══ */
+      .hero {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 120px 40px 80px;
+        text-align: center;
+      }
+
+      .hero-tag {
+        display: inline-block;
+        padding: 6px 16px;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 99px;
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--ink-3);
+        margin-bottom: 24px;
+        animation: fadeInUp 0.6s ease-out 0.1s backwards;
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .hero-title {
+        font-size: clamp(48px, 8vw, 80px);
+        font-weight: 900;
+        line-height: 1.1;
+        letter-spacing: -0.03em;
+        margin-bottom: 24px;
+        animation: fadeInUp 0.6s ease-out 0.2s backwards;
+      }
+
+      .hero-title .gradient-text {
+        background: linear-gradient(135deg, var(--ink) 0%, var(--ink-3) 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .hero-subtitle {
+        font-size: 20px;
+        color: var(--ink-3);
+        max-width: 700px;
+        margin: 0 auto 40px;
+        line-height: 1.6;
+        animation: fadeInUp 0.6s ease-out 0.3s backwards;
+      }
+
+      .hero-actions {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 16px;
+        margin-bottom: 60px;
+        animation: fadeInUp 0.6s ease-out 0.4s backwards;
+        flex-wrap: wrap;
+      }
+
+      .btn-large {
+        padding: 16px 32px;
+        font-size: 16px;
+        border-radius: 12px;
+      }
+
+      .hero-stats {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 48px;
+        padding: 32px;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 20px;
+        margin: 0 auto;
+        max-width: 800px;
+        animation: fadeInUp 0.6s ease-out 0.5s backwards;
+        flex-wrap: wrap;
+      }
+
+      .hero-stat {
+        text-align: center;
+      }
+
+      .hero-stat-value {
+        font-size: 36px;
+        font-weight: 900;
+        font-family: 'DM Mono', monospace;
+        line-height: 1;
+        margin-bottom: 8px;
+      }
+
+      .hero-stat-label {
+        font-size: 13px;
+        color: var(--ink-4);
+        font-weight: 600;
+      }
+
+      /* ═══ FEATURES SECTION ═══ */
+      .features {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 80px 40px;
+      }
+
+      .section-header {
+        text-align: center;
+        margin-bottom: 64px;
+      }
+
+      .section-tag {
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--ink-4);
+        margin-bottom: 16px;
+        font-family: 'DM Mono', monospace;
+      }
+
+      .section-title {
+        font-size: 48px;
+        font-weight: 900;
+        line-height: 1.2;
+        letter-spacing: -0.02em;
+        margin-bottom: 16px;
+      }
+
+      .section-subtitle {
+        font-size: 18px;
+        color: var(--ink-3);
+        max-width: 600px;
+        margin: 0 auto;
+      }
+
+      .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+        gap: 32px;
+      }
+
+      .feature-card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 20px;
+        padding: 40px;
+        transition: all var(--transition);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .feature-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: linear-gradient(90deg, var(--ink) 0%, var(--ink-3) 100%);
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform var(--transition);
+      }
+
+      .feature-card:hover {
+        border-color: var(--border-dark);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+        transform: translateY(-4px);
+      }
+
+      .feature-card:hover::before {
+        transform: scaleX(1);
+      }
+
+      .feature-icon {
+        width: 64px;
+        height: 64px;
+        border-radius: 16px;
+        background: var(--bg);
+        border: 1px solid var(--border);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 24px;
+        transition: all var(--transition);
+      }
+
+      .feature-card:hover .feature-icon {
+        background: var(--ink);
+        border-color: var(--ink);
+        transform: scale(1.1) rotate(-5deg);
+      }
+
+      .feature-icon svg {
+        width: 32px;
+        height: 32px;
+        stroke: var(--ink-2);
+        stroke-width: 2;
+        transition: stroke 0.3s;
+      }
+
+      .feature-card:hover .feature-icon svg {
+        stroke: var(--surface);
+      }
+
+      .feature-title {
+        font-size: 22px;
+        font-weight: 800;
+        margin-bottom: 12px;
+        line-height: 1.3;
+      }
+
+      .feature-description {
+        font-size: 15px;
+        color: var(--ink-3);
+        line-height: 1.7;
+      }
+
+      /* ═══ HOW IT WORKS ═══ */
+      .how-it-works {
+        background: var(--surface);
+        border-top: 1px solid var(--border);
+        border-bottom: 1px solid var(--border);
+        padding: 80px 40px;
+      }
+
+      .steps {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 40px;
+      }
+
+      .step {
+        text-align: center;
+        position: relative;
+      }
+
+      .step::after {
+        content: '→';
+        position: absolute;
+        top: 48px;
+        right: -20px;
+        font-size: 32px;
+        color: var(--border-dark);
+        font-weight: 300;
+      }
+
+      .step:last-child::after {
+        display: none;
+      }
+
+      .step-number {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        background: var(--bg);
+        border: 2px solid var(--border);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 32px;
+        font-weight: 900;
+        font-family: 'DM Mono', monospace;
+        margin: 0 auto 24px;
+        transition: all var(--transition);
+      }
+
+      .step:hover .step-number {
+        background: var(--ink);
+        color: var(--surface);
+        border-color: var(--ink);
+        transform: scale(1.1);
+      }
+
+      .step-title {
+        font-size: 20px;
+        font-weight: 700;
+        margin-bottom: 12px;
+      }
+
+      .step-description {
+        font-size: 14px;
+        color: var(--ink-3);
+        line-height: 1.6;
+      }
+
+      /* ═══ PRICING ═══ */
+      .pricing {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 80px 40px;
+      }
+
+      .pricing-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 32px;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .price-card {
+        background: var(--surface);
+        border: 2px solid var(--border);
+        border-radius: 24px;
+        padding: 40px;
+        transition: all var(--transition);
+        position: relative;
+      }
+
+      .price-card.featured {
+        border-color: var(--ink);
+        box-shadow: 0 12px 48px rgba(0, 0, 0, 0.12);
+        transform: scale(1.05);
+      }
+
+      .price-card.featured::before {
+        content: 'POPULAR';
+        position: absolute;
+        top: -12px;
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 4px 16px;
+        background: var(--ink);
+        color: var(--surface);
+        border-radius: 99px;
+        font-size: 11px;
+        font-weight: 800;
+        font-family: 'DM Mono', monospace;
+        letter-spacing: 0.05em;
+      }
+
+      .price-card:hover {
+        border-color: var(--ink-3);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        transform: translateY(-4px);
+      }
+
+      .price-card.featured:hover {
+        transform: scale(1.05) translateY(-4px);
+      }
+
+      .price-plan {
+        font-size: 16px;
+        font-weight: 700;
+        color: var(--ink-3);
+        margin-bottom: 16px;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+
+      .price-amount {
+        font-size: 56px;
+        font-weight: 900;
+        font-family: 'DM Mono', monospace;
+        line-height: 1;
+        margin-bottom: 8px;
+      }
+
+      .price-amount span {
+        font-size: 24px;
+        color: var(--ink-3);
+      }
+
+      .price-period {
+        font-size: 14px;
+        color: var(--ink-4);
+        margin-bottom: 32px;
+      }
+
+      .price-features {
+        list-style: none;
+        margin-bottom: 32px;
+      }
+
+      .price-feature {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 12px 0;
+        font-size: 14px;
+        color: var(--ink-2);
+      }
+
+      .price-feature svg {
+        width: 20px;
+        height: 20px;
+        stroke: var(--ink);
+        stroke-width: 2.5;
+        flex-shrink: 0;
+      }
+
+      /* ═══ FOOTER ═══ */
+      .footer {
+        background: var(--surface);
+        border-top: 1px solid var(--border);
+        padding: 60px 40px 40px;
+      }
+
+      .footer-container {
+        max-width: 1400px;
+        margin: 0 auto;
+      }
+
+      .footer-grid {
+        display: grid;
+        grid-template-columns: 2fr repeat(3, 1fr);
+        gap: 48px;
+        margin-bottom: 48px;
+      }
+
+      .footer-brand {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      .footer-logo {
+        font-family: 'Instrument Serif', serif;
+        font-size: 24px;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .footer-logo-icon {
+        width: 36px;
+        height: 36px;
+        /* background: var(--ink); <- Og nên comment hoặc xóa dòng này nếu logo đã có nền riêng */
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden; /* Để bo góc bám theo border-radius của div cha */
+      }
+
+      .footer-logo-icon img {
+        width: 100%; /* Ảnh rộng bằng khung cha */
+        height: 100%; /* Ảnh cao bằng khung cha */
+        object-fit: cover; /* Hoặc 'contain' nếu og muốn giữ nguyên tỉ lệ logo không bị mất góc */
+      }
+
+      .footer-description {
+        font-size: 14px;
+        color: var(--ink-3);
+        line-height: 1.6;
+      }
+
+      .footer-column h4 {
+        font-size: 14px;
+        font-weight: 700;
+        margin-bottom: 16px;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+
+      .footer-links {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .footer-links a {
+        color: var(--ink-3);
+        text-decoration: none;
+        font-size: 14px;
+        transition: color 0.2s;
+      }
+
+      .footer-links a:hover {
+        color: var(--ink);
+      }
+
+      .footer-bottom {
+        padding-top: 32px;
+        border-top: 1px solid var(--border);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 13px;
+        color: var(--ink-4);
+      }
+
+      .footer-socials {
+        display: flex;
+        gap: 16px;
+      }
+
+      .footer-socials a {
+        width: 36px;
+        height: 36px;
+        border-radius: 8px;
+        background: var(--bg);
+        border: 1px solid var(--border);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.2s;
+      }
+
+      .footer-socials a:hover {
+        background: var(--ink);
+        border-color: var(--ink);
+      }
+
+      .footer-socials svg {
+        width: 18px;
+        height: 18px;
+        stroke: var(--ink-2);
+        transition: stroke 0.2s;
+      }
+
+      .footer-socials a:hover svg {
+        stroke: var(--surface);
+      }
+
+      /* ═══ RESPONSIVE ═══ */
+      @media (max-width: 968px) {
+        .nav-container {
+          padding: 0 24px;
+          height: 64px;
+        }
+
+        .nav-search {
+          display: none;
+        }
+
+        .hero {
+          padding: 80px 24px 60px;
+        }
+
+        .hero-title {
+          font-size: 40px;
+        }
+
+        .hero-stats {
+          gap: 24px;
+        }
+
+        .features,
+        .pricing {
+          padding: 60px 24px;
+        }
+
+        .section-title {
+          font-size: 36px;
+        }
+
+        .footer-grid {
+          grid-template-columns: 1fr;
+          gap: 32px;
+        }
+
+        .footer-bottom {
+          flex-direction: column;
+          gap: 24px;
+        }
+
+        .step::after {
+          display: none;
+        }
+      }
+
+      /* ═══ SCROLL ANIMATIONS ═══ */
+      .scroll-fade {
+        opacity: 0;
+        transform: translateY(30px);
+        transition:
+          opacity 0.6s ease-out,
+          transform 0.6s ease-out;
+      }
+
+      .scroll-fade.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    </style>
   </head>
-  <body></body>
+  <body>
+    <!-- NAVBAR -->
+    <nav class="navbar">
+      <div class="nav-container">
+        <a href="#" class="nav-logo">
+          <div class="nav-logo-icon">
+            <img
+              src="https://res.cloudinary.com/dshgtuy8f/image/upload/v1771402917/main_logo_2_bkgj5f.png"
+              alt="logo"
+            />
+          </div>
+          <span>VAULT</span>
+        </a>
+
+        <!-- Search -->
+        <div class="nav-search">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <circle cx="11" cy="11" r="8" />
+            <line x1="21" y1="21" x2="16.65" y2="16.65" />
+          </svg>
+          <input
+            type="text"
+            placeholder="Tìm kiếm tính năng, hướng dẫn, bảng giá..."
+          />
+        </div>
+
+        <!-- Actions -->
+        <div class="nav-actions">
+          <a href="#pricing" class="btn btn-ghost">Bảng giá</a>
+          <a
+            href="https://www.vault-storage.me/frontend/view/group_password/input_pass.html"
+            class="btn btn-ghost"
+            >Đăng nhập</a
+          >
+          <a
+            href="https://www.vault-storage.me/frontend/view/group_password/create_a_password.html"
+            class="btn btn-primary"
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+              <circle cx="8.5" cy="7" r="4" />
+              <line x1="20" y1="8" x2="20" y2="14" />
+              <line x1="23" y1="11" x2="17" y2="11" />
+            </svg>
+            Đăng ký miễn phí
+          </a>
+        </div>
+      </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+      <div class="hero-tag">🚀 Lưu trữ đám mây thế hệ mới</div>
+
+      <h1 class="hero-title">
+        Lưu trữ mọi thứ,<br />
+        <span class="gradient-text">an toàn và dễ dàng</span>
+      </h1>
+
+      <p class="hero-subtitle">
+        VAULT cung cấp giải pháp lưu trữ đám mây mạnh mẽ với bảo mật AES-256,
+        chia sẻ nhanh chóng, và truy cập mọi lúc mọi nơi. Bắt đầu miễn phí với
+        10GB ngay hôm nay.
+      </p>
+
+      <div class="hero-actions">
+        <a
+          href="https://www.vault-storage.me/frontend/view/group_password/input_pass.html"
+          class="btn btn-primary btn-large"
+        >
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+            <polyline points="17 8 12 3 7 8" />
+            <line x1="12" y1="3" x2="12" y2="15" />
+          </svg>
+          Bắt đầu miễn phí
+        </a>
+        <a href="#features" class="btn btn-ghost btn-large"> Tìm hiểu thêm </a>
+      </div>
+
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <div class="hero-stat-value">1M+</div>
+          <div class="hero-stat-label">Người dùng</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-value">500TB</div>
+          <div class="hero-stat-label">Dữ liệu lưu trữ</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-value">99.9%</div>
+          <div class="hero-stat-label">Uptime</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FEATURES SECTION -->
+    <section id="features" class="features scroll-fade">
+      <div class="section-header">
+        <div class="section-tag">TÍNH NĂNG</div>
+        <h2 class="section-title">Mọi thứ bạn cần</h2>
+        <p class="section-subtitle">
+          Công cụ mạnh mẽ để lưu trữ, quản lý và chia sẻ files của bạn
+        </p>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+            </svg>
+          </div>
+          <h3 class="feature-title">Bảo mật cấp quân đội</h3>
+          <p class="feature-description">
+            Mã hóa AES-256 end-to-end. Dữ liệu của bạn chỉ bạn mới có thể truy
+            cập. Xác thực 2 yếu tố và backup tự động.
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+              <polyline points="17 8 12 3 7 8" />
+              <line x1="12" y1="3" x2="12" y2="15" />
+            </svg>
+          </div>
+          <h3 class="feature-title">Upload siêu nhanh</h3>
+          <p class="feature-description">
+            Công nghệ upload song song với tốc độ lên tới 100MB/s. Hỗ trợ kéo
+            thả, upload nhiều files cùng lúc.
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <circle cx="18" cy="5" r="3" />
+              <circle cx="6" cy="12" r="3" />
+              <circle cx="18" cy="19" r="3" />
+              <line x1="8.59" y1="13.51" x2="15.42" y2="17.49" />
+              <line x1="15.41" y1="6.51" x2="8.59" y2="10.49" />
+            </svg>
+          </div>
+          <h3 class="feature-title">Chia sẻ dễ dàng</h3>
+          <p class="feature-description">
+            Tạo link chia sẻ trong 1 click. Đặt mật khẩu, giới hạn thời gian,
+            theo dõi lượt xem và download.
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <rect x="2" y="7" width="20" height="14" rx="2" ry="2" />
+              <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+            </svg>
+          </div>
+          <h3 class="feature-title">Sync mọi thiết bị</h3>
+          <p class="feature-description">
+            Truy cập files từ web, desktop, mobile. Tự động đồng bộ real-time.
+            Offline mode cho desktop app.
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path
+                d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
+              />
+              <polyline points="14 2 14 8 20 8" />
+              <line x1="16" y1="13" x2="8" y2="13" />
+              <line x1="16" y1="17" x2="8" y2="17" />
+              <polyline points="10 9 9 9 8 9" />
+            </svg>
+          </div>
+          <h3 class="feature-title">Preview mọi định dạng</h3>
+          <p class="feature-description">
+            Xem trước hơn 200+ định dạng file ngay trên trình duyệt. PDF, Word,
+            Excel, ảnh, video, code...
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+            </svg>
+          </div>
+          <h3 class="feature-title">Activity Log</h3>
+          <p class="feature-description">
+            Theo dõi mọi hoạt động: ai truy cập, khi nào, từ đâu. Audit trail
+            đầy đủ cho doanh nghiệp.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section class="how-it-works scroll-fade">
+      <div class="section-header">
+        <div class="section-tag">CÁCH HOẠT ĐỘNG</div>
+        <h2 class="section-title">Bắt đầu trong 3 bước</h2>
+        <p class="section-subtitle">
+          Đơn giản, nhanh chóng, không cần thẻ tín dụng
+        </p>
+      </div>
+
+      <div class="steps">
+        <div class="step">
+          <div class="step-number">1</div>
+          <h3 class="step-title">Đăng ký tài khoản</h3>
+          <p class="step-description">
+            Tạo tài khoản miễn phí chỉ với email. Nhận ngay 10GB lưu trữ.
+          </p>
+        </div>
+
+        <div class="step">
+          <div class="step-number">2</div>
+          <h3 class="step-title">Upload files</h3>
+          <p class="step-description">
+            Kéo thả hoặc chọn files từ máy tính. Hỗ trợ mọi định dạng.
+          </p>
+        </div>
+
+        <div class="step">
+          <div class="step-number">3</div>
+          <h3 class="step-title">Chia sẻ & truy cập</h3>
+          <p class="step-description">
+            Tạo link chia sẻ hoặc truy cập từ mọi thiết bị. Đơn giản như vậy!
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRICING -->
+    <section id="pricing" class="pricing scroll-fade">
+      <div class="section-header">
+        <div class="section-tag">BẢNG GIÁ</div>
+        <h2 class="section-title">Chọn gói phù hợp với bạn</h2>
+        <p class="section-subtitle">Linh hoạt, minh bạch, không ràng buộc</p>
+      </div>
+
+      <div class="pricing-grid">
+        <!-- FREE -->
+        <div class="price-card">
+          <div class="price-plan">Free</div>
+          <div class="price-amount">0đ</div>
+          <div class="price-period">Miễn phí mãi mãi</div>
+
+          <ul class="price-features">
+            <li class="price-feature">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+              10 GB lưu trữ
+            </li>
+            <li class="price-feature">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+              Max 100 MB/file
+            </li>
+            <li class="price-feature">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+              Upload cơ bản
+            </li>
+            <li class="price-feature">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+              Chia sẻ công khai
+            </li>
+          </ul>
+
+          <a
+            href="/signup.html"
+            class="btn btn-ghost"
+            style="width: 100%; justify-content: center"
+          >
+            Bắt đầu miễn phí
+          </a>
+        </div>
+
+        <!-- PRO (FEATURED) -->
+        <div class="price-card featured">
+          <div class="price-plan">Pro</div>
+          <div class="price-amount">99K<span>/tháng</span></div>
+          <div class="price-period">Thanh toán hàng tháng</div>
+
+          <ul class="price-features">
+            <li class="price-feature">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+              100 GB lưu trữ
+            </li>
+            <li class="price-feature">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+              Max 5 GB/file
+            </li>
+            <li class="price-feature">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+              Upload ưu tiên
+            </li>
+            <li class="price-feature">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+              Link có mật khẩu
+            </li>
+            <li class="price-feature">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+              Hỗ trợ 24/7
+            </li>
+          </ul>
+
+          <a
+            href="/signup.html?plan=pro"
+            class="btn btn-primary"
+            style="width: 100%; justify-content: center"
+          >
+            Nâng cấp lên Pro
+          </a>
+        </div>
+
+        <!-- BUSINESS -->
+        <div class="price-card">
+          <div class="price-plan">Business</div>
+          <div class="price-amount">299K<span>/tháng</span></div>
+          <div class="price-period">Thanh toán hàng tháng</div>
+
+          <ul class="price-features">
+            <li class="price-feature">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+              1 TB lưu trữ
+            </li>
+            <li class="price-feature">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+              Không giới hạn kích thước
+            </li>
+            <li class="price-feature">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+              Tất cả tính năng Pro
+            </li>
+            <li class="price-feature">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+              Team collaboration
+            </li>
+            <li class="price-feature">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+              API access
+            </li>
+            <li class="price-feature">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+              Dedicated support
+            </li>
+          </ul>
+
+          <a
+            href="/signup.html?plan=business"
+            class="btn btn-ghost"
+            style="width: 100%; justify-content: center"
+          >
+            Liên hệ tư vấn
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <div class="footer-container">
+        <div class="footer-grid">
+          <div class="footer-brand">
+            <div class="footer-logo">
+              <div class="footer-logo-icon">
+                <img
+                  src="https://res.cloudinary.com/dshgtuy8f/image/upload/v1771402917/main_logo_2_bkgj5f.png"
+                  alt="logo"
+                />
+              </div>
+              <span>VAULT</span>
+            </div>
+            <p class="footer-description">
+              Giải pháp lưu trữ đám mây an toàn, nhanh chóng và dễ sử dụng. Tin
+              cậy bởi hơn 1 triệu người dùng trên toàn thế giới.
+            </p>
+          </div>
+
+          <div class="footer-column">
+            <h4>Sản phẩm</h4>
+            <ul class="footer-links">
+              <li><a href="#features">Tính năng</a></li>
+              <li><a href="#pricing">Bảng giá</a></li>
+              <li><a href="/desktop">Desktop App</a></li>
+              <li><a href="/mobile">Mobile App</a></li>
+              <li><a href="/api">API</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-column">
+            <h4>Công ty</h4>
+            <ul class="footer-links">
+              <li><a href="/about">Về chúng tôi</a></li>
+              <li><a href="/blog">Blog</a></li>
+              <li><a href="/careers">Tuyển dụng</a></li>
+              <li><a href="/press">Báo chí</a></li>
+              <li><a href="/contact">Liên hệ</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-column">
+            <h4>Hỗ trợ</h4>
+            <ul class="footer-links">
+              <li><a href="/help">Trung tâm trợ giúp</a></li>
+              <li><a href="/docs">Tài liệu</a></li>
+              <li><a href="/status">System Status</a></li>
+              <li><a href="/privacy">Chính sách bảo mật</a></li>
+              <li><a href="/terms">Điều khoản dịch vụ</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <div>&copy; 2026 VAULT. All rights reserved.</div>
+          <div class="footer-socials">
+            <a
+              href="https://www.facebook.com/profile.php?id=61588442257734"
+              title="Facebook"
+            >
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path
+                  d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"
+                />
+              </svg>
+            </a>
+            <a href="#" title="Twitter">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path
+                  d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"
+                />
+              </svg>
+            </a>
+            <a href="#" title="LinkedIn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path
+                  d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"
+                />
+                <rect x="2" y="9" width="4" height="12" />
+                <circle cx="4" cy="4" r="2" />
+              </svg>
+            </a>
+            <a href="https://github.com/gemini-dot" title="GitHub">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path
+                  d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"
+                />
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      // ═══ SCROLL ANIMATIONS ═══
+      const observerOptions = {
+        threshold: 0.15,
+        rootMargin: '0px 0px -100px 0px',
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, observerOptions);
+
+      document.querySelectorAll('.scroll-fade').forEach((el) => {
+        observer.observe(el);
+      });
+
+      // ═══ SMOOTH SCROLL ═══
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener('click', function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute('href'));
+          if (target) {
+            target.scrollIntoView({
+              behavior: 'smooth',
+              block: 'start',
+            });
+          }
+        });
+      });
+
+      console.log('[VAULT Landing Page] Loaded');
+    </script>
+  </body>
 </html>
