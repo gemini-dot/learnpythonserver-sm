@@ -355,26 +355,76 @@ function renderFiles() {
   }
 
   // Empty state
+  // Empty state (Cập nhật giao diện trống đẹp mắt)
   if (filtered.length === 0) {
     container.className = '';
-    container.innerHTML = `
-      <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;
-                  gap:12px;padding:60px 24px;text-align:center;opacity:0.5;">
-        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-             stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
-        </svg>
-        <div style="font-size:14px;font-weight:600;color:var(--ink-3);">
-          ${searchQuery.trim() ? `Không tìm thấy "${searchQuery.trim()}"` : 'Không có file nào'}
-        </div>
-        <div style="font-size:12px;color:var(--ink-4);">
-          ${searchQuery.trim() ? 'Thử từ khóa khác hoặc kiểm tra chính tả' : 'Mục này đang trống'}
-        </div>
-      </div>`;
+
+    if (searchQuery.trim()) {
+      // 1. Trạng thái: Tìm kiếm không có kết quả
+      container.innerHTML = `
+        <div style="display:flex;flex-direction:column;align-items:center;justify-content:center; gap:12px;padding:80px 24px;text-align:center;">
+          <div style="width:72px;height:72px;background:rgba(10,10,10,0.04);border-radius:50%;display:flex;align-items:center;justify-content:center;">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--ink-4)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+            </svg>
+          </div>
+          <div style="font-size:15px;font-weight:700;color:var(--ink);font-family:'Manrope',sans-serif;margin-top:8px;">
+            Không tìm thấy "${searchQuery.trim()}"
+          </div>
+          <div style="font-size:13px;color:var(--ink-4);">
+            Hãy thử dùng từ khóa khác hoặc kiểm tra lại lỗi chính tả.
+          </div>
+        </div>`;
+    } else if (activeFilter === 'trash') {
+      // 2. Trạng thái: Thùng rác trống
+      container.innerHTML = `
+        <div style="display:flex;flex-direction:column;align-items:center;justify-content:center; gap:12px;padding:80px 24px;text-align:center;">
+          <div style="width:72px;height:72px;background:rgba(192,48,48,0.08);border-radius:50%;display:flex;align-items:center;justify-content:center;">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c03030" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path>
+            </svg>
+          </div>
+          <div style="font-size:15px;font-weight:700;color:var(--ink);font-family:'Manrope',sans-serif;margin-top:8px;">
+            Thùng rác trống
+          </div>
+          <div style="font-size:13px;color:var(--ink-4);">
+            Những file bạn xóa sẽ nằm ở đây trước khi bị xóa vĩnh viễn.
+          </div>
+        </div>`;
+    } else {
+      // 3. Trạng thái: Thư mục chưa có file (Call-to-Action)
+      container.innerHTML = `
+        <div style="display:flex;flex-direction:column;align-items:center;justify-content:center; gap:12px;padding:80px 24px;text-align:center;">
+          <!-- Vòng tròn nền đứt nét chứa Icon hộp giấy -->
+          <div style="width:88px;height:88px;background:rgba(10,10,10,0.02);border: 2px dashed rgba(10,10,10,0.15); border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:8px;">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--ink-3)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+              <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+              <line x1="12" y1="22.08" x2="12" y2="12"></line>
+            </svg>
+          </div>
+          <div style="font-size:16px;font-weight:700;color:var(--ink);font-family:'Manrope',sans-serif;">
+            Mục này đang trống
+          </div>
+          <div style="font-size:13px;color:var(--ink-4);max-width:280px;line-height:1.6;">
+            Bạn chưa có file nào ở đây. Hãy tải lên tài liệu đầu tiên để bắt đầu lưu trữ nhé!
+          </div>
+          <!-- Nút bấm nổi bật (Tương tác gọi thẳng input tải file) -->
+          <button onclick="window.location.href='https://www.vault-storage.me/frontend/view/upload/web_upload/index.html'"
+                  style="margin-top:16px;padding:10px 24px;background:var(--ink);color:#fff;border:none;border-radius:8px;font-weight:600;font-size:13px;font-family:'Manrope',sans-serif;cursor:pointer;display:flex;align-items:center;gap:8px;box-shadow: 0 4px 12px rgba(0,0,0,0.15); transition: all 0.2s;"
+                  onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 16px rgba(0,0,0,0.2)';"
+                  onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.15)';">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+            Tải file lên ngay
+          </button>
+        </div>`;
+    }
+
     updateSelCount(0);
     return;
   }
-
   if (viewMode === 'grid') {
     container.className = 'file-grid';
     filtered.forEach((f, i) => {
