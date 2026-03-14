@@ -10,6 +10,7 @@ from services.upload.chuc_nang.save_metadata import save_metadata_html
 import os
 import time
 import uuid
+import concurrent.futures 
 
 cloudinary.config(
     cloud_name="dshgtuy8f",
@@ -28,8 +29,75 @@ else:
     print(f"✅ Thư mục tạm đã sẵn sàng: {TEMP_DIR}", flush=True)
 
 
+def process_single_file(file_data, user_email, folder_name):
+    file_bytes, ten_file_goc, content_type = file_data
+    
+    unique_filename = f"{uuid.uuid4()}_{ten_file_goc}"
+    temp_path = os.path.abspath(os.path.join(TEMP_DIR, unique_filename))
+    
+    result = {"url": None, "error": None}
+    
+    try:
+        with open(temp_path, "wb") as f:
+            f.write(file_bytes)
+            
+        print(f"--- Đã lưu tạm: {temp_path} ---", flush=True)
+
+        if not ten_file_goc:
+            ten_file_goc = "no_name_file"
+
+        if ten_file_goc.lower().endswith(".html") or content_type == "text/html":
+            print(f"Da phat hien ra file html {ten_file_goc}", flush=True)
+            link_github = upload_html_to_github(temp_path, ten_file_goc, user_email)
+            if link_github:
+                file_info_html = save_metadata_html(
+                    temp_path, user_email, ten_file_goc, link_github
+                )
+                luu(file_info_html, "file_info")
+                result["url"] = link_github
+            else:
+                result["error"] = {"file": ten_file_goc, "error": "Lỗi upload GitHub"}
+            return result
+
+        is_document = ten_file_goc.lower().endswith(
+            (".pptx", ".ppt", ".pdf", ".docx", ".xlsx", ".txt")
+        )
+        if not is_document:
+            res = check_image_sensitivity(temp_path)
+            level = res.get("level", "UNKNOWN").upper()
+            if level != "SAFE":
+                result["error"] = {"file": ten_file_goc, "error": "Nội dung nhạy cảm"}
+                return result
+
+        ### Upload lên Cloudinary
+        print(f"--- Bắt đầu upload Cloudinary: {ten_file_goc} ---", flush=True)
+        upload_result = cloudinary.uploader.upload(
+            temp_path,
+            folder=folder_name,
+            use_filename=True,
+            resource_type="auto",
+            unique_filename=True,
+        )
+        print(f"--- Upload Cloudinary xong: {ten_file_goc} ---", flush=True)
+
+        file_info = make_json_cloud(
+            upload_result, user_email, ten_file_goc, "upload"
+        )
+        luu(file_info, "file_info")
+
+        result["url"] = file_info["url"]
+
+    except Exception as e:
+        print(f"Lỗi khi xử lý file {ten_file_goc}: {e}")
+        result["error"] = {"file": ten_file_goc, "error": str(e)}
+    finally:
+        if os.path.exists(temp_path):
+            os.remove(temp_path)
+            
+    return result
+
+
 def upload_to_cloud():
-    print(request.cookies)
     user_email = request.cookies.get("user_gmail")
     trang_thai = request.cookies.get("trang_thai")
 
@@ -44,76 +112,35 @@ def upload_to_cloud():
     if "files[]" not in request.files:
         return jsonify({"error": "Không có file"}), 400
 
-    files = request.files.getlist("files[]")
-    urls = []
-    error = []
+    files_list = request.files.getlist("files[]")
+    if not files_list or all(f.filename == '' for f in files_list):
+        return jsonify({"error": "Danh sách file rỗng"}), 400
+
     print("--- KIỂM TRA ĐẦU VÀO ---")
-    print(
-        f"Content-Length: {request.content_length}"
-    )  # Xem dung lượng gửi lên có > 0 không
-    print(f"Files keys: {list(request.files.keys())}")
-    for file in files:
-        unique_filename = f"{uuid.uuid4()}_{file.filename}"
-        temp_path = os.path.abspath(os.path.join(TEMP_DIR, unique_filename))
-        try:
-            file.save(temp_path)
-            print(f"--- Đã lưu tạm: {temp_path} ---", flush=True)
-            file.seek(0)
-            ten_file_goc = file.filename
-            if ten_file_goc:
-                print("ok, ten da co roi ban oi")
-            else:
-                print("loi o day ne")
-                ten_file_goc = "no_name__file"
-            ###luu tru html
-            if (
-                ten_file_goc.lower().endswith(".html")
-                or file.content_type == "text/html"
-            ):
-                print(f"da phat hien ra file html {ten_file_goc}", flush=True)
-                link_github = upload_html_to_github(temp_path, ten_file_goc, user_email)
-                if link_github:
-                    urls.append(link_github)
-                    file_info_html = save_metadata_html(
-                        temp_path, user_email, ten_file_goc, link_github
-                    )
-                    luu(file_info_html, "file_info")
-                else:
-                    error.append({"file": ten_file_goc, "error": "Lỗi upload GitHub"})
-                continue
-            ###cac file con lai
-            is_document = ten_file_goc.lower().endswith(
-                (".pptx", ".ppt", ".pdf", ".docx", ".xlsx", ".txt")
-            )
-            if not is_document:
-                res = check_image_sensitivity(temp_path)
-                print(res, flush=True)
-                level = res.get("level").upper()
-                if level != "SAFE":
-                    error.append({"file": ten_file_goc, "error": "Nội dung nhạy cảm"})
-                    os.remove(temp_path)
-                    continue
-            print("--- Bắt đầu upload Cloudinary ---", flush=True)
-            upload_result = cloudinary.uploader.upload(
-                file,
-                folder=folder_name,
-                use_filename=True,
-                resource_type="auto",
-                unique_filename=True,
-            )
-            print("--- Upload Cloudinary xong ---", flush=True)
-            file_info = make_json_cloud(
-                upload_result, user_email, ten_file_goc, "upload"
-            )
-            luu(file_info, "file_info")
+    print(f"Content-Length: {request.content_length}")
 
-            urls.append(file_info["url"])
-        except Exception as e:
-            print(f"Lỗi: {e}")
-        finally:
-            if os.path.exists(temp_path):
-                os.remove(temp_path)
-    return jsonify({"links": urls, "error": error}), 200
+    urls = []
+    errors = []
+    
+    prepared_files = []
+    for file in files_list:
+        if file.filename:
+            file_bytes = file.read()
+            prepared_files.append((file_bytes, file.filename, file.content_type))
 
+    max_workers = min(5, len(prepared_files))
+    
+    with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers) as executor:
+        futures = [
+            executor.submit(process_single_file, file_data, user_email, folder_name)
+            for file_data in prepared_files
+        ]
+        
+        for future in concurrent.futures.as_completed(futures):
+            res = future.result()
+            if res.get("url"):
+                urls.append(res["url"])
+            if res.get("error"):
+                errors.append(res["error"])
 
-# debug
+    return jsonify({"links": urls, "error": errors}), 200
