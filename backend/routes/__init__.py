@@ -25,6 +25,7 @@ from routes.group_chuc_nang.upload.chuc_nang.rep_bot import app_route23
 from routes.group_chuc_nang.upload.chuc_nang.log_download import app_route24
 from routes.group_chuc_nang.upload.chuc_nang.lock_file import app_route25
 from routes.group_chuc_nang.upload.chuc_nang.log_share_14031432026 import app_route26
+from routes.group_chuc_nang.upload.chuc_nang.logout import app_route27
 from routes.ping.ping import khoi_dong
 from routes.group_admin.group_chuc_nang.kill_switch import lenh_tu_huy
 
@@ -39,6 +40,7 @@ blueprint_groups = {
         app_route19,
         app_route20,
         app_route21,
+        app_route27,
     ],
     "/profile": [
         app_route10,

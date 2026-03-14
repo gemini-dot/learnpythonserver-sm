@@ -14,7 +14,33 @@ function toggleLogoutModal(show) {
   }
 }
 
-function confirmLogout() {
+async function confirmLogout() {
   console.log('Đã xác nhận đăng xuất!');
-  window.location.reload();
+  try {
+    const response = await fetch(
+      'https://vault-server-laivansam-gnfdcsgthfhraahe.eastasia-01.azurewebsites.net/auth/logout',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+      }
+    );
+
+    if (response.ok) {
+      const data = await response.json();
+      console.log('Server phản hồi nè og:', data);
+      localStorage.clear();
+      sessionStorage.clear();
+      toast('Đã đăng xuất thành công! :)');
+      window.location.href = 'https://www.vault-storage.me/';
+    } else {
+      console.error('Lỗi server, mã lỗi:', response.status);
+      window.location.reload();
+    }
+  } catch (error) {
+    console.error('Không kết nối được tới server:', error);
+    window.location.reload();
+  }
 }
