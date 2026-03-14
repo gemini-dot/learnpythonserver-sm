@@ -38,3 +38,4 @@ google-genai
 ddgs
 PyGithub
 newrelic
+Pillow
