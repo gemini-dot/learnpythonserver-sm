@@ -18,6 +18,8 @@ def log_sh():
     collection = db['log_user_share']
     thong_tin_may = lam_dep_thiet_bi(ua_string)
 
+    du_lieu_vi_tri = data.get("location_user") or {}
+
     try:
         collection.insert_one({
             "id_file": data.get("id"),
@@ -26,6 +28,10 @@ def log_sh():
             "gmail": gmail,
             "username": ten_nguoi_dung,
             "ip_address": request.remote_addr,
+            "location":{
+                "kinh_do": du_lieu_vi_tri.get("kinh_do"),
+                "vi_do":du_lieu_vi_tri.get("vi_do")
+            },
             "fingerprint":{
                 'thiet_bi':thong_tin_may,
             }

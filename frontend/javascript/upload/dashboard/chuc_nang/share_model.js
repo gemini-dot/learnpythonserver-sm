@@ -185,6 +185,10 @@ function shareFile() {
     toast('File không tồn tại');
     return;
   }
+
+  const kinh_do_user = localStorage.getItem('lon') ?? null;
+  const vi_do_user = localStorage.getItem('lat') ?? null;
+
   fetch(
     'https://vault-server-laivansam-gnfdcsgthfhraahe.eastasia-01.azurewebsites.net/upload_sv/log-share',
     {
@@ -195,6 +199,10 @@ function shareFile() {
         id: file.id,
         name: file.name,
         type: file.type,
+        location_user: {
+          kinh_do: kinh_do_user,
+          vi_do: vi_do_user,
+        },
         timestamp: new Date().toISOString(),
       }),
     }
