@@ -372,7 +372,10 @@
                   </div>
                   <div class="am-item-right">⌘K</div>
                 </div>
-                <div class="am-item danger" onclick="menuAction('logout')">
+                <div
+                  class="am-item danger"
+                  onclick="(menuAction('logout'), toggleLogoutModal(true))"
+                >
                   <div class="am-icon">
                     <svg
                       width="14"
@@ -389,11 +392,7 @@
                       <line x1="21" y1="12" x2="9" y2="12" />
                     </svg>
                   </div>
-                  <div
-                    class="am-item-text"
-                    onclick="toggleLogoutModal(true)"
-                    style="cursor: pointer"
-                  >
+                  <div class="am-item-text" style="cursor: pointer">
                     <div class="am-item-label">Đăng xuất</div>
                   </div>
                 </div>
