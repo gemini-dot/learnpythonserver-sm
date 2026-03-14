@@ -1,10 +1,11 @@
 from nudenet import NudeDetector
+import eventlet
 
 detector = NudeDetector()
 
-
 def check_image_sensitivity(image_path: str) -> dict:
-    detections = detector.detect(image_path)
+
+    detections = eventlet.tpool.execute(detector.detect, image_path)
 
     EXPLICIT_LABELS = {
         "FEMALE_GENITALIA_EXPOSED",
