@@ -1,17 +1,14 @@
 import os
 from nudenet import NudeDetector
-import eventlet
-from eventlet import tpool
 from utils.image_compressor import compress_image_for_ai
 
 detector = NudeDetector()
 
 def check_image_sensitivity(image_path: str) -> dict:
-    
     compressed_path = compress_image_for_ai(image_path)
 
     try:
-        detections = tpool.execute(detector.detect, compressed_path)
+        detections = detector.detect(compressed_path)
 
         EXPLICIT_LABELS = {
             "FEMALE_GENITALIA_EXPOSED",
