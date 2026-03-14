@@ -1249,3 +1249,56 @@ async function downloadCurrentFile() {
     toast('Lỗi: Link file không tồn tại!');
   }
 }
+
+// BẮT SỰ KIỆN CHO PREVIEW THUMB (CLICK + HIỆU ỨNG GLOW)
+document.addEventListener('DOMContentLoaded', () => {
+  const previewThumb = document.getElementById('previewThumb');
+
+  if (previewThumb) {
+    // 1. TẠO HIỆU ỨNG GLOW THEO CHUỘT
+    previewThumb.addEventListener('mousemove', (e) => {
+      // Lấy khung tọa độ của thẻ #previewThumb
+      const rect = previewThumb.getBoundingClientRect();
+
+      // Tính toán tọa độ X, Y của chuột so với góc trên trái của ảnh
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+
+      // Đẩy tọa độ này ra CSS thông qua Custom Properties
+      previewThumb.style.setProperty('--mouse-x', `${x}px`);
+      previewThumb.style.setProperty('--mouse-y', `${y}px`);
+    });
+
+    // 2. SỰ KIỆN CLICK ĐỂ MỞ ẢNH
+    previewThumb.addEventListener('click', function () {
+      if (!selectedId) return;
+
+      const currentFile =
+        sampleFiles.find((f) => f.id === selectedId) ||
+        trashFiles.find((f) => f.id === selectedId);
+      if (!currentFile) return;
+
+      if (currentFile.type !== 'img' || !currentFile.url) {
+        return;
+      }
+
+      const allImages = sampleFiles.filter((f) => f.type === 'img' && f.url);
+
+      if (typeof openImagePreview === 'function') {
+        openImagePreview(
+          {
+            id: currentFile.id,
+            url: currentFile.url,
+            name: currentFile.name,
+            type: currentFile.ext,
+            size: currentFile.size,
+            date: currentFile.date,
+          },
+          allImages
+        );
+      } else {
+        console.error('Lỗi: Không tìm thấy hàm openImagePreview.');
+      }
+    });
+  }
+});
