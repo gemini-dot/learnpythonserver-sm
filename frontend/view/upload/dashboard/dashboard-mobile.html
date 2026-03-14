@@ -1,60 +1,1414 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - Mobile Version</title>
-    <link rel="stylesheet" href="styles.css"> <!-- Link to CSS for styles -->
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
+    <title>VAULT Mobile | Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Instrument+Serif:ital@0;1&family=Manrope:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
     <style>
-        body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
-        .container { padding: 20px; }
-        .header { text-align: center; }
-        .header h1 { font-size: 24px; }
-        .cards {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
+      /* ═══ DESIGN SYSTEM (SAME AS DESKTOP) ═══ */
+      :root {
+        --bg: #f5f5f3;
+        --surface: #ffffff;
+        --border: #e0e0de;
+        --border-dark: #c0c0be;
+        --ink: #0a0a0a;
+        --ink-2: #333332;
+        --ink-3: #666664;
+        --ink-4: #999997;
+        --accent: #0a0a0a;
+        --favorite-color: #ff9500;
+        --transition: 0.38s cubic-bezier(0.16, 1, 0.3, 1);
+        --safe-area-top: env(safe-area-inset-top);
+        --safe-area-bottom: env(safe-area-inset-bottom);
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      body {
+        font-family: 'Manrope', sans-serif;
+        background: var(--bg);
+        color: var(--ink);
+        -webkit-font-smoothing: antialiased;
+        overflow-x: hidden;
+        touch-action: pan-y;
+        position: fixed;
+        width: 100%;
+        height: 100%;
+      }
+
+      /* ═══ MOBILE APP CONTAINER ═══ */
+      .mobile-app {
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        height: 100dvh;
+        overflow: hidden;
+      }
+
+      /* ═══ HEADER ═══ */
+      .mobile-header {
+        background: var(--surface);
+        border-bottom: 1px solid var(--border);
+        padding: calc(var(--safe-area-top) + 12px) 16px 12px;
+        flex-shrink: 0;
+      }
+
+      .header-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 12px;
+      }
+
+      .logo {
+        font-family: 'Instrument Serif', serif;
+        font-size: 20px;
+        letter-spacing: -0.02em;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .logo span {
+        font-style: italic;
+        opacity: 0.4;
+      }
+
+      .header-actions {
+        display: flex;
+        gap: 8px;
+      }
+
+      .icon-btn {
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+
+      .icon-btn:active {
+        background: var(--bg);
+        transform: scale(0.95);
+      }
+
+      .icon-btn svg {
+        width: 18px;
+        height: 18px;
+        stroke-width: 2;
+      }
+
+      .avatar-btn {
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
+        background: var(--ink);
+        color: var(--surface);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 16px;
+        cursor: pointer;
+      }
+
+      /* Search Bar */
+      .mobile-search {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 12px;
+        background: var(--bg);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+      }
+
+      .mobile-search svg {
+        width: 16px;
+        height: 16px;
+        stroke: var(--ink-4);
+        flex-shrink: 0;
+      }
+
+      .mobile-search input {
+        border: none;
+        outline: none;
+        background: transparent;
+        font-family: 'DM Mono', monospace;
+        font-size: 13px;
+        color: var(--ink);
+        width: 100%;
+      }
+
+      /* ═══ FILTER TABS ═══ */
+      .filter-tabs {
+        display: flex;
+        gap: 8px;
+        overflow-x: auto;
+        padding: 12px 16px;
+        background: var(--surface);
+        border-bottom: 1px solid var(--border);
+        flex-shrink: 0;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+      }
+
+      .filter-tabs::-webkit-scrollbar {
+        display: none;
+      }
+
+      .filter-tab {
+        padding: 8px 16px;
+        border-radius: 8px;
+        background: var(--bg);
+        border: 1px solid var(--border);
+        font-size: 13px;
+        font-weight: 600;
+        white-space: nowrap;
+        cursor: pointer;
+        transition: all 0.2s;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .filter-tab.active {
+        background: var(--ink);
+        color: var(--surface);
+        border-color: var(--ink);
+      }
+
+      .filter-tab svg {
+        width: 14px;
+        height: 14px;
+        stroke-width: 2;
+      }
+
+      /* ═══ FILES CONTAINER ═══ */
+      .files-container {
+        flex: 1;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        padding: 16px;
+      }
+
+      /* View Toggle */
+      .view-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 16px;
+      }
+
+      .view-info {
+        font-size: 13px;
+        color: var(--ink-4);
+        font-family: 'DM Mono', monospace;
+      }
+
+      .view-toggle {
+        display: flex;
+        gap: 4px;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 2px;
+      }
+
+      .view-btn {
+        width: 32px;
+        height: 32px;
+        border-radius: 6px;
+        background: transparent;
+        border: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+
+      .view-btn.active {
+        background: var(--ink);
+      }
+
+      .view-btn svg {
+        width: 16px;
+        height: 16px;
+        stroke: var(--ink-3);
+        stroke-width: 2;
+      }
+
+      .view-btn.active svg {
+        stroke: var(--surface);
+      }
+
+      /* ═══ LIST VIEW ═══ */
+      .files-list {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .file-item {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 12px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        cursor: pointer;
+        transition: all 0.2s;
+        position: relative;
+      }
+
+      .file-item:active {
+        transform: scale(0.98);
+        background: var(--bg);
+      }
+
+      .file-item.selected {
+        border-color: var(--ink);
+        background: rgba(10, 10, 10, 0.04);
+      }
+
+      .file-checkbox {
+        width: 20px;
+        height: 20px;
+        border-radius: 6px;
+        border: 2px solid var(--border-dark);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        transition: all 0.2s;
+      }
+
+      .file-item.selected .file-checkbox {
+        background: var(--ink);
+        border-color: var(--ink);
+      }
+
+      .file-checkbox svg {
+        width: 12px;
+        height: 12px;
+        stroke: var(--surface);
+        stroke-width: 3;
+        opacity: 0;
+      }
+
+      .file-item.selected .file-checkbox svg {
+        opacity: 1;
+      }
+
+      .file-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 8px;
+        background: var(--bg);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+        flex-shrink: 0;
+      }
+
+      .file-info {
+        flex: 1;
+        min-width: 0;
+      }
+
+      .file-name {
+        font-size: 14px;
+        font-weight: 600;
+        margin-bottom: 2px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .file-meta {
+        font-size: 12px;
+        color: var(--ink-4);
+        font-family: 'DM Mono', monospace;
+        display: flex;
+        gap: 8px;
+      }
+
+      .file-actions {
+        display: flex;
+        gap: 4px;
+        flex-shrink: 0;
+      }
+
+      .file-action-btn {
+        width: 32px;
+        height: 32px;
+        border-radius: 6px;
+        background: transparent;
+        border: 1px solid var(--border);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+
+      .file-action-btn:active {
+        background: var(--bg);
+      }
+
+      .file-action-btn svg {
+        width: 16px;
+        height: 16px;
+        stroke-width: 2;
+      }
+
+      .file-action-btn.favorite {
+        border-color: var(--favorite-color);
+      }
+
+      .file-action-btn.favorite.active {
+        background: var(--favorite-color);
+      }
+
+      .file-action-btn.favorite.active svg {
+        fill: var(--surface);
+        stroke: var(--surface);
+      }
+
+      /* ═══ GRID VIEW ═══ */
+      .files-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+      }
+
+      .file-card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 12px;
+        cursor: pointer;
+        transition: all 0.2s;
+        position: relative;
+      }
+
+      .file-card:active {
+        transform: scale(0.97);
+      }
+
+      .file-card.selected {
+        border-color: var(--ink);
+        background: rgba(10, 10, 10, 0.04);
+      }
+
+      .file-card-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 8px;
+      }
+
+      .file-card-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 10px;
+        background: var(--bg);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+      }
+
+      .file-card-name {
+        font-size: 13px;
+        font-weight: 600;
+        margin-bottom: 4px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .file-card-meta {
+        font-size: 11px;
+        color: var(--ink-4);
+        font-family: 'DM Mono', monospace;
+      }
+
+      /* ═══ BOTTOM NAV ═══ */
+      .bottom-nav {
+        background: var(--surface);
+        border-top: 1px solid var(--border);
+        padding: 8px 8px calc(var(--safe-area-bottom) + 8px);
+        display: flex;
+        justify-content: space-around;
+        flex-shrink: 0;
+      }
+
+      .nav-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+        padding: 8px 16px;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: all 0.2s;
+        position: relative;
+      }
+
+      .nav-item:active {
+        background: var(--bg);
+      }
+
+      .nav-item.active {
+        background: var(--ink);
+        color: var(--surface);
+      }
+
+      .nav-item svg {
+        width: 22px;
+        height: 22px;
+        stroke-width: 2;
+        stroke: var(--ink-3);
+      }
+
+      .nav-item.active svg {
+        stroke: var(--surface);
+      }
+
+      .nav-label {
+        font-size: 11px;
+        font-weight: 600;
+      }
+
+      .nav-badge {
+        position: absolute;
+        top: 4px;
+        right: 12px;
+        min-width: 16px;
+        height: 16px;
+        padding: 0 4px;
+        background: #e74c3c;
+        color: var(--surface);
+        border-radius: 99px;
+        font-size: 10px;
+        font-weight: 700;
+        font-family: 'DM Mono', monospace;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      /* ═══ FLOATING ACTION BUTTON ═══ */
+      .fab {
+        position: fixed;
+        bottom: calc(var(--safe-area-bottom) + 80px);
+        right: 16px;
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        background: var(--ink);
+        color: var(--surface);
+        border: none;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.3s;
+        z-index: 100;
+      }
+
+      .fab:active {
+        transform: scale(0.9);
+      }
+
+      .fab svg {
+        width: 24px;
+        height: 24px;
+        stroke-width: 2.5;
+      }
+
+      /* ═══ MODAL ═══ */
+      .modal-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(4px);
+        z-index: 1000;
+        display: none;
+        align-items: flex-end;
+        opacity: 0;
+        transition: opacity 0.3s;
+      }
+
+      .modal-overlay.show {
+        display: flex;
+        opacity: 1;
+      }
+
+      .modal {
+        width: 100%;
+        max-height: 80vh;
+        background: var(--surface);
+        border-radius: 20px 20px 0 0;
+        padding: 20px 20px calc(var(--safe-area-bottom) + 20px);
+        transform: translateY(100%);
+        transition: transform 0.3s;
+        overflow-y: auto;
+      }
+
+      .modal-overlay.show .modal {
+        transform: translateY(0);
+      }
+
+      .modal-handle {
+        width: 40px;
+        height: 4px;
+        background: var(--border-dark);
+        border-radius: 99px;
+        margin: 0 auto 20px;
+      }
+
+      .modal-title {
+        font-size: 20px;
+        font-weight: 800;
+        margin-bottom: 20px;
+      }
+
+      .modal-actions {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .modal-action {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 14px 16px;
+        border-radius: 10px;
+        background: var(--bg);
+        border: 1px solid var(--border);
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+
+      .modal-action:active {
+        background: var(--border);
+      }
+
+      .modal-action svg {
+        width: 20px;
+        height: 20px;
+        stroke-width: 2;
+      }
+
+      .modal-action-text {
+        font-size: 15px;
+        font-weight: 600;
+      }
+
+      .modal-action.danger {
+        color: #e74c3c;
+      }
+
+      /* ═══ TOAST ═══ */
+      .toast {
+        position: fixed;
+        bottom: calc(var(--safe-area-bottom) + 90px);
+        left: 16px;
+        right: 16px;
+        background: var(--ink);
+        color: var(--surface);
+        padding: 14px 20px;
+        border-radius: 12px;
+        font-size: 14px;
+        font-weight: 600;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+        z-index: 2000;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: all 0.3s;
+        pointer-events: none;
+      }
+
+      .toast.show {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* ═══ EMPTY STATE ═══ */
+      .empty-state {
+        text-align: center;
+        padding: 60px 20px;
+      }
+
+      .empty-icon {
+        font-size: 64px;
+        margin-bottom: 16px;
+        opacity: 0.3;
+      }
+
+      .empty-title {
+        font-size: 18px;
+        font-weight: 700;
+        margin-bottom: 8px;
+      }
+
+      .empty-text {
+        font-size: 14px;
+        color: var(--ink-3);
+      }
+
+      /* ═══ LOADING ═══ */
+      .loading-spinner {
+        width: 32px;
+        height: 32px;
+        border: 3px solid var(--border);
+        border-top-color: var(--ink);
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        margin: 40px auto;
+      }
+
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
         }
-        .card {
-            background: #f0f0f0;
-            margin: 10px;
-            padding: 15px;
-            flex: 1 0 100%; /* Responsive for mobile */
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            border-radius: 5px;
-        }
-        @media(min-width: 600px) {
-            .card {
-                flex: 1 0 calc(50% - 20px); /* Two cards per row on tablets */
-            }
-        }
-        @media(min-width: 900px) {
-            .card {
-                flex: 1 0 calc(33.33% - 20px); /* Three cards per row on larger screens */
-            }
-        }
+      }
     </style>
-</head>
-<body>
-    <div class="container">
-        <div class="header">
-            <h1>Dashboard</h1>
+  </head>
+  <body>
+    <div class="mobile-app">
+      <!-- HEADER -->
+      <header class="mobile-header">
+        <div class="header-top">
+          <div class="logo">MY <span>files</span></div>
+          <div class="header-actions">
+            <button class="icon-btn" onclick="openSearch()">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <circle cx="11" cy="11" r="8" />
+                <line x1="21" y1="21" x2="16.65" y2="16.65" />
+              </svg>
+            </button>
+            <button class="avatar-btn" onclick="openProfile()">A</button>
+          </div>
         </div>
-        <div class="cards">
-            <div class="card">
-                <h2>Card Title 1</h2>
-                <p>Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            </div>
-            <div class="card">
-                <h2>Card Title 2</h2>
-                <p>Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            </div>
-            <div class="card">
-                <h2>Card Title 3</h2>
-                <p>Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            </div>
-            <!-- Add more cards as needed -->
+
+        <div class="mobile-search" id="mobileSearch" style="display: none">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <circle cx="11" cy="11" r="8" />
+            <line x1="21" y1="21" x2="16.65" y2="16.65" />
+          </svg>
+          <input
+            type="text"
+            id="searchInput"
+            placeholder="Tìm kiếm file..."
+            oninput="searchFiles()"
+          />
         </div>
+      </header>
+
+      <!-- FILTER TABS -->
+      <div class="filter-tabs">
+        <button
+          class="filter-tab active"
+          data-filter="all"
+          onclick="filterFiles('all')"
+        >
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path
+              d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"
+            />
+            <polyline points="13 2 13 9 20 9" />
+          </svg>
+          Tất cả
+        </button>
+        <button
+          class="filter-tab"
+          data-filter="fav"
+          onclick="filterFiles('fav')"
+        >
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <polygon
+              points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
+            />
+          </svg>
+          Yêu thích
+        </button>
+        <button
+          class="filter-tab"
+          data-filter="img"
+          onclick="filterFiles('img')"
+        >
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+            <circle cx="8.5" cy="8.5" r="1.5" />
+            <polyline points="21 15 16 10 5 21" />
+          </svg>
+          Ảnh
+        </button>
+        <button
+          class="filter-tab"
+          data-filter="doc"
+          onclick="filterFiles('doc')"
+        >
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path
+              d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
+            />
+            <polyline points="14 2 14 8 20 8" />
+          </svg>
+          Tài liệu
+        </button>
+        <button
+          class="filter-tab"
+          data-filter="trash"
+          onclick="filterFiles('trash')"
+        >
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <polyline points="3 6 5 6 21 6" />
+            <path
+              d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+            />
+          </svg>
+          Thùng rác
+        </button>
+      </div>
+
+      <!-- FILES CONTAINER -->
+      <div class="files-container">
+        <div class="view-header">
+          <div class="view-info" id="fileCount">0 files</div>
+          <div class="view-toggle">
+            <button
+              class="view-btn active"
+              data-view="list"
+              onclick="toggleView('list')"
+            >
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <line x1="8" y1="6" x2="21" y2="6" />
+                <line x1="8" y1="12" x2="21" y2="12" />
+                <line x1="8" y1="18" x2="21" y2="18" />
+                <line x1="3" y1="6" x2="3.01" y2="6" />
+                <line x1="3" y1="12" x2="3.01" y2="12" />
+                <line x1="3" y1="18" x2="3.01" y2="18" />
+              </svg>
+            </button>
+            <button
+              class="view-btn"
+              data-view="grid"
+              onclick="toggleView('grid')"
+            >
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <rect x="3" y="3" width="7" height="7" />
+                <rect x="14" y="3" width="7" height="7" />
+                <rect x="14" y="14" width="7" height="7" />
+                <rect x="3" y="14" width="7" height="7" />
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- LIST VIEW -->
+        <div id="filesListView" class="files-list"></div>
+
+        <!-- GRID VIEW -->
+        <div id="filesGridView" class="files-grid" style="display: none"></div>
+
+        <!-- EMPTY STATE -->
+        <div id="emptyState" class="empty-state" style="display: none">
+          <div class="empty-icon">📂</div>
+          <div class="empty-title">Chưa có file nào</div>
+          <div class="empty-text">Nhấn nút + để tải lên file đầu tiên</div>
+        </div>
+
+        <!-- LOADING -->
+        <div
+          id="loadingSpinner"
+          class="loading-spinner"
+          style="display: none"
+        ></div>
+      </div>
+
+      <!-- BOTTOM NAVIGATION -->
+      <nav class="bottom-nav">
+        <div class="nav-item active" onclick="navigateTo('files')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path
+              d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"
+            />
+            <polyline points="13 2 13 9 20 9" />
+          </svg>
+          <span class="nav-label">Files</span>
+        </div>
+
+        <div class="nav-item" onclick="navigateTo('favorites')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <polygon
+              points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
+            />
+          </svg>
+          <span class="nav-label">Yêu thích</span>
+        </div>
+
+        <div class="nav-item" onclick="navigateTo('recent')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <circle cx="12" cy="12" r="10" />
+            <polyline points="12 6 12 12 16 14" />
+          </svg>
+          <span class="nav-label">Gần đây</span>
+        </div>
+
+        <div class="nav-item" onclick="navigateTo('settings')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <circle cx="12" cy="12" r="3" />
+            <path
+              d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"
+            />
+          </svg>
+          <span class="nav-label">Cài đặt</span>
+          <span class="nav-badge">2</span>
+        </div>
+      </nav>
     </div>
-</body>
+
+    <!-- FLOATING ACTION BUTTON -->
+    <button class="fab" onclick="openUploadModal()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+        <line x1="12" y1="5" x2="12" y2="19" />
+        <line x1="5" y1="12" x2="19" y2="12" />
+      </svg>
+    </button>
+
+    <!-- FILE ACTIONS MODAL -->
+    <div class="modal-overlay" id="fileActionsModal">
+      <div class="modal">
+        <div class="modal-handle"></div>
+        <div class="modal-title">File Actions</div>
+        <div class="modal-actions">
+          <div class="modal-action" onclick="downloadFile()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+              <polyline points="7 10 12 15 17 10" />
+              <line x1="12" y1="15" x2="12" y2="3" />
+            </svg>
+            <span class="modal-action-text">Tải xuống</span>
+          </div>
+
+          <div class="modal-action" onclick="shareFile()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <circle cx="18" cy="5" r="3" />
+              <circle cx="6" cy="12" r="3" />
+              <circle cx="18" cy="19" r="3" />
+              <line x1="8.59" y1="13.51" x2="15.42" y2="17.49" />
+              <line x1="15.41" y1="6.51" x2="8.59" y2="10.49" />
+            </svg>
+            <span class="modal-action-text">Chia sẻ</span>
+          </div>
+
+          <div class="modal-action" onclick="renameFile()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path
+                d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"
+              />
+              <path
+                d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"
+              />
+            </svg>
+            <span class="modal-action-text">Đổi tên</span>
+          </div>
+
+          <div class="modal-action danger" onclick="deleteFile()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <polyline points="3 6 5 6 21 6" />
+              <path
+                d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+              />
+            </svg>
+            <span class="modal-action-text">Xóa</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TOAST -->
+    <div class="toast" id="toast"></div>
+    <script>
+      // Chuyển hướng ngay lập tức
+      window.location.href =
+        'https://www.vault-storage.me/frontend/view/error/503.html';
+    </script>
+    <script>
+      // ═══════════════════════════════════════════════════════════════
+      // GLOBAL VARIABLES (SAME AS DESKTOP)
+      // ═══════════════════════════════════════════════════════════════
+
+      let sampleFiles = []; // Synced with server
+      let selectedId = null;
+      let selectedIds = new Set();
+      let currentFilter = 'all';
+      let currentView = 'list';
+      let searchQuery = '';
+
+      // ═══════════════════════════════════════════════════════════════
+      // SAMPLE DATA (SAME STRUCTURE AS DESKTOP)
+      // ═══════════════════════════════════════════════════════════════
+
+      sampleFiles = [
+        {
+          id: 'file1',
+          name: 'Project Proposal.pdf',
+          type: 'application/pdf',
+          size: 2500000,
+          date: '2026-03-10',
+          favorite: true,
+          trash: false,
+        },
+        {
+          id: 'file2',
+          name: 'Vacation Photo.jpg',
+          type: 'image/jpeg',
+          size: 4200000,
+          date: '2026-03-12',
+          favorite: false,
+          trash: false,
+        },
+        {
+          id: 'file3',
+          name: 'Meeting Notes.docx',
+          type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+          size: 150000,
+          date: '2026-03-14',
+          favorite: true,
+          trash: false,
+        },
+        {
+          id: 'file4',
+          name: 'Budget 2026.xlsx',
+          type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+          size: 850000,
+          date: '2026-03-13',
+          favorite: false,
+          trash: false,
+        },
+        {
+          id: 'file5',
+          name: 'Old Report.pdf',
+          type: 'application/pdf',
+          size: 1200000,
+          date: '2026-02-20',
+          favorite: false,
+          trash: true,
+        },
+      ];
+
+      // ═══════════════════════════════════════════════════════════════
+      // FILTER FUNCTIONS (COMPATIBLE WITH DESKTOP)
+      // ═══════════════════════════════════════════════════════════════
+
+      function filterFiles(filter) {
+        currentFilter = filter;
+
+        // Update tabs
+        document.querySelectorAll('.filter-tab').forEach((tab) => {
+          tab.classList.remove('active');
+          if (tab.dataset.filter === filter) {
+            tab.classList.add('active');
+          }
+        });
+
+        renderFiles();
+      }
+
+      function getFilteredFiles() {
+        let result = [...sampleFiles];
+
+        // Apply filter
+        switch (currentFilter) {
+          case 'all':
+            result = result.filter((f) => !f.trash);
+            break;
+          case 'fav':
+            result = result.filter((f) => f.favorite === true && !f.trash);
+            break;
+          case 'img':
+            result = result.filter(
+              (f) => f.type.startsWith('image/') && !f.trash
+            );
+            break;
+          case 'doc':
+            result = result.filter(
+              (f) =>
+                (f.type.includes('pdf') ||
+                  f.type.includes('document') ||
+                  f.type.includes('sheet')) &&
+                !f.trash
+            );
+            break;
+          case 'trash':
+            result = result.filter((f) => f.trash === true);
+            break;
+        }
+
+        // Apply search
+        if (searchQuery) {
+          result = result.filter((f) =>
+            f.name.toLowerCase().includes(searchQuery.toLowerCase())
+          );
+        }
+
+        return result;
+      }
+
+      // ═══════════════════════════════════════════════════════════════
+      // RENDER FILES
+      // ═══════════════════════════════════════════════════════════════
+
+      function renderFiles() {
+        const files = getFilteredFiles();
+
+        // Update count
+        document.getElementById('fileCount').textContent =
+          `${files.length} files`;
+
+        // Show/hide empty state
+        const isEmpty = files.length === 0;
+        document.getElementById('emptyState').style.display = isEmpty
+          ? 'block'
+          : 'none';
+
+        if (currentView === 'list') {
+          renderListView(files);
+        } else {
+          renderGridView(files);
+        }
+      }
+
+      function renderListView(files) {
+        const container = document.getElementById('filesListView');
+
+        container.innerHTML = files
+          .map(
+            (file) => `
+        <div class="file-item ${selectedIds.has(file.id) ? 'selected' : ''}" 
+             onclick="toggleSelect('${file.id}')"
+             oncontextmenu="showFileActions('${file.id}'); return false;">
+          <div class="file-checkbox">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <polyline points="20 6 9 17 4 12"/>
+            </svg>
+          </div>
+          <div class="file-icon">${getFileIcon(file.type)}</div>
+          <div class="file-info">
+            <div class="file-name">${file.name}</div>
+            <div class="file-meta">
+              <span>${formatFileSize(file.size)}</span>
+              <span>${file.date}</span>
+            </div>
+          </div>
+          <div class="file-actions">
+            <button class="file-action-btn favorite ${file.favorite ? 'active' : ''}" 
+                    onclick="toggleFavorite('${file.id}'); event.stopPropagation();">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+      `
+          )
+          .join('');
+      }
+
+      function renderGridView(files) {
+        const container = document.getElementById('filesGridView');
+
+        container.innerHTML = files
+          .map(
+            (file) => `
+        <div class="file-card ${selectedIds.has(file.id) ? 'selected' : ''}" 
+             onclick="toggleSelect('${file.id}')"
+             oncontextmenu="showFileActions('${file.id}'); return false;">
+          <div class="file-card-header">
+            <div class="file-card-icon">${getFileIcon(file.type)}</div>
+            <div class="file-checkbox">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+            </div>
+          </div>
+          <div class="file-card-name">${file.name}</div>
+          <div class="file-card-meta">${formatFileSize(file.size)}</div>
+        </div>
+      `
+          )
+          .join('');
+      }
+
+      // ═══════════════════════════════════════════════════════════════
+      // VIEW TOGGLE
+      // ═══════════════════════════════════════════════════════════════
+
+      function toggleView(view) {
+        currentView = view;
+
+        // Update buttons
+        document.querySelectorAll('.view-btn').forEach((btn) => {
+          btn.classList.remove('active');
+          if (btn.dataset.view === view) {
+            btn.classList.add('active');
+          }
+        });
+
+        // Show/hide views
+        if (view === 'list') {
+          document.getElementById('filesListView').style.display = 'flex';
+          document.getElementById('filesGridView').style.display = 'none';
+        } else {
+          document.getElementById('filesListView').style.display = 'none';
+          document.getElementById('filesGridView').style.display = 'grid';
+        }
+
+        renderFiles();
+      }
+
+      // ═══════════════════════════════════════════════════════════════
+      // SELECTION (COMPATIBLE WITH DESKTOP)
+      // ═══════════════════════════════════════════════════════════════
+
+      function toggleSelect(id) {
+        if (selectedIds.has(id)) {
+          selectedIds.delete(id);
+          selectedId = null;
+        } else {
+          selectedIds.add(id);
+          selectedId = id;
+        }
+        renderFiles();
+      }
+
+      // ═══════════════════════════════════════════════════════════════
+      // FAVORITE TOGGLE (SAME AS DESKTOP)
+      // ═══════════════════════════════════════════════════════════════
+
+      function toggleFavorite(id) {
+        const file = sampleFiles.find((f) => f.id === id);
+        if (file) {
+          file.favorite = !file.favorite;
+          renderFiles();
+          toast(file.favorite ? '⭐ Đã thêm vào yêu thích' : 'Đã bỏ yêu thích');
+        }
+      }
+
+      // ═══════════════════════════════════════════════════════════════
+      // SEARCH
+      // ═══════════════════════════════════════════════════════════════
+
+      function openSearch() {
+        const searchBar = document.getElementById('mobileSearch');
+        const isVisible = searchBar.style.display === 'flex';
+        searchBar.style.display = isVisible ? 'none' : 'flex';
+        if (!isVisible) {
+          document.getElementById('searchInput').focus();
+        }
+      }
+
+      function searchFiles() {
+        searchQuery = document.getElementById('searchInput').value;
+        renderFiles();
+      }
+
+      // ═══════════════════════════════════════════════════════════════
+      // FILE ACTIONS MODAL
+      // ═══════════════════════════════════════════════════════════════
+
+      function showFileActions(id) {
+        selectedId = id;
+        selectedIds.clear();
+        selectedIds.add(id);
+        const modal = document.getElementById('fileActionsModal');
+        modal.classList.add('show');
+        renderFiles();
+      }
+
+      function closeModal() {
+        document.getElementById('fileActionsModal').classList.remove('show');
+      }
+
+      // Click outside to close
+      document
+        .getElementById('fileActionsModal')
+        .addEventListener('click', function (e) {
+          if (e.target === this) {
+            closeModal();
+          }
+        });
+
+      // ═══════════════════════════════════════════════════════════════
+      // FILE ACTIONS (SAME AS DESKTOP)
+      // ═══════════════════════════════════════════════════════════════
+
+      function downloadFile() {
+        toast('📥 Đang tải xuống...');
+        closeModal();
+        // TODO: Implement download
+      }
+
+      function shareFile() {
+        toast('🔗 Đã copy link chia sẻ');
+        closeModal();
+        // TODO: Implement share
+      }
+
+      function renameFile() {
+        const file = sampleFiles.find((f) => f.id === selectedId);
+        if (file) {
+          const newName = prompt('Tên mới:', file.name);
+          if (newName) {
+            file.name = newName;
+            renderFiles();
+            toast('✓ Đã đổi tên');
+          }
+        }
+        closeModal();
+      }
+
+      function deleteFile() {
+        if (confirm('Xóa file này?')) {
+          const file = sampleFiles.find((f) => f.id === selectedId);
+          if (file) {
+            file.trash = true;
+            renderFiles();
+            toast('🗑️ Đã chuyển vào thùng rác');
+          }
+        }
+        closeModal();
+      }
+
+      // ═══════════════════════════════════════════════════════════════
+      // HELPERS (SAME AS DESKTOP)
+      // ═══════════════════════════════════════════════════════════════
+
+      function getFileIcon(type) {
+        if (type.startsWith('image/')) return '🖼️';
+        if (type.startsWith('video/')) return '🎥';
+        if (type.startsWith('audio/')) return '🎵';
+        if (type.includes('pdf')) return '📄';
+        if (type.includes('zip') || type.includes('rar')) return '📦';
+        if (type.includes('word')) return '📝';
+        if (type.includes('sheet')) return '📊';
+        return '📄';
+      }
+
+      function formatFileSize(bytes) {
+        if (bytes === 0) return '0 B';
+        const k = 1024;
+        const sizes = ['B', 'KB', 'MB', 'GB'];
+        const i = Math.floor(Math.log(bytes) / Math.log(k));
+        return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + ' ' + sizes[i];
+      }
+
+      function toast(message) {
+        const toastEl = document.getElementById('toast');
+        toastEl.textContent = message;
+        toastEl.classList.add('show');
+        setTimeout(() => {
+          toastEl.classList.remove('show');
+        }, 3000);
+      }
+
+      // ═══════════════════════════════════════════════════════════════
+      // NAVIGATION
+      // ═══════════════════════════════════════════════════════════════
+
+      function navigateTo(section) {
+        document.querySelectorAll('.nav-item').forEach((item) => {
+          item.classList.remove('active');
+        });
+        event.currentTarget.classList.add('active');
+
+        switch (section) {
+          case 'files':
+            filterFiles('all');
+            break;
+          case 'favorites':
+            filterFiles('fav');
+            break;
+          case 'recent':
+            toast('📂 Gần đây');
+            break;
+          case 'settings':
+            toast('⚙️ Cài đặt');
+            break;
+        }
+      }
+
+      function openProfile() {
+        toast('👤 Hồ sơ');
+      }
+
+      function openUploadModal() {
+        toast('📤 Upload file');
+        // TODO: Implement upload
+      }
+
+      // ═══════════════════════════════════════════════════════════════
+      // INIT
+      // ═══════════════════════════════════════════════════════════════
+
+      document.addEventListener('DOMContentLoaded', function () {
+        renderFiles();
+        console.log('[VAULT Mobile] Loaded');
+      });
+
+      // Prevent pull-to-refresh on iOS
+      let lastTouchY = 0;
+      document.addEventListener('touchstart', function (e) {
+        lastTouchY = e.touches[0].clientY;
+      });
+
+      document.addEventListener(
+        'touchmove',
+        function (e) {
+          const touchY = e.touches[0].clientY;
+          const touchYDelta = touchY - lastTouchY;
+          lastTouchY = touchY;
+
+          if (window.scrollY === 0 && touchYDelta > 0) {
+            e.preventDefault();
+          }
+        },
+        { passive: false }
+      );
+    </script>
+  </body>
 </html>

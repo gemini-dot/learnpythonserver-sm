@@ -43,6 +43,11 @@ async function secretMaintenanceCheck() {
 
 secretMaintenanceCheck();
 
+function isMobileDevice() {
+  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+    navigator.userAgent
+  );
+}
 // Thêm const vào trước các biến để khai báo nè og
 const userpass = document.getElementById('password');
 const useremail = document.getElementById('email');
@@ -86,7 +91,11 @@ if (formDangNhap) {
             );
             localStorage.setItem('user_email', lay_gia_tri_user);
             setTimeout(() => {
-              window.location.href = `https://www.vault-storage.me/frontend/view/upload/dashboard/index.html?useraccount=${lay_gia_tri_user}`;
+              if (isMobileDevice()) {
+                window.location.href = `https://www.vault-storage.me/frontend/view/upload/dashboard/dashboard-mobile.html?useraccount=${lay_gia_tri_user}`;
+              } else {
+                window.location.href = `https://www.vault-storage.me/frontend/view/upload/dashboard/index.html?useraccount=${lay_gia_tri_user}`;
+              }
             }, 2000); //
           });
         } else if (response.status === 401) {
