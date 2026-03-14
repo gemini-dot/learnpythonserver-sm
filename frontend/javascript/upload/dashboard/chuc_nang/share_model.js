@@ -185,7 +185,20 @@ function shareFile() {
     toast('File không tồn tại');
     return;
   }
-
+  fetch(
+    'https://vault-server-laivansam-gnfdcsgthfhraahe.eastasia-01.azurewebsites.net/upload_sv/log-share',
+    {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
+      body: JSON.stringify({
+        id: file.id,
+        name: file.name,
+        type: file.type,
+        timestamp: new Date().toISOString(),
+      }),
+    }
+  ).catch((err) => console.error('Lỗi ghi log:', err));
   // Open share modal
   openShareModal({
     id: file.id,
