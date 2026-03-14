@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Mobile Version</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Link to CSS for styles -->
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
+        .container { padding: 20px; }
+        .header { text-align: center; }
+        .header h1 { font-size: 24px; }
+        .cards {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+        .card {
+            background: #f0f0f0;
+            margin: 10px;
+            padding: 15px;
+            flex: 1 0 100%; /* Responsive for mobile */
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            border-radius: 5px;
+        }
+        @media(min-width: 600px) {
+            .card {
+                flex: 1 0 calc(50% - 20px); /* Two cards per row on tablets */
+            }
+        }
+        @media(min-width: 900px) {
+            .card {
+                flex: 1 0 calc(33.33% - 20px); /* Three cards per row on larger screens */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Dashboard</h1>
+        </div>
+        <div class="cards">
+            <div class="card">
+                <h2>Card Title 1</h2>
+                <p>Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            </div>
+            <div class="card">
+                <h2>Card Title 2</h2>
+                <p>Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            </div>
+            <div class="card">
+                <h2>Card Title 3</h2>
+                <p>Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            </div>
+            <!-- Add more cards as needed -->
+        </div>
+    </div>
+</body>
+</html>
