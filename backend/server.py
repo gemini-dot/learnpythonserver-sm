@@ -12,11 +12,12 @@ import sentry_sdk
 from flask_socketio import SocketIO, emit
 from configs.oauth2_google import oauth
 from configs.db import db
+from configs.settings import ip_allow
 from logs.logger import logger
 from utils.trang_thai_db_503 import get_maintenance_status
 from routes import register_routes
+import secrets
 
-# import file nội bộ
 
 os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
 
@@ -88,9 +89,6 @@ def service_unavailable_error(e):
 
 tim_kiem = db["trang_thai_web"]
 
-IS_MAINTENANCE = get_maintenance_status()
-WHITELIST_IPS = ["127.0.0.1", "192.168.1.121"]
-
 admin_pass_on, admin_pass_off = str(os.getenv("BAOTRI_KEY_ON")), str(
     os.getenv("BAOTRI_KEY_OFF")
 )
@@ -105,9 +103,10 @@ def handle_broadcast(data):
 @app.before_request
 def check_for_maintenance():
     client_ip = request.remote_addr
+    IS_MAINTENANCE = get_maintenance_status()
     allowed_routes = ["/unlock-server", "/check-status", "/lock-server"]
     if IS_MAINTENANCE == "website_off" and request.path not in allowed_routes:
-        if client_ip in WHITELIST_IPS:
+        if client_ip in ip_allow:
             return None
         else:
             abort(503)
@@ -115,22 +114,18 @@ def check_for_maintenance():
 
 @app.route("/lock-server")
 def lock():
-    global IS_MAINTENANCE
-    pw = request.args.get("key")
-    if admin_pass_on and pw == admin_pass_on:
+    pw = request.args.get("key",'')
+    if admin_pass_on and secrets.compare_digest(pw,admin_pass_on):
         tim_kiem.update_one({"id": "config"}, {"$set": {"status": "website_off"}})
-        IS_MAINTENANCE = "website_off"
         return "Đã bật chế độ bảo trì!", 200
     return "Sai mật khẩu!", 403
 
 
 @app.route("/unlock-server")
 def unlock():
-    global IS_MAINTENANCE
-    pw = request.args.get("key")
-    if admin_pass_off and pw == admin_pass_off:
+    pw = request.args.get("key",'')
+    if admin_pass_off and secrets.compare_digest(pw,admin_pass_off):
         tim_kiem.update_one({"id": "config"}, {"$set": {"status": "website_on"}})
-        IS_MAINTENANCE = "website_on"
         return "Đã mở cửa server!", 200
     return "Sai mật khẩu!", 403
 
