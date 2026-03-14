@@ -60,15 +60,34 @@ function updateMainAvatar(dataURL) {
   }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-  const avatar = localStorage.getItem('user_avatar');
+document.addEventListener('DOMContentLoaded', async () => {
+  const previewElement = document.getElementById('avatarPreview');
+  const localAvatar = localStorage.getItem('user_avatar');
 
-  if (avatar) {
-    const previewElement = document.getElementById('avatarPreview');
-    if (previewElement) {
-      previewElement.innerHTML = `<img src="${avatar}" alt="Avatar">`;
+  if (localAvatar && previewElement) {
+    previewElement.innerHTML = `<img src="${localAvatar}" alt="Avatar">`;
+    updateMainAvatar(localAvatar);
+  }
+
+  try {
+    const response = await fetch(
+      'https://vault-server-laivansam-gnfdcsgthfhraahe.eastasia-01.azurewebsites.net/profile/get_avatar',
+      {
+        credentials: 'include',
+      }
+    );
+    const data = await response.json();
+
+    if (data.trang_thai === true && data.url !== localAvatar) {
+      if (previewElement) {
+        previewElement.innerHTML = `<img src="${data.url}" alt="Avatar">`;
+      }
+      updateMainAvatar(data.url);
+      localStorage.setItem('user_avatar', data.url);
+      console.log('Đã đồng bộ avatar mới từ server! :)');
     }
-    updateMainAvatar(avatar);
+  } catch (error) {
+    console.error('Không thể đồng bộ avatar:', error);
   }
 });
 

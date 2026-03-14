@@ -8,6 +8,7 @@ from utils.scan_img import check_image_sensitivity
 import os
 import time
 import uuid
+from configs.db import db
 
 cloudinary.config(
     cloud_name="dshgtuy8f",
@@ -82,8 +83,18 @@ def upload_to_cloud_avt():
             file_info = make_json_cloud(
                 upload_result, user_email, ten_file_goc, "avatar"
             )
-            luu(file_info, "file_info")
 
+            db["file_info"].update_many(
+                {
+                    "user_gmail": user_email, 
+                    "loai_file": "avatar", 
+                    "trang_thai": {"$ne": "da_xoa"},
+                    "url":{"$ne": file_info.get("secure_url", "")}
+                },
+                {"$set": {"trang_thai": "da_xoa"}}
+            )
+
+            luu(file_info, "file_info")
             urls.append(file_info.get("url"))
         except Exception as e:
             print(f"Lỗi: {e}")
