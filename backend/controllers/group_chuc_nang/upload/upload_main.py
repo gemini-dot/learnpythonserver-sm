@@ -10,7 +10,7 @@ from services.upload.chuc_nang.save_metadata import save_metadata_html
 import os
 import time
 import uuid
-import concurrent.futures 
+import concurrent.futures #debug
 
 cloudinary.config(
     cloud_name="dshgtuy8f",
