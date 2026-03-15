@@ -28,8 +28,12 @@ def get_user_storage_info(user_gmail):
         
         don_vi_tinh = user_storage.get("khong_gian_luu_tru", 128) 
         user_plan = str(user.get("cap_nguoi_dung", "BASIC"))
-        
-        max_storage_mb = don_vi_tinh
+
+        try:
+            max_storage_mb = float(don_vi_tinh)
+        except (ValueError, TypeError):
+            max_storage_mb = 128.0
+
         max_storage_bytes = max_storage_mb * 1024 * 1024
 
         percent_used = 0
@@ -49,3 +53,4 @@ def get_user_storage_info(user_gmail):
         }
     except Exception as e:
         print(f"[DEBUG]error {e}",flush=True)
+        return {"error": f"Lỗi máy chủ: {str(e)}"}, 500
