@@ -28,12 +28,10 @@ def logout():
             path="/",
         )
     
-    user = collection.update_one({
-        "gmail":usergmail,
-        "$set":{
-            'trang_thai':'chua_dang_nhap'
-        }
-    })
+    user = collection.update_one(
+        {"gmail": usergmail},
+        {"$set": {"trang_thai": "chua_dang_nhap"}}
+    )
 
     
 
