@@ -27,6 +27,7 @@ from routes.group_chuc_nang.upload.chuc_nang.lock_file import app_route25
 from routes.group_chuc_nang.upload.chuc_nang.log_share_14031432026 import app_route26
 from routes.group_chuc_nang.upload.chuc_nang.logout import app_route27
 from routes.group_chuc_nang.upload.chuc_nang.get_avatar import app_route28
+from routes.group_chuc_nang.upload.chuc_nang.check_storage import check_storage
 from routes.ping.ping import khoi_dong
 from routes.group_admin.group_chuc_nang.kill_switch import lenh_tu_huy
 
@@ -55,7 +56,7 @@ blueprint_groups = {
         app_route28,
     ],
     "/security": [app_route7, app_route15, app_route25],
-    "/upload_sv": [app_route8, app_route9, app_route24, app_route26],
+    "/upload_sv": [app_route8, app_route9, app_route24, app_route26, check_storage],
     "/ping": [khoi_dong],
     "/admin": [lenh_tu_huy],
     "/fac": [app_route22],
