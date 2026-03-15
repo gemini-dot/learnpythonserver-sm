@@ -1,6 +1,6 @@
 import eventlet
 
-eventlet.monkey_patch()
+eventlet.monkey_patch() #debug
 import newrelic.agent
 newrelic.agent.initialize()
 from flask import Flask, abort, request
