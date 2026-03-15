@@ -2,7 +2,7 @@
  * Storage Manager
  * Lấy dữ liệu dung lượng từ Backend, cập nhật giao diện và cảnh báo.
  */
-
+const storageInfoEl = document.querySelector('.storage-info');
 const StorageManager = {
   // Mức phần trăm dung lượng sẽ kích hoạt cảnh báo
   WARNING_THRESHOLD_PERCENT: 90,
@@ -98,7 +98,7 @@ const StorageManager = {
    */
   showWarningNotification(percent, maxCapacity) {
     // Có thể thay alert bằng hàm Toast custom của bạn (ví dụ: toast(...))
-    alert(
+    toast(
       `Cảnh báo: Bạn đã sử dụng hết ${percent}% không gian lưu trữ (Tối đa ${maxCapacity})! Vui lòng dọn dẹp file không cần thiết hoặc nâng cấp dung lượng.`
     );
   },
@@ -127,6 +127,9 @@ const StorageManager = {
 
       if (data && data.storage) {
         this.updateUI(data.storage);
+        storageInfoEl.innerHTML = `Đã dùng <strong>${this.formatBytes(data.storage.used_bytes)}</strong> / ${this.formatBytes(
+          data.storage.max_bytes
+        )}`;
       }
     } catch (error) {
       console.error(
