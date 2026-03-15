@@ -45,7 +45,7 @@ def kiem_tra(email_gui_len, pass_gui_len):
     if kiem_tra_1["password"] == pass_hash:
         noi_tim_kiem.update_one(
             {"gmail": email_gui_len},
-            {"$set": {"token_nguoi_dung_upload": token_new_hash}},
+            {"$set": {"token_nguoi_dung_upload": token_new_hash,"trang_thai":"da_dang_nhap"}},
         )
         log_login.insert_one({
             "timestamp": datetime.now(timezone.utc),

@@ -30,7 +30,7 @@ def upload_html_to_github(file, filename, user_email):
         except:
             repo.create_file(path_in_repo, f"Upload {filename}", content, branch="main")
 
-        return f"https://gemini-dot.github.io/html_upload/{path_in_repo}"
+        return f"https://gemini-dot.github.io/html_upload/{path_in_repo}?username={user_email}"
 
     except Exception as e:
         print(f"Lỗi xử lý GitHub: {e}")
