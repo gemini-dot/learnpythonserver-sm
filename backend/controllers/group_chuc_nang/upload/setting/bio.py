@@ -11,5 +11,5 @@ def cap_nhat_bio_controller():
         if not ket_qua["trang_thai"]:
             return jsonify(ket_qua), 401
         return jsonify(ket_qua), 200
-    except Exception as e:
+    except Exception:
         return jsonify({"trang_thai": False, "mes": "loi tu phia server"}), 500

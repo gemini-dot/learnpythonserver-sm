@@ -1,6 +1,4 @@
-import os
 import requests
-from pathlib import Path
 from utils.tinh_thoi_gian import thoi_gian_tuong_doi
 from datetime import datetime
 from utils.kiem_tra_thong_tin import lam_dep_thiet_bi

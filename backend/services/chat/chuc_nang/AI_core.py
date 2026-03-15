@@ -1,5 +1,4 @@
 from google.genai import types
-import google.genai as genai
 from configs.AI_clinet import client
 from configs.prompt import system_prompt, thong_tin_web
 import numpy as np

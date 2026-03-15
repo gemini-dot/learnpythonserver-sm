@@ -31,5 +31,5 @@ def lock_file_services():
         if str(ket_qua.get("trang_thai")) == 'khoa':
             return jsonify({"trang_thai": False,'mes':'bạn chưa có đủ quyền hạn để truy cập nội dung này'}),401
         return jsonify({"trang_thai": True,'mes':'ok'}),200
-    except Exception as e:
+    except Exception:
         return jsonify({"trang_thai": False,'mes':'error from server'}),500

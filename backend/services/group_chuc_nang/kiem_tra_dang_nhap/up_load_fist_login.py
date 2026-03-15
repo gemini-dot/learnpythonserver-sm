@@ -1,4 +1,3 @@
-from configs.db import db
 from utils.hash import hash
 from validators.kiem_tra_token import kiem_tra_token
 
@@ -14,5 +13,5 @@ def kiem_tra_token_link(
         if ket_qua_kiem_tra["success"]:
             return {"success": True, "message": "token chính xác"}
         return {"success": False, "message": "token ko chính xác or loi tu phia server"}
-    except Exception as e:
+    except Exception:
         return {"success": False, "message": "token ko chính xác or loi tu phia server"}

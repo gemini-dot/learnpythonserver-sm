@@ -1,6 +1,5 @@
 import numpy as np
 from google.genai import Client
-import os
 
 google_api = "..."
 

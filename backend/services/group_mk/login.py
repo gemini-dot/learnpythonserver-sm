@@ -1,12 +1,10 @@
-from models.mongodb__pass import User
 from configs.db import db
 from logs.logger import logger
-from utils.hash_password import hash_password, make_salt
+from utils.hash_password import hash_password
 from utils.make_token import tao_token_10_so
 from utils.hash import hash
 from datetime import datetime, timezone
 from flask import request
-from utils.kiem_tra_thong_tin import lam_dep_thiet_bi 
 from utils.get_ip import get_real_ip
 
 def kiem_tra(email_gui_len, pass_gui_len):

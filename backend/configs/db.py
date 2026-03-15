@@ -1,7 +1,6 @@
 import os
 from pymongo import MongoClient
 from dotenv import load_dotenv
-import sys
 from logs.logger import logger
 from pathlib import Path
 

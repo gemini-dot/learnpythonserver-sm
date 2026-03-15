@@ -1,5 +1,4 @@
 import requests
-import pytest
 
 BASE_URL = "http://localhost:5000/auth/input-pass"
 

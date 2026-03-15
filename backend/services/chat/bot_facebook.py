@@ -6,7 +6,6 @@ from services.chat.chuc_nang.send_mes import (
     send_typing,
     send_button_message,
 )
-from configs.AI_clinet import client
 from services.chat.chuc_nang.AI_core import find_relevant_doc
 
 limits_col = db["user_limits"]

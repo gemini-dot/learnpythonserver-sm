@@ -1,5 +1,4 @@
 import requests
-import pytest
 
 # URL này phải khớp với cái @app_route2 của og trong ảnh
 BASE_URL_CREATE = "http://localhost:5000/auth/create-a-pass"

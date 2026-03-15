@@ -1,5 +1,4 @@
 from configs.db import db
-from logs.logger import logger
 
 lay_token = db["token"]
 

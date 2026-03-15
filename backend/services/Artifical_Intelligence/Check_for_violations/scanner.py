@@ -1,10 +1,7 @@
 from google import genai
-from google.genai import types
-import time
 
 client = genai.Client(api_key="...3daLw")
 
-from ddgs import DDGS
 
 a= str(input("nhap: "))
 

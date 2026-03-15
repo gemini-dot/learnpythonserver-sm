@@ -1,6 +1,5 @@
 import cloudinary
 import cloudinary.uploader
-from cloudinary.utils import cloudinary_url
 from flask import request, jsonify
 from utils.cloudidary_json_get import make_json_cloud
 from utils.luu_du_lieu_vao_db import luu
@@ -8,7 +7,6 @@ from utils.scan_img import check_image_sensitivity
 from services.upload.chuc_nang.upload_html import upload_html_to_github
 from services.upload.chuc_nang.save_metadata import save_metadata_html
 import os
-import time
 import uuid
 import concurrent.futures #debug
 

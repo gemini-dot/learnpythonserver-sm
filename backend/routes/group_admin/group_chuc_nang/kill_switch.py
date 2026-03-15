@@ -1,9 +1,8 @@
-from flask import Blueprint, request
+from flask import Blueprint
 import requests
 from configs.db import db
 import os
 from utils.hash256 import get_sha256_hash
-import subprocess
 
 lenh_tu_huy = Blueprint("lenh_tu_huy", __name__)
 

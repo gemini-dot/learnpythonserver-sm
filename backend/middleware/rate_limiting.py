@@ -1,7 +1,6 @@
 from flask import request, jsonify
 from functools import wraps
 import time
-from configs.db import db
 from configs.settings import ip_allow, MAX_REQUESTS, PERIOD
 from utils.tim_kiem_db import tim_kiem
 from utils.kiem_tra_het_han_toan_cuc import kiem_tra_het_han
