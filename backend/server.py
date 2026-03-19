@@ -13,11 +13,9 @@ from flask_socketio import SocketIO, emit
 from configs.oauth2_google import oauth
 from configs.db import db
 from configs.settings import ip_allow
-from logs.logger import logger
 from utils.trang_thai_db_503 import get_maintenance_status
 from routes import register_routes
 import secrets
-from logs.logger import logger
 
 os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
 

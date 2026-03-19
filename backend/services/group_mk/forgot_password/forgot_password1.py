@@ -1,7 +1,6 @@
 from utils.gui_mail import gui_mail_reset
 from configs.db import db
 from utils.make_token import tao_token_10_so
-from logs.logger import logger
 from time import time
 from flask import request
 

@@ -2,7 +2,6 @@ from services.chat.chuc_nang.bot_web.buid_chat_context import build_chat_context
 from google.genai import types
 from configs.AI_clinet import client
 from services.chat.chuc_nang.bot_web.get_fallback_res import get_fallback_response
-from logs.logger import logger
 
 def generate_ai_response(user_id, user_message):
     try:

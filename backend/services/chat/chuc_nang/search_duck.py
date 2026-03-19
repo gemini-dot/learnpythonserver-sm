@@ -1,5 +1,4 @@
 from ddgs import DDGS
-from logs.logger import logger
 
 def get_realtime_info(query):
     try:

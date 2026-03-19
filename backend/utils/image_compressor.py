@@ -1,6 +1,5 @@
 import tempfile
 from PIL import Image
-from logs.logger import logger
 
 def compress_image_for_ai(input_path: str, max_size: tuple = (640, 640)) -> str:
     try:

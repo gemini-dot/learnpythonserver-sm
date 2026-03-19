@@ -1,4 +1,3 @@
-from logs.logger import logger
 
 def parse_size_to_bytes(size_data):
     """

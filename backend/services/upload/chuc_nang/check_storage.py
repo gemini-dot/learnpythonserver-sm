@@ -1,7 +1,6 @@
 from configs.db import db
 from utils.tinh_toan_file import parse_size_to_bytes
 import traceback
-from logs.logger import logger
 
 def get_user_storage_info(user_gmail):
     try:

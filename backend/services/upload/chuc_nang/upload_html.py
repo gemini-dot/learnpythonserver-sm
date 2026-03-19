@@ -1,6 +1,5 @@
 from github import Github
 from os import getenv
-from logs.logger import logger
 
 GITHUB_TOKEN = getenv("GITHUB_TOKEN")
 REPO_NAME = "gemini-dot/html_upload"

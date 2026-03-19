@@ -1,9 +1,7 @@
 import os
 from pymongo import MongoClient
 from dotenv import load_dotenv
-from logs.logger import logger
 from pathlib import Path
-from logs.logger import logger
 
 env_path = Path(__file__).resolve().parent.parent.parent / ".env"
 load_dotenv(dotenv_path=env_path, override=True)

@@ -1,6 +1,5 @@
 from configs.db import db
 import datetime
-from logs.logger import logger
 
 def permanentdelete_file_services(ma_dinh_danh_file, collection):
     try:

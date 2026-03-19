@@ -1,6 +1,5 @@
 from flask import request, jsonify
 from services.upload.chuc_nang.check_storage import get_user_storage_info
-from logs.logger import logger
 
 def check_storage_controller():
     try:

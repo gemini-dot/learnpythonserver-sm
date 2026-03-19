@@ -1,7 +1,6 @@
 from validators.kiem_tra_dinh_dang_gmail import kiem_tra_dinh_dang_gmail
 from validators.kiem_tra_do_bao_mat_pass import check_password_strength
 from configs.db import db
-from logs.logger import logger
 from utils.hash_password import hash_password, make_salt
 from datetime import datetime, timedelta
 

@@ -7,7 +7,6 @@ from utils.scan_img import check_image_sensitivity
 import os
 import uuid
 from configs.db import db
-from logs.logger import logger
 
 cloudinary.config(
     cloud_name="dshgtuy8f",

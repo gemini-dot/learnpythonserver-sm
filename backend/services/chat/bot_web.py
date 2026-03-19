@@ -4,7 +4,6 @@ from services.chat.chuc_nang.bot_web.get_user_id import get_user_id
 from services.chat.chuc_nang.bot_web.save_message import save_message
 from services.chat.chuc_nang.bot_web.generate_ai_res import generate_ai_response
 from datetime import datetime
-from logs.logger import logger
 
 def support_chat():
     try:

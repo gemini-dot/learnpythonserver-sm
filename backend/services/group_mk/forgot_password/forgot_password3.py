@@ -1,5 +1,4 @@
 from configs.db import db
-from logs.logger import logger
 from utils.hash_password import hash_password, make_salt
 
 def kiem_tra_de_doi_mat_khau(token, gmail, new_password):

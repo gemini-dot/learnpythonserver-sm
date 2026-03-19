@@ -2,7 +2,6 @@ import sys
 import os
 from configs.db import db
 from utils.hash_password import make_salt, hash_password
-from logs.logger import logger
 from dotenv import load_dotenv
 from pathlib import Path
 

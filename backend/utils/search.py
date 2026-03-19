@@ -1,5 +1,4 @@
 from configs.db import db
-from logs.logger import logger
 
 def tim_only(collection, find_name, variable, find_item):
     try:

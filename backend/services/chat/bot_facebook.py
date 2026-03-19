@@ -7,7 +7,6 @@ from services.chat.chuc_nang.send_mes import (
     send_button_message,
 )
 from services.chat.chuc_nang.AI_core import find_relevant_doc
-from logs.logger import logger
 
 limits_col = db["user_limits"]
 

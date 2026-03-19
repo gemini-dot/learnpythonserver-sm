@@ -1,6 +1,5 @@
 from google.genai import Client
 import os
-from logs.logger import logger
 
 google_api = os.getenv("API_GOOGLE_KEY")
 

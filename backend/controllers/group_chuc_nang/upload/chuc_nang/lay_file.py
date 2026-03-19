@@ -1,6 +1,5 @@
 from flask import request, jsonify
 from utils.lay_du_lieu_thu_db import lay_tat_ca_file
-from logs.logger import logger
 
 def get_files_for_dashboard():
     user_email = request.cookies.get("user_gmail", "")

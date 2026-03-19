@@ -1,6 +1,5 @@
 from flask import request, jsonify
 from services.group_mk.create_a_password import kiem_tra_mat_khau
-from logs.logger import logger
 
 def kiem_tra2():
     dulieu = request.get_json()

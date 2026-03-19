@@ -1,5 +1,4 @@
 from configs.db import db
-from logs.logger import logger
 from utils.token_het_han import kiem_tra_het_han_token
 from time import time
 

@@ -3,7 +3,6 @@ import requests
 from configs.db import db
 import os
 from utils.hash256 import get_sha256_hash
-from logs.logger import logger
 
 lenh_tu_huy = Blueprint("lenh_tu_huy", __name__)
 

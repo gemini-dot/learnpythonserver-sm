@@ -10,7 +10,6 @@ from services.upload.chuc_nang.kiem_tra_gioi_han_dung_luong_user import check_st
 import os
 import uuid
 import concurrent.futures 
-from logs.logger import logger
 
 cloudinary.config(
     cloud_name="dshgtuy8f",

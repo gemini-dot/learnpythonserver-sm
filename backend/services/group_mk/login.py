@@ -1,5 +1,4 @@
 from configs.db import db
-from logs.logger import logger
 from utils.hash_password import hash_password
 from utils.make_token import tao_token_10_so
 from utils.hash import hash
