@@ -24,9 +24,9 @@ TEMP_DIR = os.path.join(BASE_DIR, "temp")
 
 if not os.path.exists(TEMP_DIR):
     os.makedirs(TEMP_DIR, exist_ok=True)
-    logger.log(f"📁 Đã tạo thư mục tạm tại: {TEMP_DIR}", flush=True)
+    logger.log(f"📁 Đã tạo thư mục tạm tại: {TEMP_DIR}")
 else:
-    logger.log(f"✅ Thư mục tạm đã sẵn sàng: {TEMP_DIR}", flush=True)
+    logger.log(f"✅ Thư mục tạm đã sẵn sàng: {TEMP_DIR}")
 
 
 def process_single_file(file_data, user_email, folder_name):
@@ -41,13 +41,13 @@ def process_single_file(file_data, user_email, folder_name):
         with open(temp_path, "wb") as f:
             f.write(file_bytes)
             
-        logger.log(f"--- Đã lưu tạm: {temp_path} ---", flush=True)
+        logger.log(f"--- Đã lưu tạm: {temp_path} ---")
 
         if not ten_file_goc:
             ten_file_goc = "no_name_file"
 
         if ten_file_goc.lower().endswith(".html") or content_type == "text/html":
-            logger.log(f"Da phat hien ra file html {ten_file_goc}", flush=True)
+            logger.log(f"Da phat hien ra file html {ten_file_goc}")
             link_github = upload_html_to_github(temp_path, ten_file_goc, user_email)
             if link_github:
                 file_info_html = save_metadata_html(
@@ -70,7 +70,7 @@ def process_single_file(file_data, user_email, folder_name):
                 return result
 
         ### Upload lên Cloudinary
-        logger.log(f"--- Bắt đầu upload Cloudinary: {ten_file_goc} ---", flush=True)
+        logger.log(f"--- Bắt đầu upload Cloudinary: {ten_file_goc} ---")
         upload_result = cloudinary.uploader.upload(
             temp_path,
             folder=folder_name,
@@ -78,7 +78,7 @@ def process_single_file(file_data, user_email, folder_name):
             resource_type="auto",
             unique_filename=True,
         )
-        logger.log(f"--- Upload Cloudinary xong: {ten_file_goc} ---", flush=True)
+        logger.log(f"--- Upload Cloudinary xong: {ten_file_goc} ---")
 
         file_info = make_json_cloud(
             upload_result, user_email, ten_file_goc, "upload"

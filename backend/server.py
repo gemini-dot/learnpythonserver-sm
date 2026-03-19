@@ -96,7 +96,7 @@ admin_pass_on, admin_pass_off = str(os.getenv("BAOTRI_KEY_ON")), str(
 
 @socketio.on("admin_broadcast")
 def handle_broadcast(data):
-    logger.log(f"Đang phát tin: {data['msg']}", flush=True)
+    logger.log(f"Đang phát tin: {data['msg']}")
     emit("global_notification", {"message": data["msg"]}, broadcast=True)
 
 

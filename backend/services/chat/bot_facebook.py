@@ -52,7 +52,7 @@ def handle_ai_logic(sender_id, message_text):
                 sender_id,
                 "Tui đang 'reset' lại não xíu, og nhắn lại câu vừa nãy nha! 🧠",
             )
-            logger.warning(f"Bỏ qua lưu vì lỗi API: {ai_reply}", flush=True)
+            logger.warning(f"Bỏ qua lưu vì lỗi API: {ai_reply}")
             return
         msg_to_send = (
             ai_reply.split("|||")[0].strip() if "|||" in ai_reply else ai_reply
