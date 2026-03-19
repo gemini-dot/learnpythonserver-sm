@@ -14,5 +14,5 @@ def compress_image_for_ai(input_path: str, max_size: tuple = (640, 640)) -> str:
             img.save(temp_path, format="JPEG", quality=85, optimize=True)
             return temp_path
     except Exception as e:
-        logger.error(f"Lỗi khi nén ảnh: {e}")
+        print(f"Lỗi khi nén ảnh: {e}")
         return input_path

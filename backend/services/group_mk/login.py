@@ -15,9 +15,9 @@ def kiem_tra(email_gui_len, pass_gui_len):
     
     try:
         db.command("ping")
-        logger.info("system: find to connect mongodb ")
+        print("system: find to connect mongodb ")
     except Exception as e:
-        logger.error(f"system: error connect {e}")
+        print(f"system: error connect {e}")
 
     kiem_tra_1 = noi_tim_kiem.find_one({"gmail": email_gui_len})
 

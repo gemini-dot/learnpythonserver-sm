@@ -24,7 +24,7 @@ def support_chat():
         user_id = get_user_id()
 
         # Log request
-        logger.log(f"[CHAT] User {user_id}: {user_message}")
+        print(f"[CHAT] User {user_id}: {user_message}")
 
         # Thêm thông tin về files vào message nếu có
         if files:
@@ -40,7 +40,7 @@ def support_chat():
         save_message(user_id, "bot", bot_response)
 
         # Log response
-        logger.log(f"[CHAT] Bot: {bot_response[:100]}...")
+        print(f"[CHAT] Bot: {bot_response[:100]}...")
 
         # Return response
         return (
@@ -56,7 +56,7 @@ def support_chat():
         )
 
     except Exception as e:
-        logger.error(f"[ERROR] Chat endpoint error: {e}")
+        print(f"[ERROR] Chat endpoint error: {e}")
         return (
             jsonify(
                 {

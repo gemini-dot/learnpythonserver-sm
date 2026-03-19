@@ -19,5 +19,5 @@ def generate_ai_response(user_id, user_message):
         return bot_response
 
     except Exception as e:
-        logger.error(f"[ERROR] Gemini API error: {e}")
+        print(f"[ERROR] Gemini API error: {e}")
         return get_fallback_response(user_message)

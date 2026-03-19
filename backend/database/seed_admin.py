@@ -16,14 +16,14 @@ def create_initial_admin():
     # Kiểm tra thực tế kết nối
     try:
         db.command("ping")
-        logger.info("system: find to connect mongodb ")
+        print("system: find to connect mongodb ")
     except Exception as e:
-        logger.error(f"system: error connect {e}")
+        print(f"system: error connect {e}")
         sys.exit(1)
 
     # Kiểm tra tồn tại
     if admin_collection.find_one({"role": "admin-root"}):
-        logger.warning("Canh bao: Tai khoan Admin-Root đa ton tai trong he thong!")
+        print("Canh bao: Tai khoan Admin-Root đa ton tai trong he thong!")
         return
 
     # Thông tin admin
@@ -45,9 +45,9 @@ def create_initial_admin():
 
     try:
         admin_collection.insert_one(admin_data)
-        logger.info(f"Thanh cong: Đa khoi tao quyen Admin-Root cho {username}")
+        print(f"Thanh cong: Đa khoi tao quyen Admin-Root cho {username}")
     except Exception as e:
-        logger.error(f"Loi khi luu Admin vào DB: {e}")
+        print(f"Loi khi luu Admin vào DB: {e}")
 
 
 if __name__ == "__main__":

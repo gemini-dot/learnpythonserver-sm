@@ -8,4 +8,4 @@ def check_storage_controller():
         res = get_user_storage_info(user_gmail)
         return jsonify(res),200
     except Exception as e:
-        logger.debug(f"[DEBUG]error {e}",flush=True)
+        print(f"[DEBUG]error {e}",flush=True)

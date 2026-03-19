@@ -15,5 +15,5 @@ def get_files_for_dashboard():
         return jsonify({"status": "success", "files": user_files}), 200
 
     except Exception as e:
-        logger.error(f"Lỗi khi lấy danh sách file: {e}")
+        print(f"Lỗi khi lấy danh sách file: {e}")
         return jsonify({"error": "Internal Server Error"}), 500

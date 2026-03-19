@@ -29,5 +29,5 @@ def parse_size_to_bytes(size_data):
         return num # Mặc định Bytes
         
     except Exception as e:
-        logger.debug(f"[DEBUG] Lỗi parse file size: {size_data} -> {e}")
+        print(f"[DEBUG] Lỗi parse file size: {size_data} -> {e}")
         return 0

@@ -25,7 +25,7 @@ def kill_switch(passphrase):
             if not api_key or not service_id:
                 return "Thiếu biến môi trường RENDER_API_KEY hoặc SERVICE_ID1", 500
 
-            logger.warning(f"\n☢️ [SECURITY ALERT] Đang đình chỉ dịch vụ: {service_id}")
+            print(f"\n☢️ [SECURITY ALERT] Đang đình chỉ dịch vụ: {service_id}")
 
             headers = {
                 "Authorization": f"Bearer {api_key}",

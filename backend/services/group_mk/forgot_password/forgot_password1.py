@@ -13,9 +13,9 @@ def kiem_tra_dat_lai_mat_khau(gmail):
 
     try:
         db.command("ping")
-        logger.info("system: find to connect mongodb ")
+        print("system: find to connect mongodb ")
     except Exception as e:
-        logger.error(f"system: error connect {e}")
+        print(f"system: error connect {e}")
 
     kiem_tra_ton_tai = user.find_one({"gmail": gmail})
 
@@ -57,7 +57,7 @@ def kiem_tra_dat_lai_mat_khau(gmail):
                 "message": "Đã gửi email thành công! Vui lòng kiểm tra hộp thư.",
             }
         else:
-            logger.error(f"Lỗi gửi email: {ket_qua.get('error', 'Không rõ lỗi')}")
+            print(f"Lỗi gửi email: {ket_qua.get('error', 'Không rõ lỗi')}")
             return {
                 "success": False,
                 "error": ket_qua.get("error", "Đã có lỗi xảy ra khi gửi email."),

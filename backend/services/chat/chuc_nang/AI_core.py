@@ -57,11 +57,11 @@ def get_embedding(text):
         )
         return res.embeddings[0].values
     except Exception as e:
-        logger.error(f"Lỗi: {e}")
-        logger.log("Đang quét danh sách model khả dụng...")
+        print(f"Lỗi: {e}")
+        print("Đang quét danh sách model khả dụng...")
         for m in client.models.list():
             if "embed" in m.name.lower():
-                logger.log(f"-> Model bạn nên dùng là: {m.name}")
+                print(f"-> Model bạn nên dùng là: {m.name}")
         return None
 
 
@@ -83,5 +83,5 @@ def find_relevant_doc(query):
 
         return best_doc
     except Exception as e:
-        logger.error(f"Lỗi Embedding: {e}")
+        print(f"Lỗi Embedding: {e}")
         return "Không tìm thấy thông tin liên quan."

@@ -12,12 +12,12 @@ def kiem_tra_mat_khau(user_name_input, gmail_input, password_input):
 
     try:
         db.command("ping")
-        logger.info("system: find to connect mongodb ")
+        print("system: find to connect mongodb ")
     except Exception as e:
-        logger.error(f"system: error connect {e}")
+        print(f"system: error connect {e}")
 
     if luu_tru.find_one({"gmail": gmail_input}):
-        logger.warning(f"Email {gmail_input} đã tồn tại.")
+        print(f"Email {gmail_input} đã tồn tại.")
         return {
             "status": "error",
             "error_type": "loi_trung_email",
@@ -61,7 +61,7 @@ def kiem_tra_mat_khau(user_name_input, gmail_input, password_input):
 
         return {"status": "good", "message": "Tạo tài khoản thành công rồi nhé!"}
     except Exception as e:
-        logger.error(f"Lỗi database: {e}")
+        print(f"Lỗi database: {e}")
         return {
             "status": "error",
             "error_type": "loi_luu_tru_database",

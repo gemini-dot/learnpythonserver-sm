@@ -40,14 +40,14 @@ def gui_mail_reset(email_nguoi_nhan, token, thoi_gian, dia_chi_ip, thiet_bi):
         #
         response = requests.post(url, json=data)
 
-        logger.log(f"EmailJS Response: {response.status_code} - {response.text}")
+        print(f"EmailJS Response: {response.status_code} - {response.text}")
 
         if response.status_code == 200:
-            logger.log(f"Gửi mail cho {email_nguoi_nhan} thành công rồi og ơi! 🎉")
+            print(f"Gửi mail cho {email_nguoi_nhan} thành công rồi og ơi! 🎉")
             return {"success": True}
         else:
-            logger.error(f"EmailJS báo lỗi: {response.text}")
+            print(f"EmailJS báo lỗi: {response.text}")
             return {"success": False, "error": response.text}
     except Exception as e:
-        logger.error(f"Có lỗi bất ngờ rồi og ơi: {e}")
+        print(f"Có lỗi bất ngờ rồi og ơi: {e}")
         return {"success": False, "error": str(e)}

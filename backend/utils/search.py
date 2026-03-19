@@ -10,5 +10,5 @@ def tim_only(collection, find_name, variable, find_item):
         res = user.get(str(find_item))
         return res
     except Exception as e:
-        logger.error(f"Lỗi ADMIN-ROOT ơi: {e}")
+        print(f"Lỗi ADMIN-ROOT ơi: {e}")
         return None

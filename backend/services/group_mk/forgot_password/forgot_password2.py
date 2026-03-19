@@ -44,5 +44,5 @@ def kiem_tra_xac_nhan(gmail, token_nguoi_dung_gui_len):
         return {"success": True, "message": "Xác thực thành công!"}
 
     except Exception as e:
-        logger.error(f"Lỗi hệ thống: {e}")
+        print(f"Lỗi hệ thống: {e}")
         return {"success": False, "message": "Có lỗi xảy ra phía server!"}

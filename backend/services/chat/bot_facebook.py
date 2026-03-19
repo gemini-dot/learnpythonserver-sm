@@ -23,7 +23,7 @@ def handle_ai_logic(sender_id, message_text):
     search_context = ""
 
     if any(word in message_text.lower() for word in keywords):
-        logger.log(f"--- Đang tìm tin tức cho: {message_text} ---")
+        print(f"--- Đang tìm tin tức cho: {message_text} ---")
         search_context = get_realtime_info(message_text)
         message_text = (
             f"(Bối cảnh thực tế: {search_context})\nCâu hỏi khách: {message_text}"
@@ -52,7 +52,7 @@ def handle_ai_logic(sender_id, message_text):
                 sender_id,
                 "Tui đang 'reset' lại não xíu, og nhắn lại câu vừa nãy nha! 🧠",
             )
-            logger.warning(f"Bỏ qua lưu vì lỗi API: {ai_reply}")
+            print(f"Bỏ qua lưu vì lỗi API: {ai_reply}")
             return
         msg_to_send = (
             ai_reply.split("|||")[0].strip() if "|||" in ai_reply else ai_reply

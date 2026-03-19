@@ -10,7 +10,7 @@ def delete_file_services(ma_dinh_danh_file, collection):
             {"$set": {"trang_thai": "da_xoa", "ngay_xoa": datetime.datetime.now()}},
         )
         if res.matched_count == 0:
-            logger.error(f"Không tìm thấy file có ID: {ma_dinh_danh_file}")
+            print(f"Không tìm thấy file có ID: {ma_dinh_danh_file}")
             return {"trang_thai": False, "mes": "khong tim thay id"}
         return {"trang_thai": True, "mes": "ok"}
     except Exception as e:

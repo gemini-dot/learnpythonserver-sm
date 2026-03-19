@@ -40,5 +40,5 @@ def kiem_tra_de_doi_mat_khau(token, gmail, new_password):
                 "message": "Mật khẩu mới không được giống mật khẩu cũ!",
             }
     except Exception as e:
-        logger.error(f"Lỗi khi kiểm tra để đổi mật khẩu: {e}")
+        print(f"Lỗi khi kiểm tra để đổi mật khẩu: {e}")
         return {"success": False, "message": str(e)}

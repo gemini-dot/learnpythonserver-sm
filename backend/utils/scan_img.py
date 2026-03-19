@@ -68,4 +68,4 @@ def check_image_sensitivity(image_path: str) -> dict:
             try:
                 os.remove(compressed_path)
             except Exception as e:
-                logger.error(f"Lỗi khi xóa file ảnh tạm: {e}")
+                print(f"Lỗi khi xóa file ảnh tạm: {e}")

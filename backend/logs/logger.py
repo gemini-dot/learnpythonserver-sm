@@ -65,5 +65,3 @@ def setup_logger():
 
 # Khởi tạo một lần dùng mãi mãi
 logger = setup_logger()
-
-logger.log = logger.info

@@ -96,7 +96,7 @@ admin_pass_on, admin_pass_off = str(os.getenv("BAOTRI_KEY_ON")), str(
 
 @socketio.on("admin_broadcast")
 def handle_broadcast(data):
-    logger.log(f"Đang phát tin: {data['msg']}")
+    print(f"Đang phát tin: {data['msg']}")
     emit("global_notification", {"message": data["msg"]}, broadcast=True)
 
 
@@ -140,10 +140,10 @@ port = int(os.environ.get("PORT", 8000))
 if __name__ == "__main__":
     try:
         db.command("ping")
-        logger.info("Database: Kết nối thành công!")
+        print("Database: Kết nối thành công!")
         socketio.run(app, host="0.0.0.0", port=port)
     except Exception as e:
-        logger.error(f"System: Lỗi khởi động: {e}")
+        print(f"System: Lỗi khởi động: {e}")
 
 # hỡi người anh em
 # nếu bro gặp lỗi và đang cố gắng fix lỗi(90% là vậy)

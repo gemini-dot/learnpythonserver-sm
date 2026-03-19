@@ -23,8 +23,8 @@ def kiem_tra2():
     if ket_qua.get("status") == "error":
         loi = ket_qua.get("error_type")
         code = bang_ma_loi.get(loi, 400)
-        logger.error(f"Lỗi: {loi} - Trả về code: {code}")
+        print(f"Lỗi: {loi} - Trả về code: {code}")
     else:
-        logger.log("Gửi lên ok! Tạo tài khoản thành công.")
+        print("Gửi lên ok! Tạo tài khoản thành công.")
 
     return jsonify(ket_qua), code

@@ -54,6 +54,6 @@ def get_user_storage_info(user_gmail):
             }
         }
     except Exception as e:
-        logger.debug("[DEBUG] CHI TIẾT LỖI:")
-        logger.log(traceback.format_exc()) 
+        print("[DEBUG] CHI TIẾT LỖI:")
+        print(traceback.format_exc()) 
         return {"error": f"Lỗi máy chủ: {str(e)}"}, 500
