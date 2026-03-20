@@ -133,10 +133,7 @@ def unlock():
 def home():
     thu_muc = thu_muc_chinh()
     try:
-        danh_sach_file = os.listdir(thu_muc)
-        ket_qua = f"<h3>Tọa độ máy chủ đang đứng: {thu_muc}</h3>"
-        ket_qua += f"<p>Những file nó nhìn thấy: {', '.join(danh_sach_file)}</p>"
-        return ket_qua
+        return send_from_directory(thu_muc, "index.html")
     except Exception as e:
         return f"Lỗi rách việc rồi og ơi, thư mục này không tồn tại: {e}"
 
