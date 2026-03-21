@@ -32,6 +32,7 @@ from routes.ping.ping import khoi_dong
 from routes.group_admin.group_chuc_nang.kill_switch import lenh_tu_huy
 from routes.group_password.chuyen_huong.login import login
 from routes.group_password.chuyen_huong.signup import signup
+from routes.group_password.chuyen_huong.reset_password.send_mail import send_mail_reset_password
 blueprint_groups = {
     "/auth": [
         login_route,
@@ -46,6 +47,7 @@ blueprint_groups = {
         app_route27,
         login,
         signup,
+        send_mail_reset_password,
     ],
     "/profile": [
         app_route10,
