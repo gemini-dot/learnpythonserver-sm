@@ -53,7 +53,7 @@ function updateProgress() {
     setTimeout(updateProgress, delay);
   } else {
     setTimeout(() => {
-      window.location.href = '../group_password/input_pass.html';
+      window.location.href = '/auth/login';
     }, 800);
   }
 }
