@@ -72,12 +72,13 @@ blueprint_groups = {
     "/admin": [lenh_tu_huy],
     "/fac": [app_route22],
     "/api": [app_route23],
-    "":user_dashboard,
-    "":e401,
-    "":e403,
-    "":e500,
-    "":e503
-
+    "":[
+        user_dashboard,
+        e401,
+        e403,
+        e500,
+        e503
+    ]
 }
 
 def register_routes(app):

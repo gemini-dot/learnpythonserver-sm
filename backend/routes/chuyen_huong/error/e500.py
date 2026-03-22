@@ -9,4 +9,4 @@ e500 = Blueprint("error500",__name__)
 @limit_requests(max_requests=MAX_REQUESTS, period=PERIOD)
 
 def e500_user_route():
-    return send_from_directory(thu_muc_chinh("frontend/view/error"), "500.html")
+    return send_from_directory(thu_muc_chinh("frontend/view/error"), "500.html"),500

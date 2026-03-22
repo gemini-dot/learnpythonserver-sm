@@ -9,4 +9,4 @@ e401 = Blueprint("error401",__name__)
 @limit_requests(max_requests=MAX_REQUESTS, period=PERIOD)
 
 def e401_user_route():
-    return send_from_directory(thu_muc_chinh("frontend/view/error"), "401.html")
+    return send_from_directory(thu_muc_chinh("frontend/view/error"), "401.html"),401

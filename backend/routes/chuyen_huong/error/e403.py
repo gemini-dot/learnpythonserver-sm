@@ -9,4 +9,4 @@ e403 = Blueprint("error403",__name__)
 @limit_requests(max_requests=MAX_REQUESTS, period=PERIOD)
 
 def e403_user_route():
-    return send_from_directory(thu_muc_chinh("frontend/view/error"), "403.html")
+    return send_from_directory(thu_muc_chinh("frontend/view/error"), "403.html"),403
