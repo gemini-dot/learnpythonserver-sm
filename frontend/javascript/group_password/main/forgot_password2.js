@@ -82,7 +82,7 @@ async function verifyToken() {
     if (response.ok && data.success) {
       console.log('Xác thực token thành công! Giờ cho phép đổi pass.');
       window.location.href =
-        'create_new_pass.html?gmail=' +
+        'auth/reset_site?gmail=' +
         encodeURIComponent(gmail) +
         '&token=' +
         encodeURIComponent(token);

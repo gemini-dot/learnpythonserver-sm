@@ -34,6 +34,7 @@ from routes.group_admin.group_chuc_nang.kill_switch import lenh_tu_huy
 from routes.group_password.chuyen_huong.login import login
 from routes.group_password.chuyen_huong.signup import signup
 from routes.group_password.chuyen_huong.reset_password.send_mail import send_mail_reset_password
+from routes.group_password.chuyen_huong.reset_password.repass import send_mail_reset_password_main
 from routes.group_chuc_nang.upload.chuyen_huong.dashboard import user_dashboard
 from routes.chuyen_huong.error.e401 import e401
 from routes.chuyen_huong.error.e403 import e403
@@ -55,6 +56,7 @@ blueprint_groups = {
         login,
         signup,
         send_mail_reset_password,
+        send_mail_reset_password_main,
     ],
     "/profile": [
         app_route10,
