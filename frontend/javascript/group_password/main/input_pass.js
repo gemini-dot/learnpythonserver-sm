@@ -92,9 +92,9 @@ if (formDangNhap) {
             localStorage.setItem('user_email', lay_gia_tri_user);
             setTimeout(() => {
               if (isMobileDevice()) {
-                window.location.href = `https://www.vault-storage.me/frontend/view/upload/dashboard/dashboard-mobile.html?useraccount=${lay_gia_tri_user}`;
+                window.location.href = `https://vault-storage.me/frontend/view/upload/dashboard/dashboard-mobile.html?useraccount=${lay_gia_tri_user}`;
               } else {
-                window.location.href = `https://www.vault-storage.me/frontend/view/upload/dashboard/index.html?useraccount=${lay_gia_tri_user}`;
+                window.location.href = `https://vault-storage.me/dashboard?useraccount=${lay_gia_tri_user}`;
               }
             }, 2000); //
           });

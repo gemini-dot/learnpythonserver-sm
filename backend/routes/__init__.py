@@ -1,4 +1,5 @@
 # import file nội bộ
+from configs.duong_dan_thu_muc import duong_dan_hien_tai
 from routes.group_password.input_pass import login_route
 from routes.group_password.create_a_password import signup_route
 from routes.group_password.forgot_password.forgot_password import findpassword_route
@@ -33,6 +34,7 @@ from routes.group_admin.group_chuc_nang.kill_switch import lenh_tu_huy
 from routes.group_password.chuyen_huong.login import login
 from routes.group_password.chuyen_huong.signup import signup
 from routes.group_password.chuyen_huong.reset_password.send_mail import send_mail_reset_password
+from routes.group_chuc_nang.upload.chuyen_huong.dashboard import user_dashboard
 blueprint_groups = {
     "/auth": [
         login_route,
@@ -66,12 +68,20 @@ blueprint_groups = {
     "/admin": [lenh_tu_huy],
     "/fac": [app_route22],
     "/api": [app_route23],
+    "":user_dashboard
 }
 
-try:
-    def register_routes(app):
+def register_routes(app):
+    try:
         for prefix, blueprints in blueprint_groups.items():
+            if not isinstance(blueprints, list):
+                blueprints = [blueprints]
+                
             for bp in blueprints:
-                app.register_blueprint(bp, url_prefix=prefix)
-except Exception as e:
-    print(f'[ERROR] {e}')
+                if prefix == "":
+                    app.register_blueprint(bp)
+                else:
+                    app.register_blueprint(bp, url_prefix=prefix)
+        print("[SUCCESS]: Đã đăng ký toàn bộ route thành công! :)")
+    except Exception as e:
+        print(f'[ERROR] Lỗi khi đăng ký Blueprint: {e}')
