@@ -28,7 +28,6 @@ async function wakeUpServer() {
       isServerAwake = true;
     }
   } catch (error) {
-    console.log('Server đang ngủ, gọi lại sau 2s...');
     if (!isServerAwake) setTimeout(wakeUpServer, 2000);
   }
 }

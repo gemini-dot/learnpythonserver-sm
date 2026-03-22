@@ -42,7 +42,6 @@ async function startGateway() {
         }
       }
     } catch (error) {
-      console.log('Server vẫn đang ngủ, đợi xíu...');
       await new Promise((res) => setTimeout(res, 2000)); // Thử lại sau 2s
     }
   }

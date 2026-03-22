@@ -2,7 +2,7 @@ document.getElementById('google-login-btn').addEventListener('click', () => {
   window.location.href =
     'https://vault-server-laivansam-gnfdcsgthfhraahe.eastasia-01.azurewebsites.net/auth/login_google';
 });
-
+const pass = () => {};
 window.addEventListener('DOMContentLoaded', async () => {
   const params = new URLSearchParams(window.location.search);
   const sid = params.get('sid');
@@ -37,7 +37,7 @@ window.addEventListener('DOMContentLoaded', async () => {
         window.location.href = 'https://vault-storage.me/auth/login';
       }
     } catch (error) {
-      console.error('Lỗi kết nối:', error);
+      pass();
     }
   }
 });

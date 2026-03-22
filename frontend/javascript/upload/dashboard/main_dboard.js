@@ -8,7 +8,7 @@
   );
 
   socket.on('global_notification', (data) => {
-    console.log('📡 Đã nhận thông báo hệ thống:', data.message);
+    pass();
 
     if (typeof toast === 'function') {
       toast(`THÔNG BÁO: ${data.message}`);
@@ -17,14 +17,14 @@
     }
   });
   socket.on('connect_error', (err) => {
-    console.error('❌ Lỗi kết nối Socket:', err.message);
+    pass();
   });
 
   socket.on('connect', () => {
-    console.log('✅ Đã kết nối thành công với trạm phát sóng Python!');
+    pass();
   });
 })();
-
+const pass = () => {};
 const urlParams = new URLSearchParams(window.location.search);
 const userName = urlParams.get('useraccount');
 if (userName) {
@@ -40,7 +40,7 @@ async function secretMaintenanceCheck() {
       window.location.replace('https://vault-storage.me/503');
     }
   } catch (error) {
-    console.log('Server đang khởi động hoặc gặp sự cố kết nối.');
+    pass();
   }
 }
 
@@ -82,10 +82,9 @@ document.addEventListener('DOMContentLoaded', async () => {
       }
       updateMainAvatar(data.url);
       localStorage.setItem('user_avatar', data.url);
-      console.log('Đã đồng bộ avatar mới từ server! :)');
     }
   } catch (error) {
-    console.error('Không thể đồng bộ avatar:', error);
+    pass();
   }
 });
 
@@ -117,10 +116,8 @@ function chayLenhQuet() {
       method: 'GET',
       credentials: 'include',
     }
-  ).catch((err) =>
-    console.log('[LOG]Server nhận lệnh rồi, tui không quan tâm kết quả nha!')
-  );
-  console.log('[LOG] Đã gửi lệnh thực thi kiểm tra malware');
+  ).catch((err) => pass());
+  pass();
 }
 checkAccess();
 chayLenhQuet();
@@ -138,15 +135,6 @@ let activeFilter = 'all'; // filter từ nav: 'all','img','doc','vid','pdf','zip
 function getFilteredFiles() {
   const today = new Date().toLocaleDateString('vi-VN');
   let result = [...sampleFiles];
-
-  console.log(
-    '[Filter Debug] activeFilter:',
-    activeFilter,
-    'searchQuery:',
-    searchQuery,
-    'sampleFiles:',
-    sampleFiles.length
-  );
 
   // 1. Lọc theo category nav
   switch (activeFilter) {
@@ -182,7 +170,6 @@ function getFilteredFiles() {
     default:
       break; // 'all' — giữ nguyên
   }
-  console.log('[Filter Debug] After category filter:', result.length);
 
   // 2. Lọc thêm theo search query (tên file + ext)
   if (searchQuery.trim()) {
@@ -191,8 +178,6 @@ function getFilteredFiles() {
       (f) => f.name.toLowerCase().includes(q) || f.ext.toLowerCase().includes(q)
     );
   }
-
-  console.log('[Filter Debug] After search filter:', result.length);
   return result;
 }
 
@@ -654,7 +639,6 @@ async function deleteSelected() {
         toast(`Lỗi: ${data.mes || 'Không thể xóa file'}`);
       }
     } catch (error) {
-      console.error('Lỗi xóa file:', error);
       toast('Lỗi kết nối server, thử lại sau nhé og!');
     } finally {
       toast('ok');
@@ -682,7 +666,6 @@ async function restoreFile() {
       );
 
       const data = await response.json();
-      console.log('[LOG] Dữ liệu file trong thùng rác:', fileToRestore);
       if (response.ok) {
         sampleFiles.unshift(fileToRestore);
         trashFiles.splice(fileIdx, 1);
@@ -694,7 +677,6 @@ async function restoreFile() {
         toast(`Lỗi: ${data.mes || 'Không thể khôi phục'}`);
       }
     } catch (error) {
-      console.error('Lỗi khôi phục:', error);
       toast('Lỗi kết nối server rồi og ơi!');
     }
   }
@@ -734,7 +716,6 @@ async function permanentDelete() {
       toast(`Lỗi: ${data.mes || 'Không thể xóa vĩnh viễn'}`);
     }
   } catch (error) {
-    console.error('Lỗi xóa vĩnh viễn:', error);
     toast('Server có vấn đề, thử lại sau nhé!');
   }
 }
@@ -901,24 +882,7 @@ document.addEventListener('click', (e) => {
     closeAvatarMenu();
 });
 
-// ─── LOAD FILES FROM SERVER ───────────────────────────────────────
-/**
- * HÀM NÀY LÀ TÂM ĐIỂM - LẤY TẤT CẢ FILES TỪ SERVER VÀ LƯU VÀO RAM
- *
- * Flow:
- * 1. Hiển thị loading spinner
- * 2. Gọi API GET /api/files
- * 3. Server trả về JSON { files: [...], total: 1000 }
- * 4. Loop qua từng file, push vào sampleFiles[]
- * 5. Render UI
- *
- * LƯU Ý: sampleFiles[] sẽ chứa TOÀN BỘ files (có thể 1000+)
- * → Filter/search hoạt động trên client-side (nhanh)
- * → Không cần gọi lại server khi filter
- */
 async function loadFilesFromServer() {
-  console.log('[Load] Bắt đầu fetch files từ server...');
-
   // 1. Hiển thị loading
   showLoadingState();
 
@@ -935,9 +899,6 @@ async function loadFilesFromServer() {
         },
       }
     );
-
-    console.log('[Load] Response status:', response.status);
-
     // 3. Xử lý lỗi HTTP
     if (!response.ok) {
       if (response.status === 401) {
@@ -951,7 +912,6 @@ async function loadFilesFromServer() {
 
       if (response.status === 500) {
         toast('Lỗi server, vui lòng thử lại sau');
-        console.error('[Load] Server error 500');
         return;
       }
 
@@ -961,8 +921,6 @@ async function loadFilesFromServer() {
     // 4. Parse JSON
     // 4. Parse JSON
     const data = await response.json();
-    console.log('[Load] Dữ liệu thô từ server:', data);
-
     // 5. Xóa hết dữ liệu cũ trên RAM để nạp mới
     sampleFiles.length = 0;
     trashFiles.length = 0;
@@ -1015,18 +973,8 @@ async function loadFilesFromServer() {
     // 7. Cập nhật giao diện
     renderFiles();
     updateStats();
-    updateBadges(); // Nếu og có hàm đếm số lượng file thì gọi ở đây
-
-    console.log(
-      `[Load] Đã nạp: ${sampleFiles.length} file active, ${trashFiles.length} file trash`
-    );
-    toast(
-      `Tải xong: ${sampleFiles.length} file hoạt động, ${trashFiles.length} file rác`
-    );
+    updateBadges();
   } catch (error) {
-    console.error('[Load] Error:', error);
-
-    // Hiển thị error cho user
     showErrorState(error.message);
     toast('Không thể tải danh sách file');
   }
@@ -1263,7 +1211,7 @@ async function downloadCurrentFile() {
             timestamp: new Date().toISOString(),
           }),
         }
-      ).catch((err) => console.error('Lỗi ghi log:', err));
+      ).catch((err) => console.error('Lỗi ghi log'));
 
       const response = await fetch(fileToDownload.url);
       if (!response.ok) throw new Error('Không thể kết nối server');
@@ -1280,7 +1228,6 @@ async function downloadCurrentFile() {
 
       toast(`Đã tải xong: ${fileToDownload.name}`);
     } catch (error) {
-      console.error(error);
       toast('Lỗi khi tải file, thử lại sau nhé og!'); //
     } finally {
       // Đợi 1 chút sau khi tải xong mới mở khóa để tránh panel đóng sầm lại ngay
@@ -1340,7 +1287,7 @@ document.addEventListener('DOMContentLoaded', () => {
           allImages
         );
       } else {
-        console.error('Lỗi: Không tìm thấy hàm openImagePreview.');
+        pass();
       }
     });
   }

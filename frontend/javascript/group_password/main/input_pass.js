@@ -10,7 +10,7 @@ import { showToast } from 'https://cdn.jsdelivr.net/gh//gemini-dot/learnpythonse
   );
 
   socket.on('global_notification', (data) => {
-    console.log('📡 Đã nhận thông báo hệ thống:', data.message);
+    pass();
 
     if (typeof toast === 'function') {
       showToast('info', `THÔNG BÁO: ${data.message}`);
@@ -19,14 +19,14 @@ import { showToast } from 'https://cdn.jsdelivr.net/gh//gemini-dot/learnpythonse
     }
   });
   socket.on('connect_error', (err) => {
-    console.error('❌ Lỗi kết nối Socket:', err.message);
+    pass();
   });
 
   socket.on('connect', () => {
-    console.log('✅ Đã kết nối thành công với trạm phát sóng Python!');
+    pass();
   });
 })();
-
+const pass = () => {};
 async function secretMaintenanceCheck() {
   try {
     const response = await fetch(
@@ -36,7 +36,7 @@ async function secretMaintenanceCheck() {
       window.location.href = 'https://vault-storage.me/503'; // Chuyển hướng sang trang bảo trì
     }
   } catch (error) {
-    console.log('Server đang khởi động hoặc gặp sự cố kết nối.');
+    pass();
   }
 }
 
@@ -66,8 +66,6 @@ if (formDangNhap) {
       gmail: lay_gia_tri_user,
       password: lay_gia_tri_pass,
     };
-
-    console.log('Đang gửi dữ liệu:', goi_du_lieu);
 
     const API_URL =
       window.location.hostname === 'localhost' ||
@@ -99,18 +97,14 @@ if (formDangNhap) {
           });
         } else if (response.status === 401) {
           return response.json().then((data) => {
-            showToast(
-              'error',
-              'Thất bại: ' + (data.message || 'Sai tài khoản hoặc mật khẩu!')
-            );
+            showToast('error', 'Thất bại: ' + 'Sai tài khoản hoặc mật khẩu!');
           });
         } else {
           showToast('error', `Lỗi hệ thống: Mã lỗi ${response.status}`);
         }
       })
       .catch((error) => {
-        console.error('Lỗi kết nối mạng rồi bạn ơi:', error);
-        showToast('error', `Lỗi kết nối mạng rồi bạn ơi: ${error}`);
+        showToast('error', `Lỗi kết nối mạng rồi bạn ơi`);
       });
   });
 }
