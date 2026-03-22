@@ -7,13 +7,7 @@ from utils.scan_img import check_image_sensitivity
 import os
 import uuid
 from configs.db import db
-
-cloudinary.config(
-    cloud_name="dshgtuy8f",
-    api_key="181457765166456",
-    api_secret="6WP17jm02xdtxUlZ4F9sHcOjpd8",
-    secure=True,
-)
+import configs.cloudinary
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 TEMP_DIR = os.path.join(BASE_DIR, "temp")
@@ -22,7 +16,7 @@ if not os.path.exists(TEMP_DIR):
     os.makedirs(TEMP_DIR, exist_ok=True)
     print(f"📁 Đã tạo thư mục tạm tại: {TEMP_DIR}")
 else:
-    print(f"✅ Thư mục tạm đã sẵn sàng: {TEMP_DIR}")
+    print(f"📁 Thư mục tạm đã sẵn sàng: {TEMP_DIR}")
 
 
 def upload_to_cloud_avt():
