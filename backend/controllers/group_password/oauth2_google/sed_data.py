@@ -16,5 +16,5 @@ def kiem_tra_goole(dulieu):
         )
 
     return redirect(
-        "https://www.vault-storage.me/frontend/view/error/500.html"
+        "https://vault-storage.me/500"
     )

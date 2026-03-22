@@ -35,6 +35,10 @@ from routes.group_password.chuyen_huong.login import login
 from routes.group_password.chuyen_huong.signup import signup
 from routes.group_password.chuyen_huong.reset_password.send_mail import send_mail_reset_password
 from routes.group_chuc_nang.upload.chuyen_huong.dashboard import user_dashboard
+from routes.chuyen_huong.error.e401 import e401
+from routes.chuyen_huong.error.e403 import e403
+from routes.chuyen_huong.error.e500 import e500
+from backend.routes.chuyen_huong.error.e503 import e503
 blueprint_groups = {
     "/auth": [
         login_route,
@@ -68,7 +72,12 @@ blueprint_groups = {
     "/admin": [lenh_tu_huy],
     "/fac": [app_route22],
     "/api": [app_route23],
-    "":user_dashboard
+    "":user_dashboard,
+    "":e401,
+    "":e403,
+    "":e500,
+    "":e503
+
 }
 
 def register_routes(app):

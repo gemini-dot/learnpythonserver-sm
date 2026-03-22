@@ -31,12 +31,10 @@ window.addEventListener('DOMContentLoaded', async () => {
 
       if (response.status === 200 && data.trang_thai) {
         alert(data.mes);
-        window.location.href =
-          'https://www.vault-storage.me/frontend/view/upload/dashboard/index.html';
+        window.location.href = 'https://vault-storage.me/dashboard';
       } else {
         alert('Lỗi: ' + data.mes);
-        window.location.href =
-          'https://www.vault-storage.me/frontend/view/group_password/input_pass.html';
+        window.location.href = 'https://vault-storage.me/auth/login';
       }
     } catch (error) {
       console.error('Lỗi kết nối:', error);

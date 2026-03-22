@@ -37,9 +37,7 @@ async function secretMaintenanceCheck() {
       'https://vault-server-laivansam-gnfdcsgthfhraahe.eastasia-01.azurewebsites.net/ping/khoi-dong'
     );
     if (response.status === 503) {
-      window.location.replace(
-        'https://www.vault-storage.me/frontend/view/error/503.html'
-      );
+      window.location.replace('https://vault-storage.me/503');
     }
   } catch (error) {
     console.log('Server đang khởi động hoặc gặp sự cố kết nối.');
@@ -106,14 +104,10 @@ async function checkAccess() {
     if (response.status === 200) {
       toast('thành công! Chào mừng bạn quay trở lại.');
     } else {
-      window.location.replace(
-        'https://www.vault-storage.me/frontend/view/error/401.html'
-      );
+      window.location.replace('https://vault-storage.me/401');
     }
   } catch (error) {
-    window.location.replace(
-      'https://www.vault-storage.me/frontend/view/error/500.html'
-    );
+    window.location.replace('https://vault-storage.me/500');
   }
 }
 function chayLenhQuet() {
@@ -950,8 +944,7 @@ async function loadFilesFromServer() {
         // Chưa đăng nhập → Chuyển sang trang login
         toast('Phiên đăng nhập hết hạn');
         setTimeout(() => {
-          window.location.href =
-            'https://www.vault-storage.me/frontend/view/error/401.html';
+          window.location.href = 'https://vault-storage.me/401';
         }, 1500);
         return;
       }
