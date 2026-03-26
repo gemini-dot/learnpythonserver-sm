@@ -6,7 +6,7 @@ from utils.kiem_tra_thong_tin import lam_dep_thiet_bi
 def gui_mail_reset(email_nguoi_nhan, token, thoi_gian, dia_chi_ip, thiet_bi):
 
     service_id = "service_xszjius"
-    template_id = "template_h6t8562"
+    template_id = "template_rahi05h"
     public_key = "Z2nHUm0dY8tFSWlaB"
     pivate_key = "vFQ1PfWU2tFXj7Iq7p1Rk"
 

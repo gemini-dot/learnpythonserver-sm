@@ -1,193 +1,923 @@
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Đặt Lại Mật Khẩu</title>
-</head>
-<body style="margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; background: #1a1a1a;">
-    <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background: #1a1a1a; padding: 40px 20px;">
-        <tr>
-            <td align="center">
-                <table width="600" cellpadding="0" cellspacing="0" border="0" style="max-width: 600px; background: #ffffff; border-radius: 24px; overflow: hidden; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);">
-                    
-                    <!-- Header -->
-                    <tr>
-                        <td style="background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%); background-color: #000000; padding: 40px 40px 30px; text-align: center;">
-                            <div style="width: 60px; height: 60px; background: rgba(255, 255, 255, 0.1); border-radius: 50%; margin: 0 auto 20px; display: flex; align-items: center; justify-content: center; font-size: 32px; line-height: 60px;">
-                                🔒
-                            </div>
-                            <h1 style="color: #ffffff; font-size: 28px; font-weight: 700; margin: 0 0 8px 0;">Đặt lại mật khẩu</h1>
-                            <p style="color: rgba(255, 255, 255, 0.8); font-size: 15px; margin: 0;">Yêu cầu khôi phục tài khoản</p>
-                        </td>
-                    </tr>
-                    
-                    <!-- Body -->
-                    <tr>
-                        <td style="padding: 40px;">
-                            <div style="font-size: 18px; font-weight: 600; color: #000000; margin-bottom: 20px;">
-                                Xin chào,
-                            </div>
-                            
-                            <p style="color: #333333; font-size: 15px; line-height: 1.8; margin: 0 0 30px 0;">
-                                Chúng tôi nhận được yêu cầu đặt lại mật khẩu cho tài khoản của bạn. Nếu đây là bạn, vui lòng nhấp vào nút bên dưới để tạo mật khẩu mới.
-                            </p>
-                            
-                            <!-- Info Box -->
-                            <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background: #fafafa; border-left: 4px solid #000000; border-radius: 8px; margin-bottom: 30px;">
-                                <tr>
-                                    <td style="padding: 20px;">
-                                        <p style="color: #333333; font-size: 14px; line-height: 1.6; margin: 0 0 8px 0;">
-                                            <strong style="color: #000000; font-weight: 600;">⏰ Thời gian:</strong> Friday, January 23, 2026 - 10:30 AM
-                                        </p>
-                                        <p style="color: #333333; font-size: 14px; line-height: 1.6; margin: 0 0 8px 0;">
-                                            <strong style="color: #000000; font-weight: 600;">📍 Địa chỉ IP:</strong> 192.168.1.100
-                                        </p>
-                                        <p style="color: #333333; font-size: 14px; line-height: 1.6; margin: 0;">
-                                            <strong style="color: #000000; font-weight: 600;">💻 Thiết bị:</strong> Chrome on Windows
-                                        </p>
-                                    </td>
-                                </tr>
-                            </table>
-                            
-                            <!-- Button -->
-                            <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin: 40px 0;">
-                                <tr>
-                                    <td align="center">
-                                        <a href="{{LINK_RESET}}" style="display: inline-block; background: #000000; color: #ffffff; text-decoration: none; padding: 16px 40px; border-radius: 12px; font-size: 16px; font-weight: 600;">
-                                            Đặt lại mật khẩu
-                                        </a>
-                                    </td>
-                                </tr>
-                            </table>
-                            
-                            <!-- Alternative Link -->
-                            <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background: #f5f5f5; border: 1px solid #e0e0e0; border-radius: 8px; margin: 30px 0;">
-                                <tr>
-                                    <td style="padding: 16px;">
-                                        <p style="color: #666666; font-size: 13px; margin: 0 0 12px 0;">
-                                            Nếu nút trên không hoạt động, vui lòng sao chép và dán liên kết sau vào trình duyệt:
-                                        </p>
-                                        <div style="color: #000000; font-size: 13px; word-break: break-all; font-family: 'Courier New', monospace; background: #ffffff; padding: 12px; border-radius: 6px; border: 1px solid #e0e0e0;">
-                                            {{LINK_RESET}}
-                                        </div>
-                                    </td>
-                                </tr>
-                            </table>
-                            
-                            <!-- Warning Box -->
-                            <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background: #fff9e6; border: 1px solid #ffd966; border-radius: 8px; margin: 30px 0;">
-                                <tr>
-                                    <td style="padding: 16px;">
-                                        <table cellpadding="0" cellspacing="0" border="0">
-                                            <tr>
-                                                <td style="vertical-align: top; padding-right: 12px; font-size: 20px;">⚠️</td>
-                                                <td>
-                                                    <div style="color: #666666; font-size: 14px; line-height: 1.6;">
-                                                        <strong>Lưu ý quan trọng:</strong> Liên kết này sẽ hết hạn sau <strong>15 phút</strong>. Nếu bạn không yêu cầu đặt lại mật khẩu, vui lòng bỏ qua email này và tài khoản của bạn sẽ vẫn an toàn.
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </td>
-                                </tr>
-                            </table>
-                            
-                            <!-- Security Tips -->
-                            <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background: #fafafa; border-radius: 12px; margin: 30px 0;">
-                                <tr>
-                                    <td style="padding: 24px;">
-                                        <h3 style="color: #000000; font-size: 16px; font-weight: 700; margin: 0 0 16px 0;">
-                                            🛡️ Mẹo bảo mật
-                                        </h3>
-                                        <table cellpadding="0" cellspacing="0" border="0">
-                                            <tr>
-                                                <td style="vertical-align: top; padding-right: 8px; color: #000000; font-weight: 700;">✓</td>
-                                                <td style="color: #333333; font-size: 14px; line-height: 1.6; padding-bottom: 12px;">
-                                                    Sử dụng mật khẩu mạnh với ít nhất 8 ký tự, bao gồm chữ hoa, chữ thường, số và ký tự đặc biệt
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td style="vertical-align: top; padding-right: 8px; color: #000000; font-weight: 700;">✓</td>
-                                                <td style="color: #333333; font-size: 14px; line-height: 1.6; padding-bottom: 12px;">
-                                                    Không sử dụng lại mật khẩu từ các tài khoản khác
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td style="vertical-align: top; padding-right: 8px; color: #000000; font-weight: 700;">✓</td>
-                                                <td style="color: #333333; font-size: 14px; line-height: 1.6; padding-bottom: 12px;">
-                                                    Bật xác thực hai yếu tố để tăng cường bảo mật
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td style="vertical-align: top; padding-right: 8px; color: #000000; font-weight: 700;">✓</td>
-                                                <td style="color: #333333; font-size: 14px; line-height: 1.6;">
-                                                    Không chia sẻ mật khẩu với bất kỳ ai
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </td>
-                                </tr>
-                            </table>
-                            
-                            <p style="color: #333333; font-size: 15px; line-height: 1.8; margin: 0 0 30px 0;">
-                                Nếu bạn gặp bất kỳ vấn đề nào hoặc cần hỗ trợ, đừng ngần ngại liên hệ với chúng tôi qua email <strong>support@web-cua-og.com</strong> hoặc hotline <strong>+84 123 456 789</strong>.
-                            </p>
-                            
-                            <div style="margin-top: 30px; padding-top: 30px; border-top: 1px solid #e0e0e0;">
-                                <p style="color: #333333; font-size: 15px; line-height: 1.8; margin: 0;">
-                                    Trân trọng,<br>
-                                    <strong>Đội ngũ Web của OG</strong>
-                                </p>
-                            </div>
-                        </td>
-                    </tr>
-                    
-                    <!-- Footer -->
-                    <tr>
-                        <td style="background: #fafafa; padding: 30px 40px; text-align: center; border-top: 1px solid #e0e0e0;">
-                            <!-- Footer Links -->
-                            <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom: 20px;">
-                                <tr>
-                                    <td align="center">
-                                        <a href="https://web-cua-og.com/help" style="color: #000000; text-decoration: none; font-size: 13px; font-weight: 600; margin: 0 10px;">Trung tâm hỗ trợ</a>
-                                        <span style="color: #cccccc;">|</span>
-                                        <a href="https://web-cua-og.com/privacy" style="color: #000000; text-decoration: none; font-size: 13px; font-weight: 600; margin: 0 10px;">Chính sách bảo mật</a>
-                                        <span style="color: #cccccc;">|</span>
-                                        <a href="https://web-cua-og.com/terms" style="color: #000000; text-decoration: none; font-size: 13px; font-weight: 600; margin: 0 10px;">Điều khoản dịch vụ</a>
-                                    </td>
-                                </tr>
-                            </table>
-                            
-                            <!-- Social Links -->
-                            <table cellpadding="0" cellspacing="0" border="0" align="center" style="margin-bottom: 20px;">
-                                <tr>
-                                    <td style="padding: 0 8px;">
-                                        <a href="#" style="display: inline-block; width: 36px; height: 36px; background: #ffffff; border: 1px solid #e0e0e0; border-radius: 50%; text-align: center; line-height: 36px; text-decoration: none; font-size: 18px;">📘</a>
-                                    </td>
-                                    <td style="padding: 0 8px;">
-                                        <a href="#" style="display: inline-block; width: 36px; height: 36px; background: #ffffff; border: 1px solid #e0e0e0; border-radius: 50%; text-align: center; line-height: 36px; text-decoration: none; font-size: 18px;">🐦</a>
-                                    </td>
-                                    <td style="padding: 0 8px;">
-                                        <a href="#" style="display: inline-block; width: 36px; height: 36px; background: #ffffff; border: 1px solid #e0e0e0; border-radius: 50%; text-align: center; line-height: 36px; text-decoration: none; font-size: 18px;">📷</a>
-                                    </td>
-                                </tr>
-                            </table>
-                            
-                            <p style="color: #666666; font-size: 13px; line-height: 1.6; margin: 0 0 16px 0;">
-                                Email này được gửi tự động, vui lòng không trả lời.<br>
-                                Địa chỉ: 123 Đường ABC, Quận XYZ, TP. Hồ Chí Minh, Việt Nam
-                            </p>
-                            
-                            <p style="color: #999999; font-size: 12px; margin: 0;">
-                                © 2026 Web của OG. All rights reserved.
-                            </p>
-                        </td>
-                    </tr>
-                    
+<!doctype html>
+<html
+  lang="vi"
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:v="urn:schemas-microsoft-com:vml"
+  xmlns:o="urn:schemas-microsoft-com:office:office"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="x-apple-disable-message-reformatting" />
+    <title>Đặt lại mật khẩu</title>
+    <!--[if mso]>
+      <noscript
+        ><xml
+          ><o:OfficeDocumentSettings
+            ><o:PixelsPerInch>96</o:PixelsPerInch></o:OfficeDocumentSettings
+          ></xml
+        ></noscript
+      >
+    <![endif]-->
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      body,
+      table,
+      td,
+      a {
+        -webkit-text-size-adjust: 100%;
+        -ms-text-size-adjust: 100%;
+      }
+      table,
+      td {
+        mso-table-lspace: 0pt;
+        mso-table-rspace: 0pt;
+        border-collapse: collapse;
+      }
+      img {
+        -ms-interpolation-mode: bicubic;
+        border: 0;
+        outline: none;
+        text-decoration: none;
+        display: block;
+      }
+      body {
+        width: 100% !important;
+        min-width: 100%;
+        background-color: #f0f2f5;
+      }
+      @media only screen and (max-width: 620px) {
+        .email-container {
+          width: 100% !important;
+        }
+        .content-padding {
+          padding: 28px 20px !important;
+        }
+        .hero-padding {
+          padding: 36px 20px 28px !important;
+        }
+      }
+    </style>
+  </head>
+  <body
+    style="
+      margin: 0;
+      padding: 0;
+      background-color: #f0f2f5;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    "
+  >
+    <!-- Hidden preheader -->
+    <div
+      style="
+        display: none;
+        font-size: 1px;
+        color: #f0f2f5;
+        line-height: 1px;
+        max-height: 0;
+        max-width: 0;
+        opacity: 0;
+        overflow: hidden;
+      "
+    >
+      Yêu cầu đặt lại mật khẩu — Liên kết có hiệu lực trong 30 phút.
+    </div>
+
+    <!-- Outer wrapper -->
+    <table
+      role="presentation"
+      cellpadding="0"
+      cellspacing="0"
+      width="100%"
+      style="background-color: #f0f2f5"
+    >
+      <tr>
+        <td align="center" style="padding: 40px 16px">
+          <!-- Email Container 560px -->
+          <table
+            class="email-container"
+            role="presentation"
+            cellpadding="0"
+            cellspacing="0"
+            width="560"
+            style="max-width: 560px; width: 100%"
+          >
+            <!-- ══ HEADER — LOGO ══ -->
+            <tr>
+              <td align="center" style="padding-bottom: 24px">
+                <table role="presentation" cellpadding="0" cellspacing="0">
+                  <tr>
+                    <td
+                      align="center"
+                      style="
+                        background-color: #ffffff;
+                        border-radius: 20px;
+                        padding: 18px 32px;
+                        box-shadow:
+                          6px 6px 16px #d1d5db,
+                          -6px -6px 16px #ffffff;
+                      "
+                    >
+                      <table
+                        role="presentation"
+                        cellpadding="0"
+                        cellspacing="0"
+                      >
+                        <tr>
+                          <td valign="middle" style="padding-right: 14px">
+                            <img
+                              src="https://res.cloudinary.com/dshgtuy8f/image/upload/v1771402917/main_logo_2_bkgj5f.png"
+                              alt="Logo"
+                              width="48"
+                              height="48"
+                              style="
+                                width: 48px;
+                                height: 48px;
+                                border-radius: 12px;
+                                display: block;
+                                border: 0;
+                                outline: none;
+                              "
+                            />
+                          </td>
+                          <td valign="middle">
+                            <span
+                              style="
+                                font-size: 20px;
+                                font-weight: 700;
+                                color: #111111;
+                                letter-spacing: -0.5px;
+                                display: block;
+                                line-height: 1.2;
+                                font-family:
+                                  'Helvetica Neue', Helvetica, Arial, sans-serif;
+                              "
+                              >FileVault</span
+                            >
+                            <span
+                              style="
+                                font-size: 10px;
+                                color: #9ca3af;
+                                font-weight: 400;
+                                letter-spacing: 1px;
+                                text-transform: uppercase;
+                                display: block;
+                                font-family:
+                                  'Helvetica Neue', Helvetica, Arial, sans-serif;
+                              "
+                              >Quản lý tập tin</span
+                            >
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
                 </table>
-            </td>
-        </tr>
+              </td>
+            </tr>
+
+            <!-- ══ MAIN CARD ══ -->
+            <tr>
+              <td
+                style="
+                  background-color: #ffffff;
+                  border-radius: 24px;
+                  box-shadow:
+                    8px 8px 24px #c8cdd6,
+                    -8px -8px 24px #ffffff;
+                  overflow: hidden;
+                "
+              >
+                <!-- Top accent bar -->
+                <table
+                  role="presentation"
+                  cellpadding="0"
+                  cellspacing="0"
+                  width="100%"
+                >
+                  <tr>
+                    <td
+                      style="
+                        background: linear-gradient(
+                          90deg,
+                          #e2e5ea 0%,
+                          #f5f5f7 50%,
+                          #e2e5ea 100%
+                        );
+                        height: 3px;
+                        font-size: 0;
+                        line-height: 0;
+                      "
+                    >
+                      &nbsp;
+                    </td>
+                  </tr>
+                </table>
+
+                <!-- Hero section -->
+                <table
+                  role="presentation"
+                  cellpadding="0"
+                  cellspacing="0"
+                  width="100%"
+                >
+                  <tr>
+                    <td
+                      class="hero-padding"
+                      align="center"
+                      style="padding: 52px 48px 36px"
+                    >
+                      <!-- Neumorphic circle with SVG lock via hosted PNG-encoded SVG -->
+                      <!-- Using <img> with hosted SVG-as-PNG for max email client compat -->
+                      <table
+                        role="presentation"
+                        cellpadding="0"
+                        cellspacing="0"
+                        style="margin-bottom: 28px"
+                      >
+                        <tr>
+                          <td
+                            align="center"
+                            valign="middle"
+                            width="88"
+                            height="88"
+                            style="
+                              width: 88px;
+                              height: 88px;
+                              background-color: #f4f5f7;
+                              border-radius: 44px;
+                              box-shadow:
+                                inset 5px 5px 12px #d1d5db,
+                                inset -5px -5px 12px #ffffff;
+                              text-align: center;
+                              vertical-align: middle;
+                            "
+                          >
+                            <!-- SVG Lock — base64 encoded as data URI, widely supported in Gmail/Apple Mail -->
+                            <img
+                              src="data:image/svg+xml,%3Csvg%20width%3D%2240%22%20height%3D%2240%22%20viewBox%3D%220%200%2040%2040%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Crect%20x%3D%228%22%20y%3D%2218%22%20width%3D%2224%22%20height%3D%2217%22%20rx%3D%224%22%20fill%3D%22%231a1a1a%22%2F%3E%3Cpath%20d%3D%22M13%2018V13C13%209.686%2015.686%207%2019%207C22.314%207%2025%209.686%2025%2013V18%22%20stroke%3D%22%231a1a1a%22%20stroke-width%3D%222.5%22%20stroke-linecap%3D%22round%22%2F%3E%3Ccircle%20cx%3D%2219.5%22%20cy%3D%2227.5%22%20r%3D%222.5%22%20fill%3D%22%23ffffff%22%2F%3E%3C%2Fsvg%3E"
+                              alt="Khóa bảo mật"
+                              width="40"
+                              height="40"
+                              style="
+                                display: block;
+                                margin: 24px auto 0;
+                                border: 0;
+                              "
+                            />
+                          </td>
+                        </tr>
+                      </table>
+
+                      <h1
+                        style="
+                          font-size: 27px;
+                          font-weight: 700;
+                          color: #111111;
+                          letter-spacing: -0.7px;
+                          margin: 0 0 14px 0;
+                          line-height: 1.25;
+                          font-family:
+                            'Helvetica Neue', Helvetica, Arial, sans-serif;
+                        "
+                      >
+                        Đặt lại mật khẩu
+                      </h1>
+
+                      <p
+                        style="
+                          font-size: 15px;
+                          color: #6b7280;
+                          line-height: 1.75;
+                          margin: 0;
+                          max-width: 380px;
+                          font-family:
+                            'Helvetica Neue', Helvetica, Arial, sans-serif;
+                        "
+                      >
+                        Chúng tôi nhận được yêu cầu đặt lại mật khẩu cho tài
+                        khoản liên kết với địa chỉ email này. Nhấn vào nút bên
+                        dưới để tiến hành.
+                      </p>
+                    </td>
+                  </tr>
+                </table>
+
+                <!-- Divider -->
+                <table
+                  role="presentation"
+                  cellpadding="0"
+                  cellspacing="0"
+                  width="100%"
+                >
+                  <tr>
+                    <td style="padding: 0 48px">
+                      <table
+                        role="presentation"
+                        cellpadding="0"
+                        cellspacing="0"
+                        width="100%"
+                      >
+                        <tr>
+                          <td
+                            style="
+                              border-top: 1px solid #f0f2f5;
+                              font-size: 0;
+                              line-height: 0;
+                            "
+                          >
+                            &nbsp;
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                </table>
+
+                <!-- CTA Button -->
+                <table
+                  role="presentation"
+                  cellpadding="0"
+                  cellspacing="0"
+                  width="100%"
+                >
+                  <tr>
+                    <td
+                      class="content-padding"
+                      align="center"
+                      style="padding: 36px 48px"
+                    >
+                      <table
+                        role="presentation"
+                        cellpadding="0"
+                        cellspacing="0"
+                      >
+                        <tr>
+                          <td
+                            align="center"
+                            style="
+                              border-radius: 14px;
+                              background: linear-gradient(
+                                135deg,
+                                #1a1a1a 0%,
+                                #383838 100%
+                              );
+                              box-shadow:
+                                0 4px 18px rgba(0, 0, 0, 0.2),
+                                0 1px 4px rgba(0, 0, 0, 0.1);
+                            "
+                          >
+                            <a
+                              href="{{LINK_RESET}}"
+                              target="_blank"
+                              style="
+                                display: inline-block;
+                                padding: 16px 52px;
+                                font-size: 15px;
+                                font-weight: 600;
+                                color: #ffffff;
+                                text-decoration: none;
+                                letter-spacing: 0.1px;
+                                white-space: nowrap;
+                                border-radius: 14px;
+                                font-family:
+                                  'Helvetica Neue', Helvetica, Arial, sans-serif;
+                              "
+                            >
+                              Đặt lại mật khẩu ngay
+                            </a>
+                          </td>
+                        </tr>
+                      </table>
+                      <p
+                        style="
+                          margin: 18px 0 0 0;
+                          font-size: 12px;
+                          color: #9ca3af;
+                          text-align: center;
+                          font-family:
+                            'Helvetica Neue', Helvetica, Arial, sans-serif;
+                        "
+                      >
+                        Liên kết có hiệu lực trong
+                        <strong style="color: #6b7280; font-weight: 600"
+                          >30 phút</strong
+                        >. Không yêu cầu? Hãy bỏ qua email này.
+                      </p>
+                    </td>
+                  </tr>
+                </table>
+
+                <!-- Divider -->
+                <table
+                  role="presentation"
+                  cellpadding="0"
+                  cellspacing="0"
+                  width="100%"
+                >
+                  <tr>
+                    <td style="padding: 0 48px">
+                      <table
+                        role="presentation"
+                        cellpadding="0"
+                        cellspacing="0"
+                        width="100%"
+                      >
+                        <tr>
+                          <td
+                            style="
+                              border-top: 1px solid #f0f2f5;
+                              font-size: 0;
+                              line-height: 0;
+                            "
+                          >
+                            &nbsp;
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                </table>
+
+                <!-- 3 Info Cards with SVG icons via <img> data URI -->
+                <table
+                  role="presentation"
+                  cellpadding="0"
+                  cellspacing="0"
+                  width="100%"
+                >
+                  <tr>
+                    <td class="content-padding" style="padding: 28px 48px 36px">
+                      <table
+                        role="presentation"
+                        cellpadding="0"
+                        cellspacing="0"
+                        width="100%"
+                      >
+                        <tr>
+                          <!-- Card 1 — Shield -->
+                          <td
+                            width="33%"
+                            valign="top"
+                            style="padding-right: 7px"
+                          >
+                            <table
+                              role="presentation"
+                              cellpadding="0"
+                              cellspacing="0"
+                              width="100%"
+                            >
+                              <tr>
+                                <td
+                                  align="center"
+                                  style="
+                                    background-color: #f4f5f7;
+                                    border-radius: 14px;
+                                    padding: 18px 10px 16px;
+                                    box-shadow:
+                                      inset 2px 2px 6px #d1d5db,
+                                      inset -2px -2px 6px #ffffff;
+                                  "
+                                >
+                                  <img
+                                    src="data:image/svg+xml,%3Csvg%20width%3D%2228%22%20height%3D%2228%22%20viewBox%3D%220%200%2028%2028%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M14%203L4%207.5V14.5C4%2019.75%208.4%2024.45%2014%2025C19.6%2024.45%2024%2019.75%2024%2014.5V7.5L14%203Z%22%20fill%3D%22%231a1a1a%22%20fill-opacity%3D%220.08%22%20stroke%3D%22%231a1a1a%22%20stroke-width%3D%221.8%22%20stroke-linejoin%3D%22round%22%2F%3E%3Cpath%20d%3D%22M10%2014L13%2017L18.5%2011%22%20stroke%3D%22%231a1a1a%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%2F%3E%3C%2Fsvg%3E"
+                                    alt="Bảo mật"
+                                    width="28"
+                                    height="28"
+                                    style="
+                                      display: block;
+                                      margin: 0 auto 10px;
+                                      border: 0;
+                                    "
+                                  />
+                                  <div
+                                    style="
+                                      font-size: 11px;
+                                      font-weight: 600;
+                                      color: #374151;
+                                      margin-bottom: 3px;
+                                      font-family:
+                                        'Helvetica Neue', Helvetica, Arial,
+                                        sans-serif;
+                                    "
+                                  >
+                                    Bảo mật
+                                  </div>
+                                  <div
+                                    style="
+                                      font-size: 10px;
+                                      color: #9ca3af;
+                                      line-height: 1.5;
+                                      font-family:
+                                        'Helvetica Neue', Helvetica, Arial,
+                                        sans-serif;
+                                    "
+                                  >
+                                    Mã hóa đầu cuối
+                                  </div>
+                                </td>
+                              </tr>
+                            </table>
+                          </td>
+
+                          <!-- Card 2 — Clock -->
+                          <td width="33%" valign="top" style="padding: 0 3px">
+                            <table
+                              role="presentation"
+                              cellpadding="0"
+                              cellspacing="0"
+                              width="100%"
+                            >
+                              <tr>
+                                <td
+                                  align="center"
+                                  style="
+                                    background-color: #f4f5f7;
+                                    border-radius: 14px;
+                                    padding: 18px 10px 16px;
+                                    box-shadow:
+                                      inset 2px 2px 6px #d1d5db,
+                                      inset -2px -2px 6px #ffffff;
+                                  "
+                                >
+                                  <img
+                                    src="data:image/svg+xml,%3Csvg%20width%3D%2228%22%20height%3D%2228%22%20viewBox%3D%220%200%2028%2028%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Ccircle%20cx%3D%2214%22%20cy%3D%2214%22%20r%3D%2210%22%20fill%3D%22%231a1a1a%22%20fill-opacity%3D%220.08%22%20stroke%3D%22%231a1a1a%22%20stroke-width%3D%221.8%22%2F%3E%3Cpath%20d%3D%22M14%209V14L17.5%2016.5%22%20stroke%3D%22%231a1a1a%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%2F%3E%3C%2Fsvg%3E"
+                                    alt="Hết hạn"
+                                    width="28"
+                                    height="28"
+                                    style="
+                                      display: block;
+                                      margin: 0 auto 10px;
+                                      border: 0;
+                                    "
+                                  />
+                                  <div
+                                    style="
+                                      font-size: 11px;
+                                      font-weight: 600;
+                                      color: #374151;
+                                      margin-bottom: 3px;
+                                      font-family:
+                                        'Helvetica Neue', Helvetica, Arial,
+                                        sans-serif;
+                                    "
+                                  >
+                                    Tự hết hạn
+                                  </div>
+                                  <div
+                                    style="
+                                      font-size: 10px;
+                                      color: #9ca3af;
+                                      line-height: 1.5;
+                                      font-family:
+                                        'Helvetica Neue', Helvetica, Arial,
+                                        sans-serif;
+                                    "
+                                  >
+                                    Sau 30 phút
+                                  </div>
+                                </td>
+                              </tr>
+                            </table>
+                          </td>
+
+                          <!-- Card 3 — Mail -->
+                          <td
+                            width="33%"
+                            valign="top"
+                            style="padding-left: 7px"
+                          >
+                            <table
+                              role="presentation"
+                              cellpadding="0"
+                              cellspacing="0"
+                              width="100%"
+                            >
+                              <tr>
+                                <td
+                                  align="center"
+                                  style="
+                                    background-color: #f4f5f7;
+                                    border-radius: 14px;
+                                    padding: 18px 10px 16px;
+                                    box-shadow:
+                                      inset 2px 2px 6px #d1d5db,
+                                      inset -2px -2px 6px #ffffff;
+                                  "
+                                >
+                                  <img
+                                    src="data:image/svg+xml,%3Csvg%20width%3D%2228%22%20height%3D%2228%22%20viewBox%3D%220%200%2028%2028%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Crect%20x%3D%224%22%20y%3D%227%22%20width%3D%2220%22%20height%3D%2214%22%20rx%3D%223%22%20fill%3D%22%231a1a1a%22%20fill-opacity%3D%220.08%22%20stroke%3D%22%231a1a1a%22%20stroke-width%3D%221.8%22%2F%3E%3Cpath%20d%3D%22M4%2010L14%2016L24%2010%22%20stroke%3D%22%231a1a1a%22%20stroke-width%3D%221.8%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%2F%3E%3C%2Fsvg%3E"
+                                    alt="Hỗ trợ"
+                                    width="28"
+                                    height="28"
+                                    style="
+                                      display: block;
+                                      margin: 0 auto 10px;
+                                      border: 0;
+                                    "
+                                  />
+                                  <div
+                                    style="
+                                      font-size: 11px;
+                                      font-weight: 600;
+                                      color: #374151;
+                                      margin-bottom: 3px;
+                                      font-family:
+                                        'Helvetica Neue', Helvetica, Arial,
+                                        sans-serif;
+                                    "
+                                  >
+                                    Hỗ trợ 24/7
+                                  </div>
+                                  <div
+                                    style="
+                                      font-size: 10px;
+                                      color: #9ca3af;
+                                      line-height: 1.5;
+                                      font-family:
+                                        'Helvetica Neue', Helvetica, Arial,
+                                        sans-serif;
+                                    "
+                                  >
+                                    Luôn sẵn sàng
+                                  </div>
+                                </td>
+                              </tr>
+                            </table>
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                </table>
+
+                <!-- Fallback link box -->
+                <table
+                  role="presentation"
+                  cellpadding="0"
+                  cellspacing="0"
+                  width="100%"
+                >
+                  <tr>
+                    <td style="padding: 0 48px 40px">
+                      <table
+                        role="presentation"
+                        cellpadding="0"
+                        cellspacing="0"
+                        width="100%"
+                      >
+                        <tr>
+                          <td
+                            style="
+                              background-color: #f4f5f7;
+                              border-radius: 12px;
+                              padding: 15px 18px;
+                              border-left: 3px solid #d1d5db;
+                            "
+                          >
+                            <p
+                              style="
+                                font-size: 10px;
+                                color: #9ca3af;
+                                margin: 0 0 6px 0;
+                                font-weight: 500;
+                                text-transform: uppercase;
+                                letter-spacing: 0.7px;
+                                font-family:
+                                  'Helvetica Neue', Helvetica, Arial, sans-serif;
+                              "
+                            >
+                              Nếu nút không hoạt động, sao chép đường dẫn này:
+                            </p>
+                            <p
+                              style="
+                                font-size: 11px;
+                                color: #6b7280;
+                                margin: 0;
+                                word-break: break-all;
+                                font-family: 'Courier New', Courier, monospace;
+                                line-height: 1.6;
+                              "
+                            >
+                              {{LINK_RESET}}
+                            </p>
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+
+            <!-- ══ FOOTER ══ -->
+            <tr>
+              <td style="padding: 28px 0 16px">
+                <table
+                  role="presentation"
+                  cellpadding="0"
+                  cellspacing="0"
+                  width="100%"
+                >
+                  <tr>
+                    <td align="center" style="padding-bottom: 14px">
+                      <table
+                        role="presentation"
+                        cellpadding="0"
+                        cellspacing="0"
+                        width="100%"
+                      >
+                        <tr>
+                          <td
+                            align="center"
+                            style="
+                              background-color: #ffffff;
+                              border-radius: 16px;
+                              padding: 22px 32px;
+                              box-shadow:
+                                4px 4px 12px #d1d5db,
+                                -4px -4px 12px #ffffff;
+                            "
+                          >
+                            <!-- Footer logo + company name -->
+                            <table
+                              role="presentation"
+                              cellpadding="0"
+                              cellspacing="0"
+                              style="margin-bottom: 12px"
+                            >
+                              <tr>
+                                <td valign="middle" style="padding-right: 10px">
+                                  <img
+                                    src="https://res.cloudinary.com/dshgtuy8f/image/upload/v1771402917/main_logo_2_bkgj5f.png"
+                                    alt="Logo"
+                                    width="28"
+                                    height="28"
+                                    style="
+                                      width: 28px;
+                                      height: 28px;
+                                      border-radius: 7px;
+                                      display: block;
+                                      border: 0;
+                                    "
+                                  />
+                                </td>
+                                <td valign="middle">
+                                  <span
+                                    style="
+                                      font-size: 13px;
+                                      font-weight: 700;
+                                      color: #374151;
+                                      letter-spacing: -0.3px;
+                                      font-family:
+                                        'Helvetica Neue', Helvetica, Arial,
+                                        sans-serif;
+                                    "
+                                    >FileVault Technology Co., Ltd.</span
+                                  >
+                                </td>
+                              </tr>
+                            </table>
+
+                            <p
+                              style="
+                                font-size: 11px;
+                                color: #9ca3af;
+                                margin: 0 0 3px 0;
+                                line-height: 1.65;
+                                font-family:
+                                  'Helvetica Neue', Helvetica, Arial, sans-serif;
+                              "
+                            >
+                              Giai Lac Commune, Yen Thanh District, Nghe An
+                              Province, Vietnam.
+                            </p>
+                            <p
+                              style="
+                                font-size: 11px;
+                                color: #9ca3af;
+                                margin: 0 0 14px 0;
+                                font-family:
+                                  'Helvetica Neue', Helvetica, Arial, sans-serif;
+                              "
+                            >
+                              <a
+                                href="tel:+840976948589"
+                                style="color: #9ca3af; text-decoration: none"
+                                >+84 0976948589</a
+                              >
+                              &nbsp;·&nbsp;
+                              <a
+                                href="mailto:support@filevault.com"
+                                style="color: #6b7280; text-decoration: none"
+                                >support@filevault.com</a
+                              >
+                            </p>
+                            <p
+                              style="
+                                margin: 0 0 16px 0;
+                                font-size: 11px;
+                                font-family:
+                                  'Helvetica Neue', Helvetica, Arial, sans-serif;
+                              "
+                            >
+                              <a
+                                href="#"
+                                style="
+                                  color: #6b7280;
+                                  text-decoration: none;
+                                  font-weight: 500;
+                                "
+                                >Chính sách bảo mật</a
+                              >
+                              &nbsp;&nbsp;·&nbsp;&nbsp;
+                              <a
+                                href="#"
+                                style="
+                                  color: #6b7280;
+                                  text-decoration: none;
+                                  font-weight: 500;
+                                "
+                                >Điều khoản sử dụng</a
+                              >
+                              &nbsp;&nbsp;·&nbsp;&nbsp;
+                              <a
+                                href="#"
+                                style="
+                                  color: #6b7280;
+                                  text-decoration: none;
+                                  font-weight: 500;
+                                "
+                                >Hủy đăng ký</a
+                              >
+                            </p>
+
+                            <table
+                              role="presentation"
+                              cellpadding="0"
+                              cellspacing="0"
+                              width="100%"
+                            >
+                              <tr>
+                                <td
+                                  style="
+                                    border-top: 1px solid #f0f2f5;
+                                    font-size: 0;
+                                    line-height: 0;
+                                    padding-bottom: 12px;
+                                  "
+                                >
+                                  &nbsp;
+                                </td>
+                              </tr>
+                            </table>
+
+                            <p
+                              style="
+                                font-size: 10px;
+                                color: #c1c7d0;
+                                margin: 0;
+                                letter-spacing: 0.3px;
+                                font-family:
+                                  'Helvetica Neue', Helvetica, Arial, sans-serif;
+                              "
+                            >
+                              &copy; 2025 Vault Technology Co., Ltd. Tất cả các
+                              quyền được bảo lưu.
+                            </p>
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td align="center">
+                      <p
+                        style="
+                          font-size: 10px;
+                          color: #c1c7d0;
+                          margin: 0;
+                          letter-spacing: 0.2px;
+                          font-family:
+                            'Helvetica Neue', Helvetica, Arial, sans-serif;
+                        "
+                      >
+                        Email này được gửi tự động. Vui lòng không trả lời trực
+                        tiếp.
+                      </p>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
     </table>
-</body>
+  </body>
 </html>
