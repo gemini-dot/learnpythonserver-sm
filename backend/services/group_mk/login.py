@@ -21,8 +21,6 @@ def kiem_tra(email_gui_len, pass_gui_len):
     salt = kiem_tra_1.get("salt")
     pass_hash = hash_password(pass_gui_len, salt)
 
-    token_new = tao_token_10_so()
-    token_new_hash = hash(str(token_new))
 
     client_info = {
         "ip_address": get_real_ip(),
@@ -34,6 +32,10 @@ def kiem_tra(email_gui_len, pass_gui_len):
     }
 
     if kiem_tra_1["password"] == pass_hash:
+        
+        token_new = tao_token_10_so()
+        token_new_hash = hash(str(token_new))
+
         noi_tim_kiem.update_one(
             {"gmail": email_gui_len},
             {"$set": {"token_nguoi_dung_upload": token_new_hash,"trang_thai":"da_dang_nhap"}},
