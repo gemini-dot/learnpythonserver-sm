@@ -122,7 +122,7 @@ let activeFilter = 'all'; // filter từ nav: 'all','img','doc','vid','pdf','zip
 // ─── HÀM LỌC TRUNG TÂM ───────────────────────────────────────────
 // Luôn lọc từ sampleFiles gốc, kết hợp filter + search cùng lúc
 function getFilteredFiles() {
-  const today = new Date().toLocaleDateString('vi-VN');
+  const today = new Date().toLocaleDateString('en-GB');
   let result = [...sampleFiles];
 
   // 1. Lọc theo category nav
