@@ -17,7 +17,8 @@ from configs.settings import ip_allow
 from utils.trang_thai_db_503 import get_maintenance_status
 from routes import register_routes
 import secrets
-from configs.duong_dan_thu_muc import thu_muc_chinh
+from configs.duong_dan_thu_muc import thu_muc_chinh, duong_dan_hien_tai
+from __about__ import __title__, __author_email__, __copyright__, __version__, __author__
 
 os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
 
@@ -150,7 +151,9 @@ port = int(os.environ.get("PORT", 8000))
 if __name__ == "__main__":
     try:
         db.command("ping")
-        print("Database: Kết nối thành công!")
+        print(f'>>> {__title__} ||| python: {__version__}')
+        print(f">>> {__copyright__}")
+        print(f">>> admin_gmail: {__author_email__} ||| adminname: {__author__}")
         socketio.run(app, host="0.0.0.0", port=port)
     except Exception as e:
         print(f"System: Lỗi khởi động: {e}")
