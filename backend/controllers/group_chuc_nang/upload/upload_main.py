@@ -13,15 +13,19 @@ import os
 import uuid
 import concurrent.futures
 import configs.cloudinary
+from logs import logger
+from configs.duong_dan_thu_muc import duong_dan_hien_tai
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 TEMP_DIR = os.path.join(BASE_DIR, "temp")
 
+path_in = duong_dan_hien_tai()
+
 if not os.path.exists(TEMP_DIR):
     os.makedirs(TEMP_DIR, exist_ok=True)
-    print(f"📁 Đã tạo thư mục tạm tại: {TEMP_DIR}")
+    logger.log(f"Đã tạo thư mục tạm tại: {TEMP_DIR}",  path_in)
 else:
-    print(f"📁 Thư mục tạm đã sẵn sàng: {TEMP_DIR}")
+    logger.log(f"Đã tạo thư mục tạm tại: {TEMP_DIR}",  path_in)
 
 
 def process_single_file(file_data, user_email, folder_name):
