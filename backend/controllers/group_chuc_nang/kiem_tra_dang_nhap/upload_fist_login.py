@@ -1,4 +1,4 @@
-from flask import request, jsonify
+from flask import request
 from services.group_chuc_nang.kiem_tra_dang_nhap.up_load_fist_login import (
     kiem_tra_token_link,
 )
@@ -20,8 +20,8 @@ def kiem_tra_token():
         )
 
         if ket_qua["success"]:
-            return jsonify(ket_qua), 200
-        return jsonify(ket_qua), 401
+            return ket_qua, 200
+        return ket_qua, 401
     except Exception as e:
         logger.log(f"{e}", duong_dan_hien_tai())
-        return jsonify({"success": False, "message": "Lỗi hệ thống nghiêm trọng!"}), 500
+        return {"success": False, "message": "Lỗi hệ thống nghiêm trọng!"}, 500
