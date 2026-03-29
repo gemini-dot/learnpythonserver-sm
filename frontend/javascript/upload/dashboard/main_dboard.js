@@ -83,24 +83,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 });
 
-async function checkAccess() {
-  try {
-    const response = await fetch('https://vault-storage.me/security/upload', {
-      method: 'POST',
-      credentials: 'include',
-    });
-
-    const data = await response.json();
-
-    if (response.status === 200) {
-      toast('thành công! Chào mừng bạn quay trở lại.');
-    } else {
-      window.location.replace('https://vault-storage.me/401');
-    }
-  } catch (error) {
-    window.location.replace('https://vault-storage.me/500');
-  }
-}
 function chayLenhQuet() {
   fetch('https://vault-storage.me/security/scan_malware', {
     method: 'GET',
@@ -108,7 +90,7 @@ function chayLenhQuet() {
   }).catch((err) => pass());
   pass();
 }
-checkAccess();
+
 chayLenhQuet();
 
 const sampleFiles = []; // Bắt đầu rỗng, sẽ được fill bởi loadFilesFromServer()
