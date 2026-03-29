@@ -137,6 +137,14 @@ def unlock():
         return "Đã mở cửa server!", 200
     return "Sai mật khẩu!", 403
 
+@app.before_request
+def block_bad_bots():
+    blacklisted_bots = ["GPTBot", "CCBot", "ClaudeBot", "Bytespider"]
+    
+    user_agent = request.headers.get('User-Agent', '')
+    
+    if any(bot in user_agent for bot in blacklisted_bots):
+        abort(403)
 
 @app.route("/")
 def home():
