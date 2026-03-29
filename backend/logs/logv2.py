@@ -1,4 +1,3 @@
-from configs.db import db
 from configs.duong_dan_thu_muc import duong_dan_hien_tai
 from datetime import timezone, datetime, timedelta
 import inspect
@@ -53,6 +52,7 @@ class Log_system:
 
     def save_database(self, level, line, path_system, mes, time, user):
         def run_save():
+            from configs.db import db
             collection = db["log_error_system"]
             try:
                 collection.insert_one(
