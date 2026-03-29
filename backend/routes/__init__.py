@@ -46,6 +46,9 @@ from routes.chuyen_huong.error.e500 import e500
 from routes.chuyen_huong.error.e503 import e503
 from routes.chuyen_huong.dieukhoan_dichvu.dieukhoandichvu import privacy_policy
 from routes.group_chuc_nang.upload.chuyen_huong.upload_site import user_upload_site
+from routes.chuyen_huong.robot.robot import robot_site
+from routes.chuyen_huong.robot.sitemap import sitemap_site
+
 blueprint_groups = {
     "/auth": [
         login_route,
@@ -80,7 +83,7 @@ blueprint_groups = {
     "/admin": [lenh_tu_huy],
     "/fac": [app_route22],
     "/api": [app_route23],
-    "": [user_dashboard, e401, e403, e500, e503, privacy_policy],
+    "": [user_dashboard, e401, e403, e500, e503, privacy_policy, robot_site, sitemap_site],
     "/app":[user_upload_site]
 }
 
