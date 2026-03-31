@@ -4,6 +4,7 @@ import traceback
 from logs import logger
 from configs.duong_dan_thu_muc import duong_dan_hien_tai
 
+
 def get_user_storage_info(user_gmail):
     try:
         col_file_info = db["file_info"]

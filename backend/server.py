@@ -18,7 +18,13 @@ from utils.trang_thai_db_503 import get_maintenance_status
 from routes import register_routes
 import secrets
 from configs.duong_dan_thu_muc import thu_muc_chinh, duong_dan_hien_tai
-from __about__ import __title__, __author_email__, __copyright__, __version__, __author__
+from __about__ import (
+    __title__,
+    __author_email__,
+    __copyright__,
+    __version__,
+    __author__,
+)
 from logs import logger
 
 os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
@@ -94,9 +100,11 @@ def unauthorized_error(e):
 def service_unavailable_error(e):
     return send_from_directory(thu_muc_chinh("frontend/view/error"), "503.html"), 503
 
+
 @app.errorhandler(405)
 def method_not_allowed(error):
     return send_from_directory(thu_muc_chinh("frontend/view/error"), "405.html"), 405
+
 
 tim_kiem = db["trang_thai_web"]
 
@@ -140,14 +148,16 @@ def unlock():
         return "Đã mở cửa server!", 200
     return "Sai mật khẩu!", 403
 
+
 @app.before_request
 def block_bad_bots():
     blacklisted_bots = ["GPTBot", "CCBot", "ClaudeBot", "Bytespider"]
-    
-    user_agent = request.headers.get('User-Agent', '')
-    
+
+    user_agent = request.headers.get("User-Agent", "")
+
     if any(bot in user_agent for bot in blacklisted_bots):
         abort(403)
+
 
 @app.route("/")
 def home():
@@ -155,8 +165,8 @@ def home():
     try:
         return send_from_directory(thu_muc, "index.html")
     except Exception as e:
-        logger.error(f"{e}",duong_dan_hien_tai())
-        return f"Lỗi rách việc rồi og ơi, thư mục này không tồn tại: {e}",401
+        logger.error(f"{e}", duong_dan_hien_tai())
+        return f"Lỗi rách việc rồi og ơi, thư mục này không tồn tại: {e}", 401
 
 
 port = int(os.environ.get("PORT", 8000))
@@ -166,7 +176,7 @@ if __name__ == "__main__":
         db.command("ping")
         socketio.run(app, host="0.0.0.0", port=port)
     except Exception as e:
-        logger.critical(f"{e}",duong_dan_hien_tai())
+        logger.critical(f"{e}", duong_dan_hien_tai())
 
 # hỡi người anh em
 # nếu bro gặp lỗi và đang cố gắng fix lỗi(90% là vậy)

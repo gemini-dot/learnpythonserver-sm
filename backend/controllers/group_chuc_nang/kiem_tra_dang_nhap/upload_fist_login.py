@@ -5,6 +5,7 @@ from services.group_chuc_nang.kiem_tra_dang_nhap.up_load_fist_login import (
 from logs import logger
 from configs.duong_dan_thu_muc import duong_dan_hien_tai
 
+
 def kiem_tra_token():
     try:
         nguoi_dung = request.cookies.get("user_gmail", "")

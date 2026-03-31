@@ -23,9 +23,9 @@ path_in = duong_dan_hien_tai()
 
 if not os.path.exists(TEMP_DIR):
     os.makedirs(TEMP_DIR, exist_ok=True)
-    logger.log(f"Đã tạo thư mục tạm tại: {TEMP_DIR}",  path_in)
+    logger.log(f"Đã tạo thư mục tạm tại: {TEMP_DIR}", path_in)
 else:
-    logger.log(f"Đã tạo thư mục tạm tại: {TEMP_DIR}",  path_in)
+    logger.log(f"Đã tạo thư mục tạm tại: {TEMP_DIR}", path_in)
 
 
 def process_single_file(file_data, user_email, folder_name):

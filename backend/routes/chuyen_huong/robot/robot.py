@@ -2,7 +2,8 @@ from flask import Blueprint
 
 robot_site = Blueprint("robot_txt", __name__)
 
-@robot_site.route('/robots.txt')
+
+@robot_site.route("/robots.txt")
 def robots_txt():
     content = """User-agent: *
         Content-Signal: search=yes,ai-train=no
@@ -11,4 +12,4 @@ def robots_txt():
         User-agent: GPTBot
         Disallow: /
 """
-    return content, 200, {'Content-Type': 'text/plain'}
+    return content, 200, {"Content-Type": "text/plain"}

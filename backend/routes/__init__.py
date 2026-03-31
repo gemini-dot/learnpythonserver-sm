@@ -83,8 +83,17 @@ blueprint_groups = {
     "/admin": [lenh_tu_huy],
     "/fac": [app_route22],
     "/api": [app_route23],
-    "": [user_dashboard, e401, e403, e500, e503, privacy_policy, robot_site, sitemap_site],
-    "/app":[user_upload_site]
+    "": [
+        user_dashboard,
+        e401,
+        e403,
+        e500,
+        e503,
+        privacy_policy,
+        robot_site,
+        sitemap_site,
+    ],
+    "/app": [user_upload_site],
 }
 
 

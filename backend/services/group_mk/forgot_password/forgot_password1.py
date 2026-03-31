@@ -6,6 +6,7 @@ from flask import request
 from logs import logger
 from configs.duong_dan_thu_muc import duong_dan_hien_tai
 
+
 def kiem_tra_dat_lai_mat_khau(gmail):
 
     cho_luu_token = db["token"]
@@ -57,7 +58,10 @@ def kiem_tra_dat_lai_mat_khau(gmail):
                 "message": "Đã gửi email thành công! Vui lòng kiểm tra hộp thư.",
             }
         else:
-            logger.error(f"Lỗi gửi email: {ket_qua.get('error', 'Không rõ lỗi')}", duong_dan_hien_tai())
+            logger.error(
+                f"Lỗi gửi email: {ket_qua.get('error', 'Không rõ lỗi')}",
+                duong_dan_hien_tai(),
+            )
             return {
                 "success": False,
                 "error": ket_qua.get("error", "Đã có lỗi xảy ra khi gửi email."),

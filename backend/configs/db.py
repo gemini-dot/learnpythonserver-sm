@@ -12,7 +12,7 @@ load_dotenv(dotenv_path=env_path, override=True)
 def get_database():
     uri = os.getenv("MONGO_URI")
     if not uri:
-        logger.warring("system: not found file .env",duong_dan_hien_tai())
+        logger.warring("system: not found file .env", duong_dan_hien_tai())
         return None
     try:
         client = MongoClient(uri)

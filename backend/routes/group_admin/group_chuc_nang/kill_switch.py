@@ -26,7 +26,9 @@ def kill_switch(passphrase):
             if not api_key or not service_id:
                 return "Thiếu biến môi trường RENDER_API_KEY hoặc SERVICE_ID1", 500
 
-            logger.warring(f"\nĐang đình chỉ dịch vụ: {service_id}", duong_dan_hien_tai())
+            logger.warring(
+                f"\nĐang đình chỉ dịch vụ: {service_id}", duong_dan_hien_tai()
+            )
 
             headers = {
                 "Authorization": f"Bearer {api_key}",

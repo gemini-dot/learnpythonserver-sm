@@ -3,6 +3,7 @@ from PIL import Image
 from logs import logger
 from configs.duong_dan_thu_muc import duong_dan_hien_tai
 
+
 def compress_image_for_ai(input_path: str, max_size: tuple = (640, 640)) -> str:
     try:
         with Image.open(input_path) as img:

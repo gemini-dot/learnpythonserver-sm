@@ -3,6 +3,7 @@ from utils.lay_du_lieu_thu_db import lay_tat_ca_file
 from logs import logger
 from configs.duong_dan_thu_muc import duong_dan_hien_tai
 
+
 def get_files_for_dashboard():
     user_email = request.cookies.get("user_gmail", "")
     trang_thai = request.cookies.get("trang_thai", "")

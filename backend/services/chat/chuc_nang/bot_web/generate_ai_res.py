@@ -5,6 +5,7 @@ from services.chat.chuc_nang.bot_web.get_fallback_res import get_fallback_respon
 from logs import logger
 from configs.duong_dan_thu_muc import duong_dan_hien_tai
 
+
 def generate_ai_response(user_id, user_message):
     try:
         full_prompt = build_chat_context(user_id, user_message)

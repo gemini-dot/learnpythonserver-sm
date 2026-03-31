@@ -5,6 +5,7 @@ import numpy as np
 from logs import logger
 from configs.duong_dan_thu_muc import duong_dan_hien_tai
 
+
 def ask_gemini(user_text, doan_chat_truoc):
     try:
         if doan_chat_truoc is None:

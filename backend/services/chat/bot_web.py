@@ -7,6 +7,7 @@ from datetime import datetime
 from logs import logger
 from configs.duong_dan_thu_muc import duong_dan_hien_tai
 
+
 def support_chat():
     try:
         # Get request data

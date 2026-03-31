@@ -29,7 +29,10 @@ class Log_system:
         self.mui_gio_vn = timezone(timedelta(hours=7))
 
     def save_to_file(self, level, line, path_system, mes, time, user):
-        log_entry = f"[{time}] | {mes} | line: {line} | {level} | {path_system} | {user}\n"
+        log_entry = (
+            f"[{time}] | {mes} | line: {line} | {level} | {path_system} | {user}\n"
+        )
+
         def run_main():
             try:
 
@@ -40,7 +43,7 @@ class Log_system:
                     f.write(log_entry)
             except Exception as e:
                 print(f"{self.RED} Lỗi ghi file log: {e}{self.RESET}")
-                
+
         threading.Thread(target=run_main).start()
 
     def get_time(self):
@@ -59,6 +62,7 @@ class Log_system:
     def save_database(self, level, line, path_system, mes, time, user):
         def run_save():
             from configs.db import db
+
             collection = db["log_error_system"]
             try:
                 collection.insert_one(
@@ -152,4 +156,6 @@ class Log_system:
             time,
             user,
         )
-        self.save_to_file(self.main_critical, line, path_in, messing_critical, time, user)
+        self.save_to_file(
+            self.main_critical, line, path_in, messing_critical, time, user
+        )

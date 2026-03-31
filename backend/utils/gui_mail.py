@@ -6,6 +6,7 @@ from os import getenv
 from logs import logger
 from configs.duong_dan_thu_muc import duong_dan_hien_tai
 
+
 def gui_mail_reset(email_nguoi_nhan, token, thoi_gian, dia_chi_ip, thiet_bi):
 
     service_id = str(getenv("SERVICE_ID_EMAILJS"))

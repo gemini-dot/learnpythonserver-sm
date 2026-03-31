@@ -6,6 +6,7 @@ from configs.duong_dan_thu_muc import duong_dan_hien_tai
 from logs import logger
 from configs.duong_dan_thu_muc import duong_dan_hien_tai
 
+
 def kiem_tra1():
     du_lieu = request.get_json()
 
