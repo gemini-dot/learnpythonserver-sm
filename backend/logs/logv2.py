@@ -11,7 +11,7 @@ thoi_gian_dep = bay_gio.strftime("%H:%M:%S %d/%m/%Y")
 
 
 class Log_system:
-    # color????
+    
     RED = "\033[91m"
     YELLOW = "\033[93m"
     GREEN = "\033[92m"
@@ -30,7 +30,7 @@ class Log_system:
 
     def save_to_file(self, level, line, path_system, mes, time, user):
         log_entry = (
-            f"{time} - [{path_system:<30}:{line:<3}] - {level:^8} - {mes}  - {user}\n"
+            f"[{time}] [{path_system:<30}:{line:<3}] [{level:^8}] {mes}:[{user}\n]"
         )
 
         def run_main():
@@ -54,7 +54,7 @@ class Log_system:
             ip = request.remote_addr
             method = request.method
             url = request.path
-            return f"{user}:{ip} - {method}:{url}"
+            return f"{user}:{ip} {method}:{url}"
         except:
             return "System"
 
@@ -84,7 +84,7 @@ class Log_system:
         time = self.get_time()
         user = self.get_user()
         print(
-            f"{time} - {path_in}:{line} - {self.main_info} - {messing_info} - {user}"
+            f"[{time}] [{path_in}:{line}] [{self.main_info}] {messing_info}:[{user}]"
         )
         self.save_to_file(self.main_info, line, path_in, messing_info, time, user)
 
@@ -93,7 +93,7 @@ class Log_system:
         user = self.get_user()
         time = self.get_time()
         print(
-            f"{time} - {path_in}:{line} - {self.main_warring} - {messing_warring} - {user}"
+            f"[{time}] [{path_in}:{line}] [{self.main_warring}] {messing_warring}:[{user}]"
         )
         self.save_database(
             self.main_warring,
@@ -110,7 +110,7 @@ class Log_system:
         user = self.get_user()
         time = self.get_time()
         print(
-            f"{time} - {path_in}:{line} - {self.main_error} - {messing_error} - {user}"
+           f"[{time}] [{path_in}:{line}] [{self.main_error}] {messing_error}:[{user}]"
         )
         self.save_database(
             self.main_error,
@@ -127,7 +127,7 @@ class Log_system:
         time = self.get_time()
         user = self.get_user()
         print(
-            f"{time} - {path_in}:{line} - {self.main_log} - {messing_log} - {user}"
+           f"[{time}] [{path_in}:{line}] [{self.main_log}] {messing_log}:[{user}]"
         )
         self.save_to_file(self.main_log, line, path_in, messing_log, time, user)
 
@@ -136,7 +136,7 @@ class Log_system:
         time = self.get_time()
         user = self.get_user()
         print(
-            f"{time} - {path_in}:{line} - {self.main_debug} - {messing_debug} - {user}"
+            f"[{time}] [{path_in}:{line}] [{self.main_debug}] {messing_debug}:[{user}]"
         )
         self.save_to_file(self.main_debug, line, path_in, messing_debug, time, user)
 
@@ -145,7 +145,7 @@ class Log_system:
         user = self.get_user()
         time = self.get_time()
         print(
-            f"{time} - {path_in}:{line} - {self.main_critical} - {messing_critical} - {user}"
+           f"[{time}] [{path_in}:{line}] [{self.main_critical}] {messing_critical}:[{user}]"
         )
         self.save_database(
             self.main_critical,
