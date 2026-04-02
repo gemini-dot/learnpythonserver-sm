@@ -54,7 +54,7 @@ class Log_system:
             ip = request.remote_addr
             method = request.method
             url = request.path
-            return f"{user} ||| IP: {ip} ||| {method} {url}"
+            return f"{user}:{ip} - {method}:{url}"
         except:
             return "System"
 
