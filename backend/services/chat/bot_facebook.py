@@ -64,16 +64,21 @@ def handle_ai_logic(sender_id, message_text, message_id=None):
         send_message(sender_id, wait_message, reply_to_mid=None)
 
         context_doc = find_relevant_doc(search_query)
-        final_prompt = f"(Thông tin từ hệ thống: {context_doc})\nDựa vào thông tin trên, trả lời khách: {message_text}"
+        
+        if context_doc == "Không tìm thấy thông tin liên quan.":
+            final_prompt = f"Hệ thống không tìm thấy tài liệu. Hãy trả lời khách là mình chỉ hỗ trợ các vấn đề về web VAULT, không biết cái này. TUYỆT ĐỐI KHÔNG ĐƯỢC DÙNG LẠI LỆNH ||| find_info NỮA. Câu hỏi: {message_text}"
+        else:
+            final_prompt = f"(Thông tin từ hệ thống: {context_doc})\nDựa vào thông tin trên, trả lời khách: {message_text}. TUYỆT ĐỐI KHÔNG DÙNG THÊM LỆNH ||| NÀO NỮA."
         
         final_ai_reply = ask_gemini(final_prompt, history)
         
         if isinstance(final_ai_reply, str) and not final_ai_reply.startswith("loi"):
-            send_message(sender_id, final_ai_reply)
-            ai_reply = final_ai_reply
+            clean_final = final_ai_reply.split("|||")[0].strip() if "|||" in final_ai_reply else final_ai_reply
+            
+            send_message(sender_id, clean_final)
+            ai_reply = clean_final
         else:
             send_message(sender_id, "Tui đang tra tài liệu thì bị lag xíu, og hỏi lại nha :)")
-            
         has_sent = True
 
     if not has_sent:
