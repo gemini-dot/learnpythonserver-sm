@@ -22,7 +22,7 @@ def kiem_tra_db(nguoi_dung, gmail_nguoi_dung, pic, uid):
     thoi_gian_het_han = thoi_gian_hien_tai + timedelta(days=30)
 
     if ket_qua:
-        collection.update_one({"gmail": str(gmail_nguoi_dung)}, {"$set": {"uid": uid}})
+        collection.update_one({"gmail": str(gmail_nguoi_dung)}, {"$set": {"uid": uid, "blacklist": 0}})
         log_login.insert_one(
             {
                 "timestamp": thoi_gian_hien_tai,
@@ -59,6 +59,7 @@ def kiem_tra_db(nguoi_dung, gmail_nguoi_dung, pic, uid):
         "bio": "",
         "avatar_google": pic,
         "uid": uid,
+        "blacklist":0
     }
     collection.insert_one(cap_nhat)
     return {"trang_thai": True, "mes": "Đăng ký thành công!", "email": gmail_nguoi_dung}

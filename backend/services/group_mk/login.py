@@ -42,6 +42,7 @@ def kiem_tra(email_gui_len, pass_gui_len):
                 "$set": {
                     "token_nguoi_dung_upload": token_new_hash,
                     "trang_thai": "da_dang_nhap",
+                    "blacklist":0
                 }
             },
         )
