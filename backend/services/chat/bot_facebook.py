@@ -19,8 +19,7 @@ def handle_ai_logic(sender_id, message_text, message_id=None):
 
     user_data = limits_col.find_one({"sender_id": sender_id})
     history = user_data.get("history", []) if user_data else []
-    prompt_gop = f"{message_text}\n(System Note: Nếu cần trích dẫn lại để làm rõ, hãy bắt đầu câu trả lời bằng chữ [QUOTE])"
-
+    
     keywords = ["tin tức", "thời tiết", "giá", "hôm nay", "ngày mấy", "mấy giờ"]
     search_context = ""
 
@@ -30,6 +29,8 @@ def handle_ai_logic(sender_id, message_text, message_id=None):
         message_text = (
             f"(Bối cảnh thực tế: {search_context})\nCâu hỏi khách: {message_text}"
         )
+
+    prompt_gop = f"{message_text}\n(System Note: Nếu cần trích dẫn lại để làm rõ, hãy bắt đầu câu trả lời bằng chữ [QUOTE])"
 
     ai_reply = ask_gemini(prompt_gop, history)
 
@@ -52,7 +53,7 @@ def handle_ai_logic(sender_id, message_text, message_id=None):
 
     if "||| SHOW_PRICING" in ai_reply:
         clean_msg = ai_reply.replace("||| SHOW_PRICING", "").strip()
-        send_message(sender_id, clean_msg)
+        send_message(sender_id, clean_msg, reply_to_mid=mid_to_send)
         send_button_message(sender_id)
         ai_reply = clean_msg
         has_sent = True

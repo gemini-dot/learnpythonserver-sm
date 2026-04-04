@@ -16,6 +16,8 @@ def receive_message():
                 if messaging_event.get("message"):
                     sender_id = messaging_event["sender"]["id"]
                     message_text = messaging_event["message"].get("text")
+                    mid = messaging_event["message"].get("mid")
+
                     if not message_text:
                         send_message(
                             sender_id, "thử gửi lại mà không dùng icon đi bạn:)"
@@ -23,7 +25,7 @@ def receive_message():
                         continue
 
                     current_time = time.time()
-
+                    
                     user_data = limits_col.find_one({"sender_id": sender_id})
 
                     if not user_data:
@@ -55,7 +57,7 @@ def receive_message():
                                 {"sender_id": sender_id}, {"$inc": {"count": 1}}
                             )
                     thread = threading.Thread(
-                        target=handle_ai_logic, args=(sender_id, message_text)
+                        target=handle_ai_logic, args=(sender_id, message_text, mid)
                     )
                     thread.start()
 
