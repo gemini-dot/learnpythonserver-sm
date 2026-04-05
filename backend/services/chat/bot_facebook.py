@@ -47,21 +47,33 @@ def handle_ai_logic(sender_id, message_text, message_id=None):
         is_quote = True
     mid_to_send = message_id if is_quote else None
 
+    clean_text = ""
+    commands = {}
+
+    if "|||" in ai_reply:
+        parts = ai_reply.split("|||")
+    
+        clean_text = parts[0].strip()
+        
+        for part in parts[1:]:
+            part = part.strip()
+            if part.startswith("find_info:"):
+                commands["find_info"] = part.replace("find_info:", "").strip()
+            elif part == "SHOW_PRICING":
+                commands["SHOW_PRICING"] = True
+    else:
+        clean_text = ai_reply.strip()
+
     has_sent = False
 
-    if "||| SHOW_PRICING" in ai_reply:
-        clean_msg = ai_reply.replace("||| SHOW_PRICING", "").strip()
-        send_message(sender_id, clean_msg, reply_to_mid=mid_to_send)
-        send_button_message(sender_id)
-        ai_reply = clean_msg
-        has_sent = True
 
-    if "||| find_info:" in ai_reply:
-        parts = ai_reply.split("||| find_info:")
-        wait_message = parts[0].strip() 
-        search_query = parts[1].strip()  
 
-        send_message(sender_id, wait_message, reply_to_mid=None)
+    if "find_info" in commands:
+
+        search_query = commands["find_info"]
+
+        if clean_text:
+            send_message(sender_id, clean_text, reply_to_mid=None)
 
         context_doc = find_relevant_doc(search_query)
         
@@ -74,14 +86,23 @@ def handle_ai_logic(sender_id, message_text, message_id=None):
         
         if isinstance(final_ai_reply, str) and not final_ai_reply.startswith("loi"):
             clean_final = final_ai_reply.split("|||")[0].strip() if "|||" in final_ai_reply else final_ai_reply
-            
             send_message(sender_id, clean_final)
             ai_reply = clean_final
+            has_sent = True
         else:
             send_message(sender_id, "Tui đang tra tài liệu thì bị lag xíu, og hỏi lại nha :)")
         has_sent = True
 
-    if not has_sent:
+    if "SHOW_PRICING" in commands:
+        if not has_sent and clean_text:
+            send_message(sender_id, clean_text, reply_to_mid=mid_to_send)
+            ai_reply = clean_text
+            has_sent = True
+        
+        send_button_message(sender_id)
+        has_sent = True
+
+    if not has_sent and clean_text:
         if ai_reply.startswith("loi"):
             send_message(
                 sender_id,
