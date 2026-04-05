@@ -271,7 +271,7 @@ class Log_system:
             params = {
                 "from": "Vault Monitor <system@vault-storage.me>",
                 "to": ["samvasang1192011@gmail.com"],
-                "subject": f"[{email_data['type']}] New Alert: {email_data['id_log']}",
+                "subject": f"[{result_from_mongo.get('log_level')}] New Alert: {result_from_mongo.get('id')}",
                 "html": email_data,
             }
 
