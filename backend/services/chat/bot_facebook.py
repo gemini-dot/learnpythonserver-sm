@@ -9,6 +9,7 @@ from services.chat.chuc_nang.send_mes import (
 from services.chat.chuc_nang.AI_core import find_relevant_doc
 from logs import logger
 from configs.duong_dan_thu_muc import duong_dan_hien_tai
+
 limits_col = db["user_limits"]
 
 
@@ -18,7 +19,7 @@ def handle_ai_logic(sender_id, message_text, message_id=None):
 
     user_data = limits_col.find_one({"sender_id": sender_id})
     history = user_data.get("history", []) if user_data else []
-    
+
     keywords = ["tin tức", "thời tiết", "giá", "hôm nay", "ngày mấy", "mấy giờ"]
     search_context = ""
 
@@ -34,13 +35,19 @@ def handle_ai_logic(sender_id, message_text, message_id=None):
     ai_reply = ask_gemini(prompt_gop, history)
     if isinstance(ai_reply, str) and ai_reply.startswith("loi"):
         if "429" in ai_reply or "RESOURCE_EXHAUSTED" in ai_reply:
-            send_message(sender_id, "Tui đang nghẹn kẹo (quá tải xíu), og đợi tui khoảng 1 phút rồi nhắn lại nha :)", message_id)
+            send_message(
+                sender_id,
+                "Tui đang nghẹn kẹo (quá tải xíu), og đợi tui khoảng 1 phút rồi nhắn lại nha :)",
+                message_id,
+            )
         else:
-            send_message(sender_id, "Não tui đang bị lag, og đợi xíu nha :)", message_id)
-        
+            send_message(
+                sender_id, "Não tui đang bị lag, og đợi xíu nha :)", message_id
+            )
+
         logger.warring(f"Bỏ qua lưu vì lỗi API: {ai_reply}", duong_dan_hien_tai())
         return
-    
+
     is_quote = False
     if ai_reply.startswith("[QUOTE]"):
         ai_reply = ai_reply.replace("[QUOTE]", "").strip()
@@ -52,9 +59,9 @@ def handle_ai_logic(sender_id, message_text, message_id=None):
 
     if "|||" in ai_reply:
         parts = ai_reply.split("|||")
-    
+
         clean_text = parts[0].strip()
-        
+
         for part in parts[1:]:
             part = part.strip()
             if part.startswith("find_info:"):
@@ -66,8 +73,6 @@ def handle_ai_logic(sender_id, message_text, message_id=None):
 
     has_sent = False
 
-
-
     if "find_info" in commands:
 
         search_query = commands["find_info"]
@@ -76,21 +81,27 @@ def handle_ai_logic(sender_id, message_text, message_id=None):
             send_message(sender_id, clean_text, reply_to_mid=None)
 
         context_doc = find_relevant_doc(search_query)
-        
+
         if context_doc == "Không tìm thấy thông tin liên quan.":
             final_prompt = f"Hệ thống không tìm thấy tài liệu. Hãy trả lời khách là mình chỉ hỗ trợ các vấn đề về web VAULT, không biết cái này. TUYỆT ĐỐI KHÔNG ĐƯỢC DÙNG LẠI LỆNH ||| find_info NỮA. Câu hỏi: {message_text}"
         else:
             final_prompt = f"(Thông tin từ hệ thống: {context_doc})\nDựa vào thông tin trên, trả lời khách: {message_text}. TUYỆT ĐỐI KHÔNG DÙNG THÊM LỆNH ||| NÀO NỮA."
-        
+
         final_ai_reply = ask_gemini(final_prompt, history)
-        
+
         if isinstance(final_ai_reply, str) and not final_ai_reply.startswith("loi"):
-            clean_final = final_ai_reply.split("|||")[0].strip() if "|||" in final_ai_reply else final_ai_reply
+            clean_final = (
+                final_ai_reply.split("|||")[0].strip()
+                if "|||" in final_ai_reply
+                else final_ai_reply
+            )
             send_message(sender_id, clean_final)
             ai_reply = clean_final
             has_sent = True
         else:
-            send_message(sender_id, "Tui đang tra tài liệu thì bị lag xíu, og hỏi lại nha :)")
+            send_message(
+                sender_id, "Tui đang tra tài liệu thì bị lag xíu, og hỏi lại nha :)"
+            )
         has_sent = True
 
     if "SHOW_PRICING" in commands:
@@ -98,7 +109,7 @@ def handle_ai_logic(sender_id, message_text, message_id=None):
             send_message(sender_id, clean_text, reply_to_mid=mid_to_send)
             ai_reply = clean_text
             has_sent = True
-        
+
         send_button_message(sender_id)
         has_sent = True
 

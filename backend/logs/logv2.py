@@ -18,7 +18,7 @@ thoi_gian_dep = bay_gio.strftime("%H:%M:%S %d/%m/%Y")
 
 
 class Log_system:
-    
+
     RED = "\033[91m"
     YELLOW = "\033[93m"
     GREEN = "\033[92m"
@@ -36,9 +36,7 @@ class Log_system:
         self.mui_gio_vn = timezone(timedelta(hours=7))
 
     def save_to_file(self, level, line, path_system, mes, time, user):
-        log_entry = (
-            f"[{time}] [{path_system}:{line}] [{level}] {mes}:[{user}\n]"
-        )
+        log_entry = f"[{time}] [{path_system}:{line}] [{level}] {mes}:[{user}\n]"
 
         def run_main():
             try:
@@ -77,7 +75,7 @@ class Log_system:
                 "path": result_from_mongo.get("path"),
                 "line": result_from_mongo.get("line"),
                 "user": result_from_mongo.get("user"),
-                "time": result_from_mongo.get("time_last")
+                "time": result_from_mongo.get("time_last"),
             }
 
             params = {
@@ -85,7 +83,7 @@ class Log_system:
                 "to": ["samvasang1192011@gmail.com"],
                 "subject": f"[{email_data['type']}] New Alert: {email_data['id_log']}",
                 "template_id": "system-monitor-report",
-                "data": email_data
+                "data": email_data,
             }
 
             resend.Emails.send(params)
@@ -97,8 +95,9 @@ class Log_system:
     def save_database(self, level, line, path_system, mes, time, user):
         def run_save():
             from configs.db import db
+
             collection = db["log_error_system"]
-            
+
             raw_id = f"{level}{line}{path_system}{mes}{user}"
             error_id = hashlib.md5(raw_id.encode()).hexdigest()[:10]
 
@@ -113,17 +112,17 @@ class Log_system:
                             "path": path_system,
                             "time_last": time,
                             "user": user,
-                            "mes": mes
+                            "mes": mes,
                         },
-                        "$setOnInsert": {"time_first": time}
+                        "$setOnInsert": {"time_first": time},
                     },
                     upsert=True,
-                    return_document=ReturnDocument.AFTER
+                    return_document=ReturnDocument.AFTER,
                 )
                 count = result.get("count")
                 if count == 1 or (count > 1 and count % 100 == 0):
-                    self.send_email_alert(result) 
-                    
+                    self.send_email_alert(result)
+
             except Exception as e:
                 print(f"{self.RED} {e}{self.RESET}")
 
@@ -133,9 +132,7 @@ class Log_system:
         line = inspect.stack()[1][2]
         time = self.get_time()
         user = self.get_user()
-        print(
-            f"[{time}] [{path_in}:{line}] [{self.main_info}] {messing_info}:[{user}]"
-        )
+        print(f"[{time}] [{path_in}:{line}] [{self.main_info}] {messing_info}:[{user}]")
         self.save_to_file(self.main_info, line, path_in, messing_info, time, user)
 
     def warring(self, messing_warring, path_in=None):
@@ -160,7 +157,7 @@ class Log_system:
         user = self.get_user()
         time = self.get_time()
         print(
-           f"[{time}] [{path_in}:{line}] [{self.main_error}] {messing_error}:[{user}]"
+            f"[{time}] [{path_in}:{line}] [{self.main_error}] {messing_error}:[{user}]"
         )
         self.save_database(
             self.main_error,
@@ -176,9 +173,7 @@ class Log_system:
         line = inspect.stack()[1][2]
         time = self.get_time()
         user = self.get_user()
-        print(
-           f"[{time}] [{path_in}:{line}] [{self.main_log}] {messing_log}:[{user}]"
-        )
+        print(f"[{time}] [{path_in}:{line}] [{self.main_log}] {messing_log}:[{user}]")
         self.save_to_file(self.main_log, line, path_in, messing_log, time, user)
 
     def debug(self, messing_debug, path_in=None):
@@ -195,7 +190,7 @@ class Log_system:
         user = self.get_user()
         time = self.get_time()
         print(
-           f"[{time}] [{path_in}:{line}] [{self.main_critical}] {messing_critical}:[{user}]"
+            f"[{time}] [{path_in}:{line}] [{self.main_critical}] {messing_critical}:[{user}]"
         )
         self.save_database(
             self.main_critical,

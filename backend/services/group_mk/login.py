@@ -7,6 +7,8 @@ from flask import request
 from utils.get_ip import get_real_ip
 from logs import logger
 from configs.duong_dan_thu_muc import duong_dan_hien_tai
+
+
 def kiem_tra(email_gui_len, pass_gui_len):
 
     noi_tim_kiem = db["users"]  # truy cập vào kho của tôi:))
@@ -42,7 +44,7 @@ def kiem_tra(email_gui_len, pass_gui_len):
                 "$set": {
                     "token_nguoi_dung_upload": token_new_hash,
                     "trang_thai": "da_dang_nhap",
-                    "blacklist":0
+                    "blacklist": 0,
                 }
             },
         )

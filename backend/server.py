@@ -82,6 +82,7 @@ register_routes(app)
 
 duong_dan_file = duong_dan_hien_tai()
 
+
 @app.errorhandler(404)
 def page_not_found(e):
     return send_from_directory(thu_muc_chinh(), "404.html")

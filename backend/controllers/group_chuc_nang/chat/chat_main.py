@@ -9,6 +9,7 @@ limits_col = db["user_limits"]
 
 processed_mids = {}
 
+
 def receive_message():
     data = request.get_json()
     if data["object"] == "page":
@@ -21,13 +22,15 @@ def receive_message():
 
                     current_time = time.time()
 
-                    mids_to_delete = [k for k, v in processed_mids.items() if current_time - v > 300]
+                    mids_to_delete = [
+                        k for k, v in processed_mids.items() if current_time - v > 300
+                    ]
                     for k in mids_to_delete:
                         del processed_mids[k]
 
                     if mid in processed_mids:
                         return "ok", 200
-                    
+
                     processed_mids[mid] = current_time
 
                     if not message_text:

@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Error Report Email</title>
+</head>
+<body style="margin:0;padding:0;background-color:#f0f0f0;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;">
+
+  <!-- Wrapper -->
+  <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#f0f0f0;padding:40px 0;">
+    <tr>
+      <td align="center">
+
+        <!-- Container -->
+        <table width="620" cellpadding="0" cellspacing="0" border="0" style="max-width:620px;width:100%;background:#ffffff;border:1px solid #ddd;">
+
+          <!-- HEADER -->
+          <tr>
+            <td style="background:#111111;padding:28px 36px;">
+              <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                  <td>
+                    <span style="font-family:'Courier New',monospace;font-size:11px;letter-spacing:0.15em;text-transform:uppercase;color:#999999;">System Monitor</span><br/>
+                    <span style="font-family:'Courier New',monospace;font-size:20px;font-weight:700;color:#ffffff;letter-spacing:-0.01em;">{{type}} Report</span>
+                  </td>
+                  <td align="right" valign="middle">
+                    <!-- Level Badge — thay giá trị và màu theo level -->
+                    <span style="display:inline-block;background:#cc0000;color:#ffffff;font-family:'Courier New',monospace;font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;padding:6px 14px;border-radius:2px;">{{type}}</span>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- TIMESTAMP BAR -->
+          <tr>
+            <td style="background:#1a1a1a;padding:10px 36px;">
+              <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                  <td style="font-family:'Courier New',monospace;font-size:11px;color:#888888;">
+                    <span style="color:#555555;">time_first:</span>&nbsp;
+                    <span style="color:#cccccc;">{{time-first}}</span>
+                    &nbsp;&nbsp;&nbsp;
+                    <span style="color:#555555;">time_last:</span>&nbsp;
+                    <span style="color:#cccccc;">{{time-last}}</span>
+                  </td>
+                  <td align="right" style="font-family:'Courier New',monospace;font-size:11px;color:#888888;">
+                    <span style="color:#555555;">occurrences:</span>&nbsp;
+                    <span style="color:#ffffff;font-weight:700;">{{count}}</span>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- BODY -->
+          <tr>
+            <td style="padding:36px 36px 0 36px;">
+
+              <!-- Error ID -->
+              <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom:24px;">
+                <tr>
+                  <td style="background:#f7f7f5;border-left:3px solid #111111;padding:14px 18px;">
+                    <span style="font-family:'Courier New',monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:#999999;display:block;margin-bottom:4px;">Error ID</span>
+                    <span style="font-family:'Courier New',monospace;font-size:15px;font-weight:700;color:#111111;">{{id_log}}</span>
+                  </td>
+                </tr>
+              </table>
+
+              <!-- MESSAGE -->
+              <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom:28px;">
+                <tr>
+                  <td>
+                    <span style="font-family:'Courier New',monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:#999999;display:block;margin-bottom:8px;">Message</span>
+                    <div style="background:#111111;color:#f5f5f5;font-family:'Courier New',monospace;font-size:13px;line-height:1.7;padding:18px 20px;border-radius:2px;word-break:break-all;">
+                      {{mes}}
+                    </div>
+                  </td>
+                </tr>
+              </table>
+
+              <!-- DETAIL GRID -->
+              <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom:28px;">
+                <tr>
+                  <td>
+                    <span style="font-family:'Courier New',monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:#999999;display:block;margin-bottom:12px;">Detail</span>
+                  </td>
+                </tr>
+              </table>
+
+              <!-- Row 1: path + line -->
+              <table width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;margin-bottom:1px;">
+                <tr>
+                  <td width="50%" style="background:#f7f7f5;border:1px solid #ebebeb;padding:14px 18px;vertical-align:top;">
+                    <span style="font-family:'Courier New',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:#aaaaaa;display:block;margin-bottom:5px;">path</span>
+                    <span style="font-family:'Courier New',monospace;font-size:12px;color:#111111;word-break:break-all;">{{path}}</span>
+                  </td>
+                  <td width="50%" style="background:#f7f7f5;border:1px solid #ebebeb;border-left:none;padding:14px 18px;vertical-align:top;">
+                    <span style="font-family:'Courier New',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:#aaaaaa;display:block;margin-bottom:5px;">line</span>
+                    <span style="font-family:'Courier New',monospace;font-size:12px;color:#111111;">{{line}}</span>
+                  </td>
+                </tr>
+              </table>
+
+              <!-- Row 2: user + log_level -->
+              <table width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;margin-bottom:1px;">
+                <tr>
+                  <td width="50%" style="background:#f7f7f5;border:1px solid #ebebeb;border-top:none;padding:14px 18px;vertical-align:top;">
+                    <span style="font-family:'Courier New',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:#aaaaaa;display:block;margin-bottom:5px;">user</span>
+                    <span style="font-family:'Courier New',monospace;font-size:12px;color:#111111;">{{user}}</span>
+                  </td>
+                  <td width="50%" style="background:#f7f7f5;border:1px solid #ebebeb;border-left:none;border-top:none;padding:14px 18px;vertical-align:top;">
+                    <span style="font-family:'Courier New',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:#aaaaaa;display:block;margin-bottom:5px;">log_level</span>
+                    <span style="display:inline-block;background:#cc0000;color:#ffffff;font-family:'Courier New',monospace;font-size:10px;font-weight:700;letter-spacing:0.1em;padding:3px 10px;border-radius:2px;">{{type}}</span>
+                  </td>
+                </tr>
+              </table>
+
+              <!-- Row 3: time_first + time_last -->
+              <table width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;margin-bottom:1px;">
+                <tr>
+                  <td width="50%" style="background:#f7f7f5;border:1px solid #ebebeb;border-top:none;padding:14px 18px;vertical-align:top;">
+                    <span style="font-family:'Courier New',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:#aaaaaa;display:block;margin-bottom:5px;">time_first <span style="color:#cccccc;font-size:9px;">($setOnInsert)</span></span>
+                    <span style="font-family:'Courier New',monospace;font-size:12px;color:#111111;">{{time-first}}</span>
+                  </td>
+                  <td width="50%" style="background:#f7f7f5;border:1px solid #ebebeb;border-left:none;border-top:none;padding:14px 18px;vertical-align:top;">
+                    <span style="font-family:'Courier New',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:#aaaaaa;display:block;margin-bottom:5px;">time_last <span style="color:#cccccc;font-size:9px;">($set)</span></span>
+                    <span style="font-family:'Courier New',monospace;font-size:12px;color:#111111;">{{time-last}}</span>
+                  </td>
+                </tr>
+              </table>
+
+              <!-- Row 4: count -->
+              <table width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;margin-bottom:28px;">
+                <tr>
+                  <td colspan="2" style="background:#f7f7f5;border:1px solid #ebebeb;border-top:none;padding:14px 18px;vertical-align:top;">
+                    <span style="font-family:'Courier New',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:#aaaaaa;display:block;margin-bottom:5px;">count <span style="color:#cccccc;font-size:9px;">($inc +1 mỗi lần xảy ra)</span></span>
+                    <span style="font-family:'Courier New',monospace;font-size:18px;font-weight:700;color:#111111;">{{count}}</span>
+                    <span style="font-family:'Courier New',monospace;font-size:11px;color:#aaaaaa;margin-left:6px;">occurrences</span>
+                  </td>
+                </tr>
+              </table>
+
+              <!-- MONGODB PAYLOAD -->
+              <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom:36px;">
+                <tr>
+                  <td>
+                    <span style="font-family:'Courier New',monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:#999999;display:block;margin-bottom:8px;">MongoDB Upsert Payload</span>
+                    <div style="background:#1a1a1a;font-family:'Courier New',monospace;font-size:11px;line-height:1.8;padding:18px 20px;border-radius:2px;color:#d4d4d4;word-break:break-all;">
+<span style="color:#808080;">// filter</span><br/>
+{ <span style="color:#9cdcfe;">"id"</span>: <span style="color:#ce9178;">{{id_log}}</span> }<br/>
+<br/>
+<span style="color:#808080;">// update</span><br/>
+{<br/>  
+&nbsp;&nbsp;<span style="color:#dcdcaa;">"$inc"</span>: { <span style="color:#9cdcfe;">"count"</span>: <span style="color:#b5cea8;">{{count}}</span> },<br/>
+&nbsp;&nbsp;<span style="color:#dcdcaa;">"$set"</span>: {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#9cdcfe;">"log_level"</span>: <span style="color:#ce9178;">{{type}}</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#9cdcfe;">"line"</span>: <span style="color:#b5cea8;">{{line}}</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#9cdcfe;">"path"</span>: <span style="color:#ce9178;">{{path}}</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#9cdcfe;">"time_last"</span>: <span style="color:#ce9178;">{{time}}</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#9cdcfe;">"user"</span>: <span style="color:#ce9178;">{{user}}</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#9cdcfe;">"mes"</span>: <span style="color:#ce9178;">{{mes}}</span><br/>
+&nbsp;&nbsp;},<br/>
+&nbsp;&nbsp;<span style="color:#dcdcaa;">"$setOnInsert"</span>: {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#9cdcfe;">"time_first"</span>: <span style="color:#ce9178;">{{time-first}}</span><br/>
+&nbsp;&nbsp;}<br/>
+}<br/>
+<br/>
+<span style="color:#808080;">// options: upsert=true, return_document=true</span>
+                    </div>
+                  </td>
+                </tr>
+              </table>
+
+            </td>
+          </tr>
+
+          <!-- FOOTER -->
+          <tr>
+            <td style="background:#f7f7f5;border-top:1px solid #ebebeb;padding:20px 36px;">
+              <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                  <td style="font-family:'Courier New',monospace;font-size:10px;color:#aaaaaa;letter-spacing:0.06em;">
+                    Auto-generated by System Monitor &nbsp;·&nbsp; Do not reply to this email
+                  </td>
+                  <td align="right" style="font-family:'Courier New',monospace;font-size:10px;color:#cccccc;letter-spacing:0.06em;">
+                    upsert=True &nbsp;·&nbsp; return_document=True
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+        </table>
+        <!-- /Container -->
+
+      </td>
+    </tr>
+  </table>
+
+</body>
+</html>
