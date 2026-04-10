@@ -1,4 +1,4 @@
-from flask import request
+from flask import request, session
 from services.group_chuc_nang.kiem_tra_dang_nhap.up_load_fist_login import (
     kiem_tra_token_link,
 )
@@ -8,10 +8,10 @@ from configs.duong_dan_thu_muc import duong_dan_hien_tai
 
 def kiem_tra_token():
     try:
-        nguoi_dung = request.cookies.get("user_gmail", "")
-        token_nguoi_dung = request.cookies.get("user_token", "")
-        role = request.cookies.get("role", "")
-        lenh_thuc_thi = request.cookies.get("lenh_thuc_thi", "")
+        nguoi_dung = session.get("user_gmail", "")
+        token_nguoi_dung = session.get("user_token", "")
+        role = session.get("role", "")
+        lenh_thuc_thi = session.get("lenh_thuc_thi", "")
 
         if str(role) == "admin-root" and str(lenh_thuc_thi) == "khong_kiem_tra":
             return {"success": True, "message": "ok, admin-root"}, 200

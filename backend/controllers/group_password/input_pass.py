@@ -1,4 +1,4 @@
-from flask import request, jsonify, make_response
+from flask import request, jsonify, make_response, session
 from services.group_mk.login import kiem_tra
 from validators.kiem_tra_cap_bac import kiem_tra_cap_bac
 from utils.search import tim_only
@@ -48,61 +48,15 @@ def kiem_tra1():
     if ket_qua["success"]:
         name = tim_only("users", "gmail", str(nguoi_dung), "username")
         token = ket_qua["token"]
-        res = make_response(jsonify(ket_qua))
-        res.set_cookie(
-            "user_token",
-            token,
-            max_age=86400 * 30,
-            httponly=True,
-            samesite="None",
-            secure=True,
-            path="/",
-        )
-        res.set_cookie(
-            "user_gmail",
-            nguoi_dung,
-            max_age=86400 * 30,
-            httponly=True,
-            samesite="None",
-            secure=True,
-            path="/",
-        )
-        res.set_cookie(
-            "role",
-            role,
-            max_age=86400 * 30,
-            httponly=True,
-            samesite="None",
-            secure=True,
-            path="/",
-        )
-        res.set_cookie(
-            "lenh_thuc_thi",
-            "can_kiem_tra",
-            max_age=86400 * 30,
-            httponly=True,
-            samesite="None",
-            secure=True,
-            path="/",
-        )
-        res.set_cookie(
-            "trang_thai",
-            "da_dang_nhap",
-            max_age=86400 * 30,
-            httponly=True,
-            samesite="None",
-            secure=True,
-            path="/",
-        )
-        res.set_cookie(
-            "ten_nguoi_dung",
-            name,
-            max_age=86400 * 30,
-            httponly=False,
-            samesite="None",
-            secure=True,
-            path="/",
-        )
+        res = jsonify(ket_qua)
+
+        session["user_token"] = token
+        session["user_gmail"] = nguoi_dung
+        session["role"] = role
+        session["lenh_thuc_thi"] = "can_kiem_tra"
+        session["trang_thai"] = "da_dang_nhap"
+        session["ten_nguoi_dung"] = name
+        
         return res, 200
     else:
         res_res = make_response(jsonify(ket_qua))

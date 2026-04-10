@@ -1,8 +1,6 @@
 import eventlet
-
-eventlet.monkey_patch()  # debug
+eventlet.monkey_patch()
 import newrelic.agent
-
 newrelic.agent.initialize()
 from flask import Flask, abort, request, send_from_directory
 from flask_cors import CORS
@@ -42,9 +40,11 @@ app = Flask(__name__)
 app.secret_key = str(os.getenv("SERVER_SECRET_KEY"))
 
 app.config.update(
-    SESSION_COOKIE_NAME="google-auth-session",
+    SESSION_COOKIE_NAME="vault-storage-session",
     SESSION_COOKIE_SECURE=True,
     SESSION_COOKIE_SAMESITE="None",
+    SESSION_COOKIE_HTTPONLY=True,
+    SESSION_COOKIE_PATH='/',
 )
 
 CORS(
