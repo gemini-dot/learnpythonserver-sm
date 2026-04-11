@@ -41,3 +41,4 @@ newrelic
 Pillow
 flask-talisman
 resend
+argon2-cffi
