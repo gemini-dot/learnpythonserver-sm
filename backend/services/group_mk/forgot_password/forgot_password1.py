@@ -5,7 +5,7 @@ from time import time
 from flask import session, request
 from logs import logger
 from configs.duong_dan_thu_muc import duong_dan_hien_tai
-
+from utils.session import set_session
 
 def kiem_tra_dat_lai_mat_khau(gmail):
 
@@ -42,6 +42,8 @@ def kiem_tra_dat_lai_mat_khau(gmail):
                 "trang_thai2": "chua_het_han",
             }
         }
+
+        set_session(gmail=gmail, token=tao_token)
 
         cho_luu_token.update_one(dieu_kien, noi_dung_thay_doi, upsert=True)
 

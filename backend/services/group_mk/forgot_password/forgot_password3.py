@@ -8,7 +8,7 @@ def kiem_tra_de_doi_mat_khau(token, gmail, new_password):
     thu_muc_can_kiem_tra = db["token"]
     thu_muc_nguoi_dung = db["users"]
     try:
-        ket_qua = thu_muc_can_kiem_tra.find_one({"gmail": gmail})
+        ket_qua = thu_muc_can_kiem_tra.find_one({"gmail": gmail}, {"token_nguoi_dung": 1, "trang_thai1": 1, "trang_thai2": 1})
         if not ket_qua:
             return {"success": False, "message": "Yêu cầu không tồn tại!"}
 

@@ -4,10 +4,8 @@ from utils.hash_password import hash_password
 from utils.make_token import tao_token_10_so
 from utils.hash import hash
 from datetime import datetime, timezone
-from flask import session, request
+from flask import request
 from utils.get_ip import get_real_ip
-from logs import logger
-from configs.duong_dan_thu_muc import duong_dan_hien_tai
 
 
 def kiem_tra(email_gui_len, pass_gui_len):
@@ -16,7 +14,7 @@ def kiem_tra(email_gui_len, pass_gui_len):
 
     log_login = db["log_login"]
 
-    kiem_tra_1 = noi_tim_kiem.find_one({"gmail": email_gui_len}, {"gmail": 1, "role": 1, "salt": 1, "password": 1, "_id": 0})
+    kiem_tra_1 = noi_tim_kiem.find_one({"gmail": str(email_gui_len)}, {"gmail": 1, "role": 1, "salt": 1, "password": 1, "_id": 0})
 
     if kiem_tra_1 is None:
         return {"success": False, "message": "Sai người dùng hoặc mật khẩu!"}
