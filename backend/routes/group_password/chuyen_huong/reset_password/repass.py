@@ -35,7 +35,7 @@ def send_mail_reset_password_main_user_route():
             send_from_directory(thu_muc_chinh("frontend/view/error"), "401.html"),
             401,
         )
-
+    logger.debug(f"TT1: {res.get('trang_thai1')} | TT2: {res.get('trang_thai2')} | TokenDB: {res.get('token_nguoi_dung')} | TokenSession: {token}", __file__)
     if (
         str(res.get("trang_thai1")) != "sap_su_dung"
         or str(res.get("trang_thai2")) != "da_het_han"
