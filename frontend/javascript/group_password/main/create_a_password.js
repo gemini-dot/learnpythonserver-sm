@@ -99,6 +99,7 @@ function handleSignup(event) {
       return response.json().then((data) => {
         if (response.ok) {
           showToast('success', `Đăng ký thành công! Chào mừng ${fullname}`);
+          window.location.href = "/auth/login"
         } else {
           showToast('error', 'Lỗi: ' + (data.message || 'Có lỗi xảy ra'));
         }
