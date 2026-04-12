@@ -51,7 +51,7 @@ class FixAzureHostMiddleware:
             environ['HTTP_HOST'] = host.split(':')[0]
             
         return self.app(environ, start_response)
-    
+
 app.wsgi_app = FixAzureHostMiddleware(app.wsgi_app)
 
 app.secret_key = str(os.getenv("SERVER_SECRET_KEY"))
@@ -187,7 +187,7 @@ def block_bad_bots():
 def home():
     thu_muc = thu_muc_chinh()
     try:
-        return send_from_directory(thu_muc, "index.html")
+        return send_from_directory(thu_muc, "trang_chu.html")
     except Exception as e:
         logger.error(f"{e}", duong_dan_file)
         return f"Lỗi rách việc rồi og ơi, thư mục này không tồn tại: {e}", 401
