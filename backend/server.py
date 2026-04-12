@@ -59,7 +59,8 @@ CORS(
         "http://localhost:5500",
         "https://www.vault-storage.me",
         "https://vault-storage.me/",
-        "https://dashboard.vault-storage.me/"
+        "https://dashboard.vault-storage.me/",
+        "https://api.vault-storage.me/"
     ],
 )
 
@@ -167,7 +168,7 @@ def block_bad_bots():
         abort(403)
 
 
-@app.route("/")
+@app.route("/", subdomain="")
 def home():
     thu_muc = thu_muc_chinh()
     try:

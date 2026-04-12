@@ -99,12 +99,13 @@ blueprint_groups = {
 
 def register_routes(app):
     try:
+        app.config['SERVER_NAME'] = 'vault-storage.me'
         for prefix, blueprints in blueprint_groups.items():
             if not isinstance(blueprints, list):
                 blueprints = [blueprints]
 
             for bp in blueprints:
-                if str(bp) == str(user_dashboard):
+                if bp.name == user_dashboard.name:
                     app.register_blueprint(bp, subdomain='dashboard')
                 else:
                     if prefix == "":
