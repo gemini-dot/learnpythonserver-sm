@@ -190,7 +190,7 @@ def home():
         return send_from_directory(thu_muc, "trang_chu.html")
     except Exception as e:
         logger.error(f"{e}", duong_dan_file)
-        return f"Lỗi rách việc rồi og ơi, thư mục này không tồn tại: {e}", 401
+        return f"Lỗi rách việc rồi og ơi, thư mục này không tồn tại: {e}", 404
 
 
 port = int(os.environ.get("PORT", 8000))
