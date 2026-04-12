@@ -38,7 +38,7 @@ def send_mail_reset_password_main_user_route():
     logger.debug(f"TT1: {res.get('trang_thai1')} | TT2: {res.get('trang_thai2')} | TokenDB: {res.get('token_nguoi_dung')} | TokenSession: {token}", __file__)
     if (
         str(res.get("trang_thai1")) != "sap_su_dung"
-        or str(res.get("trang_thai2")) != "da_het_han"
+        or str(res.get("trang_thai2")) != "chua_het_han"
         or str(res.get("token_nguoi_dung")).strip() != str(token).strip()
     ):
         logger.debug("đến đoạn này rồi nè", __file__)
