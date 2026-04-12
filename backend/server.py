@@ -44,7 +44,7 @@ app.secret_key = str(os.getenv("SERVER_SECRET_KEY"))
 app.config.update(
     SESSION_COOKIE_NAME="vault-storage-session",
     SESSION_COOKIE_SECURE=True,
-    SESSION_COOKIE_SAMESITE="None",
+    SESSION_COOKIE_SAMESITE="Lax",
     SESSION_COOKIE_HTTPONLY=True,
     SESSION_COOKIE_PATH="/",
 )
