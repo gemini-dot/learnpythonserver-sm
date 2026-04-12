@@ -40,7 +40,19 @@ sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8")
 
 app = Flask(__name__)
 
-app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_prefix=1)
+class FixAzureHostMiddleware:
+    def __init__(self, app):
+        self.app = app
+
+    def __call__(self, environ, start_response):
+        host = environ.get('HTTP_X_FORWARDED_HOST', environ.get('HTTP_X_ORIGINAL_HOST', environ.get('HTTP_HOST', '')))
+        
+        if host:
+            environ['HTTP_HOST'] = host.split(':')[0]
+            
+        return self.app(environ, start_response)
+    
+app.wsgi_app = FixAzureHostMiddleware(app.wsgi_app)
 
 app.secret_key = str(os.getenv("SERVER_SECRET_KEY"))
 
