@@ -1,5 +1,6 @@
 import requests
 from os import getenv
+from logs import logger
 
 PAGE_ACCESS_TOKEN = str(getenv("PAGE_ACCESS_TOKEN"))
 
@@ -8,7 +9,10 @@ def send_typing(recipient_id):
     url = "https://graph.facebook.com/v18.0/me/messages"
     params = {"access_token": PAGE_ACCESS_TOKEN}
     payload = {"recipient": {"id": recipient_id}, "sender_action": "typing_on"}
-    requests.post(url, params=params, json=payload)
+    try:
+        requests.post(url, params=params, json=payload, timeout=10)
+    except Exception as e:
+        logger.error(f"{e}", __file__)
 
 
 def send_message(recipient_id, text, reply_to_mid=None):
@@ -16,8 +20,10 @@ def send_message(recipient_id, text, reply_to_mid=None):
     params = {"access_token": PAGE_ACCESS_TOKEN}
     message_data = {"text": text}
     payload = {"recipient": {"id": recipient_id}, "message": message_data}
-    response = requests.post(url, params=params, json=payload)
-
+    try:
+        response = requests.post(url, params=params, json=payload)
+    except Exception as e:
+        logger.error(f"{e}", __file__)
 
 def send_button_message(recipient_id):
     url = "https://graph.facebook.com/v12.0/me/messages"
@@ -47,4 +53,7 @@ def send_button_message(recipient_id):
             }
         },
     }
-    requests.post(url, params=params, json=payload)
+    try:
+        requests.post(url, params=params, json=payload, timeout=10)
+    except Exception as e:
+        logger.error(f"{e}", __file__)
