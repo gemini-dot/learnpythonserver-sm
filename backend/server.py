@@ -26,6 +26,7 @@ from __about__ import (
     __author__,
 )
 from logs import logger
+from routes.render_subdomain import render_subdomain
 
 os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
 
@@ -171,17 +172,11 @@ def block_bad_bots():
 @app.route("/")
 def home():
     try:
-        h1 = request.headers.get('X-Forwarded-Host', '')
-        h2 = request.headers.get('X-Original-Host', '')
-        h3 = request.headers.get('Host', '')
-        h4 = request.headers.get('DISGUISED-HOST', '')
+        res = render_subdomain()
 
-        tat_ca_host = str(h1 + h2 + h3 + h4).lower()
+        if res:
+            return res
 
-        if 'dashboard' in tat_ca_host:
-            from routes.group_chuc_nang.upload.chuyen_huong.dashboard import user_dashboard_user_route
-            return user_dashboard_user_route()
-        
         thu_muc = thu_muc_chinh()
         return send_from_directory(thu_muc, "trang_chu.html")
     except Exception as e:
