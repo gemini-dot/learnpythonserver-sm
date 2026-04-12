@@ -84,6 +84,7 @@ blueprint_groups = {
     "/fac": [app_route22],
     "/api": [app_route23],
     "": [
+        user_dashboard,
         e401,
         e403,
         e500,
@@ -103,10 +104,13 @@ def register_routes(app):
                 blueprints = [blueprints]
 
             for bp in blueprints:
-                if prefix == "":
-                    app.register_blueprint(bp)
+                if str(bp) == str(user_dashboard):
+                    app.register_blueprint(bp, subdomain='dashboard')
                 else:
-                    app.register_blueprint(bp, url_prefix=prefix)
+                    if prefix == "":
+                        app.register_blueprint(bp)
+                    else:
+                        app.register_blueprint(bp, url_prefix=prefix)
         print("[SUCCESS]: Đã đăng ký toàn bộ route thành công! :)")
     except Exception as e:
         print(f"[ERROR] Lỗi khi đăng ký Blueprint: {e}")

@@ -64,7 +64,6 @@ CORS(
 )
 
 app.config['SERVER_NAME'] = 'vault-storage.me'
-app.register_blueprint(user_dashboard, subdomain='dashboard')
 
 socketio = SocketIO(
     app,
