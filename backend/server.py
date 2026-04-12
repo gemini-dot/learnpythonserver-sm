@@ -1,6 +1,8 @@
 import eventlet
+
 eventlet.monkey_patch()
 import newrelic.agent
+
 newrelic.agent.initialize()
 from flask import session, Flask, abort, request, send_from_directory
 from flask_cors import CORS
@@ -44,7 +46,7 @@ app.config.update(
     SESSION_COOKIE_SECURE=True,
     SESSION_COOKIE_SAMESITE="None",
     SESSION_COOKIE_HTTPONLY=True,
-    SESSION_COOKIE_PATH='/',
+    SESSION_COOKIE_PATH="/",
 )
 
 CORS(

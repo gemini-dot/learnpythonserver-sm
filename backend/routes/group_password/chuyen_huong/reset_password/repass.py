@@ -39,7 +39,7 @@ def send_mail_reset_password_main_user_route():
     if (
         str(res.get("trang_thai1")) != "sap_su_dung"
         or str(res.get("trang_thai2")) != "da_het_han"
-        or res.get("token_nguoi_dung") != token
+        or str(res.get("token_nguoi_dung")).strip() != str(token).strip()
     ):
         logger.debug("đến đoạn này rồi nè", __file__)
         return (

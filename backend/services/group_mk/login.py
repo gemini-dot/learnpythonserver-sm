@@ -14,7 +14,10 @@ def kiem_tra(email_gui_len, pass_gui_len):
 
     log_login = db["log_login"]
 
-    kiem_tra_1 = noi_tim_kiem.find_one({"gmail": str(email_gui_len)}, {"gmail": 1, "role": 1, "salt": 1, "password": 1, "_id": 0})
+    kiem_tra_1 = noi_tim_kiem.find_one(
+        {"gmail": str(email_gui_len)},
+        {"gmail": 1, "role": 1, "salt": 1, "password": 1, "_id": 0},
+    )
 
     if kiem_tra_1 is None:
         return {"success": False, "message": "Sai người dùng hoặc mật khẩu!"}
@@ -31,7 +34,7 @@ def kiem_tra(email_gui_len, pass_gui_len):
         },
     }
     pass_user = kiem_tra_1["password"]
-    
+
     login_success = False
     migration_needed = False
 
@@ -47,7 +50,7 @@ def kiem_tra(email_gui_len, pass_gui_len):
             login_success = True
             migration_needed = True
 
-    if login_success: 
+    if login_success:
 
         token_new = tao_token_10_so()
         token_new_hash = hash(str(token_new))
@@ -59,7 +62,9 @@ def kiem_tra(email_gui_len, pass_gui_len):
                     "token_nguoi_dung_upload": token_new_hash,
                     "trang_thai": "da_dang_nhap",
                     "blacklist": 0,
-                    "password": ph.hash(str(pass_gui_len)) if migration_needed else pass_user
+                    "password": (
+                        ph.hash(str(pass_gui_len)) if migration_needed else pass_user
+                    ),
                 }
             },
         )

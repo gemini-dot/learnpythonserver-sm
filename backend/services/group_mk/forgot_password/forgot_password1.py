@@ -7,16 +7,11 @@ from logs import logger
 from configs.duong_dan_thu_muc import duong_dan_hien_tai
 from utils.session import set_session
 
+
 def kiem_tra_dat_lai_mat_khau(gmail):
 
     cho_luu_token = db["token"]
     user = db["users"]
-
-    try:
-        db.command("ping")
-        logger.log("system: find to connect mongodb", duong_dan_hien_tai())
-    except Exception as e:
-        logger.error(f"{e}", duong_dan_hien_tai())
 
     kiem_tra_ton_tai = user.find_one({"gmail": gmail})
 

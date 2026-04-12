@@ -8,6 +8,7 @@ from configs.duong_dan_thu_muc import duong_dan_hien_tai
 from utils.session import set_session
 from configs.settings import ip_allow
 
+
 def kiem_tra1():
     du_lieu = request.get_json()
 
@@ -22,11 +23,11 @@ def kiem_tra1():
 
             ip_user = request.remote_addr
             if ip_user not in ip_allow:
-                return "kiem_tra", 403 
-            
+                return "kiem_tra", 403
+
             lenh = {"lenh_thuc_thi": "khong_kiem_tra"}
             res_res_res = jsonify(lenh)
-            list = {"role": str(role), "lenh_thuc_thi":"khong_kiem_tra"}
+            list = {"role": str(role), "lenh_thuc_thi": "khong_kiem_tra"}
             set_session(**list)
             return res_res_res, 200
     except Exception as e:
@@ -40,8 +41,15 @@ def kiem_tra1():
         token = ket_qua["token"]
         res = jsonify(ket_qua)
 
-        set_session(user_token=token, user_gmail=nguoi_dung, role=role, lenh_thuc_thi="can_kiem_tra", trang_thai="da_dang_nhap", ten_nguoi_dung=name)
-    
+        set_session(
+            user_token=token,
+            user_gmail=nguoi_dung,
+            role=role,
+            lenh_thuc_thi="can_kiem_tra",
+            trang_thai="da_dang_nhap",
+            ten_nguoi_dung=name,
+        )
+
         return res, 200
     else:
         res_res = jsonify(ket_qua)
