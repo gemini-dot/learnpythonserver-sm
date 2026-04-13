@@ -78,7 +78,7 @@ blueprint_groups = {
         app_route28,
     ],
     "/security": [app_route7, app_route15, app_route25],
-    "/upload_sv": [app_route8, app_route9, app_route24, app_route26, check_storage, show_html_domain],
+    "/upload_sv": [app_route8, app_route9, app_route24, app_route26, check_storage],
     "/ping": [khoi_dong],
     "/admin": [lenh_tu_huy],
     "/fac": [app_route22],
@@ -92,6 +92,7 @@ blueprint_groups = {
         privacy_policy,
         robot_site,
         sitemap_site,
+        show_html_domain
     ],
     "/app": [user_upload_site],
 }
