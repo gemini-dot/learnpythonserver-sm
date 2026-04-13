@@ -18,6 +18,8 @@ def hien_thi_trang_ca_nhan(username, duong_dan_file):
         if code != 200:
             if code == 401:
                 return send_from_directory(thu_muc_chinh("frontend/view/error"), "401.html"), 401
+            elif code == 403:
+                return send_from_directory(thu_muc_chinh("frontend/view/error"), "403.html"), 403
             return send_from_directory(thu_muc_chinh("frontend/view/error"), "500.html"), 500
 
         with requests.get(link_github_goc, stream=True, timeout=20) as lay_file:

@@ -37,7 +37,7 @@ def lock_file_services():
                         "mes": "bạn chưa có đủ quyền hạn để truy cập nội dung này",
                     }
                 ),
-                401,
+                403,
             )
         return jsonify({"trang_thai": True, "mes": "ok"}), 200
     except Exception:
