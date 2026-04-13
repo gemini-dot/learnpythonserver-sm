@@ -25,6 +25,7 @@ def send_message(recipient_id, text, reply_to_mid=None):
     except Exception as e:
         logger.error(f"{e}", __file__)
 
+
 def send_button_message(recipient_id):
     url = "https://graph.facebook.com/v12.0/me/messages"
     params = {"access_token": PAGE_ACCESS_TOKEN}

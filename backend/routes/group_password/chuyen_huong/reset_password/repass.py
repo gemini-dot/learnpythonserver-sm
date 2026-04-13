@@ -4,6 +4,7 @@ from configs.settings import MAX_REQUESTS, PERIOD
 from middleware.rate_limiting import limit_requests
 from configs.db import db
 from logs import logger
+
 send_mail_reset_password_main = Blueprint(
     "send_mail_reset_password route user main", __name__
 )
@@ -35,7 +36,10 @@ def send_mail_reset_password_main_user_route():
             send_from_directory(thu_muc_chinh("frontend/view/error"), "401.html"),
             401,
         )
-    logger.debug(f"TT1: {res.get('trang_thai1')} | TT2: {res.get('trang_thai2')} | TokenDB: {res.get('token_nguoi_dung')} | TokenSession: {token}", __file__)
+    logger.debug(
+        f"TT1: {res.get('trang_thai1')} | TT2: {res.get('trang_thai2')} | TokenDB: {res.get('token_nguoi_dung')} | TokenSession: {token}",
+        __file__,
+    )
     if (
         str(res.get("trang_thai1")) != "sap_su_dung"
         or str(res.get("trang_thai2")) != "chua_het_han"

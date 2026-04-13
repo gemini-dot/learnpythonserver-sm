@@ -1,6 +1,7 @@
 from flask import session, Blueprint, request
 from controllers.group_chuc_nang.chat.chat_main import receive_message
 from os import getenv
+
 app_route22 = Blueprint("facebook-bot", __name__)
 
 VERIFY_TOKEN = str(getenv("VERIFY_TOKEN"))

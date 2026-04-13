@@ -43,7 +43,7 @@ app = Flask(__name__)
 app.secret_key = str(os.getenv("SERVER_SECRET_KEY"))
 
 app.config.update(
-    SESSION_COOKIE_DOMAIN='.vault-storage.me',
+    SESSION_COOKIE_DOMAIN=".vault-storage.me",
     SESSION_COOKIE_NAME="vault-storage-session",
     SESSION_COOKIE_SECURE=True,
     SESSION_COOKIE_SAMESITE="None",
@@ -61,7 +61,7 @@ CORS(
         "https://www.vault-storage.me",
         "https://vault-storage.me",
         "https://dashboard.vault-storage.me",
-        "https://api.vault-storage.me"
+        "https://api.vault-storage.me",
     ],
 )
 

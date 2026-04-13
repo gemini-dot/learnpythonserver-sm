@@ -49,6 +49,7 @@ from routes.group_chuc_nang.upload.chuyen_huong.upload_site import user_upload_s
 from routes.chuyen_huong.robot.robot import robot_site
 from routes.chuyen_huong.robot.sitemap import sitemap_site
 from routes.group_chuc_nang.upload.chuc_nang.show_html_domain import show_html_domain
+
 blueprint_groups = {
     "/auth": [
         login_route,  # tiến trình 1
@@ -92,10 +93,11 @@ blueprint_groups = {
         privacy_policy,
         robot_site,
         sitemap_site,
-        show_html_domain
+        show_html_domain,
     ],
     "/app": [user_upload_site],
 }
+
 
 def register_routes(app):
     try:
@@ -104,10 +106,10 @@ def register_routes(app):
                 blueprints = [blueprints]
 
             for bp in blueprints:
-                    if prefix == "":
-                        app.register_blueprint(bp)
-                    else:
-                        app.register_blueprint(bp, url_prefix=prefix)
+                if prefix == "":
+                    app.register_blueprint(bp)
+                else:
+                    app.register_blueprint(bp, url_prefix=prefix)
         print("[SUCCESS]: Đã đăng ký toàn bộ route thành công! :)")
     except Exception as e:
         print(f"[ERROR] Lỗi khi đăng ký Blueprint: {e}")

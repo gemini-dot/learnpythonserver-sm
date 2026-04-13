@@ -8,6 +8,7 @@ app_fac = Blueprint("face", __name__)
 MY_VERIFY_TOKEN = str(getenv("MY_VERIFY_TOKEN"))
 PAGE_ACCESS_TOKEN = str(getenv("PAGE_ACCESS_TOKEN"))
 
+
 @app_fac.route("/mes", methods=["GET"])
 def verify():
     # Facebook gửi yêu cầu GET để kiểm tra Webhook
