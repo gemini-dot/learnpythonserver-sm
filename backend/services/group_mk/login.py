@@ -44,11 +44,12 @@ def kiem_tra(email_gui_len, pass_gui_len):
             login_success = True
 
         except Exception:
-            pass_hash = hash_password(pass_gui_len, salt)
+            if salt is not None:
+                pass_hash = hash_password(pass_gui_len, salt)
 
-            if pass_user == pass_hash:
-                login_success = True
-                migration_needed = True
+                if pass_user == pass_hash:
+                    login_success = True
+                    migration_needed = True
 
         if login_success:
 
