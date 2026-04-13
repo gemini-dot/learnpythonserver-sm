@@ -4,6 +4,7 @@ from configs.db import db
 from configs.duong_dan_thu_muc import thu_muc_chinh
 from validators.kiem_tra_dang_nhap import login_required
 from services.upload.chuc_nang.lock_file import lock_file_services
+from logs import logger
 
 show_html_domain = Blueprint("show html domain",__name__)
 
@@ -30,13 +31,18 @@ def hien_thi_trang_ca_nhan(username, duong_dan_file):
             kieu_file = lay_file.headers.get('content-type', 'text/html')
             
             def truyen_du_lieu():
-                for chunk in lay_file.iter_content(chunk_size=8192):
-                    if chunk:
-                        yield chunk
-
+                try:
+                    for chunk in lay_file.iter_content(chunk_size=8192):
+                        if chunk:
+                            yield chunk
+                except Exception as e:
+                    logger.error(f"{e}", __file__)
+                finally:
+                    lay_file.close()
             return Response(truyen_du_lieu(), mimetype=kieu_file), 200
             
     except requests.exceptions.Timeout:
          return "Lỗi rách việc: Github bên Mỹ xa xôi, tui chờ 20 giây hết nổi rồi!", 504
     except Exception as e:
+        logger.error(f"{e}", __file__)
         return f"Lỗi hệ thống người trung gian: {e}", 500
