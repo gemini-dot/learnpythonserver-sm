@@ -48,7 +48,7 @@ from routes.chuyen_huong.dieukhoan_dichvu.dieukhoandichvu import privacy_policy
 from routes.group_chuc_nang.upload.chuyen_huong.upload_site import user_upload_site
 from routes.chuyen_huong.robot.robot import robot_site
 from routes.chuyen_huong.robot.sitemap import sitemap_site
-
+from routes.group_chuc_nang.upload.chuc_nang.show_html_domain import show_html_domain
 blueprint_groups = {
     "/auth": [
         login_route,  # tiến trình 1
@@ -78,7 +78,7 @@ blueprint_groups = {
         app_route28,
     ],
     "/security": [app_route7, app_route15, app_route25],
-    "/upload_sv": [app_route8, app_route9, app_route24, app_route26, check_storage],
+    "/upload_sv": [app_route8, app_route9, app_route24, app_route26, check_storage, show_html_domain],
     "/ping": [khoi_dong],
     "/admin": [lenh_tu_huy],
     "/fac": [app_route22],

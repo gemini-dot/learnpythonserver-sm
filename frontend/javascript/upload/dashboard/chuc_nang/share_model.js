@@ -10,16 +10,24 @@ let isPublic = false;
 function openShareModal(file) {
   currentShareFile = file;
 
-  // Update file name
   document.getElementById('shareFileName').textContent = file.name;
 
-  // Update share link
-  const shareLink = `https://vault.com/share/${file.id}`;
+  const userEmail = localStorage.getItem('user_email') || 'an-danh';
+  const username = userEmail.split('@')[0]; 
+
+  let shareLink = "";
+  const isHtmlFile = file.name.toLowerCase().endsWith('.html');
+
+  if (isHtmlFile) {
+    shareLink = `https://vault-storage.me/${username}/site/${file.name}`;
+  } else {
+    shareLink = `https://vault-storage.me/share/${file.id}`;
+  }
+
   document.getElementById('shareLinkInput').value = shareLink;
 
-  // Show HTML section only for .html files
   const htmlSection = document.getElementById('htmlAccessSection');
-  if (file.name.toLowerCase().endsWith('.html')) {
+  if (isHtmlFile) {
     htmlSection.style.display = 'block';
     isPublic = false;
     updatePrivacyUI();
@@ -27,7 +35,6 @@ function openShareModal(file) {
     htmlSection.style.display = 'none';
   }
 
-  // Show modal
   document.getElementById('shareModalOverlay').classList.add('show');
   document.body.style.overflow = 'hidden';
 }
