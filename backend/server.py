@@ -16,6 +16,7 @@ from configs.db import db
 from configs.settings import ip_allow
 from utils.trang_thai_db_503 import get_maintenance_status
 from routes import register_routes
+from whitenoise import WhiteNoise
 import secrets
 from configs.duong_dan_thu_muc import thu_muc_chinh, duong_dan_hien_tai
 from __about__ import (
@@ -39,6 +40,11 @@ sentry_sdk.init(
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8")
 
 app = Flask(__name__)
+
+BACKEND_DIR = os.path.dirname(os.path.abspath(__file__))
+FRONTEND_DIR = os.path.join(os.path.dirname(BACKEND_DIR), 'frontend')
+
+app.wsgi_app = WhiteNoise(app.wsgi_app, root=FRONTEND_DIR, prefix='frontend/')
 
 app.secret_key = str(os.getenv("SERVER_SECRET_KEY"))
 
@@ -187,6 +193,6 @@ port = int(os.environ.get("PORT", 8000))
 if __name__ == "__main__":
     try:
         db.command("ping")
-        socketio.run(app, host="0.0.0.0", port=port)
+        socketio.run(app, host="0.0.0.0", port=port, threaded=True)
     except Exception as e:
         logger.critical(f"{e}", duong_dan_file)

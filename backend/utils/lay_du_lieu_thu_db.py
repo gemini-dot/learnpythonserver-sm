@@ -1,6 +1,6 @@
 from configs.db import db
 
-def lay_tat_ca_file(user_gmail, collection):
+def lay_tat_ca_file(user_gmail, collection, limit=40, skip=0):
     collection_can_tim = db[str(collection)]
     user_data = list(
         collection_can_tim.find(
@@ -10,9 +10,9 @@ def lay_tat_ca_file(user_gmail, collection):
                 "loai_file": {"$ne": "avatar"},
             }
         )
-    )
+    ).sort("_id", -1).skip(skip).limit(limit)
     if not user_data:
-        return list(user_data)
+        return {"danh_sach_file": [], "danh_sach_file_da_xoa": []}
     res = {"danh_sach_file": [], "danh_sach_file_da_xoa": []}
 
     for doc in user_data:
