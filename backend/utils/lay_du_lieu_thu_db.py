@@ -1,6 +1,5 @@
 from configs.db import db
 
-
 def lay_tat_ca_file(user_gmail, collection):
     collection_can_tim = db[str(collection)]
     user_data = list(

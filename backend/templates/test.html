@@ -1625,7 +1625,11 @@
     <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
     <script src="https://cdn.statically.io/gh//gemini-dot/learnpythonserver-sm@main/frontend/js_dist/upload/dashboard/chuc_nang/setting_model.js"></script>
     <script src="https://cdn.statically.io/gh//gemini-dot/learnpythonserver-sm@main/frontend/js_dist/upload/dashboard/effect/thong_bao_xac_nhan_dang_xuat.js"></script>
-    <script src="https://cdn.statically.io/gh//gemini-dot/learnpythonserver-sm@main/frontend/js_dist/upload/dashboard/main_dboard.js"></script>
+    <script>
+      window.SERVER_FILES = {{ danh_sach_file | tojson | safe }};
+      window.SERVER_TRASH = {{ danh_sach_file_da_xoa | tojson | safe }};
+    </script>
+    <script src="https://cdn.statically.io/gh//gemini-dot/learnpythonserver-sm@main/frontend/javascript/upload/dashboard/main_dboard_v2.js"></script>
     <script src="https://cdn.statically.io/gh//gemini-dot/learnpythonserver-sm@main/frontend/js_dist/upload/dashboard/effect/sap_xep_file.js"></script>
     <script src="https://cdn.statically.io/gh//gemini-dot/learnpythonserver-sm@main/frontend/js_dist/upload/dashboard/effect/darkmode.js"></script>
     <script src="https://cdn.statically.io/gh//gemini-dot/learnpythonserver-sm@main/frontend/js_dist/upload/dashboard/effect/menu_ac.js"></script>
