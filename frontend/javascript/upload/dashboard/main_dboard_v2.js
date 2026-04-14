@@ -567,11 +567,11 @@ function setView(mode) {
   const area = document.getElementById('filesArea');
   area.style.opacity = '0';
   area.style.transform = 'translateY(6px)';
-  setTimeout(() => {
-    renderFiles();
-    area.style.opacity = '1';
-    area.style.transform = 'translateY(0)';
-  }, 150);
+  
+  renderFiles();
+  area.style.opacity = '1';
+  area.style.transform = 'translateY(0)';
+  
 }
 
 const filesArea = document.getElementById('filesArea');
