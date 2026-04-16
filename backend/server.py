@@ -4,7 +4,7 @@ eventlet.monkey_patch()
 import newrelic.agent
 
 newrelic.agent.initialize()
-from flask import session, Flask, abort, request, send_from_directory
+from flask import Flask, abort, request, send_from_directory
 from flask_cors import CORS
 import os
 import sys
@@ -95,9 +95,9 @@ app.config['SESSION_USE_SIGNER'] = True
 app.config['SESSION_REDIS'] = redis.Redis(connection_pool=pool)
 app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days=7) 
 app.config['COMPRESS_REGISTER'] = True
+app.config['COMPRESS_ALGORITHM'] = ['gzip', 'deflate']
 
 Session(app)
-
 Compress(app)
 
 oauth.init_app(app)
