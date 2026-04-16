@@ -32,6 +32,7 @@ from flask_session import Session
 import redis
 from datetime import timedelta
 from flask_compress import Compress
+from configs.config_app import Config
 
 os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
 
@@ -46,9 +47,9 @@ sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8")
 app = Flask(__name__)
 
 BACKEND_DIR = os.path.dirname(os.path.abspath(__file__))
-FRONTEND_DIR = os.path.join(os.path.dirname(BACKEND_DIR), 'frontend')
+FRONTEND_DIR = os.path.join(os.path.dirname(BACKEND_DIR), "frontend")
 
-app.wsgi_app = WhiteNoise(app.wsgi_app, root=FRONTEND_DIR, prefix='frontend/')
+app.wsgi_app = WhiteNoise(app.wsgi_app, root=FRONTEND_DIR, prefix="frontend/")
 
 app.secret_key = str(os.getenv("SERVER_SECRET_KEY"))
 
@@ -75,8 +76,7 @@ CORS(
     ],
 )
 
-redis_url = os.environ.get('REDIS_URL', 'redis://localhost:6379/0')
-redis_url_socket = os.environ.get('REDIS_URL_SOCKET', 'redis://localhost:6379/1')
+redis_url_socket = os.environ.get("REDIS_URL_SOCKET", "redis://localhost:6379/1")
 
 socketio = SocketIO(
     app,
@@ -85,17 +85,10 @@ socketio = SocketIO(
     engineio_logger=True,
     logger=True,
     always_connect=True,
-    message_queue=redis_url_socket
+    message_queue=redis_url_socket,
 )
 
-pool = redis.ConnectionPool.from_url(redis_url, max_connections=50, socket_connect_timeout=5, retry_on_timeout=True)
-app.config['SESSION_TYPE'] = 'redis'
-app.config['SESSION_PERMANENT'] = True 
-app.config['SESSION_USE_SIGNER'] = True
-app.config['SESSION_REDIS'] = redis.Redis(connection_pool=pool)
-app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days=7) 
-app.config['COMPRESS_REGISTER'] = True
-app.config['COMPRESS_ALGORITHM'] = ['gzip', 'deflate']
+app.config.from_object(Config)
 
 Session(app)
 Compress(app)
@@ -115,36 +108,19 @@ register_routes(app)
 duong_dan_file = duong_dan_hien_tai()
 
 
-@app.errorhandler(404)
-def page_not_found(e):
-    return send_from_directory(thu_muc_chinh(), "404.html")
+error_codes = [401, 404, 405, 500, 503]
 
 
-@app.errorhandler(500)
-def internal_server_error(e):
-    return send_from_directory(thu_muc_chinh("frontend/view/error"), "500.html"), 500
+def handle_error(e):
+    code = getattr(e, "code", 500)
+
+    folder = "frontend/view/error" if code != 404 else ""
+
+    return send_from_directory(thu_muc_chinh(folder), f"{code}.html"), code
 
 
-@app.errorhandler(401)
-def unauthorized_error(e):
-    return send_from_directory(thu_muc_chinh("frontend/view/error"), "401.html"), 401
-
-
-@app.errorhandler(503)
-def service_unavailable_error(e):
-    return send_from_directory(thu_muc_chinh("frontend/view/error"), "503.html"), 503
-
-
-@app.errorhandler(405)
-def method_not_allowed(error):
-    return send_from_directory(thu_muc_chinh("frontend/view/error"), "405.html"), 405
-
-
-tim_kiem = db["trang_thai_web"]
-
-admin_pass_on, admin_pass_off = str(os.getenv("BAOTRI_KEY_ON")), str(
-    os.getenv("BAOTRI_KEY_OFF")
-)
+for code in error_codes:
+    app.register_error_handler(code, handle_error)
 
 
 @socketio.on("admin_broadcast")
@@ -156,10 +132,12 @@ def handle_broadcast(data):
 last_check_time = 0
 cached_maintenance_status = None
 
+
 @app.before_request
 def check_for_maintenance():
     global last_check_time, cached_maintenance_status
     import time
+
     current_time = time.time()
     client_ip = request.remote_addr
     if cached_maintenance_status is None or (current_time - last_check_time > 10):
@@ -171,29 +149,14 @@ def check_for_maintenance():
         except Exception as e:
             logger.error(f"{e}", duong_dan_file)
     allowed_routes = ["/unlock-server", "/check-status", "/lock-server"]
-    if cached_maintenance_status == "website_off" and request.path not in allowed_routes:
+    if (
+        cached_maintenance_status == "website_off"
+        and request.path not in allowed_routes
+    ):
         if client_ip in ip_allow:
             return None
         else:
             abort(503)
-
-
-@app.route("/lock-server")
-def lock():
-    pw = request.args.get("key", "")
-    if admin_pass_on and secrets.compare_digest(pw, admin_pass_on):
-        tim_kiem.update_one({"id": "config"}, {"$set": {"status": "website_off"}})
-        return "Đã bật chế độ bảo trì!", 200
-    return "Sai mật khẩu!", 403
-
-
-@app.route("/unlock-server")
-def unlock():
-    pw = request.args.get("key", "")
-    if admin_pass_off and secrets.compare_digest(pw, admin_pass_off):
-        tim_kiem.update_one({"id": "config"}, {"$set": {"status": "website_on"}})
-        return "Đã mở cửa server!", 200
-    return "Sai mật khẩu!", 403
 
 
 @app.before_request

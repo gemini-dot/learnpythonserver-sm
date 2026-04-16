@@ -50,6 +50,7 @@ from routes.chuyen_huong.robot.robot import robot_site
 from routes.chuyen_huong.robot.sitemap import sitemap_site
 from routes.group_chuc_nang.upload.chuc_nang.show_html_domain import show_html_domain
 from routes.check_test.dash_board import dash_board
+from routes.group_admin.group_chuc_nang.lock_unlock_server import admin_bp
 
 blueprint_groups = {
     "/auth": [
@@ -82,7 +83,7 @@ blueprint_groups = {
     "/security": [app_route7, app_route15, app_route25],
     "/upload_sv": [app_route8, app_route9, app_route24, app_route26, check_storage],
     "/ping": [khoi_dong],
-    "/admin": [lenh_tu_huy],
+    "/admin": [lenh_tu_huy, admin_bp],
     "/fac": [app_route22],
     "/api": [app_route23],
     "": [
@@ -97,7 +98,7 @@ blueprint_groups = {
         show_html_domain,
     ],
     "/app": [user_upload_site],
-    '/test': [dash_board],
+    "/test": [dash_board],
 }
 
 

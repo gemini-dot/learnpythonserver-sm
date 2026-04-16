@@ -1,7 +1,9 @@
 from configs.db import db
 
 
-def get_data(username: str, username_var: str, collection: str, thu_can_tim: str) -> dict:
+def get_data(
+    username: str, username_var: str, collection: str, thu_can_tim: str
+) -> dict:
     collection_tim = db[str(collection)]
     nguoi_dung = collection_tim.find_one({username: username_var})
     if not nguoi_dung:

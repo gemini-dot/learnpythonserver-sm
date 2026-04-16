@@ -6,9 +6,9 @@ from configs.duong_dan_thu_muc import duong_dan_hien_tai
 duong_dan_file = duong_dan_hien_tai()
 
 
-def get_database():
+def get_database() -> MongoClient:
     uri = os.getenv("MONGO_URI")
-    
+
     try:
         client = MongoClient(uri)
         client.admin.command("ping")
@@ -19,7 +19,7 @@ def get_database():
 
 
 db = get_database()
-    
+
 if db is not None:
     try:
         db["users"].drop_index("key_1")

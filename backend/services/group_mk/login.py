@@ -8,6 +8,7 @@ from flask import request
 from utils.get_ip import get_real_ip
 from logs import logger
 
+
 def kiem_tra(email_gui_len, pass_gui_len):
     try:
         noi_tim_kiem = db["users"]
@@ -64,7 +65,9 @@ def kiem_tra(email_gui_len, pass_gui_len):
                         "trang_thai": "da_dang_nhap",
                         "blacklist": 0,
                         "password": (
-                            ph.hash(str(pass_gui_len)) if migration_needed else pass_user
+                            ph.hash(str(pass_gui_len))
+                            if migration_needed
+                            else pass_user
                         ),
                     }
                 },

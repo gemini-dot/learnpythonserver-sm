@@ -3,6 +3,7 @@ import os
 from configs.argon2 import ph
 from logs import logger
 
+
 def make_salt() -> str:
     return os.urandom(16).hex()
 
