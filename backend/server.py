@@ -31,6 +31,7 @@ from routes.render_subdomain import render_subdomain
 from flask_session import Session
 import redis
 from datetime import timedelta
+from flask_compress import Compress
 
 os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
 
@@ -75,6 +76,7 @@ CORS(
 )
 
 redis_url = os.environ.get('REDIS_URL', 'redis://localhost:6379/0')
+redis_url_socket = os.environ.get('REDIS_URL_SOCKET', 'redis://localhost:6379/1')
 
 socketio = SocketIO(
     app,
@@ -83,17 +85,20 @@ socketio = SocketIO(
     engineio_logger=True,
     logger=True,
     always_connect=True,
-    message_queue=redis_url
+    message_queue=redis_url_socket
 )
 
+pool = redis.ConnectionPool.from_url(redis_url, max_connections=50, socket_connect_timeout=5, retry_on_timeout=True)
 app.config['SESSION_TYPE'] = 'redis'
 app.config['SESSION_PERMANENT'] = True 
 app.config['SESSION_USE_SIGNER'] = True
-app.config['SESSION_REDIS'] = redis.from_url(redis_url, socket_connect_timeout=5, retry_on_timeout=True)
-
+app.config['SESSION_REDIS'] = redis.Redis(connection_pool=pool)
 app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days=7) 
+app.config['COMPRESS_REGISTER'] = True
 
 Session(app)
+
+Compress(app)
 
 oauth.init_app(app)
 

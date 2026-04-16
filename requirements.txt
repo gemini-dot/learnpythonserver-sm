@@ -46,3 +46,4 @@ whitenoise
 unidecode
 Flask-Session
 redis
+Flask-Compress
