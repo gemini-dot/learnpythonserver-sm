@@ -2,14 +2,14 @@ from configs.db import db
 
 
 def kiem_tra_het_han(
-    thoi_gian_hien_tai,
-    thu_muc_goc,
-    vi_tri_can_xac_dinh,
-    vi_tri_can_xac_dinh_bien,
-    vi_tri_can_tim,
-    ten_trang_thai_can_thay_doi,
-    thay_doi,
-):
+    thoi_gian_hien_tai: int,
+    thu_muc_goc: str,
+    vi_tri_can_xac_dinh: str,
+    vi_tri_can_xac_dinh_bien: str,
+    vi_tri_can_tim: str,
+    ten_trang_thai_can_thay_doi: str,
+    thay_doi: str,
+) -> dict:
     vi_tri = db[str(thu_muc_goc)]
     noi_tim = vi_tri.find_one({str(vi_tri_can_xac_dinh): str(vi_tri_can_xac_dinh_bien)})
     if not noi_tim:

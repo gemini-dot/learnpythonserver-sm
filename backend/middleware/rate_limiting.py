@@ -24,7 +24,7 @@ try:
                     ket_qua = tim_kiem("godmode_admin", "trang_thai")
                     if str(ket_qua) == "on":
                         ket_qua_thoi_gian = kiem_tra_het_han(
-                            now, "godmode_admin", "godmode", "private", 
+                            int(now), "godmode_admin", "godmode", "private", 
                             "thoi_gian_het_han", "trang_thai_thoi_gian", "da_het_han"
                         )
                         if str(ket_qua_thoi_gian["trang_thai"]) == "chua_het_han":

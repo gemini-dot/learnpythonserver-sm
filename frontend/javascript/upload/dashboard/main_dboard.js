@@ -206,7 +206,6 @@ function openLeft() {
   if (leftOpen) return;
   leftOpen = true;
   sidebar.classList.add('open');
-  app.classList.add('left-open');
   const chevron = document.getElementById('sidebarChevron');
   if (chevron) chevron.style.transform = 'rotate(180deg)';
 }
@@ -214,7 +213,6 @@ function closeLeft() {
   leftCloseTimer = setTimeout(() => {
     leftOpen = false;
     sidebar.classList.remove('open');
-    app.classList.remove('left-open');
     const chevron = document.getElementById('sidebarChevron');
     if (chevron) chevron.style.transform = 'rotate(0deg)';
   }, CLOSE_DELAY);
@@ -225,7 +223,6 @@ function openRight() {
   if (rightOpen) return;
   rightOpen = true;
   panel.classList.add('open');
-  app.classList.add('right-open');
 }
 
 function closeRight() {
@@ -233,7 +230,6 @@ function closeRight() {
     if (isProcessing) return; // Nếu đang bận thì không đóng panel
     rightOpen = false;
     panel.classList.remove('open');
-    app.classList.remove('right-open');
   }, CLOSE_DELAY);
 }
 const FAVORITES_KEY = 'vault_favorites_list';
@@ -299,7 +295,6 @@ function toggleLeft() {
   // force immediate
   if (!leftOpen) {
     sidebar.classList.remove('open');
-    app.classList.remove('left-open');
     const chevron = document.getElementById('sidebarChevron');
     if (chevron) chevron.style.transform = 'rotate(0deg)';
   }
