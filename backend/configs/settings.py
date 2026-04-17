@@ -44,3 +44,5 @@ csp = {
         "https://res.cloudinary.com",
     ],
 }
+
+error_codes = [401, 404, 405, 500, 503]

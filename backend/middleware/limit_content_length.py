@@ -1,4 +1,4 @@
-from flask import session, request, abort
+from flask import request, abort
 from functools import wraps
 
 

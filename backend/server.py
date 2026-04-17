@@ -13,26 +13,16 @@ import sentry_sdk
 from flask_socketio import SocketIO, emit
 from configs.oauth2_google import oauth
 from configs.db import db
-from configs.settings import ip_allow
-from utils.trang_thai_db_503 import get_maintenance_status
 from routes import register_routes
 from whitenoise import WhiteNoise
-import secrets
 from configs.duong_dan_thu_muc import thu_muc_chinh, duong_dan_hien_tai
-from __about__ import (
-    __title__,
-    __author_email__,
-    __copyright__,
-    __version__,
-    __author__,
-)
 from logs import logger
 from routes.render_subdomain import render_subdomain
 from flask_session import Session
 import redis
-from datetime import timedelta
 from flask_compress import Compress
 from configs.config_app import Config
+from configs.settings import error_codes
 
 os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
 
@@ -108,9 +98,6 @@ register_routes(app)
 duong_dan_file = duong_dan_hien_tai()
 
 
-error_codes = [401, 404, 405, 500, 503]
-
-
 def handle_error(e):
     code = getattr(e, "code", 500)
 
@@ -154,11 +141,10 @@ def home():
         return f"Lỗi rách việc rồi og ơi, thư mục này không tồn tại: {e}", 404
 
 
-port = int(os.environ.get("PORT", 8000))
-
 if __name__ == "__main__":
     try:
         db.command("ping")
+        port = int(os.environ.get("PORT", 8000))
         socketio.run(app, host="0.0.0.0", port=port, threaded=True, debug=True)
     except Exception as e:
         logger.critical(f"{e}", duong_dan_file)
