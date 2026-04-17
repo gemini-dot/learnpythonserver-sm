@@ -55,8 +55,18 @@ def hien_thi_trang_ca_nhan(username, duong_dan_file):
                 logger.error(f"{e}", __file__)
             finally:
                 lay_file.close()
+        resp = Response(truyen_du_lieu(), mimetype=kieu_file), 200
+        resp.headers['Content-Security-Policy'] = (
+            "sandbox allow-scripts; "
+            "default-src 'none'; "
+            "script-src 'unsafe-inline' 'unsafe-eval'; "
+            "connect-src https://api.github.com https://*.firebaseio.com; "
+            "img-src * data:; "
+            "style-src 'unsafe-inline'; "
+            "frame-ancestors 'none';"
+        )
+        return resp, 200
 
-        return Response(truyen_du_lieu(), mimetype=kieu_file), 200
     except requests.exceptions.Timeout:
         return "Lỗi rách việc: Github bên Mỹ xa xôi, tui chờ 20 giây hết nổi rồi!", 504
     except Exception as e:
