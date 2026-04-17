@@ -51,6 +51,7 @@ from routes.chuyen_huong.robot.sitemap import sitemap_site
 from routes.group_chuc_nang.upload.chuc_nang.show_html_domain import show_html_domain
 from routes.check_test.dash_board import dash_board
 from routes.group_admin.group_chuc_nang.lock_unlock_server import admin_bp
+from routes.group_admin.group_chuc_nang.check_trang_thai_web import maintenance_status
 
 blueprint_groups = {
     "/auth": [
@@ -96,6 +97,7 @@ blueprint_groups = {
         robot_site,
         sitemap_site,
         show_html_domain,
+        maintenance_status
     ],
     "/app": [user_upload_site],
     "/test": [dash_board],
