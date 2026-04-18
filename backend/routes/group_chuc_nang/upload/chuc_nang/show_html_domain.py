@@ -42,7 +42,7 @@ def hien_thi_trang_ca_nhan(username, duong_dan_file):
         lay_file = requests.get(link_github_goc, stream=True, timeout=20)
 
         if lay_file.status_code == 404:
-            return "Lỗi rách việc: Không tìm thấy trang của ông kẹ này!", 404
+            return send_from_directory(thu_muc_chinh(), "404.html"), 404
 
         kieu_file = lay_file.headers.get("content-type", "text/html")
 
@@ -71,4 +71,4 @@ def hien_thi_trang_ca_nhan(username, duong_dan_file):
         return "Lỗi rách việc: Github bên Mỹ xa xôi, tui chờ 20 giây hết nổi rồi!", 504
     except Exception as e:
         logger.error(f"{e}", __file__)
-        return f"Lỗi hệ thống người trung gian: {e}", 500
+        return send_from_directory(thu_muc_chinh("frontend/view/error"), "500.html"), 500

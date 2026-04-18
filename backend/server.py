@@ -24,8 +24,6 @@ from flask_compress import Compress
 from configs.config_app import Config
 from configs.settings import error_codes
 
-os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
-
 sentry_sdk.init(
     dsn=str(os.getenv("SENTRY_KEY")),
     send_default_pii=True,
